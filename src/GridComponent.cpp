@@ -5,15 +5,21 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/VertexArray.hpp>
 
+int randStateCovered();
+int randStateTop();
+int randStateBot();
+int randStateRight();
+int randStateLeft();
+
 TypeBits GridComponent::Type;
 std::vector<sf::Texture*> GridComponent::TileSheets;
 
 GridComponent::GridComponent(int sizeX, int sizeY, Tile** tiles, int tickCount) : mSizeX(sizeX), mSizeY(sizeY),
     mTiles(tiles), mTickCount(tickCount)
 {
-	/*for (int y = 0; y < mSizeY; y++)
+	for (int y = 0; y < mSizeY; y++)
 		for (int x = 0; x < mSizeX; x++)
-			calcNeighborState(x, y);*/
+			calcNeighborState(x, y);
 
     mCTiles.resize(tickCount);
 }
@@ -46,28 +52,19 @@ void GridComponent::render(sf::RenderTarget& target, sf::RenderStates states)
 	float ssYT = ceil(target.getSize().y / tsize); // Screen size Y in tiles
 
 	int left = centerT.x - 1;
-	int top = std::max<float>(centerT.y-1, 0);
+	int top = std::max<int>(centerT.y-1, 0);
 	int right = centerT.x + ssXT + 1;
-	int bot = std::min<float>(centerT.y+ssYT+1, mSizeY);
+	int bot = std::min<int>(centerT.y+ssYT+1, mSizeY);
 
     sf::VertexArray verts(sf::Quads, 4);
 	for (int _y = top; _y <= bot; _y++)
 	{
 		for (int _x = left; _x <= right; _x++)
         {
-			int x = _x;
+			int x = wrapX(_x);
 			int y = _y;
 
-			if (x < 0)
-            {
-				x = (x % mSizeX);
-				if (x < 0)
-					x += mSizeX;
-			}
-			else if (x >= mSizeX)
-				x %= mSizeX;
-
-			if (mTiles[y][x].mMat == 0)
+			if (mTiles[y][x].mMat == 0 || mTiles[y][x].mMat >= TileSheets.size())
 				continue;
 
 			// Grab tile sheet info
@@ -117,7 +114,7 @@ void GridComponent::render(sf::RenderTarget& target, sf::RenderStates states)
 					color := sf::Color{}
 					color.A = 255
 
-					switch i + int(mTiles[y][x].mat) {
+					switch i + int(mTiles[y][x].mMat) {
 					case 0:
 						color.R = 255
 					case 1:
@@ -230,7 +227,7 @@ bool GridComponent::dirCollision(int left, int top, int right, int bot, int dir,
 	{
 		for (int _x = left; _x <= right; _x++)
         {
-			int x = _x % mSizeX;
+			int x = wrapX(_x);
 			int y = _y;
 
 			if (mTiles[y][x].mMat != 0)
@@ -261,48 +258,58 @@ sf::Vector2f getTilePos(sf::Transformable* myTrans, sf::Vector2f pos)
 
 void GridComponent::setTile(int x, int y, Tile tile, int tick)
 {
-	if y < 0 || y >= mSizeY {
-		return
+	if (y < 0 || y >= mSizeY)
+	{
+		return;
 	}
 
-	x = g.WrapX(x)
+	x = wrapX(x);
 
-	if mTiles[y][x].mat == tile.mat &&
-		mTiles[y][x].force == tile.force && mTiles[y][x].heat == tile.heat {
-		return
+	if (mTiles[y][x].mMat == tile.mMat && mTiles[y][x].mForce == tile.mForce && mTiles[y][x].mHeat == tile.mHeat)
+	{
+		return;
 	}
 
-	mTiles[y][x] = tile
+	mTiles[y][x] = tile;
 
-	left := g.WrapX(x - 1)
-	right := g.WrapX(x + 1)
-	var top, bot int = y, y
+	int left = wrapX(x - 1);
+	int right = wrapX(x + 1);
+	int top = y;
+	int bot = y;
 
-	if y > 0 {
-		top = y - 1
-	} else if y < mSizeY-1 {
-		top = y + 1
-	}
+	if (y > 0)
+		top = y - 1;
+	else if (y < mSizeY-1)
+		top = y + 1;
+
 
 	// If tick is -1, make it interesting for all ticks
-	var tickMin, tickMax = 0, g.mTickCount
-	if tick != -1 {
-		tickMin, tickMax = tick, tick+1
+	int tickMin = mTickCount;
+	int tickMax = 0;
+	if (tick != -1)
+    {
+		tickMin = tick;
+		tickMax = tick+1;
 	}
 
-	for t := tickMin; t < tickMax; t++ {
-		for i := top; i <= bot; i++ {
-			if mTiles[i][left].mat != 0 {
-				g.calcNeighborState(left, i)
-				mCTiles[t] = append(mCTiles[t], [2]int{left, i})
+	for (int t = tickMin; t < tickMax; t++)
+    {
+		for (int i = top; i <= bot; i++)
+		{
+			if (mTiles[i][left].mMat != 0)
+			{
+				calcNeighborState(left, i);
+				mCTiles[t].push_back(sf::Vector2i(left, i));
 			}
-			if mTiles[i][x].mat != 0 {
-				g.calcNeighborState(x, i)
-				mCTiles[t] = append(mCTiles[t], [2]int{x, i})
+			if (mTiles[i][x].mMat != 0)
+			{
+				calcNeighborState(x, i);
+				mCTiles[t].push_back(sf::Vector2i(x, i));
 			}
-			if mTiles[i][right].mat != 0 {
-				g.calcNeighborState(right, i)
-				mCTiles[t] = append(mCTiles[t], [2]int{right, i})
+			if (mTiles[i][right].mMat != 0)
+			{
+				calcNeighborState(right, i);
+				mCTiles[t].push_back(sf::Vector2i(right, i));
 			}
 		}
 	}
@@ -310,26 +317,122 @@ void GridComponent::setTile(int x, int y, Tile tile, int tick)
 
 void GridComponent::calcNeighborState(int x, int y)
 {
-	left := g.WrapX(x - 1)
-	right := g.WrapX(x + 1)
+    x = wrapX(x);
+	int left = wrapX(x - 1);
+	int right = wrapX(x + 1);
 
-	var a [3][3]Tile // Area
+	Tile a[3][3]; // Area
 
-	if y > 0 {
-		a[0][0] = mTiles[y-1][left]
-		a[0][1] = mTiles[y-1][x]
-		a[0][2] = mTiles[y-1][right]
+	if (y > 0)
+    {
+		a[0][0] = mTiles[y-1][left];
+		a[0][1] = mTiles[y-1][x];
+		a[0][2] = mTiles[y-1][right];
 	}
 
-	a[1][0] = mTiles[y][left]
-	a[1][1] = mTiles[y][x]
-	a[1][2] = mTiles[y][right]
+	a[1][0] = mTiles[y][left];
+	a[1][1] = mTiles[y][x];
+	a[1][2] = mTiles[y][right];
 
-	if y < mSizeY-1 {
-		a[2][0] = mTiles[y+1][left]
-		a[2][1] = mTiles[y+1][x]
-		a[2][2] = mTiles[y+1][right]
+	if (y < mSizeY-1)
+    {
+		a[2][0] = mTiles[y+1][left];
+		a[2][1] = mTiles[y+1][x];
+		a[2][2] = mTiles[y+1][right];
 	}
 
-	mTiles[y][x].state = earthState(a)
+	if (a[0][1].mMat == a[1][1].mMat &&
+		a[1][0].mMat == a[1][1].mMat && a[1][2].mMat == a[1][1].mMat &&
+		a[2][1].mMat == a[1][1].mMat)
+		mTiles[y][x].mState = randStateCovered();
+	else if (a[0][1].mMat != a[1][1].mMat &&
+		a[1][0].mMat != a[1][1].mMat && a[1][2].mMat != a[1][1].mMat &&
+		a[2][1].mMat != a[1][1].mMat)
+		mTiles[y][x].mState = 21;
+	else if (a[0][1].mMat != a[1][1].mMat &&
+		a[1][0].mMat == a[1][1].mMat && a[1][2].mMat == a[1][1].mMat &&
+		a[2][1].mMat == a[1][1].mMat)
+		mTiles[y][x].mState = randStateTop();
+	else if (a[0][1].mMat == a[1][1].mMat &&
+		a[1][0].mMat == a[1][1].mMat && a[1][2].mMat == a[1][1].mMat &&
+		a[2][1].mMat != a[1][1].mMat)
+		mTiles[y][x].mState = randStateBot();
+	else if (a[0][1].mMat == a[1][1].mMat &&
+		a[1][0].mMat != a[1][1].mMat && a[1][2].mMat == a[1][1].mMat &&
+		a[2][1].mMat == a[1][1].mMat)
+		mTiles[y][x].mState = randStateLeft();
+	else if (a[0][1].mMat == a[1][1].mMat &&
+		a[1][0].mMat == a[1][1].mMat && a[1][2].mMat != a[1][1].mMat &&
+		a[2][1].mMat == a[1][1].mMat)
+		mTiles[y][x].mState = randStateRight();
+	else if (a[0][1].mMat != a[1][1].mMat &&
+		a[1][0].mMat == a[1][1].mMat && a[1][2].mMat == a[1][1].mMat &&
+		a[2][1].mMat != a[1][1].mMat)
+		mTiles[y][x].mState = 0;
+	else if (a[0][1].mMat == a[1][1].mMat &&
+		a[1][0].mMat != a[1][1].mMat && a[1][2].mMat != a[1][1].mMat &&
+		a[2][1].mMat == a[1][1].mMat)
+		mTiles[y][x].mState = 1;
+	else if (a[0][1].mMat != a[1][1].mMat &&
+		a[1][0].mMat != a[1][1].mMat && a[1][2].mMat == a[1][1].mMat &&
+		a[2][1].mMat == a[1][1].mMat)
+		mTiles[y][x].mState = 17;
+	else if (a[0][1].mMat != a[1][1].mMat &&
+		a[1][0].mMat == a[1][1].mMat && a[1][2].mMat != a[1][1].mMat &&
+		a[2][1].mMat == a[1][1].mMat)
+		mTiles[y][x].mState = 18;
+	else if (a[0][1].mMat == a[1][1].mMat &&
+		a[1][0].mMat != a[1][1].mMat && a[1][2].mMat == a[1][1].mMat &&
+		a[2][1].mMat != a[1][1].mMat)
+		mTiles[y][x].mState = 19;
+	else if (a[0][1].mMat == a[1][1].mMat &&
+		a[1][0].mMat == a[1][1].mMat && a[1][2].mMat != a[1][1].mMat &&
+		a[2][1].mMat != a[1][1].mMat)
+		mTiles[y][x].mState = 20;
+	else if (a[0][1].mMat != a[1][1].mMat &&
+		a[1][0].mMat != a[1][1].mMat && a[1][2].mMat != a[1][1].mMat &&
+		a[2][1].mMat == a[1][1].mMat)
+		mTiles[y][x].mState = 2;
+	else if (a[0][1].mMat != a[1][1].mMat &&
+		a[1][0].mMat == a[1][1].mMat && a[1][2].mMat != a[1][1].mMat &&
+		a[2][1].mMat != a[1][1].mMat)
+		mTiles[y][x].mState = 3;
+	else if (a[0][1].mMat == a[1][1].mMat &&
+		a[1][0].mMat != a[1][1].mMat && a[1][2].mMat != a[1][1].mMat &&
+		a[2][1].mMat != a[1][1].mMat)
+		mTiles[y][x].mState = 4;
+	else if (a[0][1].mMat != a[1][1].mMat &&
+		a[1][0].mMat != a[1][1].mMat && a[1][2].mMat == a[1][1].mMat &&
+		a[2][1].mMat != a[1][1].mMat)
+		mTiles[y][x].mState = 5;
+}
+
+int random(int min, int max)
+{
+    return (rand()%(max-min))+min;
+}
+
+int randStateCovered()
+{
+	return random(6, 9);
+}
+
+int randStateTop()
+{
+	return random(10, 11);
+}
+
+int randStateBot()
+{
+	return random(12, 13);
+}
+
+int randStateRight()
+{
+	return random(14, 15);
+}
+
+int randStateLeft()
+{
+	return 16;
 }

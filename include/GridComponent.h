@@ -18,6 +18,8 @@ enum
 
 struct Tile
 {
+    Tile() : mMat(0), mState(0), mHeat(0), mForce(0) {}
+
 	sf::Uint8 mMat;
 	sf::Uint8 mState;
 
@@ -45,6 +47,7 @@ class GridComponent : public RenderComponent
         bool dirCollision(int left, int top, int right, int bot, int dir, int& fix);
         void setTile(int x, int y, Tile tile, int tick);
         void calcNeighborState(int x, int y);
+        int wrapX(int x){return x%mSizeX;}
 
         static TypeBits Type;
         const TypeBits getTypeBits() const {return Type;}
@@ -63,8 +66,8 @@ class GridComponent : public RenderComponent
         int mSizeY;
         Tile** mTiles; // 2D array of tiles
         int mTickCount; // The number of tick types
-        std::vector<std::vector<int[2]>> mCTiles; // Cached interesting tile coordinates
-        std::vector<std::vector<int[2]>> mBuses; // Array of buses
+        std::vector<std::vector<sf::Vector2i>> mCTiles; // Cached interesting tile coordinates
+        std::vector<std::vector<sf::Vector2i>> mBuses; // Array of buses
 
         static std::vector<sf::Texture*> TileSheets;
 };

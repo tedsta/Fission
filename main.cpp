@@ -59,7 +59,7 @@ int main()
     Scene *scene = engine->getScene();
 
     sf::Texture texture;
-    texture.loadFromFile("Content/Textures/robot.png");
+    texture.loadFromFile("robot.png");
 
     Entity *testEnt = new Entity(engine->getEventManager());
     scene->addEntity(testEnt);
@@ -83,8 +83,8 @@ int main()
         tiles[y] = new Tile[100];
         for (int x = 0; x < 100; x++)
         {
-            tiles[y][x].mMat = 1;
-            tiles[y][x].mState = (rand()%4) + 6;
+            tiles[y][x].mMat = rand()%3;
+            //tiles[y][x].mState = (rand()%4) + 6;
         }
     }
 
