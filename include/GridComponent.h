@@ -43,6 +43,8 @@ class GridComponent : public RenderComponent
 
         bool checkCollision(sf::Transformable* myTrans, sf::Transformable* trans, sf::Vector2f dim, int dir, float& fix);
         bool dirCollision(int left, int top, int right, int bot, int dir, int& fix);
+        void setTile(int x, int y, Tile tile, int tick);
+        void calcNeighborState(int x, int y);
 
         static TypeBits Type;
         const TypeBits getTypeBits() const {return Type;}

@@ -259,7 +259,8 @@ sf::Vector2f getTilePos(sf::Transformable* myTrans, sf::Vector2f pos)
 	return pos;
 }
 
-/*func (g *GridComponent) SetTile(x, y int, tile Tile, tick int) {
+void GridComponent::setTile(int x, int y, Tile tile, int tick)
+{
 	if y < 0 || y >= mSizeY {
 		return
 	}
@@ -307,7 +308,8 @@ sf::Vector2f getTilePos(sf::Transformable* myTrans, sf::Vector2f pos)
 	}
 }
 
-func (g *GridComponent) calcNeighborState(x, y int) {
+void GridComponent::calcNeighborState(int x, int y)
+{
 	left := g.WrapX(x - 1)
 	right := g.WrapX(x + 1)
 
@@ -330,4 +332,4 @@ func (g *GridComponent) calcNeighborState(x, y int) {
 	}
 
 	mTiles[y][x].state = earthState(a)
-}*/
+}
