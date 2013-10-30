@@ -81,16 +81,16 @@ void GridComponent::render(sf::RenderTarget& target, sf::RenderStates states)
 
 			auto start = sf::Vector2f(tsize * static_cast<float>(_x), tsize * static_cast<float>(_y)); // Tile start draw
 			verts[0] = sf::Vertex(start,
-				sf::Color{255, 255, 255, 255},
+				sf::Color(255, 255, 255, 255),
 				sf::Vector2f());
 			verts[1] = sf::Vertex(start+sf::Vector2f(0, tsize),
-				sf::Color{255, 255, 255, 255},
+				sf::Color(255, 255, 255, 255),
 				sf::Vector2f(0, tsize));
 			verts[2] = sf::Vertex(start+sf::Vector2f(tsize, tsize),
-				sf::Color{255, 255, 255, 255},
+				sf::Color(255, 255, 255, 255),
 				sf::Vector2f(tsize, tsize));
 			verts[3] = sf::Vertex(start+sf::Vector2f(tsize, 0),
-				sf::Color{255, 255, 255, 255},
+				sf::Color(255, 255, 255, 255),
 				sf::Vector2f(tsize, 0));
 
 			float texStartX = float(int(mTiles[y][x].mState)%sheetSizeX) * tsize;

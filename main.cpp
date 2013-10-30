@@ -1,5 +1,6 @@
 #include <iostream>
 #include <bitset>
+#include <cstdlib>
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -83,6 +84,7 @@ int main()
         for (int x = 0; x < 100; x++)
         {
             tiles[y][x].mMat = 1;
+            tiles[y][x].mState = (rand()%4) + 6;
         }
     }
 
