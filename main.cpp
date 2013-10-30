@@ -79,6 +79,7 @@ int main()
     TransformComponent *trans = static_cast<TransformComponent*>(player->getComponent(TransformComponent::Type));
     IntentComponent *intent = static_cast<IntentComponent*>(player->getComponent(IntentComponent::Type));
 
+    trans->setOrigin(sf::Vector2f(30, 48));
     trans->setPosition(sf::Vector2f(3.f, 3.f));
     intent->mapKeyToIntent("up", sf::Keyboard::W, BtnState::DOWN);
     intent->mapKeyToIntent("down", sf::Keyboard::S, BtnState::DOWN);
@@ -94,7 +95,7 @@ int main()
         tiles[y] = new Tile[100];
         for (int x = 0; x < 100; x++)
         {
-            tiles[y][x].mMat = rand()%3;
+            tiles[y][x].mMat = rand()%3+1;
             //tiles[y][x].mState = (rand()%4) + 6;
         }
     }

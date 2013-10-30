@@ -1,6 +1,7 @@
 #include "GridComponent.h"
 
 #include <cmath>
+#include <iostream>
 
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/VertexArray.hpp>
@@ -63,6 +64,9 @@ void GridComponent::render(sf::RenderTarget& target, sf::RenderStates states)
         {
 			int x = wrapX(_x);
 			int y = _y;
+
+			if (_x < 0)
+                std::cout << x << std::endl;
 
 			if (mTiles[y][x].mMat == 0 || mTiles[y][x].mMat >= TileSheets.size())
 				continue;
@@ -165,7 +169,7 @@ bool GridComponent::checkCollision(sf::Transformable* myTrans, sf::Transformable
 {
 	sf::Transform myInv = myTrans->getTransform().getInverse(); // Inverse of grid's transform
 	sf::Vector2f cOffset = myInv.transformPoint(trans->getPosition());
-	sf::Vector2f offset = cOffset-sf::Vector2f(dim.x / 2, dim.y / 2);
+	sf::Vector2f offset = cOffset-(dim/2.f);
 	sf::Vector2f tOffset = offset/float(TILE_SIZE);
 
 	int x = floor(tOffset.x);
@@ -185,6 +189,8 @@ bool GridComponent::checkCollision(sf::Transformable* myTrans, sf::Transformable
 	// Test the collision
 	int tfix = 0;
 	bool col = dirCollision(x, y, right, bot, dir, tfix);
+	if (dir == RIGHT && tfix != 0)
+        std::cout << tfix << std::endl;
 
 	if (col)
 	{
@@ -204,14 +210,14 @@ bool GridComponent::checkCollision(sf::Transformable* myTrans, sf::Transformable
 			fix = float(tfix*TILE_SIZE) - fmod(offset.y+dim.y, TILE_SIZE);
 			break;
 		}
-		/*if (offset.x <= 0 && offset.x > -dim.x && dir == RIGHT)
+		if (offset.x <= 0 && offset.x > -dim.x && dir == RIGHT)
         {
 		}
-		else if (offset.x <= 0 && (dir == RIGHT || dir == RIGHT))
-			fix -= float(TILE_SIZE);*/
+		else if (offset.x <= 0 && (dir == LEFT || dir == RIGHT))
+			fix -= float(TILE_SIZE);
 	}
 
-	if (cOffset.x-(dim.x/2) < 0 || cOffset.x+(dim.x/2) > mSizeX*TILE_SIZE)
+	if (cOffset.x-(dim.x/2) <= 0 || cOffset.x+(dim.x/2) >= mSizeX*TILE_SIZE)
     {
 		cOffset.x = fmod(cOffset.x, mSizeX*TILE_SIZE);
 		sf::Transform t = myTrans->getTransform();
@@ -236,8 +242,10 @@ bool GridComponent::dirCollision(int left, int top, int right, int bot, int dir,
 				{
 				case RIGHT:
 					fix = -(right - _x);
+					break;
 				case DOWN:
 					fix = -(bot - _y);
+					break;
 				}
 				return true;
 			}
