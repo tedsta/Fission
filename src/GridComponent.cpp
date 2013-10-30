@@ -295,25 +295,34 @@ void GridComponent::setTile(int x, int y, Tile tile, int tick)
 		tickMax = tick+1;
 	}
 
+	if (y > 0)
+    {
+        calcNeighborState(left, y-1);
+        calcNeighborState(x, y-1);
+        calcNeighborState(right, y-1);
+    }
+
+    calcNeighborState(left, y);
+	calcNeighborState(x, y);
+	calcNeighborState(right, y);
+
+	if (y < mSizeY-1)
+    {
+        calcNeighborState(left, y+1);
+        calcNeighborState(x, y+1);
+        calcNeighborState(right, y+1);
+    }
+
 	for (int t = tickMin; t < tickMax; t++)
     {
 		for (int i = top; i <= bot; i++)
 		{
 			if (mTiles[i][left].mMat != 0)
-			{
-				calcNeighborState(left, i);
 				mCTiles[t].push_back(sf::Vector2i(left, i));
-			}
 			if (mTiles[i][x].mMat != 0)
-			{
-				calcNeighborState(x, i);
 				mCTiles[t].push_back(sf::Vector2i(x, i));
-			}
 			if (mTiles[i][right].mMat != 0)
-			{
-				calcNeighborState(right, i);
 				mCTiles[t].push_back(sf::Vector2i(right, i));
-			}
 		}
 	}
 }
