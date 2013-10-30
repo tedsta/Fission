@@ -204,11 +204,11 @@ bool GridComponent::checkCollision(sf::Transformable* myTrans, sf::Transformable
 			fix = float(tfix*TILE_SIZE) - fmod(offset.y+dim.y, TILE_SIZE);
 			break;
 		}
-		if (offset.x <= 0 && offset.x > -dim.x && dir == RIGHT)
+		/*if (offset.x <= 0 && offset.x > -dim.x && dir == RIGHT)
         {
 		}
 		else if (offset.x <= 0 && (dir == RIGHT || dir == RIGHT))
-			fix -= float(TILE_SIZE);
+			fix -= float(TILE_SIZE);*/
 	}
 
 	if (cOffset.x-(dim.x/2) < 0 || cOffset.x+(dim.x/2) > mSizeX*TILE_SIZE)
@@ -246,7 +246,7 @@ bool GridComponent::dirCollision(int left, int top, int right, int bot, int dir,
 	return false;
 }
 
-sf::Vector2f getTilePos(sf::Transformable* myTrans, sf::Vector2f pos)
+sf::Vector2f GridComponent::getTilePos(sf::Transformable* myTrans, sf::Vector2f pos)
 {
 	sf::Transform myInv = myTrans->getTransform().getInverse();
 	pos = myInv.transformPoint(pos);

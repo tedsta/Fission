@@ -23,9 +23,12 @@
 #include "Script/ScriptSystem.h"
 #include "Script/ScriptComponent.h"
 
-#include "TestSystem.h"
 
 #include "GridComponent.h"
+#include "PhysicsComponent.h"
+#include "PlayerComponent.h"
+#include "PhysicsSystem.h"
+#include "PlayerSystem.h"
 
 int main()
 {
@@ -37,20 +40,24 @@ int main()
     ScriptComponent::Type = ComponentFactories::add(ScriptComponent::factory);
     IntentComponent::Type = ComponentFactories::add(IntentComponent::factory);
     GridComponent::Type = ComponentFactories::add(GridComponent::factory);
+    PhysicsComponent::Type = ComponentFactories::add(PhysicsComponent::factory);
+    PlayerComponent::Type = ComponentFactories::add(PlayerComponent::factory);
 
     Connection* conn = new Connection(engine->getEventManager());
 
-    TestSystem *testSystem = new TestSystem(engine->getEventManager());
     RenderSystem *render = new RenderSystem(engine->getEventManager(), GridComponent::Type);
     InputSystem *input = new InputSystem(engine->getEventManager(), &render->getWindow());
     IntentSystem *intentSys = new IntentSystem(engine->getEventManager(), conn);
     ScriptSystem *scripting = new ScriptSystem(engine->getEventManager(), engine);
+    PhysicsSystem *physSys = new PhysicsSystem(engine->getEventManager());
+    PlayerSystem *playerSys = new PlayerSystem(engine->getEventManager(), render);
 
-    engine->addSystem(testSystem);
     engine->addSystem(render);
     engine->addSystem(input);
     engine->addSystem(intentSys);
     engine->addSystem(scripting);
+    engine->addSystem(physSys);
+    engine->addSystem(playerSys);
 
     GridComponent::addTileSheet(1, rcMgr->getTexture("Content/Textures/Tiles/dirt.png"));
     GridComponent::addTileSheet(2, rcMgr->getTexture("Content/Textures/Tiles/stone.png"));
@@ -61,21 +68,25 @@ int main()
     sf::Texture texture;
     texture.loadFromFile("robot.png");
 
-    Entity *testEnt = new Entity(engine->getEventManager());
-    scene->addEntity(testEnt);
-    testEnt->addComponent(new TransformComponent);
-    testEnt->addComponent(new SpriteComponent(&texture));
-    testEnt->addComponent(new IntentComponent);
-    testEnt->addComponent(new ScriptComponent(scripting->createScript("test.nut")));
+    Entity *player = new Entity(engine->getEventManager());
+    scene->addEntity(player);
+    player->addComponent(new TransformComponent);
+    player->addComponent(new SpriteComponent(&texture));
+    player->addComponent(new IntentComponent);
+    player->addComponent(new PhysicsComponent);
+    player->addComponent(new PlayerComponent);
 
-    TransformComponent *trans = static_cast<TransformComponent*>(testEnt->getComponent(TransformComponent::Type));
-    IntentComponent *intent = static_cast<IntentComponent*>(testEnt->getComponent(IntentComponent::Type));
+    TransformComponent *trans = static_cast<TransformComponent*>(player->getComponent(TransformComponent::Type));
+    IntentComponent *intent = static_cast<IntentComponent*>(player->getComponent(IntentComponent::Type));
 
     trans->setPosition(sf::Vector2f(3.f, 3.f));
     intent->mapKeyToIntent("up", sf::Keyboard::W, BtnState::DOWN);
     intent->mapKeyToIntent("down", sf::Keyboard::S, BtnState::DOWN);
     intent->mapKeyToIntent("left", sf::Keyboard::A, BtnState::DOWN);
     intent->mapKeyToIntent("right", sf::Keyboard::D, BtnState::DOWN);
+
+    intent->mapMouseBtnToIntent("dig", sf::Mouse::Button::Left, BtnState::DOWN);
+    intent->mapMouseBtnToIntent("place", sf::Mouse::Button::Right, BtnState::DOWN);
 
     Tile** tiles = new Tile*[100];
     for (int y = 0; y < 100; y++)
@@ -90,11 +101,12 @@ int main()
 
     for (int i = 0; i < 1; i++)
     {
-        Entity *ground = new Entity(engine->getEventManager());
-        scene->addEntity(ground);
-        ground->addComponent(new TransformComponent(sf::Vector2f(0, 0)));
-        ground->addComponent(new GridComponent(100, 100, tiles, 0));
-        ground->addComponent(new ScriptComponent(scripting->createScript("test.nut")));
+        Entity *planet = new Entity(engine->getEventManager());
+        scene->addEntity(planet);
+        planet->addComponent(new TransformComponent(sf::Vector2f(0, 0)));
+        planet->addComponent(new GridComponent(100, 100, tiles, 0));
+        planet->addComponent(new ScriptComponent(scripting->createScript("test.nut")));
+        physSys->addGrid(planet);
     }
 
     float accum = 0;

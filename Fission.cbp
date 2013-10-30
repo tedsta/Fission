@@ -8,6 +8,7 @@
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/Debug/TestEngine" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin/Debug/" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -77,13 +78,16 @@
 		<Unit filename="include/Network/IntentComponent.h" />
 		<Unit filename="include/Network/IntentSystem.h" />
 		<Unit filename="include/Network/NetworkEvents.h" />
+		<Unit filename="include/PhysicsComponent.h" />
+		<Unit filename="include/PhysicsSystem.h" />
+		<Unit filename="include/PlayerComponent.h" />
+		<Unit filename="include/PlayerSystem.h" />
 		<Unit filename="include/Rendering/RenderComponent.h" />
 		<Unit filename="include/Rendering/RenderSystem.h" />
 		<Unit filename="include/Rendering/SpriteComponent.h" />
 		<Unit filename="include/Rendering/TransformComponent.h" />
 		<Unit filename="include/Script/ScriptComponent.h" />
 		<Unit filename="include/Script/ScriptSystem.h" />
-		<Unit filename="include/TestSystem.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Core/ComponentFactories.cpp" />
 		<Unit filename="src/Core/Engine.cpp" />
@@ -97,12 +101,15 @@
 		<Unit filename="src/Network/Connection.cpp" />
 		<Unit filename="src/Network/IntentComponent.cpp" />
 		<Unit filename="src/Network/IntentSystem.cpp" />
+		<Unit filename="src/PhysicsComponent.cpp" />
+		<Unit filename="src/PhysicsSystem.cpp" />
+		<Unit filename="src/PlayerComponent.cpp" />
+		<Unit filename="src/PlayerSystem.cpp" />
 		<Unit filename="src/Rendering/RenderSystem.cpp" />
 		<Unit filename="src/Rendering/SpriteComponent.cpp" />
 		<Unit filename="src/Rendering/TransformComponent.cpp" />
 		<Unit filename="src/Script/ScriptComponent.cpp" />
 		<Unit filename="src/Script/ScriptSystem.cpp" />
-		<Unit filename="src/TestSystem.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

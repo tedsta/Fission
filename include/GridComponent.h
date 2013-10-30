@@ -13,12 +13,14 @@ enum
     UP,
     DOWN,
     LEFT,
-    RIGHT
+    RIGHT,
+    NO_DIR
 };
 
 struct Tile
 {
-    Tile() : mMat(0), mState(0), mHeat(0), mForce(0) {}
+    Tile(sf::Uint8 mat = 0, sf::Uint8 state = 0, sf::Uint8 heat = 0, sf::Uint8 force = 0) :
+        mMat(mat), mState(state), mHeat(heat), mForce(force) {}
 
 	sf::Uint8 mMat;
 	sf::Uint8 mState;
@@ -43,6 +45,7 @@ class GridComponent : public RenderComponent
         // Renderable components gotto render...
         void render(sf::RenderTarget& target, sf::RenderStates states);
 
+        sf::Vector2f getTilePos(sf::Transformable* myTrans, sf::Vector2f pos);
         bool checkCollision(sf::Transformable* myTrans, sf::Transformable* trans, sf::Vector2f dim, int dir, float& fix);
         bool dirCollision(int left, int top, int right, int bot, int dir, int& fix);
         void setTile(int x, int y, Tile tile, int tick);

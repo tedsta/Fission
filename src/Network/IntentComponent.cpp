@@ -1,5 +1,7 @@
 #include "Network/IntentComponent.h"
 
+#include <iostream>
+
 TypeBits IntentComponent::Type;
 
 IntentComponent::IntentComponent()

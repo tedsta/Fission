@@ -26,18 +26,6 @@ const float DEGTORAD = PI / 180.0f;
 /// 32bit constant for converting from radians to degrees (formally known as GRAD_PI)
 const float RADTODEG   = 180.0f / PI;
 
-/// \brief Utility function to convert pixel coordinates to world coordinates
-inline sf::Vector2f screenToWorld(sf::Vector2f screen)
-{
-    return sf::Vector2f(screen.x,-screen.y)/PTU;
-}
-
-/// \brief Utility function to convert world coordinates to screen coordinates
-inline sf::Vector2f worldToScreen(sf::Vector2f world)
-{
-    return sf::Vector2f(world.x,-world.y)*PTU;
-}
-
 /// \brief Utility function to convert a radian value to degrees
 /** Provided as it can be clearer to write radToDeg(X) than RADTODEG * X
 \param radians	The radians value to convert to degrees.
@@ -54,6 +42,19 @@ inline float radToDeg(float radians)
 inline float degToRad(float degrees)
 {
     return DEGTORAD * degrees;
+}
+
+/// \brief Calculate the length of a 2D vector
+inline float length(sf::Vector2f a)
+{
+    return sqrt(a.x*a.x + a.y*a.y);
+}
+
+/// \brief Normalize a 2D vector
+inline sf::Vector2f normalize(sf::Vector2f v)
+{
+    float l = length(v);
+    return sf::Vector2f(v.x/l, v.y/l);
 }
 
 /// \brief Returns the shortest angle between two angles

@@ -117,7 +117,8 @@ void IntentSystem::processEntity(Entity* entity, const float dt)
 			case EVT_MOUSE_MOVE:
             {
 				auto me = static_cast<MouseMoveEvent*>(e);
-				intent->mMouseX, intent->mMouseY = me->mX, me->mY;
+				intent->mMousePos.x = me->mX;
+				intent->mMousePos.y = me->mY;
 				break;
 			}
 			}
@@ -215,6 +216,12 @@ bool IntentSystem::handleEvent(IEventData const& evt)
     {
     case EVT_KEY:
         newEvt = new KeyEvent(static_cast<KeyEvent const&>(evt));
+        break;
+    case EVT_MOUSE_BTN:
+        newEvt = new MouseBtnEvent(static_cast<MouseBtnEvent const&>(evt));
+        break;
+    case EVT_MOUSE_MOVE:
+        newEvt = new MouseMoveEvent(static_cast<MouseMoveEvent const&>(evt));
         break;
     }
 

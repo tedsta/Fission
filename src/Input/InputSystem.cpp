@@ -32,6 +32,15 @@ void InputSystem::begin(const float dt)
         case sf::Event::KeyReleased:
             getEventManager()->fireEvent(KeyEvent(event.key.code, BtnState::RELEASED));
             break;
+        case sf::Event::MouseButtonPressed:
+            getEventManager()->fireEvent(MouseBtnEvent(event.mouseButton.button, BtnState::PRESSED));
+            break;
+        case sf::Event::MouseButtonReleased:
+            getEventManager()->fireEvent(MouseBtnEvent(event.mouseButton.button, BtnState::RELEASED));
+            break;
+        case sf::Event::MouseMoved:
+            getEventManager()->fireEvent(MouseMoveEvent(event.mouseMove.x, event.mouseMove.y));
+            break;
         }
     }
 }

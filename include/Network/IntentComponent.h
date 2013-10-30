@@ -26,6 +26,9 @@ class IntentComponent : public Component
         /// \brief Get whether or not an intent is active
         bool isIntentActive(const std::string& intent);
 
+        /// \brief Get the position of the mouse cursor
+        sf::Vector2f getMousePos(){return mMousePos;}
+
         static TypeBits Type;
         const TypeBits getTypeBits() const {return Type;}
         static Component* factory() {return new IntentComponent();}
@@ -66,7 +69,7 @@ class IntentComponent : public Component
 
         int mKeyStates[sf::Keyboard::KeyCount]; // Map key codes to intent names
         int mMouseStates[sf::Mouse::ButtonCount];
-        int mMouseX, mMouseY; // Mouse coords
+        sf::Vector2f mMousePos; // Mouse coords
 };
 
 #endif // INTENTCOMPONENT_H
