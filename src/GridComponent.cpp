@@ -251,15 +251,15 @@ bool GridComponent::dirCollision(int left, int top, int right, int bot, int dir,
 
 sf::Vector2f getTilePos(sf::Transformable* myTrans, sf::Vector2f pos)
 {
-	sf::Transform myInv = myTrans.Transform().getInverse();
-	pos = myInv.TransformPoint(pos);
-	pos = pos.Div(float32(TILE_SIZE));
-	pos.x = float32(math.Floor(float64(pos.x)));
-	pos.y = float32(math.Floor(float64(pos.y)));
-	return pos
+	sf::Transform myInv = myTrans->getTransform().getInverse();
+	pos = myInv.transformPoint(pos);
+	pos = pos/float(TILE_SIZE);
+	pos.x = floor(pos.x);
+	pos.y = floor(pos.y);
+	return pos;
 }
 
-func (g *GridComponent) SetTile(x, y int, tile Tile, tick int) {
+/*func (g *GridComponent) SetTile(x, y int, tile Tile, tick int) {
 	if y < 0 || y >= mSizeY {
 		return
 	}
@@ -330,4 +330,4 @@ func (g *GridComponent) calcNeighborState(x, y int) {
 	}
 
 	mTiles[y][x].state = earthState(a)
-}
+}*/

@@ -24,20 +24,23 @@
 
 #include "TestSystem.h"
 
+#include "GridComponent.h"
+
 int main()
 {
     Engine *engine = new Engine;
-    ResourceManager *resourceMgr = new ResourceManager;
+    ResourceManager *rcMgr = new ResourceManager;
 
     TransformComponent::Type = ComponentFactories::add(TransformComponent::factory);
     SpriteComponent::Type = ComponentFactories::add(SpriteComponent::factory);
     ScriptComponent::Type = ComponentFactories::add(ScriptComponent::factory);
     IntentComponent::Type = ComponentFactories::add(IntentComponent::factory);
+    GridComponent::Type = ComponentFactories::add(GridComponent::factory);
 
     Connection* conn = new Connection(engine->getEventManager());
 
     TestSystem *testSystem = new TestSystem(engine->getEventManager());
-    RenderSystem *render = new RenderSystem(engine->getEventManager());
+    RenderSystem *render = new RenderSystem(engine->getEventManager(), GridComponent::Type);
     InputSystem *input = new InputSystem(engine->getEventManager(), &render->getWindow());
     IntentSystem *intentSys = new IntentSystem(engine->getEventManager(), conn);
     ScriptSystem *scripting = new ScriptSystem(engine->getEventManager(), engine);
@@ -47,6 +50,10 @@ int main()
     engine->addSystem(input);
     engine->addSystem(intentSys);
     engine->addSystem(scripting);
+
+    GridComponent::addTileSheet(1, rcMgr->getTexture("Content/Textures/Tiles/dirt.png"));
+    GridComponent::addTileSheet(2, rcMgr->getTexture("Content/Textures/Tiles/stone.png"));
+    GridComponent::addTileSheet(3, rcMgr->getTexture("Content/Textures/Tiles/grass.png"));
 
     Scene *scene = engine->getScene();
 
@@ -69,12 +76,22 @@ int main()
     intent->mapKeyToIntent("left", sf::Keyboard::A, BtnState::DOWN);
     intent->mapKeyToIntent("right", sf::Keyboard::D, BtnState::DOWN);
 
-    for (int i = 0; i < 1000; i++)
+    Tile** tiles = new Tile*[100];
+    for (int y = 0; y < 100; y++)
+    {
+        tiles[y] = new Tile[100];
+        for (int x = 0; x < 100; x++)
+        {
+            tiles[y][x].mMat = 1;
+        }
+    }
+
+    for (int i = 0; i < 1; i++)
     {
         Entity *ground = new Entity(engine->getEventManager());
         scene->addEntity(ground);
-        ground->addComponent(new TransformComponent(sf::Vector2f(i*0.1, 200.f)));
-        ground->addComponent(new SpriteComponent(&texture));
+        ground->addComponent(new TransformComponent(sf::Vector2f(0, 0)));
+        ground->addComponent(new GridComponent(100, 100, tiles, 0));
         ground->addComponent(new ScriptComponent(scripting->createScript("test.nut")));
     }
 
