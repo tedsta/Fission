@@ -14,6 +14,7 @@ typedef unsigned int TypeBits;
 class Component : public RefCounted
 {
     public:
+        Component(){}
         virtual ~Component(){}
 
         /// \brief Serialize this component.
