@@ -65,9 +65,6 @@ void GridComponent::render(sf::RenderTarget& target, sf::RenderStates states)
 			int x = wrapX(_x);
 			int y = _y;
 
-			if (_x < 0)
-                std::cout << x << std::endl;
-
 			if (mTiles[y][x].mMat == 0 || mTiles[y][x].mMat >= TileSheets.size())
 				continue;
 
@@ -189,8 +186,6 @@ bool GridComponent::checkCollision(sf::Transformable* myTrans, sf::Transformable
 	// Test the collision
 	int tfix = 0;
 	bool col = dirCollision(x, y, right, bot, dir, tfix);
-	if (dir == RIGHT && tfix != 0)
-        std::cout << tfix << std::endl;
 
 	if (col)
 	{
@@ -414,6 +409,22 @@ void GridComponent::calcNeighborState(int x, int y)
 		a[2][1].mMat != a[1][1].mMat)
 		mTiles[y][x].mState = 5;
 }
+
+int GridComponent::wrapX(int x)
+{
+    if (x < 0)
+    {
+		x = x % mSizeX;
+		if (x < 0)
+			x += mSizeX;
+	}
+	else if (x >= mSizeX)
+		x = x % mSizeX;
+
+	return x;
+}
+
+// ****************************************************************************
 
 int random(int min, int max)
 {

@@ -50,7 +50,7 @@ class GridComponent : public RenderComponent
         bool dirCollision(int left, int top, int right, int bot, int dir, int& fix);
         void setTile(int x, int y, Tile tile, int tick);
         void calcNeighborState(int x, int y);
-        int wrapX(int x){return x%mSizeX;}
+        int wrapX(int x);
 
         static TypeBits Type;
         const TypeBits getTypeBits() const {return Type;}
