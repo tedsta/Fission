@@ -71,6 +71,8 @@
 		<Unit filename="include/Core/System.h" />
 		<Unit filename="include/Core/config.h" />
 		<Unit filename="include/GridComponent.h" />
+		<Unit filename="include/GridOps.h" />
+		<Unit filename="include/GridSystem.h" />
 		<Unit filename="include/Input/Defs.h" />
 		<Unit filename="include/Input/Events.h" />
 		<Unit filename="include/Input/InputSystem.h" />
@@ -89,6 +91,8 @@
 		<Unit filename="include/Script/ScriptComponent.h" />
 		<Unit filename="include/Script/ScriptSystem.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="perlin/perlin.cpp" />
+		<Unit filename="perlin/perlin.h" />
 		<Unit filename="src/Core/ComponentFactories.cpp" />
 		<Unit filename="src/Core/Engine.cpp" />
 		<Unit filename="src/Core/Entity.cpp" />
@@ -97,6 +101,8 @@
 		<Unit filename="src/Core/Scene.cpp" />
 		<Unit filename="src/Core/System.cpp" />
 		<Unit filename="src/GridComponent.cpp" />
+		<Unit filename="src/GridOps.cpp" />
+		<Unit filename="src/GridSystem.cpp" />
 		<Unit filename="src/Input/InputSystem.cpp" />
 		<Unit filename="src/Network/Connection.cpp" />
 		<Unit filename="src/Network/IntentComponent.cpp" />
