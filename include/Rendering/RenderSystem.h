@@ -11,6 +11,10 @@ class RenderSystem : public System
         RenderSystem(EventManager *eventManager, TypeBits renderableTypeBits = 0);
         virtual ~RenderSystem();
 
+        // Setters
+
+        void setBackgroundColor(sf::Color col){mBackgroundColor=col;}
+
         // Getters
 
         /// \brief Get the SFML render window
@@ -35,6 +39,9 @@ class RenderSystem : public System
 
         /// The SFML view
         sf::View mView;
+
+        /// The background color
+        sf::Color mBackgroundColor;
 };
 
 #endif // RENDERSYSTEM_H

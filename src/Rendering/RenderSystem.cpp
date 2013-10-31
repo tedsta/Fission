@@ -20,7 +20,7 @@ RenderSystem::~RenderSystem()
 
 void RenderSystem::begin(const float dt)
 {
-    mWindow.clear(); // Clear the window
+    mWindow.clear(mBackgroundColor); // Clear the window
     mWindow.setView(mView);
 }
 

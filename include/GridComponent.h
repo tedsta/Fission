@@ -34,6 +34,8 @@ struct Tile
 
 class GridComponent : public RenderComponent
 {
+    friend class GridSystem;
+
     public:
         GridComponent(int sizeX, int sizeY, Tile** tiles, int tickCount);
         virtual ~GridComponent();

@@ -27,8 +27,15 @@
 #include "GridComponent.h"
 #include "PhysicsComponent.h"
 #include "PlayerComponent.h"
+#include "GridSystem.h"
 #include "PhysicsSystem.h"
 #include "PlayerSystem.h"
+
+#include "GridOps.h"
+
+#include "perlin/perlin.h"
+
+Tile** newWorld(int seed);
 
 int main()
 {
@@ -49,6 +56,7 @@ int main()
     InputSystem *input = new InputSystem(engine->getEventManager(), &render->getWindow());
     IntentSystem *intentSys = new IntentSystem(engine->getEventManager(), conn);
     ScriptSystem *scripting = new ScriptSystem(engine->getEventManager(), engine);
+    GridSystem *gridSys = new GridSystem(engine->getEventManager());
     PhysicsSystem *physSys = new PhysicsSystem(engine->getEventManager());
     PlayerSystem *playerSys = new PlayerSystem(engine->getEventManager(), render);
 
@@ -56,12 +64,17 @@ int main()
     engine->addSystem(input);
     engine->addSystem(intentSys);
     engine->addSystem(scripting);
+    engine->addSystem(gridSys);
     engine->addSystem(physSys);
     engine->addSystem(playerSys);
+
+    render->setBackgroundColor(sf::Color(130, 130, 255, 255));
 
     GridComponent::addTileSheet(1, rcMgr->getTexture("Content/Textures/Tiles/dirt.png"));
     GridComponent::addTileSheet(2, rcMgr->getTexture("Content/Textures/Tiles/stone.png"));
     GridComponent::addTileSheet(3, rcMgr->getTexture("Content/Textures/Tiles/grass.png"));
+
+    gridSys->addTick(veggyGridOp, 1);
 
     Scene *scene = engine->getScene();
 
@@ -89,23 +102,14 @@ int main()
     intent->mapMouseBtnToIntent("dig", sf::Mouse::Button::Left, BtnState::DOWN);
     intent->mapMouseBtnToIntent("place", sf::Mouse::Button::Right, BtnState::DOWN);
 
-    Tile** tiles = new Tile*[100];
-    for (int y = 0; y < 100; y++)
-    {
-        tiles[y] = new Tile[100];
-        for (int x = 0; x < 100; x++)
-        {
-            tiles[y][x].mMat = rand()%3+1;
-            //tiles[y][x].mState = (rand()%4) + 6;
-        }
-    }
+    Tile** tiles = newWorld(0);
 
     for (int i = 0; i < 1; i++)
     {
         Entity *planet = new Entity(engine->getEventManager());
         scene->addEntity(planet);
         planet->addComponent(new TransformComponent(sf::Vector2f(0, 0)));
-        planet->addComponent(new GridComponent(100, 100, tiles, 0));
+        planet->addComponent(new GridComponent(1000, 1000, tiles, 1));
         planet->addComponent(new ScriptComponent(scripting->createScript("test.nut")));
         physSys->addGrid(planet);
     }
@@ -137,4 +141,42 @@ int main()
     delete engine;
 
     return 0;
+}
+
+Tile** newWorld(int seed)
+{
+	int worldW = 1000;
+	int worldH = 1000;
+	Tile** tiles = new Tile*[worldH];
+	for (int i = 0; i < worldH; i++)
+		tiles[i] = new Tile[worldW];
+
+	for (int y = 0; y < worldH; y++)
+    {
+		for (int x = 0; x < worldW; x++)
+		{
+			auto n = PerlinNoise1D(x, 1.01, .02, 2) + 1;
+			auto p = PerlinNoise2D(y, x, 1.01, 0.2, 10) + 1;
+			p += float(worldH-y) / float(worldH);
+			float o[MAX_COMPS];
+			for (int i = 0; i < MAX_COMPS; i++)
+			{
+				o[i] = PerlinNoise2D(x, y, 1.01, 0.2, i) + 1;
+			}
+			if (y > n*100)
+			{
+				tiles[y][x].mMat = p * 3 / 2;
+
+				if (tiles[y][x].mMat > 3)
+					tiles[y][x].mMat = 3;
+
+				for (int i = 0; i < MAX_COMPS; i++)
+                {
+					tiles[y][x].mComp[i] = o[i] * 128;
+				}
+				tiles[y][x].mHeat = p * 256;
+			}
+		}
+	}
+	return tiles;
 }

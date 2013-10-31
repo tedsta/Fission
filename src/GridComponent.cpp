@@ -287,8 +287,8 @@ void GridComponent::setTile(int x, int y, Tile tile, int tick)
 
 
 	// If tick is -1, make it interesting for all ticks
-	int tickMin = mTickCount;
-	int tickMax = 0;
+	int tickMin = 0;
+	int tickMax = mTickCount;
 	if (tick != -1)
     {
 		tickMin = tick;
