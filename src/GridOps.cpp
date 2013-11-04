@@ -134,7 +134,7 @@ float constrain(float v, float min, float max)
 // ******************************************************************************************************
 
 #define MAX_FLUID 127
-#define compress 2
+#define compress 3
 
 int vert(int top, int bot, int offset)
 {
@@ -143,13 +143,13 @@ int vert(int top, int bot, int offset)
 
     int topMaxFill = std::min(MAX_FLUID+offset*compress, 255);
     int botMaxFill = std::min(MAX_FLUID+(offset+1)*compress, 255);
-    if (top > 0 && bot < botMaxFill)
+    if (top > 0 && top <= topMaxFill && bot < botMaxFill)
         flow = std::min<int>(top, botMaxFill-bot);
 
-    else if (bot > botMaxFill && top < topMaxFill)
+    else if (bot > botMaxFill && top < 255)
     {
         //std::cout << "Top: " << top << std::endl << "Bot: " << bot << std::endl << "Max: " << maxFill << std::endl;
-        flow = -std::min(bot-botMaxFill, topMaxFill-top);
+        flow = -std::min(bot-botMaxFill, 255-top);
     }
 
     return flow;
@@ -160,7 +160,7 @@ int horiz(int p, int s)
     int total = (p)+(s);
     int flow = 0;
 
-    //flow = (s-p)/2;
+    //flow = (s-p)/3;
 
     return flow;
 }
@@ -169,6 +169,7 @@ Area fluidGridOp(Area a)
 {
     if (!isFluid(a.mTiles[1][1].mMat))
         return a;
+
 
     int mat00 = a.mTiles[0][0].mMat;
     int mat01 = a.mTiles[0][1].mMat;
@@ -200,17 +201,6 @@ Area fluidGridOp(Area a)
     int o21 = a.mTiles[2][1].mSignal;
     int o22 = a.mTiles[2][2].mSignal;
 
-    if (mat01 != 4)
-    {
-        a.mTiles[1][1].mSignal = 0;
-        a.mChanged = true;
-    }
-    else if (a.mTiles[1][1].mSignal != a.mTiles[0][1].mSignal+1)
-    {
-        a.mTiles[1][1].mSignal = a.mTiles[0][1].mSignal+1;
-        a.mChanged = true;
-    }
-
     int flow = 0;
     if (isFluid(mat21))
         flow -= vert(m11, m21, o11);
@@ -229,14 +219,27 @@ Area fluidGridOp(Area a)
     //std::cout << "Flow step 2: " << (isFluid(mat22) ? vert(m12, m22) : 0) << std::endl;
 
     a.mTiles[1][1].mFluid += flow;
-    //std::cout << "Final: " << int(a.mTiles[1][1].mFluid) << "\n\n";
-    //a.mChanged = a.mChanged || flow!=0;
-    a.mChanged = true;
 
     if (a.mTiles[1][1].mFluid > 0)
         a.mTiles[1][1].mMat = 4;
     else
         a.mTiles[1][1].mMat = 0;
+
+    if (a.mTiles[1][1].mMat == 4)
+    {
+        if (a.mTiles[0][1].mMat != 4)
+        {
+            a.mTiles[1][1].mSignal = 0;
+            a.mChanged = true;
+        }
+        else if (a.mTiles[1][1].mSignal != a.mTiles[0][1].mSignal+1)
+        {
+            a.mTiles[1][1].mSignal = a.mTiles[0][1].mSignal+1;
+            a.mChanged = true;
+        }
+    }
+
+    a.mChanged = a.mChanged || flow!=0;
 
     return a;
 

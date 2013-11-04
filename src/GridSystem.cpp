@@ -37,8 +37,8 @@ void GridSystem::processEntity(Entity *entity, const float dt)
 
 		mTicks[t].mClock.restart();
 
-        if (grid->mCTiles[t].size())
-            std::cout << "Tick!\n";
+        //if (grid->mCTiles[t].size())
+        //    std::cout << "Tick!\n";
 
         //std::cout << grid->mCTiles[t].size() << std::endl;
         if (mTicks[t].mOp.getType() == GridOp::STATIC)

@@ -132,6 +132,7 @@ int main()
 
     intent->mapMouseBtnToIntent("dig", sf::Mouse::Button::Left, BtnState::DOWN);
     intent->mapMouseBtnToIntent("place", sf::Mouse::Button::Right, BtnState::DOWN);
+    intent->mapKeyToIntent("test", sf::Keyboard::T, BtnState::PRESSED);
 
     Tile** tiles = newWorld(0);
 
@@ -159,7 +160,7 @@ int main()
 
         if (accum >= 1.f)
         {
-            std::cout << "FPS: " << frames << std::endl;
+            //std::cout << "FPS: " << frames << std::endl;
             accum = 0;
             frames = 0;
         }

@@ -69,6 +69,7 @@ class GridComponent : public RenderComponent
         const std::vector<sf::Vector2i>& getInterestingTiles(int tick) const {return mCTiles[tick];}
         void clearInteresting(int tick){mCTiles[tick].clear();}
 
+        Tile getTile(int x, int y){return mTiles[y][x];}
         Area getArea(int x, int y);
         int getSizeX() const {return mSizeX;}
         int getSizeY() const {return mSizeY;}

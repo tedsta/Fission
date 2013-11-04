@@ -107,6 +107,16 @@ void PlayerSystem::processEntity(Entity *entity, const float dt)
 			//if (length(mousePos - trans->getPosition()) < 16*10) //16 pixels per tile, 10 tiles
 				grid->setTile(int(pos.x), int(pos.y), Tile(4, 0, 127), -1);
 		}
+		if (intent->isIntentActive("test"))
+		{
+			sf::Vector2f mousePos = intent->getMousePos();
+			mousePos += mRndSys->getView().getCenter();
+			mousePos -= mRndSys->getView().getSize()/2.f;
+			sf::Vector2f pos = grid->getTilePos(pt, mousePos);
+            pos.x = grid->wrapX(pos.x);
+			//if (length(mousePos - trans->getPosition()) < 16*10) //16 pixels per tile, 10 tiles
+				std::cout << "Water: " << int(grid->getTile(pos.x, pos.y).mFluid) << std::endl;
+		}
 	}
 }
 
