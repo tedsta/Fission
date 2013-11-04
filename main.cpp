@@ -39,6 +39,35 @@ Tile** newWorld(int seed);
 
 int main()
 {
+    Area a;
+
+    a.mTiles[0][0].mState = 0;
+    a.mTiles[0][1].mState = 127;
+    a.mTiles[0][2].mState = 0;
+
+    a.mTiles[1][0].mState = 0;
+    a.mTiles[1][1].mState = 255;
+    a.mTiles[1][2].mState = 0;
+
+    a.mTiles[2][0].mState = 0;
+    a.mTiles[2][1].mState = 127;
+    a.mTiles[2][2].mState = 0;
+
+    std::cout << int(a.mTiles[0][0].mState) << "\t" << int(a.mTiles[0][1].mState) << "\t" << int(a.mTiles[0][2].mState) << std::endl;
+    std::cout << int(a.mTiles[1][0].mState) << "\t" << int(a.mTiles[1][1].mState) << "\t" << int(a.mTiles[1][2].mState) << std::endl;
+    std::cout << int(a.mTiles[2][0].mState) << "\t" << int(a.mTiles[2][1].mState) << "\t" << int(a.mTiles[2][2].mState) << "\n\n";
+
+    for (int i = 0; i < 4; i++)
+    {
+        flowVert(a);
+
+        std::cout << int(a.mTiles[0][0].mState) << "\t" << int(a.mTiles[0][1].mState) << "\t" << int(a.mTiles[0][2].mState) << std::endl;
+        std::cout << int(a.mTiles[1][0].mState) << "\t" << int(a.mTiles[1][1].mState) << "\t" << int(a.mTiles[1][2].mState) << std::endl;
+        std::cout << int(a.mTiles[2][0].mState) << "\t" << int(a.mTiles[2][1].mState) << "\t" << int(a.mTiles[2][2].mState) << "\n\n";
+    }
+
+    //return 0;
+
     Engine *engine = new Engine;
     ResourceManager *rcMgr = new ResourceManager;
 
@@ -73,8 +102,10 @@ int main()
     GridComponent::addTileSheet(1, rcMgr->getTexture("Content/Textures/Tiles/dirt.png"));
     GridComponent::addTileSheet(2, rcMgr->getTexture("Content/Textures/Tiles/stone.png"));
     GridComponent::addTileSheet(3, rcMgr->getTexture("Content/Textures/Tiles/grass.png"));
+    GridComponent::addTileSheet(4, rcMgr->getTexture("Content/Textures/Tiles/grass.png"));
 
-    gridSys->addTick(veggyGridOp, 1);
+    gridSys->addTick(veggyGridOp, 0.1);
+    gridSys->addTick(fluidGridOp, 0.05);
 
     Scene *scene = engine->getScene();
 
@@ -109,7 +140,7 @@ int main()
         Entity *planet = new Entity(engine->getEventManager());
         scene->addEntity(planet);
         planet->addComponent(new TransformComponent(sf::Vector2f(0, 0)));
-        planet->addComponent(new GridComponent(1000, 1000, tiles, 1));
+        planet->addComponent(new GridComponent(1000, 1000, tiles, 2));
         planet->addComponent(new ScriptComponent(scripting->createScript("test.nut")));
         physSys->addGrid(planet);
     }
@@ -165,7 +196,8 @@ Tile** newWorld(int seed)
 			}
 			if (y > n*100)
 			{
-				tiles[y][x].mMat = p * 3 / 2;
+                tiles[y][x].mMat = p * 3 / 2;
+                tiles[y][x].mState = 0;
 
 				if (tiles[y][x].mMat > 3)
 					tiles[y][x].mMat = 3;

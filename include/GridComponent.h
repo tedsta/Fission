@@ -19,16 +19,28 @@ enum
 
 struct Tile
 {
-    Tile(sf::Uint8 mat = 0, sf::Uint8 state = 0, sf::Uint8 heat = 0, sf::Uint8 force = 0) :
-        mMat(mat), mState(state), mHeat(heat), mForce(force) {}
+    Tile() : mMat(0), mState(0), mFluid(0), mHeat(0), mForce(0), mSignal(0) {}
+    Tile(sf::Uint8 mat, sf::Uint8 state = 0, sf::Uint8 fluid = 0, sf::Uint8 heat = 0, sf::Uint8 force = 0, sf::Uint8 signal = 0) :
+        mMat(mat), mState(state), mFluid(fluid), mHeat(heat), mForce(force), mSignal(signal) {}
 
 	sf::Uint8 mMat;
 	sf::Uint8 mState;
 
 	// status
 	sf::Uint8 mComp[MAX_COMPS]; // composit id, quantity
+	sf::Uint8 mFluid;
 	sf::Uint8 mHeat;
 	sf::Uint8 mForce;
+	sf::Uint8 mSignal;
+};
+
+struct Area
+{
+    Area() : mChanged(false) {}
+
+	Tile mTiles[3][3];
+	int mX, mY;
+	bool mChanged;
 };
 
 
@@ -53,6 +65,19 @@ class GridComponent : public RenderComponent
         void setTile(int x, int y, Tile tile, int tick);
         void calcNeighborState(int x, int y);
         int wrapX(int x);
+
+        const std::vector<sf::Vector2i>& getInterestingTiles(int tick) const {return mCTiles[tick];}
+        void clearInteresting(int tick){mCTiles[tick].clear();}
+
+        Area getArea(int x, int y);
+        int getSizeX() const {return mSizeX;}
+        int getSizeY() const {return mSizeY;}
+
+        void addInterestingTile(int x, int y, int tick)
+        {
+            if (std::find(mCTiles[tick].begin(), mCTiles[tick].end(), sf::Vector2i(x, y)) == mCTiles[tick].end())
+                mCTiles[tick].push_back(sf::Vector2i(x, y));
+        }
 
         static TypeBits Type;
         const TypeBits getTypeBits() const {return Type;}

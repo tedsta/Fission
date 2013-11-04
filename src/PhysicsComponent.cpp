@@ -4,7 +4,7 @@
 
 TypeBits PhysicsComponent::Type;
 
-PhysicsComponent::PhysicsComponent() : mGravityDir(DOWN)
+PhysicsComponent::PhysicsComponent() : mGravityDir(DOWN), mGrid(NULL)
 {
     //ctor
 }

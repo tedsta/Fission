@@ -82,6 +82,7 @@
 		<Unit filename="include/Network/NetworkEvents.h" />
 		<Unit filename="include/PhysicsComponent.h" />
 		<Unit filename="include/PhysicsSystem.h" />
+		<Unit filename="include/PlaceableComponent.h" />
 		<Unit filename="include/PlayerComponent.h" />
 		<Unit filename="include/PlayerSystem.h" />
 		<Unit filename="include/Rendering/RenderComponent.h" />
@@ -109,6 +110,7 @@
 		<Unit filename="src/Network/IntentSystem.cpp" />
 		<Unit filename="src/PhysicsComponent.cpp" />
 		<Unit filename="src/PhysicsSystem.cpp" />
+		<Unit filename="src/PlaceableComponent.cpp" />
 		<Unit filename="src/PlayerComponent.cpp" />
 		<Unit filename="src/PlayerSystem.cpp" />
 		<Unit filename="src/Rendering/RenderSystem.cpp" />

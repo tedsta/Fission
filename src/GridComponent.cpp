@@ -76,7 +76,6 @@ void GridComponent::render(sf::RenderTarget& target, sf::RenderStates states)
 			int sheetSizeX = sheet->getSize().x / TILE_SIZE;
 			int sheetSizeY = sheet->getSize().y / TILE_SIZE;
 
-
 			auto start = sf::Vector2f(tsize * static_cast<float>(_x), tsize * static_cast<float>(_y)); // Tile start draw
 			verts[0] = sf::Vertex(start,
 				sf::Color(255, 255, 255, 255),
@@ -103,7 +102,17 @@ void GridComponent::render(sf::RenderTarget& target, sf::RenderStates states)
 			verts[3].texCoords.x += texStartX;
 			verts[3].texCoords.y += texStartY;
 
-			states.texture = sheet;
+            if (mTiles[y][x].mMat == 4)
+            {
+                states.texture = NULL;
+                verts[0].color = sf::Color(255, 0, 0, mTiles[y][x].mFluid);
+                verts[1].color = sf::Color(255, 0, 0, mTiles[y][x].mFluid);
+                verts[2].color = sf::Color(255, 0, 0, mTiles[y][x].mFluid);
+                verts[3].color = sf::Color(255, 0, 0, mTiles[y][x].mFluid);
+            }
+            else
+                states.texture = sheet;
+
 			target.draw(verts, states);
 
 			/*if joelMode {
@@ -231,7 +240,7 @@ bool GridComponent::dirCollision(int left, int top, int right, int bot, int dir,
 			int x = wrapX(_x);
 			int y = _y;
 
-			if (mTiles[y][x].mMat != 0)
+			if (mTiles[y][x].mMat != 0 && mTiles[y][x].mMat != 4)
             {
 				switch (dir)
 				{
@@ -268,22 +277,25 @@ void GridComponent::setTile(int x, int y, Tile tile, int tick)
 
 	x = wrapX(x);
 
-	if (mTiles[y][x].mMat == tile.mMat && mTiles[y][x].mForce == tile.mForce && mTiles[y][x].mHeat == tile.mHeat)
+	if (mTiles[y][x].mMat == tile.mMat && mTiles[y][x].mFluid == tile.mFluid &&
+        mTiles[y][x].mForce == tile.mForce && mTiles[y][x].mHeat == tile.mHeat && mTiles[y][x].mSignal == tile.mSignal)
 	{
 		return;
 	}
+
+	//std::cout << int(mTiles[y][x].mMat) << std::endl;
 
 	mTiles[y][x] = tile;
 
 	int left = wrapX(x - 1);
 	int right = wrapX(x + 1);
-	int top = y;
-	int bot = y;
+	int top = y-1;
+	int bot = y+1;
 
-	if (y > 0)
-		top = y - 1;
-	else if (y < mSizeY-1)
-		top = y + 1;
+	if (top < 0)
+		top = 0;
+	else if (bot > mSizeY-1)
+		bot = mSizeY-1;
 
 
 	// If tick is -1, make it interesting for all ticks
@@ -315,15 +327,23 @@ void GridComponent::setTile(int x, int y, Tile tile, int tick)
 
 	for (int t = tickMin; t < tickMax; t++)
     {
-		for (int i = top; i <= bot; i++)
-		{
-			if (mTiles[i][left].mMat != 0)
-				mCTiles[t].push_back(sf::Vector2i(left, i));
-			if (mTiles[i][x].mMat != 0)
-				mCTiles[t].push_back(sf::Vector2i(x, i));
-			if (mTiles[i][right].mMat != 0)
-				mCTiles[t].push_back(sf::Vector2i(right, i));
-		}
+		//for (int i = top; i <= bot; i++)
+		//{
+		    if (y > 0)
+                addInterestingTile(x, y-1, t);
+            addInterestingTile(left, y, t);
+            addInterestingTile(x, y, t);
+            addInterestingTile(right, y, t);
+            if (y < mSizeY-1)
+                addInterestingTile(x, y+1, t);
+
+		    /*if (std::find(mCTiles[t].begin(), mCTiles[t].end(), sf::Vector2i(left, i)) == mCTiles[t].end())
+                mCTiles[t].push_back(sf::Vector2i(left, i));
+            if (std::find(mCTiles[t].begin(), mCTiles[t].end(), sf::Vector2i(x, i)) == mCTiles[t].end())
+                mCTiles[t].push_back(sf::Vector2i(x, i));
+            if (std::find(mCTiles[t].begin(), mCTiles[t].end(), sf::Vector2i(right, i)) == mCTiles[t].end())
+                mCTiles[t].push_back(sf::Vector2i(right, i));*/
+		//}
 	}
 }
 
@@ -332,6 +352,9 @@ void GridComponent::calcNeighborState(int x, int y)
     x = wrapX(x);
 	int left = wrapX(x - 1);
 	int right = wrapX(x + 1);
+
+    if (mTiles[y][x].mMat == 0 || mTiles[y][x].mMat == 4)
+        return;
 
 	Tile a[3][3]; // Area
 
@@ -431,6 +454,36 @@ int GridComponent::wrapX(int x)
 		x = x % mSizeX;
 
 	return x;
+}
+
+Area GridComponent::getArea(int x, int y)
+{
+    int left = wrapX(x - 1);
+    int right = wrapX(x + 1);
+
+    // Tiles
+    Area a;
+    a.mX = x;
+    a.mY = y;
+    if (y > 0)
+    {
+        a.mTiles[0][0] = mTiles[y-1][left];
+        a.mTiles[0][1] = mTiles[y-1][x];
+        a.mTiles[0][2] = mTiles[y-1][right];
+    }
+
+    a.mTiles[1][0] = mTiles[y][left];
+    a.mTiles[1][1] = mTiles[y][x];
+    a.mTiles[1][2] = mTiles[y][right];
+
+    if (y < mSizeY-1)
+    {
+        a.mTiles[2][0] = mTiles[y+1][left];
+        a.mTiles[2][1] = mTiles[y+1][x];
+        a.mTiles[2][2] = mTiles[y+1][right];
+    }
+
+    return a;
 }
 
 // ****************************************************************************

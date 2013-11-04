@@ -100,7 +100,7 @@ class Connection
         int getType(){return mNetType;}
 
         /// \brief If this is a client, get the network ID.
-        int getNetID(){if (mPeer){return mPeer->mID;} return NULL;}
+        int getNetID(){if (mPeer){return mPeer->mID;} return 0;}
 
     private:
         // Some dependencies

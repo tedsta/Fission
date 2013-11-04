@@ -105,7 +105,7 @@ void PlayerSystem::processEntity(Entity *entity, const float dt)
 			mousePos -= mRndSys->getView().getSize()/2.f;
 			sf::Vector2f pos = grid->getTilePos(pt, mousePos);
 			//if (length(mousePos - trans->getPosition()) < 16*10) //16 pixels per tile, 10 tiles
-				grid->setTile(int(pos.x), int(pos.y), Tile(1), -1);
+				grid->setTile(int(pos.x), int(pos.y), Tile(4, 0, 127), -1);
 		}
 	}
 }

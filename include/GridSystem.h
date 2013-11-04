@@ -6,16 +6,39 @@
 #include "GridComponent.h"
 
 #include <SFML/System/Clock.hpp>
-
-struct Area
-{
-	Tile mTiles[3][3];
-	int mX, mY;
-	bool mMerge; // If true, add states, if false, replace tiles
-};
+#include <SFML/System/Vector2.hpp>
 
 // Grid operation function. The surrounding tiles and the physics ticks are passed
-typedef Area (*GridOp)(Area);
+class GridOp
+{
+public:
+    enum
+    {
+        STATIC,
+        DYNAMIC
+    };
+
+    GridOp(Area (*stat)(Area)) : mType(STATIC), mStatic(stat), mDynamic(NULL) {}
+    GridOp(void (*dyn)(GridComponent*, int)) : mType(DYNAMIC), mStatic(NULL), mDynamic(dyn) {}
+
+    Area operator()(Area a) const
+    {
+        return mStatic(a);
+    }
+
+    void operator()(GridComponent* grid, int tick) const
+    {
+        mDynamic(grid, tick);
+    }
+
+    int getType() const {return mType;}
+
+private:
+
+    int mType;
+    Area (*mStatic)(Area);
+    void (*mDynamic)(GridComponent*, int);
+};
 
 struct Tick
 {
@@ -46,7 +69,6 @@ class GridSystem : public System
         int mHndID; // Network handle id
         std::vector<Tick> mTicks; // Ticks
         int mNextGridID; // Next grid id to give out
-        std::vector<Area> mAreas;
 };
 
 #endif // GRIDSYSTEM_H

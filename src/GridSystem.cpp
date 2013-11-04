@@ -37,63 +37,37 @@ void GridSystem::processEntity(Entity *entity, const float dt)
 
 		mTicks[t].mClock.restart();
 
-		for (auto coord : grid->mCTiles[t])
+        if (grid->mCTiles[t].size())
+            std::cout << "Tick!\n";
+
+        //std::cout << grid->mCTiles[t].size() << std::endl;
+        if (mTicks[t].mOp.getType() == GridOp::STATIC)
         {
-			int x = coord.x;
-			int y = coord.y;
-
-			int left = grid->wrapX(x - 1);
-            int right = grid->wrapX(x + 1);
-
-            // Tiles
-            Area a;
-            a.mX = x;
-            a.mY = y;
-            if (y > 0)
+            std::vector<Area> areas;
+            for (auto coord : grid->mCTiles[t])
             {
-                a.mTiles[0][0] = grid->mTiles[y-1][left];
-                a.mTiles[0][1] = grid->mTiles[y-1][x];
-                a.mTiles[0][2] = grid->mTiles[y-1][right];
+                Area a = grid->getArea(coord.x, coord.y);
+
+                // New tile
+                a = mTicks[t].mOp(a);
+                if (a.mChanged)
+                    areas.push_back(a);
             }
 
-            a.mTiles[1][0] = grid->mTiles[y][left];
-            a.mTiles[1][1] = grid->mTiles[y][x];
-            a.mTiles[1][2] = grid->mTiles[y][right];
+            grid->clearInteresting(t);
 
-            if (y < grid->mSizeY-1)
+            //if (areas.size() > 0)
+            //    std::cout << "Areas: " << areas.size() << std::endl;
+            for (auto a : areas)
             {
-                a.mTiles[2][0] = grid->mTiles[y+1][left];
-                a.mTiles[2][1] = grid->mTiles[y+1][x];
-                a.mTiles[2][2] = grid->mTiles[y+1][right];
+                grid->setTile(a.mX, a.mY, a.mTiles[1][1], t);
             }
-
-            // New tile
-            a = mTicks[t].mOp(a);
-            mAreas.push_back(a);
-		}
-		grid->mCTiles[t].clear();
-
-		for (auto a : mAreas)
+        }
+        else
         {
-			//left := grid->WrapX(a.x - 1)
-			//right := grid->WrapX(a.x + 1)
-			/*if (a.y > 0) {
-				grid->SetTile(left, a.y-1, a.tiles[0][0], t)
-				grid->SetTile(a.x, a.y-1, a.tiles[0][1], t)
-				grid->SetTile(right, a.y-1, a.tiles[0][2], t)
-			}*/
-
-			//grid->SetTile(left, a.y, a.tiles[1][0], t)
-			grid->setTile(a.mX, a.mY, a.mTiles[1][1], t);
-			//grid->SetTile(right, a.y, a.tiles[1][2], t)
-
-			/*if (a.y < grid->sizeY-1) {
-				grid->SetTile(left, a.y+1, a.tiles[2][0], t)
-				grid->SetTile(a.x, a.y+1, a.tiles[2][1], t)
-				grid->SetTile(right, a.y+1, a.tiles[2][2], t)
-			}*/
-		}
-		mAreas.clear();
+            mTicks[t].mOp(grid, t);
+            grid->clearInteresting(t);
+        }
 	}
 }
 

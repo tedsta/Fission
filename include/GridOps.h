@@ -4,5 +4,8 @@
 #include "GridSystem.h"
 
 Area veggyGridOp(Area a);
+Area fluidGridOp(Area a);
+
+void flowVert(Area& a);
 
 #endif // GRIDOPS_H
