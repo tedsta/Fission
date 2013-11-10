@@ -1,6 +1,7 @@
 #include <iostream>
 #include <bitset>
 #include <cstdlib>
+#include <sstream>
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -11,6 +12,7 @@
 #include "Core/ComponentFactories.h"
 
 #include "Rendering/RenderSystem.h"
+#include "Rendering/DebugDisplay.h"
 #include "Rendering/SpriteComponent.h"
 #include "Rendering/TransformComponent.h"
 
@@ -81,7 +83,7 @@ int main()
 
     Connection* conn = new Connection(engine->getEventManager());
 
-    RenderSystem *render = new RenderSystem(engine->getEventManager(), GridComponent::Type);
+    RenderSystem *render = new RenderSystem(engine->getEventManager(), rcMgr->getFont("Content/Fonts/font.ttf"), GridComponent::Type);
     InputSystem *input = new InputSystem(engine->getEventManager(), &render->getWindow());
     IntentSystem *intentSys = new IntentSystem(engine->getEventManager(), conn);
     ScriptSystem *scripting = new ScriptSystem(engine->getEventManager(), engine);
@@ -160,6 +162,11 @@ int main()
 
         if (accum >= 1.f)
         {
+            std::stringstream fps;
+            std::string sFps;
+            fps << frames;
+            fps >> sFps;
+            render->getDebugDisplay()->setMessage("FPS", sFps);
             //std::cout << "FPS: " << frames << std::endl;
             accum = 0;
             frames = 0;

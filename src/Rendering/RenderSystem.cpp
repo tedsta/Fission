@@ -1,21 +1,24 @@
 #include "Rendering/RenderSystem.h"
 
+#include "Rendering/DebugDisplay.h"
 #include "Rendering/TransformComponent.h"
 #include "Rendering/RenderComponent.h"
 #include "Rendering/SpriteComponent.h"
 
 #include <iostream>
 
-RenderSystem::RenderSystem(EventManager *eventManager, TypeBits renderableTypeBits) :
+RenderSystem::RenderSystem(EventManager *eventManager, sf::Font* debugFont, TypeBits renderableTypeBits) :
     System(eventManager, TransformComponent::Type, SpriteComponent::Type|renderableTypeBits)
 {
     mWindow.create(sf::VideoMode(800,600,32), "Fission");
     mView = mWindow.getView();
+    mDebugDisplay = new DebugDisplay(debugFont);
 }
 
 RenderSystem::~RenderSystem()
 {
     //mWindow.close();
+    delete mDebugDisplay;
 }
 
 void RenderSystem::begin(const float dt)
@@ -40,5 +43,7 @@ void RenderSystem::processEntity(Entity* entity, const float dt)
 
 void RenderSystem::end(const float dt)
 {
+    mWindow.setView(mWindow.getDefaultView());
+    mDebugDisplay->render(mWindow);
     mWindow.display(); // Display to the window
 }

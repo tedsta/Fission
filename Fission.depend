@@ -1,8 +1,9 @@
 # depslib dependency file v1.0
-1383557562 source:c:\users\teddy\programming\fission\main.cpp
+1384104708 source:c:\users\teddy\programming\fission\main.cpp
 	<iostream>
 	<bitset>
 	<cstdlib>
+	<sstream>
 	<SFML/Window/Event.hpp>
 	<SFML/Graphics/Texture.hpp>
 	"Core/Engine.h"
@@ -10,6 +11,7 @@
 	"Core/ResourceManager.h"
 	"Core/ComponentFactories.h"
 	"Rendering/RenderSystem.h"
+	"Rendering/DebugDisplay.h"
 	"Rendering/SpriteComponent.h"
 	"Rendering/TransformComponent.h"
 	"Input/InputSystem.h"
@@ -243,8 +245,9 @@
 1382854063 c:\users\teddy\programming\fission\include\core\componentfactories.h
 	"Core/Component.h"
 
-1383182107 c:\users\teddy\programming\fission\include\rendering\rendersystem.h
+1384104536 c:\users\teddy\programming\fission\include\rendering\rendersystem.h
 	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/Graphics/Font.hpp>
 	"Core/System.h"
 
 1375438920 c:\users\teddy\programming\fission\extlibs\include\sfml\graphics\renderwindow.hpp
@@ -521,8 +524,9 @@
 	"Network/NetworkEvents.h"
 	<iostream>
 
-1383182114 source:c:\users\teddy\programming\fission\src\rendering\rendersystem.cpp
+1384104770 source:c:\users\teddy\programming\fission\src\rendering\rendersystem.cpp
 	"Rendering/RenderSystem.h"
+	"Rendering/DebugDisplay.h"
 	"Rendering/TransformComponent.h"
 	"Rendering/RenderComponent.h"
 	"Rendering/SpriteComponent.h"
@@ -552,7 +556,7 @@
 	"Rendering/TransformComponent.h"
 	"Network/IntentComponent.h"
 
-1383472753 source:c:\users\teddy\programming\fission\src\gridcomponent.cpp
+1384104950 source:c:\users\teddy\programming\fission\src\gridcomponent.cpp
 	"GridComponent.h"
 	<cmath>
 	<iostream>
@@ -608,7 +612,7 @@
 	<SFML/System/Vector2.hpp>
 	"Core/Component.h"
 
-1383557710 source:c:\users\teddy\programming\fission\src\playersystem.cpp
+1383585370 source:c:\users\teddy\programming\fission\src\playersystem.cpp
 	"PlayerSystem.h"
 	"Core/Math.h"
 	"Rendering/RenderSystem.h"
@@ -636,7 +640,7 @@
 1383281864 c:\users\teddy\programming\fission\include\gridops.h
 	"GridSystem.h"
 
-1383556614 source:c:\users\teddy\programming\fission\src\gridops.cpp
+1383693777 source:c:\users\teddy\programming\fission\src\gridops.cpp
 	"GridOps.h"
 	<iostream>
 	"GridComponent.h"
@@ -654,4 +658,25 @@
 
 1383188763 c:\users\teddy\programming\fission\include\placeablecomponent.h
 	"Core/Component.h"
+
+1384105380 source:c:\users\teddy\programming\fission\src\rendering\debugdisplay.cpp
+	"Rendering/DebugDisplay.h"
+	<SFML/Graphics/Text.hpp>
+
+1384104370 c:\users\teddy\programming\fission\include\rendering\debugdisplay.h
+	<string>
+	<map>
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+
+1375438920 c:\users\teddy\programming\fission\extlibs\include\sfml\graphics\text.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/System/String.hpp>
+	<string>
+	<vector>
 

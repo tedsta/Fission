@@ -155,12 +155,27 @@ int vert(int top, int bot, int offset)
     return flow;
 }
 
-int horiz(int p, int s)
+int horiz(int p, int s, int po, int so)
 {
-    int total = (p)+(s);
+    int pMaxFill = std::min(MAX_FLUID+po*compress, 255);
+    int sMaxFill = std::min(MAX_FLUID+so*compress, 255);
     int flow = 0;
 
-    //flow = (s-p)/3;
+    if (p > s && po > so)
+    {
+        flow = -compress;
+    }
+    else if (s > p && so > po)
+        flow = compress;
+
+    /*if (top > 0 && top <= topMaxFill && bot < botMaxFill)
+        flow = std::min<int>(top, botMaxFill-bot);
+
+    else if (bot > botMaxFill && top < 255)
+    {
+        //std::cout << "Top: " << top << std::endl << "Bot: " << bot << std::endl << "Max: " << maxFill << std::endl;
+        flow = -std::min(bot-botMaxFill, 255-top);
+    }*/
 
     return flow;
 }
@@ -170,6 +185,19 @@ Area fluidGridOp(Area a)
     if (!isFluid(a.mTiles[1][1].mMat))
         return a;
 
+    if (a.mTiles[1][1].mMat == 4)
+    {
+        if (a.mTiles[0][1].mMat != 4)
+        {
+            a.mTiles[1][1].mSignal = 0;
+            a.mChanged = true;
+        }
+        else if (a.mTiles[1][1].mSignal != a.mTiles[0][1].mSignal+1)
+        {
+            a.mTiles[1][1].mSignal = a.mTiles[0][1].mSignal+1;
+            a.mChanged = true;
+        }
+    }
 
     int mat00 = a.mTiles[0][0].mMat;
     int mat01 = a.mTiles[0][1].mMat;
@@ -211,12 +239,35 @@ Area fluidGridOp(Area a)
     int tmpFlow = flow;
 
     if (isFluid(mat10))
-        flow += -horiz(m11+tmpFlow, m10 - (isFluid(mat20) ? vert(m10, m20, o10) : 0));
-    //std::cout << "Flow step 2: " << (isFluid(mat20) ? vert(m10, m20) : 0) << std::endl;
+    {
+        flow += horiz(mat11+tmpFlow, mat10, o11, o10);
+        /*int leftVertFlow = 0;
+        if (isFluid(mat20))
+            leftVertFlow -= vert(m10, m20, o10);
+        if (isFluid(mat00))
+            leftVertFlow += vert(m00, m10, o00);
 
-    if (isFluid(mat12))
-        flow += -horiz(m11+tmpFlow, m12 - (isFluid(mat22) ? vert(m12, m22, o12) : 0));
-    //std::cout << "Flow step 2: " << (isFluid(mat22) ? vert(m12, m22) : 0) << std::endl;
+        if (m10+leftVertFlow >= m11+tmpFlow+compress)
+            flow += compress;
+        else if (m11+tmpFlow >= m10+leftVertFlow+compress)
+            flow -= compress;*/
+        //flow += -horiz(m11+tmpFlow, m10 - (isFluid(mat20) ? vert(m10, m20, o10) : 0));
+    }
+
+    /*if (isFluid(mat12))
+    {
+        int rightVertFlow = 0;
+        if (isFluid(mat22))
+            rightVertFlow -= vert(m12, m22, o12);
+        if (isFluid(mat02))
+            rightVertFlow += vert(m02, m12, o02);
+
+        if (m12+rightVertFlow >= m11+tmpFlow+compress)
+            flow += compress;
+        else if (m11+tmpFlow >= m12+rightVertFlow+compress)
+            flow -= compress;
+        //flow += -horiz(m11+tmpFlow, m12 - (isFluid(mat22) ? vert(m12, m22, o12) : 0));
+    }*/
 
     a.mTiles[1][1].mFluid += flow;
 
@@ -308,68 +359,64 @@ Area fluidGridOp(Area a)
 
 void flowVert(Area& a)
 {
-    for (int x = 0; x < 3; x++)
+    /*for (int x = 0; x < 3; x++)
     {
         int upMat = a.mTiles[0][x].mMat;
         int midMat = a.mTiles[1][x].mMat;
         int downMat = a.mTiles[2][x].mMat;
 
-        int oldUp = a.mTiles[0][x].mState;
-        int oldMid = a.mTiles[1][x].mState;
-        int oldDown = a.mTiles[2][x].mState;
+        int up = a.mTiles[0][x].mFluid;
+        int mid = a.mTiles[1][x].mFluid;
+        int down = a.mTiles[2][x].mFluid;
 
-        int up = a.mTiles[0][x].mState;
-        int mid = a.mTiles[1][x].mState;
-        int down = a.mTiles[2][x].mState;
+        int upO = a.mTiles[0][x].mSignal;
+        int midO = a.mTiles[1][x].mSignal;
+        int downO = a.mTiles[2][x].mSignal;
 
-        int maxFill = MAX_FLUID;
-
-        // Mid to down
-        if (isFluid(midMat) && isFluid(downMat))
+        if (a.mTiles[1][1].mMat == 4)
         {
-            maxFill = std::max(MAX_FLUID, std::min(mid+1, 255));
-            if (mid > 0 && down < maxFill)
+            if (a.mTiles[0][1].mMat != 4)
             {
-                int tofill = std::min<int>(mid, maxFill-down);
-                int change = tofill;
-                down += change;
-                mid -= change;
+                a.mTiles[1][1].mSignal = 0;
                 a.mChanged = true;
             }
-            else if (down > maxFill && down > mid)
+            else if (a.mTiles[1][1].mSignal != a.mTiles[0][1].mSignal+1)
             {
-                int tofill = std::min<int>(down-maxFill, 255-mid);
-                int change = tofill;
-                mid += change;
-                down -= change;
+                a.mTiles[1][1].mSignal = a.mTiles[0][1].mSignal+1;
                 a.mChanged = true;
             }
         }
 
-        // Up to mid
-        if (isFluid(upMat) && isFluid(midMat))
-        {
-            maxFill = std::max(MAX_FLUID, std::min(oldUp+1, 255));
-            if (oldUp > 0 && oldMid < maxFill)
-            {
-                int tofill = std::min<int>(up, maxFill-oldMid);
-                int change = tofill;
-                mid += change;
-                up -= change;
-                a.mChanged = true;
-            }
-            else if (oldMid > maxFill && oldMid > oldUp)
-            {
-                int tofill = std::min<int>(oldMid-maxFill, 255-oldUp);
-                int change = tofill;
-                up += change;
-                mid -= change;
-                a.mChanged = true;
-            }
-        }
+        int o01 = a.mTiles[0][1].mSignal;
+        int o02 = a.mTiles[0][2].mSignal;
+        int o10 = a.mTiles[1][0].mSignal;
+        int o11 = a.mTiles[1][1].mSignal;
+        int o12 = a.mTiles[1][2].mSignal;
+        int o20 = a.mTiles[2][0].mSignal;
+        int o21 = a.mTiles[2][1].mSignal;
+        int o22 = a.mTiles[2][2].mSignal;
 
-        a.mTiles[0][x].mState = up;
+        int flow = 0;
+        if (isFluid(mat21))
+            flow -= vert(m11, m21, o11);
+
+        if (isFluid(mat01))
+            flow += vert(m01, m11, o01);
+
+        int tmpFlow = flow;
+
+        if (isFluid(mat10))
+            flow += -horiz(m11+tmpFlow, m10 - (isFluid(mat20) ? vert(m10, m20, o10) : 0));
+        //std::cout << "Flow step 2: " << (isFluid(mat20) ? vert(m10, m20) : 0) << std::endl;
+
+        if (isFluid(mat12))
+            flow += -horiz(m11+tmpFlow, m12 - (isFluid(mat22) ? vert(m12, m22, o12) : 0));
+        //std::cout << "Flow step 2: " << (isFluid(mat22) ? vert(m12, m22) : 0) << std::endl;
+
+        a.mTiles[1][1].mFluid += flow;
+
+        a.mTiles[0][x].mFluid = up;
         a.mTiles[1][x].mState = mid;
         a.mTiles[2][x].mState = down;
-    }
+    }*/
 }

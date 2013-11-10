@@ -2,13 +2,16 @@
 #define RENDERSYSTEM_H
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Font.hpp>
 
 #include "Core/System.h"
+
+class DebugDisplay;
 
 class RenderSystem : public System
 {
     public:
-        RenderSystem(EventManager *eventManager, TypeBits renderableTypeBits = 0);
+        RenderSystem(EventManager *eventManager, sf::Font* debugFont = NULL, TypeBits renderableTypeBits = 0);
         virtual ~RenderSystem();
 
         // Setters
@@ -22,6 +25,9 @@ class RenderSystem : public System
 
         /// \brief Return a reference to the SFML view
         sf::View& getView(){return mView;}
+
+        /// \brief Get the debug display
+        DebugDisplay* getDebugDisplay(){return mDebugDisplay;}
 
     protected:
         /// \brief begin function for systems
@@ -42,6 +48,9 @@ class RenderSystem : public System
 
         /// The background color
         sf::Color mBackgroundColor;
+
+        /// The debug display
+        DebugDisplay* mDebugDisplay;
 };
 
 #endif // RENDERSYSTEM_H

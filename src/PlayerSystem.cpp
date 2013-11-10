@@ -70,7 +70,7 @@ void PlayerSystem::processEntity(Entity *entity, const float dt)
 
 	if (mRndSys)
     {
-		if (player->mCam != trans->getPosition())
+		if (length(player->mCam-trans->getPosition()) > 5)
         {
 			sf::Vector2f dist = trans->getPosition() - player->mCam;
 			sf::Vector2f dir = normalize(dist);
