@@ -75,6 +75,13 @@ void Scene::deserialize(sf::Packet &packet)
     }
 }
 
+Entity* Scene::createEntity()
+{
+    Entity* e = new Entity(mEventManager);
+    addEntity(e);
+    return e;
+}
+
 void Scene::addEntity(Entity *entity)
 {
     entity->mID = mNextID;

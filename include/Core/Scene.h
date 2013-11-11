@@ -29,8 +29,11 @@ class Scene
         /// \brief Deserialize the scene.
         void deserialize(sf::Packet &packet);
 
+        /// \brief Create an entity and add it to the scene
+        Entity* createEntity();
+
         /// \brief Add a game object to the scene.
-        void addEntity(Entity *object);
+        void addEntity(Entity* object);
 
         /// \brief Destroy a game object and remove it from the scene.
         void destroyEntity(Entity *object);

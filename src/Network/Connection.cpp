@@ -159,7 +159,7 @@ void Connection::update(const float dt)
 
                 int hndID;
                 packet >> hndID;
-                if (hndID >= 0 && hndID < mHandlers.size())
+                if (hndID >= 0 && hndID < int(mHandlers.size()))
                     mHandlers[hndID]->handlePacket(packet, peer->mID);
 
                 enet_packet_destroy(event.packet);

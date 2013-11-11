@@ -19,9 +19,9 @@ enum
 
 struct Tile
 {
-    Tile() : mMat(0), mState(0), mFluid(0), mHeat(0), mForce(0), mSignal(0) {}
-    Tile(sf::Uint8 mat, sf::Uint8 state = 0, sf::Uint8 fluid = 0, sf::Uint8 heat = 0, sf::Uint8 force = 0, sf::Uint8 signal = 0) :
-        mMat(mat), mState(state), mFluid(fluid), mHeat(heat), mForce(force), mSignal(signal) {}
+    Tile() : mMat(0), mState(0), mFluid(0), mWire(0), mSignal(0) {}
+    Tile(sf::Uint8 mat, sf::Uint8 state = 0, sf::Uint8 fluid = 0, sf::Uint8 wire = 0, sf::Uint8 signal = 0) :
+        mMat(mat), mState(state), mFluid(fluid), mWire(wire), mSignal(signal) {}
 
 	sf::Uint8 mMat;
 	sf::Uint8 mState;
@@ -29,8 +29,7 @@ struct Tile
 	// status
 	sf::Uint8 mComp[MAX_COMPS]; // composit id, quantity
 	sf::Uint8 mFluid;
-	sf::Uint8 mHeat;
-	sf::Uint8 mForce;
+	sf::Uint8 mWire;
 	sf::Uint8 mSignal;
 };
 

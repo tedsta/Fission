@@ -65,17 +65,6 @@ void GridComponent::render(sf::RenderTarget& target, sf::RenderStates states)
 			int x = wrapX(_x);
 			int y = _y;
 
-			if (mTiles[y][x].mMat == 0 || mTiles[y][x].mMat >= TileSheets.size())
-				continue;
-
-			// Grab tile sheet info
-			sf::Texture* sheet = TileSheets[mTiles[y][x].mMat];
-			if (!sheet)
-                continue;
-
-			int sheetSizeX = sheet->getSize().x / TILE_SIZE;
-			int sheetSizeY = sheet->getSize().y / TILE_SIZE;
-
 			auto start = sf::Vector2f(tsize * static_cast<float>(_x), tsize * static_cast<float>(_y)); // Tile start draw
 			verts[0] = sf::Vertex(start,
 				sf::Color(255, 255, 255, 255),
@@ -90,18 +79,6 @@ void GridComponent::render(sf::RenderTarget& target, sf::RenderStates states)
 				sf::Color(255, 255, 255, 255),
 				sf::Vector2f(tsize, 0));
 
-			float texStartX = float(int(mTiles[y][x].mState)%sheetSizeX) * tsize;
-			float texStartY = float(int(mTiles[y][x].mState)/sheetSizeY) * tsize;
-
-			verts[0].texCoords.x += texStartX;
-			verts[0].texCoords.y += texStartY;
-			verts[1].texCoords.x += texStartX;
-			verts[1].texCoords.y += texStartY;
-			verts[2].texCoords.x += texStartX;
-			verts[2].texCoords.y += texStartY;
-			verts[3].texCoords.x += texStartX;
-			verts[3].texCoords.y += texStartY;
-
             if (mTiles[y][x].mMat == 4)
             {
                 states.texture = NULL;
@@ -109,11 +86,54 @@ void GridComponent::render(sf::RenderTarget& target, sf::RenderStates states)
                 verts[1].color = sf::Color(255, 0, 0, mTiles[y][x].mFluid);
                 verts[2].color = sf::Color(255, 0, 0, mTiles[y][x].mFluid);
                 verts[3].color = sf::Color(255, 0, 0, mTiles[y][x].mFluid);
+                target.draw(verts, states);
+            }
+            else if (mTiles[y][x].mWire == 1)
+            {
+                states.texture = NULL;
+                verts[0].color = sf::Color(0, 0, 255, 255);
+                verts[1].color = sf::Color(0, 0, 255, 255);
+                verts[2].color = sf::Color(0, 0, 255, 255);
+                verts[3].color = sf::Color(0, 0, 255, 255);
+                target.draw(verts, states);
+            }
+            else if (mTiles[y][x].mWire == 2)
+            {
+                states.texture = NULL;
+                verts[0].color = sf::Color(0, 255, 0, 255);
+                verts[1].color = sf::Color(0, 255, 0, 255);
+                verts[2].color = sf::Color(0, 255, 0, 255);
+                verts[3].color = sf::Color(0, 255, 0, 255);
+                target.draw(verts, states);
             }
             else
-                states.texture = sheet;
+            {
+                if (mTiles[y][x].mMat == 0 || mTiles[y][x].mMat >= TileSheets.size())
+                    continue;
 
-			target.draw(verts, states);
+                // Grab tile sheet info
+                sf::Texture* sheet = TileSheets[mTiles[y][x].mMat];
+                if (!sheet)
+                    continue;
+
+                int sheetSizeX = sheet->getSize().x / TILE_SIZE;
+                int sheetSizeY = sheet->getSize().y / TILE_SIZE;
+
+                float texStartX = float(int(mTiles[y][x].mState)%sheetSizeX) * tsize;
+                float texStartY = float(int(mTiles[y][x].mState)/sheetSizeY) * tsize;
+
+                verts[0].texCoords.x += texStartX;
+                verts[0].texCoords.y += texStartY;
+                verts[1].texCoords.x += texStartX;
+                verts[1].texCoords.y += texStartY;
+                verts[2].texCoords.x += texStartX;
+                verts[2].texCoords.y += texStartY;
+                verts[3].texCoords.x += texStartX;
+                verts[3].texCoords.y += texStartY;
+
+                states.texture = sheet;
+                target.draw(verts, states);
+            }
 
 			/*if joelMode {
 				for i, c := range mTiles[y][x].comp {
@@ -278,7 +298,7 @@ void GridComponent::setTile(int x, int y, Tile tile, int tick)
 	x = wrapX(x);
 
 	if (mTiles[y][x].mMat == tile.mMat && mTiles[y][x].mFluid == tile.mFluid &&
-        mTiles[y][x].mForce == tile.mForce && mTiles[y][x].mHeat == tile.mHeat && mTiles[y][x].mSignal == tile.mSignal)
+        mTiles[y][x].mWire == tile.mWire && mTiles[y][x].mSignal == tile.mSignal)
 	{
 		return;
 	}

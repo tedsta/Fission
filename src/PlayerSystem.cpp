@@ -96,7 +96,7 @@ void PlayerSystem::processEntity(Entity *entity, const float dt)
 			mousePos -= mRndSys->getView().getSize()/2.f;
 			sf::Vector2f pos = grid->getTilePos(pt, mousePos);
 			//if (length(mousePos - trans->getPosition()) < 16*10) //16 pixels per tile, 10 tiles
-				grid->setTile(int(pos.x), int(pos.y), Tile(), -1);
+				grid->setTile(int(pos.x), int(pos.y), Tile(0, 0, 0, 2), -1);
 		}
 		if (intent->isIntentActive("place"))
 		{
@@ -105,7 +105,7 @@ void PlayerSystem::processEntity(Entity *entity, const float dt)
 			mousePos -= mRndSys->getView().getSize()/2.f;
 			sf::Vector2f pos = grid->getTilePos(pt, mousePos);
 			//if (length(mousePos - trans->getPosition()) < 16*10) //16 pixels per tile, 10 tiles
-				grid->setTile(int(pos.x), int(pos.y), Tile(4, 0, 127), -1);
+				grid->setTile(int(pos.x), int(pos.y), Tile(0, 0, 0, 1), -1);
 		}
 		if (intent->isIntentActive("test"))
 		{
@@ -115,7 +115,8 @@ void PlayerSystem::processEntity(Entity *entity, const float dt)
 			sf::Vector2f pos = grid->getTilePos(pt, mousePos);
             pos.x = grid->wrapX(pos.x);
 			//if (length(mousePos - trans->getPosition()) < 16*10) //16 pixels per tile, 10 tiles
-				std::cout << "Water: " << int(grid->getTile(pos.x, pos.y).mFluid) << std::endl;
+				//std::cout << "Water: " << int(grid->getTile(pos.x, pos.y).mFluid) << std::endl;
+				grid->setTile(int(pos.x), int(pos.y), Tile(0, 0, 0, 3), -1);
 		}
 	}
 }

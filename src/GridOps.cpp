@@ -18,6 +18,32 @@ Area veggyGridOp(Area a)
 	return a;
 }
 
+Area wireGridOp(Area a)
+{
+    if (a.mTiles[1][1].mWire == 0)
+        return a;
+
+    if (a.mTiles[1][1].mWire == 3)
+    {
+        a.mTiles[1][1].mWire = 1;
+        a.mChanged = true;
+    }
+    else if (a.mTiles[1][1].mWire == 2 && (a.mTiles[0][1].mWire == 3 || a.mTiles[1][0].mWire == 3 ||
+                                      a.mTiles[1][2].mWire == 3 || a.mTiles[2][1].mWire == 3))
+    {
+        a.mTiles[1][1].mWire = 3;
+        a.mChanged = true;
+    }
+    else if (a.mTiles[1][1].mWire == 1 && (a.mTiles[0][1].mWire == 2 || a.mTiles[1][0].mWire == 2 ||
+                                      a.mTiles[1][2].mWire == 2 || a.mTiles[2][1].mWire == 2))
+    {
+        a.mTiles[1][1].mWire = 2;
+        a.mChanged = true;
+    }
+
+	return a;
+}
+
 // ******************************************************************************************************
 
 const float MaxMass = 1.f;

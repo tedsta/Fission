@@ -37,6 +37,7 @@ void bindSquirrel(HSQUIRRELVM vm, Engine *_engine)
     Sqrat::RootTable(vm).Bind("Entity", entity);
 
     Sqrat::Class<Scene> scene(vm);
+    scene.Func("createEntity", &Scene::createEntity);
     scene.Func("findEntity", &Scene::findEntity);
     scene.Func("clear", &Scene::clear);
     Sqrat::RootTable(vm).Bind("Scene", scene);
@@ -48,7 +49,7 @@ void bindSquirrel(HSQUIRRELVM vm, Engine *_engine)
     Sqrat::RootTable(vm).SetInstance("engine", _engine);
 }
 
-ScriptSystem::ScriptSystem(EventManager *eventManager, Engine *engine) : System(eventManager, 16), mVM(sq_open(1024)), mEngine(engine)
+ScriptSystem::ScriptSystem(EventManager *eventManager, Engine *engine) : System(eventManager, ScriptComponent::Type), mVM(sq_open(1024)), mEngine(engine)
 {
     bindSquirrel(mVM, mEngine);
 }

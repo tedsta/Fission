@@ -29,6 +29,10 @@
 #include "GridComponent.h"
 #include "PhysicsComponent.h"
 #include "PlayerComponent.h"
+#include "PlaceableComponent.h"
+#include "InventoryComponent.h"
+#include "ItemComponent.h"
+
 #include "GridSystem.h"
 #include "PhysicsSystem.h"
 #include "PlayerSystem.h"
@@ -80,6 +84,9 @@ int main()
     GridComponent::Type = ComponentFactories::add(GridComponent::factory);
     PhysicsComponent::Type = ComponentFactories::add(PhysicsComponent::factory);
     PlayerComponent::Type = ComponentFactories::add(PlayerComponent::factory);
+    PlaceableComponent::Type = ComponentFactories::add(PlaceableComponent::factory);
+    InventoryComponent::Type = ComponentFactories::add(InventoryComponent::factory);
+    ItemComponent::Type = ComponentFactories::add(ItemComponent::factory);
 
     Connection* conn = new Connection(engine->getEventManager());
 
@@ -104,10 +111,11 @@ int main()
     GridComponent::addTileSheet(1, rcMgr->getTexture("Content/Textures/Tiles/dirt.png"));
     GridComponent::addTileSheet(2, rcMgr->getTexture("Content/Textures/Tiles/stone.png"));
     GridComponent::addTileSheet(3, rcMgr->getTexture("Content/Textures/Tiles/grass.png"));
-    GridComponent::addTileSheet(4, rcMgr->getTexture("Content/Textures/Tiles/grass.png"));
+    GridComponent::addTileSheet(5, rcMgr->getTexture("Content/Textures/Tiles/grass.png"));
 
     gridSys->addTick(veggyGridOp, 0.1);
     gridSys->addTick(fluidGridOp, 0.05);
+    gridSys->addTick(wireGridOp, 0.01);
 
     Scene *scene = engine->getScene();
 
@@ -143,7 +151,7 @@ int main()
         Entity *planet = new Entity(engine->getEventManager());
         scene->addEntity(planet);
         planet->addComponent(new TransformComponent(sf::Vector2f(0, 0)));
-        planet->addComponent(new GridComponent(1000, 1000, tiles, 2));
+        planet->addComponent(new GridComponent(1000, 1000, tiles, 3));
         planet->addComponent(new ScriptComponent(scripting->createScript("test.nut")));
         physSys->addGrid(planet);
     }
@@ -214,7 +222,7 @@ Tile** newWorld(int seed)
                 {
 					tiles[y][x].mComp[i] = o[i] * 128;
 				}
-				tiles[y][x].mHeat = p * 256;
+				//tiles[y][x].mHeat = p * 256;
 			}
 		}
 	}

@@ -76,6 +76,8 @@
 		<Unit filename="include/Input/Defs.h" />
 		<Unit filename="include/Input/Events.h" />
 		<Unit filename="include/Input/InputSystem.h" />
+		<Unit filename="include/InventoryComponent.h" />
+		<Unit filename="include/ItemComponent.h" />
 		<Unit filename="include/Network/Connection.h" />
 		<Unit filename="include/Network/IntentComponent.h" />
 		<Unit filename="include/Network/IntentSystem.h" />
@@ -85,6 +87,7 @@
 		<Unit filename="include/PlaceableComponent.h" />
 		<Unit filename="include/PlayerComponent.h" />
 		<Unit filename="include/PlayerSystem.h" />
+		<Unit filename="include/Rendering/DebugDisplay.h" />
 		<Unit filename="include/Rendering/RenderComponent.h" />
 		<Unit filename="include/Rendering/RenderSystem.h" />
 		<Unit filename="include/Rendering/SpriteComponent.h" />
@@ -105,6 +108,8 @@
 		<Unit filename="src/GridOps.cpp" />
 		<Unit filename="src/GridSystem.cpp" />
 		<Unit filename="src/Input/InputSystem.cpp" />
+		<Unit filename="src/InventoryComponent.cpp" />
+		<Unit filename="src/ItemComponent.cpp" />
 		<Unit filename="src/Network/Connection.cpp" />
 		<Unit filename="src/Network/IntentComponent.cpp" />
 		<Unit filename="src/Network/IntentSystem.cpp" />
@@ -113,6 +118,7 @@
 		<Unit filename="src/PlaceableComponent.cpp" />
 		<Unit filename="src/PlayerComponent.cpp" />
 		<Unit filename="src/PlayerSystem.cpp" />
+		<Unit filename="src/Rendering/DebugDisplay.cpp" />
 		<Unit filename="src/Rendering/RenderSystem.cpp" />
 		<Unit filename="src/Rendering/SpriteComponent.cpp" />
 		<Unit filename="src/Rendering/TransformComponent.cpp" />

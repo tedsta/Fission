@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1384104708 source:c:\users\teddy\programming\fission\main.cpp
+1384162531 source:c:\users\teddy\programming\fission\main.cpp
 	<iostream>
 	<bitset>
 	<cstdlib>
@@ -23,6 +23,9 @@
 	"GridComponent.h"
 	"PhysicsComponent.h"
 	"PlayerComponent.h"
+	"PlaceableComponent.h"
+	"InventoryComponent.h"
+	"ItemComponent.h"
 	"GridSystem.h"
 	"PhysicsSystem.h"
 	"PlayerSystem.h"
@@ -86,7 +89,7 @@
 1375921719 c:\users\teddy\programming\fission\include\core\engine.h
 	<vector>
 
-1382854199 c:\users\teddy\programming\fission\include\core\scene.h
+1384149038 c:\users\teddy\programming\fission\include\core\scene.h
 	<vector>
 	<map>
 	<SFML/Network/Packet.hpp>
@@ -467,7 +470,7 @@
 	"Core/ResourceManager.h"
 	<iostream>
 
-1382854370 source:c:\users\teddy\programming\fission\src\core\scene.cpp
+1384149085 source:c:\users\teddy\programming\fission\src\core\scene.cpp
 	"Core/Scene.h"
 	<iostream>
 	<fstream>
@@ -495,7 +498,7 @@
 	"Core/EntityEvents.h"
 	"Input/Defs.h"
 
-1383098405 source:c:\users\teddy\programming\fission\src\network\connection.cpp
+1384149123 source:c:\users\teddy\programming\fission\src\network\connection.cpp
 	<Network/Connection.h>
 	<iostream>
 	"Core/EventManager.h"
@@ -539,7 +542,7 @@
 	"Script/ScriptComponent.h"
 	<iostream>
 
-1382855278 source:c:\users\teddy\programming\fission\src\script\scriptsystem.cpp
+1384149162 source:c:\users\teddy\programming\fission\src\script\scriptsystem.cpp
 	"Script/ScriptSystem.h"
 	<stdio.h>
 	<stdarg.h>
@@ -556,14 +559,14 @@
 	"Rendering/TransformComponent.h"
 	"Network/IntentComponent.h"
 
-1384104950 source:c:\users\teddy\programming\fission\src\gridcomponent.cpp
+1384135136 source:c:\users\teddy\programming\fission\src\gridcomponent.cpp
 	"GridComponent.h"
 	<cmath>
 	<iostream>
 	<SFML/Graphics/Texture.hpp>
 	<SFML/Graphics/VertexArray.hpp>
 
-1383557271 c:\users\teddy\programming\fission\include\gridcomponent.h
+1384130558 c:\users\teddy\programming\fission\include\gridcomponent.h
 	<SFML/Graphics/Transformable.hpp>
 	<SFML/System/Vector2.hpp>
 	"Rendering/RenderComponent.h"
@@ -612,7 +615,7 @@
 	<SFML/System/Vector2.hpp>
 	"Core/Component.h"
 
-1383585370 source:c:\users\teddy\programming\fission\src\playersystem.cpp
+1384135764 source:c:\users\teddy\programming\fission\src\playersystem.cpp
 	"PlayerSystem.h"
 	"Core/Math.h"
 	"Rendering/RenderSystem.h"
@@ -637,10 +640,10 @@
 	<SFML/System/Clock.hpp>
 	<SFML/System/Vector2.hpp>
 
-1383281864 c:\users\teddy\programming\fission\include\gridops.h
+1384135205 c:\users\teddy\programming\fission\include\gridops.h
 	"GridSystem.h"
 
-1383693777 source:c:\users\teddy\programming\fission\src\gridops.cpp
+1384136904 source:c:\users\teddy\programming\fission\src\gridops.cpp
 	"GridOps.h"
 	<iostream>
 	"GridComponent.h"
@@ -679,4 +682,23 @@
 	<SFML/System/String.hpp>
 	<string>
 	<vector>
+
+1384137187 source:c:\users\teddy\programming\fission\src\inventorycomponent.cpp
+	"InventoryComponent.h"
+
+1384137150 c:\users\teddy\programming\fission\include\inventorycomponent.h
+	"Core/Component.h"
+
+1384149556 source:c:\users\teddy\programming\fission\src\itemcomponent.cpp
+	"ItemComponent.h"
+	"Core/Scene.h"
+	"Core/Entity.h"
+	"Rendering/TransformComponent.h"
+	"Rendering/SpriteComponent.h"
+	"PhysicsComponent.h"
+
+1384149523 c:\users\teddy\programming\fission\include\itemcomponent.h
+	<Sqrat/sqrat.h>
+	<SFML/Graphics/Texture.hpp>
+	"Core/Component.h"
 
