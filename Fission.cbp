@@ -7,10 +7,10 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/TestEngine" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="bin/Debug/" />
+				<Option output="bin/Debug/Fission" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
 				<Option object_output="obj/Debug/" />
-				<Option type="1" />
+				<Option type="2" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
@@ -28,9 +28,10 @@
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/TestEngine" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/Fission" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
 				<Option object_output="obj/Release/" />
-				<Option type="1" />
+				<Option type="2" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
@@ -57,73 +58,50 @@
 			<Add directory="extlibs/include" />
 			<Add directory="extlibs/include/Squirrel" />
 		</Compiler>
-		<Unit filename="include/Core/Component.h" />
-		<Unit filename="include/Core/ComponentFactories.h" />
-		<Unit filename="include/Core/Engine.h" />
-		<Unit filename="include/Core/Entity.h" />
-		<Unit filename="include/Core/EntityEvents.h" />
-		<Unit filename="include/Core/Event.h" />
-		<Unit filename="include/Core/EventManager.h" />
-		<Unit filename="include/Core/Math.h" />
-		<Unit filename="include/Core/RefCounted.h" />
-		<Unit filename="include/Core/ResourceManager.h" />
-		<Unit filename="include/Core/Scene.h" />
-		<Unit filename="include/Core/System.h" />
-		<Unit filename="include/Core/config.h" />
-		<Unit filename="include/GridComponent.h" />
-		<Unit filename="include/GridOps.h" />
-		<Unit filename="include/GridSystem.h" />
-		<Unit filename="include/Input/Defs.h" />
-		<Unit filename="include/Input/Events.h" />
-		<Unit filename="include/Input/InputSystem.h" />
-		<Unit filename="include/InventoryComponent.h" />
-		<Unit filename="include/ItemComponent.h" />
-		<Unit filename="include/Network/Connection.h" />
-		<Unit filename="include/Network/IntentComponent.h" />
-		<Unit filename="include/Network/IntentSystem.h" />
-		<Unit filename="include/Network/NetworkEvents.h" />
-		<Unit filename="include/PhysicsComponent.h" />
-		<Unit filename="include/PhysicsSystem.h" />
-		<Unit filename="include/PlaceableComponent.h" />
-		<Unit filename="include/PlayerComponent.h" />
-		<Unit filename="include/PlayerSystem.h" />
-		<Unit filename="include/Rendering/DebugDisplay.h" />
-		<Unit filename="include/Rendering/RenderComponent.h" />
-		<Unit filename="include/Rendering/RenderSystem.h" />
-		<Unit filename="include/Rendering/SpriteComponent.h" />
-		<Unit filename="include/Rendering/TransformComponent.h" />
-		<Unit filename="include/Script/ScriptComponent.h" />
-		<Unit filename="include/Script/ScriptSystem.h" />
-		<Unit filename="main.cpp" />
-		<Unit filename="perlin/perlin.cpp" />
-		<Unit filename="perlin/perlin.h" />
-		<Unit filename="src/Core/ComponentFactories.cpp" />
-		<Unit filename="src/Core/Engine.cpp" />
-		<Unit filename="src/Core/Entity.cpp" />
-		<Unit filename="src/Core/EventManager.cpp" />
-		<Unit filename="src/Core/ResourceManager.cpp" />
-		<Unit filename="src/Core/Scene.cpp" />
-		<Unit filename="src/Core/System.cpp" />
-		<Unit filename="src/GridComponent.cpp" />
-		<Unit filename="src/GridOps.cpp" />
-		<Unit filename="src/GridSystem.cpp" />
-		<Unit filename="src/Input/InputSystem.cpp" />
-		<Unit filename="src/InventoryComponent.cpp" />
-		<Unit filename="src/ItemComponent.cpp" />
-		<Unit filename="src/Network/Connection.cpp" />
-		<Unit filename="src/Network/IntentComponent.cpp" />
-		<Unit filename="src/Network/IntentSystem.cpp" />
-		<Unit filename="src/PhysicsComponent.cpp" />
-		<Unit filename="src/PhysicsSystem.cpp" />
-		<Unit filename="src/PlaceableComponent.cpp" />
-		<Unit filename="src/PlayerComponent.cpp" />
-		<Unit filename="src/PlayerSystem.cpp" />
-		<Unit filename="src/Rendering/DebugDisplay.cpp" />
-		<Unit filename="src/Rendering/RenderSystem.cpp" />
-		<Unit filename="src/Rendering/SpriteComponent.cpp" />
-		<Unit filename="src/Rendering/TransformComponent.cpp" />
-		<Unit filename="src/Script/ScriptComponent.cpp" />
-		<Unit filename="src/Script/ScriptSystem.cpp" />
+		<Unit filename="include/Fission/Core/Component.h" />
+		<Unit filename="include/Fission/Core/ComponentFactories.h" />
+		<Unit filename="include/Fission/Core/Engine.h" />
+		<Unit filename="include/Fission/Core/Entity.h" />
+		<Unit filename="include/Fission/Core/EntityEvents.h" />
+		<Unit filename="include/Fission/Core/Event.h" />
+		<Unit filename="include/Fission/Core/EventManager.h" />
+		<Unit filename="include/Fission/Core/Math.h" />
+		<Unit filename="include/Fission/Core/RefCounted.h" />
+		<Unit filename="include/Fission/Core/ResourceManager.h" />
+		<Unit filename="include/Fission/Core/Scene.h" />
+		<Unit filename="include/Fission/Core/System.h" />
+		<Unit filename="include/Fission/Core/config.h" />
+		<Unit filename="include/Fission/Input/Defs.h" />
+		<Unit filename="include/Fission/Input/Events.h" />
+		<Unit filename="include/Fission/Input/InputSystem.h" />
+		<Unit filename="include/Fission/Network/Connection.h" />
+		<Unit filename="include/Fission/Network/IntentComponent.h" />
+		<Unit filename="include/Fission/Network/IntentSystem.h" />
+		<Unit filename="include/Fission/Network/NetworkEvents.h" />
+		<Unit filename="include/Fission/Rendering/DebugDisplay.h" />
+		<Unit filename="include/Fission/Rendering/RenderComponent.h" />
+		<Unit filename="include/Fission/Rendering/RenderSystem.h" />
+		<Unit filename="include/Fission/Rendering/SpriteComponent.h" />
+		<Unit filename="include/Fission/Rendering/TransformComponent.h" />
+		<Unit filename="include/Fission/Script/ScriptComponent.h" />
+		<Unit filename="include/Fission/Script/ScriptSystem.h" />
+		<Unit filename="src/Fission/Core/ComponentFactories.cpp" />
+		<Unit filename="src/Fission/Core/Engine.cpp" />
+		<Unit filename="src/Fission/Core/Entity.cpp" />
+		<Unit filename="src/Fission/Core/EventManager.cpp" />
+		<Unit filename="src/Fission/Core/ResourceManager.cpp" />
+		<Unit filename="src/Fission/Core/Scene.cpp" />
+		<Unit filename="src/Fission/Core/System.cpp" />
+		<Unit filename="src/Fission/Input/InputSystem.cpp" />
+		<Unit filename="src/Fission/Network/Connection.cpp" />
+		<Unit filename="src/Fission/Network/IntentComponent.cpp" />
+		<Unit filename="src/Fission/Network/IntentSystem.cpp" />
+		<Unit filename="src/Fission/Rendering/DebugDisplay.cpp" />
+		<Unit filename="src/Fission/Rendering/RenderSystem.cpp" />
+		<Unit filename="src/Fission/Rendering/SpriteComponent.cpp" />
+		<Unit filename="src/Fission/Rendering/TransformComponent.cpp" />
+		<Unit filename="src/Fission/Script/ScriptComponent.cpp" />
+		<Unit filename="src/Fission/Script/ScriptSystem.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
