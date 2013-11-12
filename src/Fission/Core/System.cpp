@@ -24,7 +24,7 @@ System::~System()
 
 bool System::handleEvent(IEventData const& evt)
 {
-    switch (evt.getType())
+    switch (evt.getID())
     {
     case EVENT_ADD_ENTITY:
     case EVENT_ADD_COMPONENT:

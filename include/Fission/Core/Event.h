@@ -1,17 +1,17 @@
 #ifndef __EVENT_H__
 #define __EVENT_H__
 
-typedef unsigned int EventType;
+typedef unsigned int EventID;
 
 class IEventData
 {
     public:
-        IEventData(EventType type) : mType(type) {}
+        IEventData(EventID ID) : mID(ID) {}
 
-        EventType getType() const { return mType; }
+        EventID getID() const { return mID; }
 
     private:
-        EventType mType;
+        EventID mID;
 };
 
 class IEventListener

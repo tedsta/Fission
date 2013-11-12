@@ -12,7 +12,7 @@ EventManager::~EventManager()
 	removeAllListeners();
 }
 
-void EventManager::addListener( IEventListener *listener, EventType type )
+void EventManager::addListener( IEventListener *listener, EventID type )
 {
 	// Add the type to the listeners map if it doesn't exist.
 	EventListenerMap::iterator it = mListeners.find(type);
@@ -25,7 +25,7 @@ void EventManager::addListener( IEventListener *listener, EventType type )
 	list.push_back(listener);
 }
 
-void EventManager::removeListener( IEventListener *listener, EventType type )
+void EventManager::removeListener( IEventListener *listener, EventID type )
 {
 	EventListenerMap::iterator it = mListeners.find(type);
 	if (it != mListeners.end())
@@ -78,7 +78,7 @@ bool EventManager::fireEvent(IEventData const& evt) const
 			return true;
 	}
 
-	EventListenerMap::const_iterator it = mListeners.find(evt.getType());
+	EventListenerMap::const_iterator it = mListeners.find(evt.getID());
 	if (it != mListeners.end())
 	{
 		const EventListenerList &list = it->second;

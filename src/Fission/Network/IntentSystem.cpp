@@ -70,7 +70,7 @@ void IntentSystem::processEntity(Entity* entity, const float dt)
     {
 		for (auto e : mEvents)
 		{
-			switch (e->getType())
+			switch (e->getID())
 			{
 			case EVT_KEY:
             {
@@ -212,7 +212,7 @@ bool IntentSystem::handleEvent(IEventData const& evt)
         return true;
 
     IEventData *newEvt = NULL;
-    switch (evt.getType())
+    switch (evt.getID())
     {
     case EVT_KEY:
         newEvt = new KeyEvent(static_cast<KeyEvent const&>(evt));

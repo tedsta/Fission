@@ -18,13 +18,13 @@ enum
 
 struct EntityEvent : public IEventData
 {
-    EntityEvent(EventType evtType, Entity *e) : IEventData(evtType), mEntity(e) {}
+    EntityEvent(EventID evtType, Entity *e) : IEventData(evtType), mEntity(e) {}
     Entity *mEntity;
 };
 
 struct EntityComponentEvent : public IEventData
 {
-    EntityComponentEvent(EventType evtType, Entity *e, Component *c)
+    EntityComponentEvent(EventID evtType, Entity *e, Component *c)
         : IEventData(evtType), mEntity(e), mComponent(c) {}
 
     Entity *mEntity;

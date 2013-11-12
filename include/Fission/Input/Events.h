@@ -17,7 +17,7 @@ enum
 struct KeyEvent : public IEventData
 {
     KeyEvent(sf::Keyboard::Key key, int state) : IEventData(EVT_KEY), mKey(key), mState(state) {}
-    static EventType Type;
+    static EventID Type;
 
 	sf::Keyboard::Key mKey;
 	int mState;

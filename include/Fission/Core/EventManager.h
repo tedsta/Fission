@@ -13,10 +13,10 @@ class EventManager
 		virtual ~EventManager();
 
 		/// \brief Add a listener for a given event type.
-		void addListener(IEventListener *listener, EventType type);
+		void addListener(IEventListener *listener, EventID type);
 
 		/// \brief Remove a listener for a given event type.
-		void removeListener(IEventListener *listener, EventType type);
+		void removeListener(IEventListener *listener, EventID type);
 
 		/// \brief Add a global listener. This type of listener receives all types of events.
 		/// \note A listener that is registered as global as well as for event types will receive
@@ -34,11 +34,11 @@ class EventManager
 
 	private:
 		typedef std::list<IEventListener*> EventListenerList;
-		typedef std::map<EventType, EventListenerList> EventListenerMap;
-		typedef std::pair<EventType, EventListenerList> EventListenerMapPair;
+		typedef std::map<EventID, EventListenerList> EventListenerMap;
+		typedef std::pair<EventID, EventListenerList> EventListenerMapPair;
 
 		// A map of all the listeners connected to specific events.
-		std::map<EventType, EventListenerList> mListeners;
+		std::map<EventID, EventListenerList> mListeners;
 
 		// A list of global event listeners. These listeners receive all events regardless of type.
 		EventListenerList mGlobals;

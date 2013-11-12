@@ -15,7 +15,7 @@ enum
 
 struct NetworkEvent : public IEventData
 {
-    NetworkEvent(EventType evtType, int netID) : IEventData(evtType), mNetID(netID) {}
+    NetworkEvent(EventID evtType, int netID) : IEventData(evtType), mNetID(netID) {}
     int mNetID;
 };
 
