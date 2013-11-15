@@ -5,6 +5,7 @@
 #include <bitset>
 
 #include <SFML/Network/Packet.hpp>
+#include <Sqrat/sqrat.h>
 
 #include <Fission/Core/config.h>
 #include <Fission/Core/RefCounted.h>
@@ -22,13 +23,16 @@ class Entity : public RefCounted
         virtual ~Entity();
 
         /// \brief Serialize this entity.
-        void serialize(sf::Packet &packet) const;
+        void serialize(sf::Packet& packet) const;
 
         /// \brief Deserialize this entity.
-        void deserialize(sf::Packet &packet);
+        void deserialize(sf::Packet& packet);
 
         /// \brief Adds a new component to this entity.
-        void addComponent(Component *component);
+        void addComponent(Component* component);
+
+        /// \brief Adds a new component to this entity. For the scripts!
+        void addComponentSq(Sqrat::Object component);
 
         // Getters
 

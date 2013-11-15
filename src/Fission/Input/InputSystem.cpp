@@ -41,6 +41,8 @@ void InputSystem::begin(const float dt)
         case sf::Event::MouseMoved:
             getEventManager()->fireEvent(MouseMoveEvent(event.mouseMove.x, event.mouseMove.y));
             break;
+        default:
+            break;
         }
     }
 }

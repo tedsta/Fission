@@ -113,6 +113,10 @@ public:
         return GetObject();
     }
 
+    void SetShouldRelease(bool rel) {
+        release = rel;
+    }
+
     void Release() {
         sq_release(vm, &obj);
     }
@@ -176,7 +180,7 @@ public:
         sq_pop(vm, 1);
         return ret;
     }
-    
+
     template <class C>
     Object& SetReleaseHook(){
         sq_pushobject(vm, GetObject());
@@ -184,7 +188,7 @@ public:
         sq_pop(vm, 1);
         return *this;
     }
-       
+
     struct iterator
     {
         friend class Object;
@@ -199,7 +203,7 @@ public:
         HSQOBJECT getKey() { return Key; }
         HSQOBJECT getValue() { return Value; }
     private:
-        
+
         HSQOBJECT Key;
         HSQOBJECT Value;
         SQInteger Index;
@@ -222,8 +226,8 @@ public:
             sq_pop(vm,2);
             return false;
         }
-    }    
-    
+    }
+
 protected:
     // Bind a function and it's associated Squirrel closure to the object
     inline void BindFunc(const SQChar* name, void* method, size_t methodSize, SQFUNCTION func, bool staticVar = false) {

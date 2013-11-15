@@ -18,6 +18,9 @@ class ScriptSystem : public System
         /// \brief Creates a new script
         HSQUIRRELVM createScript(const std::string& fileName);
 
+        /// \brief Adds a new binder function
+        void addBinder(void (*binder)(HSQUIRRELVM)){mBinders.push_back(binder);binder(mVM);}
+
         // Accessors
 
         /// \brief Get the Squirrel VM
@@ -30,6 +33,8 @@ class ScriptSystem : public System
         HSQUIRRELVM mVM;
 
         Engine *mEngine;
+
+        std::vector<void (*)(HSQUIRRELVM)> mBinders; // Binding functions
 };
 
 #endif // SCRIPTSYSTEM_H

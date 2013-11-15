@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+ResourceManager* ResourceManager::Instance;
+
 ResourceManager::ResourceManager()
 {
 }
@@ -9,6 +11,23 @@ ResourceManager::ResourceManager()
 ResourceManager::~ResourceManager()
 {
     //dtor
+}
+
+void ResourceManager::add(const std::string& name, void* data)
+{
+    Resource rc;
+    rc.mName = name;
+    rc.mData = data;
+    mResources.push_back(rc);
+}
+
+void* ResourceManager::get(const std::string& name)
+{
+    Resource *rc = findResource(name);
+
+    if (rc)
+        return rc->mData;
+    return NULL;
 }
 
 sf::Texture *ResourceManager::getTexture(const std::string& name)

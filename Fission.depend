@@ -162,7 +162,7 @@
 	"sqratFunction.h"
 	"sqratGlobalMethods.h"
 
-1364184078 c:\users\teddy\programming\fission\extlibs\include\sqrat\sqrat\sqratobject.h
+1384481398 c:\users\teddy\programming\fission\extlibs\include\sqrat\sqrat\sqratobject.h
 	<squirrel.h>
 	<string.h>
 	"sqratAllocator.h"
@@ -708,15 +708,18 @@
 1384211803 c:\users\teddy\programming\fission\include\fission\core\componentfactories.h
 	<Fission/Core/Component.h>
 
-1384212185 c:\users\teddy\programming\fission\include\fission\core\component.h
+1384479304 c:\users\teddy\programming\fission\include\fission\core\component.h
 	<bitset>
 	<SFML/Network/Packet.hpp>
+	<Sqrat/sqrat.h>
 	<Fission/Core/config.h>
 	<Fission/Core/RefCounted.h>
 
 1376333182 c:\users\teddy\programming\fission\include\fission\core\config.h
 
-1375655322 c:\users\teddy\programming\fission\include\fission\core\refcounted.h
+1384482115 c:\users\teddy\programming\fission\include\fission\core\refcounted.h
+	<iostream>
+	<Sqrat/sqrat.h>
 
 1384211954 source:c:\users\teddy\programming\fission\src\fission\core\engine.cpp
 	<Fission/Core/Engine.h>
@@ -736,10 +739,11 @@
 
 1384220444 c:\users\teddy\programming\fission\include\fission\core\event.h
 
-1384212185 c:\users\teddy\programming\fission\include\fission\core\entity.h
+1384468553 c:\users\teddy\programming\fission\include\fission\core\entity.h
 	<vector>
 	<bitset>
 	<SFML/Network/Packet.hpp>
+	<Sqrat/sqrat.h>
 	<Fission/Core/config.h>
 	<Fission/Core/RefCounted.h>
 	<Fission/Core/Component.h>
@@ -755,7 +759,7 @@
 	<SFML/Network/Packet.hpp>
 	<Fission/Core/Component.h>
 
-1384211954 source:c:\users\teddy\programming\fission\src\fission\core\entity.cpp
+1384479506 source:c:\users\teddy\programming\fission\src\fission\core\entity.cpp
 	<Fission/Core/Entity.h>
 	<Fission/Core/Scene.h>
 	<Fission/Core/Component.h>
@@ -771,11 +775,11 @@
 	<assert.h>
 	<iostream>
 
-1384211954 source:c:\users\teddy\programming\fission\src\fission\core\resourcemanager.cpp
+1384399128 source:c:\users\teddy\programming\fission\src\fission\core\resourcemanager.cpp
 	<Fission/Core/ResourceManager.h>
 	<iostream>
 
-1376560128 c:\users\teddy\programming\fission\include\fission\core\resourcemanager.h
+1384399107 c:\users\teddy\programming\fission\include\fission\core\resourcemanager.h
 	<string>
 	<vector>
 	<SFML/Graphics/Font.hpp>
@@ -797,7 +801,7 @@
 	<Fission/Core/EventManager.h>
 	<Fission/Core/EntityEvents.h>
 
-1384211954 source:c:\users\teddy\programming\fission\src\fission\input\inputsystem.cpp
+1384468724 source:c:\users\teddy\programming\fission\src\fission\input\inputsystem.cpp
 	<Fission/Input/InputSystem.h>
 	<SFML/Window/Event.hpp>
 	<Fission/Core/EventManager.h>
@@ -835,7 +839,7 @@
 	<Fission/Core/EntityEvents.h>
 	<Fission/Input/Events.h>
 
-1384212828 source:c:\users\teddy\programming\fission\src\fission\network\intentcomponent.cpp
+1384393144 source:c:\users\teddy\programming\fission\src\fission\network\intentcomponent.cpp
 	<Fission/Network/IntentComponent.h>
 	<iostream>
 
@@ -895,16 +899,17 @@
 	<SFML/Graphics/RenderTarget.hpp>
 	<Fission/Core/Component.h>
 
-1384211955 c:\users\teddy\programming\fission\include\fission\rendering\spritecomponent.h
+1384399707 c:\users\teddy\programming\fission\include\fission\rendering\spritecomponent.h
 	<string>
 	<SFML/System/Clock.hpp>
 	<SFML/Graphics/Sprite.hpp>
 	<Fission/Rendering/RenderComponent.h>
 
-1384211954 source:c:\users\teddy\programming\fission\src\fission\rendering\spritecomponent.cpp
+1384400030 source:c:\users\teddy\programming\fission\src\fission\rendering\spritecomponent.cpp
 	<Fission/Rendering/SpriteComponent.h>
 	<SFML/Graphics/RenderTarget.hpp>
 	<SFML/Graphics/Texture.hpp>
+	<Fission/Core/ResourceManager.h>
 	<Fission/Rendering/TransformComponent.h>
 
 1384211954 source:c:\users\teddy\programming\fission\src\fission\rendering\transformcomponent.cpp
@@ -918,18 +923,25 @@
 	<Sqrat/sqrat.h>
 	<Fission/Core/Component.h>
 
-1384211955 source:c:\users\teddy\programming\fission\src\fission\script\scriptsystem.cpp
+1384473642 source:c:\users\teddy\programming\fission\src\fission\script\scriptsystem.cpp
 	<Fission/Script/ScriptSystem.h>
 	<stdio.h>
 	<stdarg.h>
 	<iostream>
 	<SFML/System/Vector2.hpp>
+	<Sqrat/sqext.h>
 	<Fission/Core/Entity.h>
 	<Fission/Core/Scene.h>
 	<Fission/Core/Engine.h>
 	<Fission/Script/ScriptComponent.h>
 
-1384211954 c:\users\teddy\programming\fission\include\fission\script\scriptsystem.h
+1384367876 c:\users\teddy\programming\fission\include\fission\script\scriptsystem.h
 	<Sqrat/sqrat.h>
 	<Fission/Core/System.h>
+
+1384457130 c:\users\teddy\programming\fission\extlibs\include\sqrat\sqext.h
+	<vector>
+	<string.h>
+	"squirrel.h"
+	"sqrat.h"
 

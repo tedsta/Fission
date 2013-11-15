@@ -6,7 +6,10 @@ TypeBits IntentComponent::Type;
 
 IntentComponent::IntentComponent()
 {
-    //ctor
+    for (int k = 0; k < sf::Keyboard::KeyCount; k++)
+        mKeyStates[k] = BtnState::UP;
+    for (int b = 0; b < sf::Mouse::ButtonCount; b++)
+        mMouseStates[b] = BtnState::UP;
 }
 
 IntentComponent::~IntentComponent()

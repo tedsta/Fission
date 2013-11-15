@@ -64,7 +64,7 @@ void Entity::deserialize(sf::Packet &packet)
     }
 }
 
-void Entity::addComponent(Component *component)
+void Entity::addComponent(Component* component)
 {
     mTypeBits |= component->getTypeBits();
     int index = bitIndex(component->getTypeBits());
@@ -73,6 +73,20 @@ void Entity::addComponent(Component *component)
     mComponents[index].push_back(component);
 
     mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, this, component));
+}
+
+void Entity::addComponentSq(Sqrat::Object component)
+{
+    Component* _component = component.Cast<Component*>();
+    _component->setSqInst(component);
+
+    mTypeBits |= _component->getTypeBits();
+    int index = bitIndex(_component->getTypeBits());
+    if (index >= (int)mComponents.size())
+        mComponents.resize(index+1);
+    mComponents[index].push_back(_component);
+
+    mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, this, _component));
 }
 
 Component* Entity::getComponent(TypeBits typeBits)

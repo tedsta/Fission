@@ -4,6 +4,7 @@
 #include <bitset>
 
 #include <SFML/Network/Packet.hpp>
+#include <Sqrat/sqrat.h>
 
 #include <Fission/Core/config.h>
 #include <Fission/Core/RefCounted.h>
@@ -13,6 +14,8 @@ typedef unsigned int TypeBits;
 
 class Component : public RefCounted
 {
+    friend class Entity;
+
     public:
         Component(){}
         virtual ~Component(){}
@@ -24,7 +27,9 @@ class Component : public RefCounted
         virtual void deserialize(sf::Packet &packet){}
 
         /// \brief Get this component's type bits.
-        virtual const TypeBits getTypeBits() const = 0;
+        virtual const TypeBits getTypeBits() const {return 0;}
+
+    private:
 };
 
 #endif // COMPONENT_H

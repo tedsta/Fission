@@ -54,6 +54,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 			<Add option="-DWIN32" />
+			<Add option="-DNOGDI" />
 			<Add directory="include" />
 			<Add directory="extlibs/include" />
 			<Add directory="extlibs/include/Squirrel" />

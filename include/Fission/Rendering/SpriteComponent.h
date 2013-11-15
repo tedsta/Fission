@@ -11,7 +11,7 @@
 class SpriteComponent : public RenderComponent
 {
     public:
-        SpriteComponent(sf::Texture *texture = NULL, int frames = 1, int framesPerRow = 1);
+        SpriteComponent(const std::string& texturePath = "", int frames = 1, int framesPerRow = 1);
         virtual ~SpriteComponent();
 
         // Serialization stuff

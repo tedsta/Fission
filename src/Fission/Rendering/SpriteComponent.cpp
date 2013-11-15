@@ -3,16 +3,19 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
+#include <Fission/Core/ResourceManager.h>
 #include <Fission/Rendering/TransformComponent.h>
 
 TypeBits SpriteComponent::Type;
 
-SpriteComponent::SpriteComponent(sf::Texture *texture, int frames, int framesPerRow) :
-    mSprite(*texture), mFrames(frames), mFramesPerRow(framesPerRow), mCurrentFrame(0), mFrameDelay(100), mLoopAnim(true),
+SpriteComponent::SpriteComponent(const std::string& texturePath, int frames, int framesPerRow) :
+    mTexturePath(texturePath), mFrames(frames), mFramesPerRow(framesPerRow), mCurrentFrame(0), mFrameDelay(100), mLoopAnim(true),
     mStartFrame(0), mEndFrame(mFrames-1), mFrameDir(1), mRelativeRotation(0)
 {
+    mSprite = sf::Sprite(*ResourceManager::get()->getTexture(mTexturePath));
+
     // Calculate frame dimensions
-    mFrameDim = sf::Vector2f(texture->getSize().x/mFramesPerRow, texture->getSize().y/(mFrames/mFramesPerRow));
+    mFrameDim = sf::Vector2f(mSprite.getTexture()->getSize().x/mFramesPerRow, mSprite.getTexture()->getSize().y/(mFrames/mFramesPerRow));
 }
 
 SpriteComponent::~SpriteComponent()
@@ -34,8 +37,7 @@ void SpriteComponent::deserialize(sf::Packet &packet)
     Component::deserialize(packet);
 
     packet >> mTexturePath;
-    //sf::Texture *texture = getGame()->getResourceManager()->getTexture(mTexturePath);
-    //setTexture(texture);
+    mSprite = sf::Sprite(*ResourceManager::get()->getTexture(mTexturePath));
 
     //base animation stuff
     packet >> mCurrentFrame >> mFrameDir >> mFrameDelay;
@@ -46,7 +48,8 @@ void SpriteComponent::deserialize(sf::Packet &packet)
 
     packet >> mFrames >> mFramesPerRow;
 
-    //mFrameDim = sf::Vector2i(texture->getSize().x/mFramesPerRow, texture->getSize().y/(mFrames/mFramesPerRow));
+    // Calculate frame dimensions
+    mFrameDim = sf::Vector2f(mSprite.getTexture()->getSize().x/mFramesPerRow, mSprite.getTexture()->getSize().y/(mFrames/mFramesPerRow));
     mStartFrame = 0;
     mEndFrame = mFrames-1;
 
