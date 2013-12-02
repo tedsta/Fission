@@ -80,3 +80,9 @@ void SpriteComponent::render(sf::RenderTarget& target, sf::RenderStates states)
 
     target.draw(mSprite, states); // Rendahhh!!!!
 }
+
+void SpriteComponent::renderShadow(sf::RenderTarget& target, sf::RenderStates states)
+{
+    mSprite.setColor(sf::Color::Black);
+    target.draw(mSprite, states); // Rendahhh!!!!
+}

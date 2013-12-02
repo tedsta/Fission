@@ -8,7 +8,7 @@
 class InputSystem : public System
 {
     public:
-        InputSystem(EventManager *eventManager, sf::Window *window);
+        InputSystem(EventManager *eventManager, float lockStep, sf::Window *window);
         virtual ~InputSystem();
 
     protected:

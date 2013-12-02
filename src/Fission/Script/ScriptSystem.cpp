@@ -33,8 +33,7 @@ void bindSquirrel(HSQUIRRELVM vm, Engine *_engine)
     Sqrat::Class<Entity> entity(vm);
     entity.Func("addComponent", &Entity::addComponent);
     entity.Func("addComponentSq", &Entity::addComponentSq);
-
-    // Getters
+    entity.Func("getComponent", &Entity::getComponent);
     entity.Func("getID", &Entity::getID);
     entity.Func("getTypeBits", &Entity::getTypeBits);
     Sqrat::RootTable(vm).Bind("Entity", entity);
@@ -56,7 +55,8 @@ void bindSquirrel(HSQUIRRELVM vm, Engine *_engine)
     Sqrat::RootTable(vm).SetInstance("engine", _engine);
 }
 
-ScriptSystem::ScriptSystem(EventManager *eventManager, Engine *engine) : System(eventManager, ScriptComponent::Type), mVM(sq_open(1024)), mEngine(engine)
+ScriptSystem::ScriptSystem(EventManager *eventManager, float lockStep, Engine *engine) : System(eventManager, lockStep, ScriptComponent::Type),
+    mVM(sq_open(1024)), mEngine(engine)
 {
     bindSquirrel(mVM, mEngine);
 }

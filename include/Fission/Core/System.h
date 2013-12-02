@@ -15,7 +15,7 @@ class System : public IEventListener
     friend class Scene;
 
     public:
-        System(EventManager *eventManager, TypeBits typeBits, TypeBits optBits = 0);
+        System(EventManager *eventManager, float _lockStep, TypeBits typeBits, TypeBits optBits = 0);
         virtual ~System();
 
         /// \brief Event listener event handling callback.
@@ -26,6 +26,9 @@ class System : public IEventListener
 
         /// \brief Get this system's optional type bits
         TypeBits getOptBits(){return mOptBits;}
+
+        /// \brief Get the active entities
+        const std::set<Entity*>& getActiveEntities(){return mActiveEntities;}
 
     protected:
         /// \brief Called each time before processing any entities.
@@ -39,9 +42,6 @@ class System : public IEventListener
 
         /// \brief Get the event manager
         EventManager *getEventManager(){return mEventManager;}
-
-        /// \brief Get the active entities
-        const std::set<Entity*>& getActiveEntities(){return mActiveEntities;}
 
     private:
         /// \brief Processes all of the active entities. Used internally.
@@ -58,6 +58,10 @@ class System : public IEventListener
 
         /// The active entities this system should process.
         std::set<Entity*> mActiveEntities;
+
+        // Used by engine for lockstep
+        float lockStep;
+        float dtAccumulator;
 };
 
 #endif // SYSTEM_H

@@ -12,7 +12,7 @@ class EventManager;
 class IntentSystem : public System, public IPacketHandler
 {
     public:
-        IntentSystem(EventManager *eventManager, Connection *conn);
+        IntentSystem(EventManager *eventManager, float lockStep, Connection *conn);
         virtual ~IntentSystem();
 
         bool handleEvent(IEventData const& evt);

@@ -29,8 +29,23 @@ void Engine::update(const float dt)
 {
     for (System *system : mSystems)
     {
-        system->begin(dt);
-        system->processEntities(dt);
-        system->end(dt);
+        if (system->lockStep <= 0)
+        {
+            system->begin(dt);
+            system->processEntities(dt);
+            system->end(dt);
+        }
+        else
+        {
+            system->dtAccumulator += dt;
+
+            if (system->dtAccumulator >= system->lockStep)
+            {
+                system->dtAccumulator -= system->lockStep;
+                system->begin(system->lockStep);
+                system->processEntities(system->lockStep);
+                system->end(system->lockStep);
+            }
+        }
     }
 }

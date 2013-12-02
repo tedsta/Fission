@@ -7,8 +7,8 @@
 
 #include <iostream>
 
-RenderSystem::RenderSystem(EventManager *eventManager, sf::Font* debugFont, TypeBits renderableTypeBits) :
-    System(eventManager, TransformComponent::Type, SpriteComponent::Type|renderableTypeBits)
+RenderSystem::RenderSystem(EventManager *eventManager, float lockStep, sf::Font* debugFont, TypeBits renderableTypeBits) :
+    System(eventManager, lockStep, TransformComponent::Type, SpriteComponent::Type|renderableTypeBits)
 {
     mWindow.create(sf::VideoMode(800,600,32), "Fission");
     mView = mWindow.getView();
@@ -44,6 +44,8 @@ void RenderSystem::processEntity(Entity* entity, const float dt)
 void RenderSystem::end(const float dt)
 {
     mWindow.setView(mWindow.getDefaultView());
+    for (auto sprite : mAdditionalSprites)
+        mWindow.draw(*sprite);
     mDebugDisplay->render(mWindow);
     mWindow.display(); // Display to the window
 }

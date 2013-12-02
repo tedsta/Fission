@@ -7,24 +7,32 @@ Copyright 2012
 #define MATH_H_INCLUDED
 
 #include <cmath>
-#include <vector>
-
 #include <SFML/System/Vector2.hpp>
 
-/// Constant for PI.
-const float PI		= 3.14159265359f;
+// Constant for PI.
+const float PI = 3.14159265359f;
 
-/// Constant for reciprocal of PI.
-const float RECIPROCAL_PI	= 1.0f/PI;
+// Constant for reciprocal of PI.
+const float RECIPROCAL_PI = 1.0f/PI;
 
-/// Constant for half of PI.
+// Constant for half of PI.
 const float HALF_PI	= PI/2.0f;
 
-/// 32bit Constant for converting from degrees to radians
+// 32bit Constant for converting from degrees to radians
 const float DEGTORAD = PI / 180.0f;
 
-/// 32bit constant for converting from radians to degrees (formally known as GRAD_PI)
-const float RADTODEG   = 180.0f / PI;
+// 32bit constant for converting from radians to degrees (formally known as GRAD_PI)
+const float RADTODEG = 180.0f / PI;
+
+// Smallest float
+const float EPSILON = 0.0001f;
+
+/// \brief Comparison with tolerance of EPSILON
+inline bool equal(float a, float b )
+{
+    // <= instead of < for NaN comparison safety
+    return std::abs(a - b) <= EPSILON;
+}
 
 /// \brief Utility function to convert a radian value to degrees
 /** Provided as it can be clearer to write radToDeg(X) than RADTODEG * X
@@ -44,17 +52,51 @@ inline float degToRad(float degrees)
     return DEGTORAD * degrees;
 }
 
-/// \brief Calculate the length of a 2D vector
-inline float length(sf::Vector2f a)
+/// \brief 2D vector dot product
+inline float dot(const sf::Vector2f& a, const sf::Vector2f& b)
 {
-    return sqrt(a.x*a.x + a.y*a.y);
+    return a.x*b.x + a.y*b.y;
+}
+
+inline sf::Vector2f cross(const sf::Vector2f& v, float a)
+{
+  return sf::Vector2f( a * v.y, -a * v.x );
+}
+
+inline sf::Vector2f cross(float a, const sf::Vector2f& v)
+{
+  return sf::Vector2f( -a * v.y, a * v.x );
+}
+
+/// \brief 2D vector cross product between two vectors
+inline float cross(const sf::Vector2f& a, const sf::Vector2f& b)
+{
+    return a.x*b.y - a.y*b.x;
+}
+
+/// \brief Square a number
+inline float sqr(float f)
+{
+    return f*f;
+}
+
+/// \brief Calculate the squared length of a 2D vector
+inline float lengthSqr(const sf::Vector2f& v)
+{
+    return v.x*v.x + v.y*v.y;
+}
+
+/// \brief Calculate the length of a 2D vector
+inline float length(const sf::Vector2f& v)
+{
+    return sqrt(v.x*v.x + v.y*v.y);
 }
 
 /// \brief Normalize a 2D vector
-inline sf::Vector2f normalize(sf::Vector2f v)
+inline sf::Vector2f normalize(const sf::Vector2f& v)
 {
     float l = length(v);
-    return sf::Vector2f(v.x/l, v.y/l);
+    return !equal(l, 0.f) ? sf::Vector2f(v.x/l, v.y/l) : sf::Vector2f(0, 0);
 }
 
 /// \brief Returns the shortest angle between two angles
@@ -86,23 +128,11 @@ inline float getShortestAngle(float a1, float a2)
     return moveDir*shortestAngle;
 }
 
-/// \brief Returns whether or not the supplied point is within the polygon
-inline bool pointInPolygon(sf::Vector2f point, std::vector <sf::Vector2f> coords)
+inline bool biasGreaterThan( float a, float b )
 {
-    for (unsigned int i=0;i<coords.size()-2;i+=2)
-    {
-        if (((point.y-coords[i+1].y)*(coords[i+2].y-coords[i].y) - (point.x-coords[i].x)*(coords[i+3].x-coords[i+1].x))<0)
-        {
-            return false;
-        }
-    }
-    //The last test is special
-    unsigned int j = coords.size();
-    if (((point.y-coords[j-1].y)*(coords[0].y-coords[j-2].y) - (point.x-coords[j-2].x)*(coords[1].x-coords[j-1].x))<0)
-    {
-        return false;
-    }
-    return true;
+    const float k_biasRelative = 0.95f;
+    const float k_biasAbsolute = 0.01f;
+    return a >= b * k_biasRelative + a * k_biasAbsolute;
 }
 
 #endif // MATH_H_INCLUDED

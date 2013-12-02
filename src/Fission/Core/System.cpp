@@ -5,8 +5,8 @@
 #include <Fission/Core/EventManager.h>
 #include <Fission/Core/EntityEvents.h>
 
-System::System(EventManager *eventManager, TypeBits typeBits, TypeBits optBits) : mEventManager(eventManager), mTypeBits(typeBits),
-    mOptBits(optBits)
+System::System(EventManager *eventManager, float _lockStep, TypeBits typeBits, TypeBits optBits) : mEventManager(eventManager),
+    mTypeBits(typeBits), lockStep(_lockStep), dtAccumulator(0.f), mOptBits(optBits)
 {
     mEventManager->addListener(this, EVENT_ADD_ENTITY);
     mEventManager->addListener(this, EVENT_REMOVE_ENTITY);

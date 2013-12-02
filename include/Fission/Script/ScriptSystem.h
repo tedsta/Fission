@@ -6,13 +6,16 @@
 #include <Fission/Core/System.h>
 
 class Engine;
+class Component;
 
-void bindSquirrel(HSQUIRRELVM vm, Engine *_engine);
+/// \brief a little template function to help you cast components in squirrel
+template<typename T>
+T* componentCast(Component* data){return reinterpret_cast<T*>(data);}
 
 class ScriptSystem : public System
 {
     public:
-        ScriptSystem(EventManager *eventManager, Engine *engine);
+        ScriptSystem(EventManager *eventManager, float lockStep, Engine *engine);
         virtual ~ScriptSystem();
 
         /// \brief Creates a new script

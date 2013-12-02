@@ -1,7 +1,11 @@
 #ifndef RENDERSYSTEM_H
 #define RENDERSYSTEM_H
 
+#include <vector>
+
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/RenderTexture.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Font.hpp>
 
 #include <Fission/Core/System.h>
@@ -11,8 +15,10 @@ class DebugDisplay;
 class RenderSystem : public System
 {
     public:
-        RenderSystem(EventManager *eventManager, sf::Font* debugFont = NULL, TypeBits renderableTypeBits = 0);
+        RenderSystem(EventManager *eventManager, float lockStep, sf::Font* debugFont = NULL, TypeBits renderableTypeBits = 0);
         virtual ~RenderSystem();
+
+        void addAdditionalSprite(sf::Sprite* sprite){mAdditionalSprites.push_back(sprite);}
 
         // Setters
 
@@ -40,17 +46,20 @@ class RenderSystem : public System
         void end(const float dt);
 
     private:
-        /// The SFML render window
+        // The SFML render window
         sf::RenderWindow mWindow;
 
-        /// The SFML view
+        // The SFML view
         sf::View mView;
 
-        /// The background color
+        // The background color
         sf::Color mBackgroundColor;
 
-        /// The debug display
+        // The debug display
         DebugDisplay* mDebugDisplay;
+
+        // Additional sprites to render
+        std::vector<sf::Sprite*> mAdditionalSprites;
 };
 
 #endif // RENDERSYSTEM_H

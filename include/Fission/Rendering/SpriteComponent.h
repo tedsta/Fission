@@ -20,6 +20,7 @@ class SpriteComponent : public RenderComponent
 
         // Renderable components gotto render...
         void render(sf::RenderTarget& target, sf::RenderStates states);
+        void renderShadow(sf::RenderTarget& target, sf::RenderStates states);
 
         // Setters
 

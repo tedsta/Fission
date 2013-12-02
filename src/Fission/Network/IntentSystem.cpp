@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-IntentSystem::IntentSystem(EventManager *eventManager, Connection *conn) : System(eventManager, IntentComponent::Type), mConn(conn)
+IntentSystem::IntentSystem(EventManager *eventManager, float lockStep, Connection *conn) : System(eventManager, lockStep, IntentComponent::Type), mConn(conn)
 {
     mHndID = mConn->registerHandlerAuto(this);
 	if (mConn->getType() == NetType::CLIENT || mConn->getType() == NetType::NONE)
