@@ -17,6 +17,52 @@ IntentComponent::~IntentComponent()
     //dtor
 }
 
+void IntentComponent::serialize(sf::Packet &packet)
+{
+    packet << static_cast<int>(mInputMap.size());
+    for (auto input : mInputMap)
+    {
+        packet << input.first.mInputType << input.first.mValue << input.first.mState;
+        packet << input.second;
+    }
+
+    packet << static_cast<int>(mIntents.size());
+    for (auto intent : mIntents)
+    {
+        packet << intent.first << intent.second;
+    }
+
+    packet << mNetID;
+    packet << mMousePos.x << mMousePos.y;
+}
+
+void IntentComponent::deserialize(sf::Packet &packet)
+{
+    int inputCount;
+    packet >> inputCount;
+    for (int i = 0; i < inputCount; i++)
+    {
+        Action action;
+        std::string str;
+        packet >> action.mInputType >> action.mValue >> action.mState;
+        packet >> str;
+        mInputMap[action] = str;
+    }
+
+    int intentCount;
+    packet >> intentCount;
+    for (int i = 0; i < intentCount; i++)
+    {
+        std::string str;
+        bool b;
+        packet >> str >> b;
+        mIntents[str] = b;
+    }
+
+    packet >> mNetID;
+    packet >> mMousePos.x >> mMousePos.y;
+}
+
 void IntentComponent::mapKeyToIntent(const std::string& intent, int key, int state)
 {
     Action in;

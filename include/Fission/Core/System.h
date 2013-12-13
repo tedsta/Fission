@@ -40,6 +40,12 @@ class System : public IEventListener
         /// \brief Called each time after processing all of the entities.
         virtual void end(const float dt) {}
 
+        /// \brief Called when an entity is added to this system
+        virtual void onEntityAdded(Entity* entity){}
+
+        /// \brief Called when an entity is removed from this system
+        virtual void onEntityRemoved(Entity* entity){}
+
         /// \brief Get the event manager
         EventManager *getEventManager(){return mEventManager;}
 

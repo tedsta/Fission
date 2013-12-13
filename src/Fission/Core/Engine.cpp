@@ -39,7 +39,7 @@ void Engine::update(const float dt)
         {
             system->dtAccumulator += dt;
 
-            if (system->dtAccumulator >= system->lockStep)
+            while (system->dtAccumulator >= system->lockStep)
             {
                 system->dtAccumulator -= system->lockStep;
                 system->begin(system->lockStep);

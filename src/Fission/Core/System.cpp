@@ -34,9 +34,18 @@ bool System::handleEvent(IEventData const& evt)
 
             // Check if the entity still meets the requirements
             if ((entity->getTypeBits()&mTypeBits) == mTypeBits && (mOptBits == 0 || (entity->getTypeBits()&mOptBits) > 0))
-                mActiveEntities.insert(entity); // Add the entity to the active entities if it meets the requirements
-            else
+            {
+                if (mActiveEntities.find(entity) == mActiveEntities.end())
+                {
+                    mActiveEntities.insert(entity); // Add the entity to the active entities if it meets the requirements
+                    onEntityAdded(entity);
+                }
+            }
+            else if (mActiveEntities.find(entity) != mActiveEntities.end())
+            {
                 mActiveEntities.erase(entity); // Remove the entity from the active entities if it does not meet the requirements
+                onEntityRemoved(entity);
+            }
 
             break;
         }
@@ -44,7 +53,11 @@ bool System::handleEvent(IEventData const& evt)
     case EVENT_REMOVE_ENTITY:
         {
             Entity *entity = static_cast<const EntityComponentEvent&>(evt).mEntity;
-            mActiveEntities.erase(entity); // If the entity was removed from the scene, it definitely won't be active!
+            if (mActiveEntities.find(entity) != mActiveEntities.end())
+            {
+                mActiveEntities.erase(entity); // Remove the entity from the active entities if it does not meet the requirements
+                onEntityRemoved(entity);
+            }
             break;
         }
     }

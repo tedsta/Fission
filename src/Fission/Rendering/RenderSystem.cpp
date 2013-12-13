@@ -25,20 +25,48 @@ void RenderSystem::begin(const float dt)
 {
     mWindow.clear(mBackgroundColor); // Clear the window
     mWindow.setView(mView);
+
+    // Calculate the number of layers
+    int layers = 0;
+    for (auto entity : getActiveEntities())
+    {
+        auto renderCmpnts = entity->getComponents(getOptBits());
+
+        for (auto cmpnt : renderCmpnts)
+        {
+            RenderComponent* rCmpnt = static_cast<RenderComponent*>(cmpnt);
+            if (rCmpnt->getLayer() > layers)
+            {
+                layers = rCmpnt->getLayer();
+            }
+        }
+    }
+
+    for (int layer = 0; layer <= layers; layer++)
+    {
+        for (auto entity : getActiveEntities())
+        {
+            auto transform = static_cast<TransformComponent*>(entity->getComponent(TransformComponent::Type));
+            auto renderCmpnts = entity->getComponents(getOptBits());
+
+            sf::RenderStates states = sf::RenderStates::Default;
+            states.transform.combine(transform->getTransform());
+
+            for (auto cmpnt : renderCmpnts)
+            {
+                RenderComponent* rCmpnt = static_cast<RenderComponent*>(cmpnt);
+                if (rCmpnt->getLayer() == layer)
+                {
+                    rCmpnt->render(mWindow, states);
+                }
+
+            }
+        }
+    }
 }
 
 void RenderSystem::processEntity(Entity* entity, const float dt)
 {
-    auto transform = static_cast<TransformComponent*>(entity->getComponent(TransformComponent::Type));
-    auto renderCmpnts = entity->getComponents(getOptBits());
-
-    sf::RenderStates states = sf::RenderStates::Default;
-    states.transform.combine(transform->getTransform());
-
-    for (auto cmpnt : renderCmpnts)
-    {
-        static_cast<RenderComponent*>(cmpnt)->render(mWindow, states);
-    }
 }
 
 void RenderSystem::end(const float dt)

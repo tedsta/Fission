@@ -8,7 +8,7 @@
 #include <Fission/Core/EventManager.h>
 #include <Fission/Core/EntityEvents.h>
 
-Scene::Scene(EventManager *eventManager) : mEventManager(eventManager), mNextID(0)
+Scene::Scene(EventManager *eventManager) : mEventManager(eventManager)
 {
     //ctor
 }
@@ -84,8 +84,6 @@ Entity* Scene::createEntity()
 
 void Scene::addEntity(Entity *entity)
 {
-    entity->mID = mNextID;
-    mNextID++; // Increment the ID for the next entity
     mEntities.push_back(entity);
 
     mEventManager->fireEvent(EntityEvent(EVENT_ADD_ENTITY, entity));
@@ -102,17 +100,6 @@ void Scene::destroyEntity(Entity *entity)
             return;
         }
     }
-}
-
-Entity *Scene::findEntity(int ID) const
-{
-    for (Entity* entity : mEntities)
-    {
-        if (entity->getID() == ID) //find the Entity
-            return entity;
-    }
-
-    return NULL; // Couldn't find it
 }
 
 void Scene::clear()

@@ -38,9 +38,6 @@ class Scene
         /// \brief Destroy a game object and remove it from the scene.
         void destroyEntity(Entity *object);
 
-        /// \brief Find a game object by ID.
-        Entity *findEntity(int ID) const;
-
         /// \brief Clear the scene.
         void clear();
 
@@ -50,9 +47,6 @@ class Scene
 
         /// The array of objects in this scene.
         std::vector<Entity*> mEntities;
-
-        /// The next object's ID
-        int mNextID;
 };
 
 #endif // SCENE_H

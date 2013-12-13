@@ -44,7 +44,6 @@ void bindSquirrel(HSQUIRRELVM vm, Engine *_engine)
 
     Sqrat::Class<Scene> scene(vm);
     scene.Func("createEntity", &Scene::createEntity);
-    scene.Func("findEntity", &Scene::findEntity);
     scene.Func("clear", &Scene::clear);
     Sqrat::RootTable(vm).Bind("Scene", scene);
 

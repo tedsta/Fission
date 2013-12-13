@@ -3,8 +3,8 @@ Theodore DeRego
 Copyright 2012
 */
 
-#ifndef MATH_H_INCLUDED
-#define MATH_H_INCLUDED
+#ifndef FISSION_MATH_H_INCLUDED
+#define FISSION_MATH_H_INCLUDED
 
 #include <cmath>
 #include <SFML/System/Vector2.hpp>
@@ -135,4 +135,4 @@ inline bool biasGreaterThan( float a, float b )
     return a >= b * k_biasRelative + a * k_biasAbsolute;
 }
 
-#endif // MATH_H_INCLUDED
+#endif // FISSION_MATH_H_INCLUDED

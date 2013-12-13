@@ -30,11 +30,15 @@ class SpriteComponent : public RenderComponent
         /// \brief Set the relative rotation of this sprite
         void setRelativeRotation(const float rot){mRelativeRotation=rot;}
 
+        /// \brief Set the frame loop
+        void setFrameLoop(int start, int stop){mStartFrame=start; mEndFrame=stop;}
+
         // Getters
 
         /// \brief Get the SFML sprite.
         const sf::Sprite& getSprite() const {return mSprite;}
         const sf::Vector2f& getFrameDim() const {return mFrameDim;}
+        sf::FloatRect getBounds() const {return sf::FloatRect(0, 0, mFrameDim.x, mFrameDim.y);}
 
         static TypeBits Type;
         const TypeBits getTypeBits() const {return Type;}

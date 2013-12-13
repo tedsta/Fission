@@ -17,6 +17,9 @@ class IntentComponent : public Component
         IntentComponent();
         virtual ~IntentComponent();
 
+        void serialize(sf::Packet &packet);
+        void deserialize(sf::Packet &packet);
+
         /// \brief Map a key to an intent
         void mapKeyToIntent(const std::string& intent, int key, int state);
 

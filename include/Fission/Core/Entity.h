@@ -51,7 +51,18 @@ class Entity : public RefCounted
         /// \brief Creates a clone of this entity.
         Entity *clone() const;
 
+        /// \brief Get a component by it's global ID
+        static Entity* get(int ID)
+        {
+            if (ID >= 0 && ID < Entities.size())
+                return Entities[ID];
+            return NULL;
+        }
+
     private:
+        static std::vector<Entity*> Entities;
+        static std::vector<int> FreeIDs;
+
         /// The event manager.
         EventManager *mEventManager;
 

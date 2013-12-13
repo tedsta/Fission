@@ -6,11 +6,21 @@
 #include <Fission/Core/EntityEvents.h>
 #include <Fission/Core/ComponentFactories.h>
 
-// By default, entities start with an ID of -1, marking them as invalid. When they are added to the
-// scene, they will automatically be given an ID.
-Entity::Entity(EventManager *eventManager) : mEventManager(eventManager), mID(-1), mTypeBits(0)
+std::vector<Entity*> Entity::Entities;
+std::vector<int> Entity::FreeIDs;
+
+Entity::Entity(EventManager *eventManager) : mEventManager(eventManager), mTypeBits(0)
 {
-    //ctor
+    if (FreeIDs.size() == 0)
+    {
+        mID = Entities.size();
+        Entities.push_back(this);
+    }
+    else
+    {
+        mID = FreeIDs.back();
+        FreeIDs.pop_back();
+    }
 }
 
 Entity::~Entity()
@@ -19,6 +29,9 @@ Entity::~Entity()
     for (auto& components : mComponents)
         for (auto component : components)
             component->release();
+
+    Entities[mID] = NULL;
+    FreeIDs.push_back(mID);
 }
 
 void Entity::serialize(sf::Packet &packet) const

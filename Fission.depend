@@ -708,20 +708,21 @@
 1384211803 c:\users\teddy\programming\fission\include\fission\core\componentfactories.h
 	<Fission/Core/Component.h>
 
-1384479304 c:\users\teddy\programming\fission\include\fission\core\component.h
+1386449717 c:\users\teddy\programming\fission\include\fission\core\component.h
+	<vector>
 	<bitset>
 	<SFML/Network/Packet.hpp>
 	<Sqrat/sqrat.h>
 	<Fission/Core/config.h>
 	<Fission/Core/RefCounted.h>
 
-1376333182 c:\users\teddy\programming\fission\include\fission\core\config.h
+1385615297 c:\users\teddy\programming\fission\include\fission\core\config.h
 
 1384482115 c:\users\teddy\programming\fission\include\fission\core\refcounted.h
 	<iostream>
 	<Sqrat/sqrat.h>
 
-1385249877 source:c:\users\teddy\programming\fission\src\fission\core\engine.cpp
+1386317986 source:c:\users\teddy\programming\fission\src\fission\core\engine.cpp
 	<Fission/Core/Engine.h>
 	<Fission/Core/EventManager.h>
 	<Fission/Core/Entity.h>
@@ -739,7 +740,7 @@
 
 1384220444 c:\users\teddy\programming\fission\include\fission\core\event.h
 
-1384468553 c:\users\teddy\programming\fission\include\fission\core\entity.h
+1386449711 c:\users\teddy\programming\fission\include\fission\core\entity.h
 	<vector>
 	<bitset>
 	<SFML/Network/Packet.hpp>
@@ -748,18 +749,18 @@
 	<Fission/Core/RefCounted.h>
 	<Fission/Core/Component.h>
 
-1385247906 c:\users\teddy\programming\fission\include\fission\core\system.h
+1386372768 c:\users\teddy\programming\fission\include\fission\core\system.h
 	<set>
 	<Fission/Core/Event.h>
 	<Fission/Core/Entity.h>
 
-1384212184 c:\users\teddy\programming\fission\include\fission\core\scene.h
+1386448254 c:\users\teddy\programming\fission\include\fission\core\scene.h
 	<vector>
 	<map>
 	<SFML/Network/Packet.hpp>
 	<Fission/Core/Component.h>
 
-1384479506 source:c:\users\teddy\programming\fission\src\fission\core\entity.cpp
+1386448311 source:c:\users\teddy\programming\fission\src\fission\core\entity.cpp
 	<Fission/Core/Entity.h>
 	<Fission/Core/Scene.h>
 	<Fission/Core/Component.h>
@@ -786,7 +787,7 @@
 	<SFML/Graphics/Texture.hpp>
 	<Sqrat/sqrat.h>
 
-1384211954 source:c:\users\teddy\programming\fission\src\fission\core\scene.cpp
+1386448334 source:c:\users\teddy\programming\fission\src\fission\core\scene.cpp
 	<Fission/Core/Scene.h>
 	<iostream>
 	<fstream>
@@ -795,7 +796,7 @@
 	<Fission/Core/EventManager.h>
 	<Fission/Core/EntityEvents.h>
 
-1385247938 source:c:\users\teddy\programming\fission\src\fission\core\system.cpp
+1386374752 source:c:\users\teddy\programming\fission\src\fission\core\system.cpp
 	<Fission/Core/System.h>
 	<iostream>
 	<Fission/Core/EventManager.h>
@@ -839,11 +840,11 @@
 	<Fission/Core/EntityEvents.h>
 	<Fission/Input/Events.h>
 
-1384393144 source:c:\users\teddy\programming\fission\src\fission\network\intentcomponent.cpp
+1386935393 source:c:\users\teddy\programming\fission\src\fission\network\intentcomponent.cpp
 	<Fission/Network/IntentComponent.h>
 	<iostream>
 
-1384892579 c:\users\teddy\programming\fission\include\fission\network\intentcomponent.h
+1386934600 c:\users\teddy\programming\fission\include\fission\network\intentcomponent.h
 	<string>
 	<map>
 	<SFML/Window/Event.hpp>
@@ -877,7 +878,7 @@
 	<SFML/Graphics/Font.hpp>
 	<SFML/Graphics/RenderTarget.hpp>
 
-1385372875 source:c:\users\teddy\programming\fission\src\fission\rendering\rendersystem.cpp
+1386833168 source:c:\users\teddy\programming\fission\src\fission\rendering\rendersystem.cpp
 	<Fission/Rendering/RenderSystem.h>
 	<Fission/Rendering/DebugDisplay.h>
 	<Fission/Rendering/TransformComponent.h>
@@ -898,11 +899,11 @@
 	<SFML/Graphics/Transformable.hpp>
 	<Fission/Core/Component.h>
 
-1385499281 c:\users\teddy\programming\fission\include\fission\rendering\rendercomponent.h
+1386831957 c:\users\teddy\programming\fission\include\fission\rendering\rendercomponent.h
 	<SFML/Graphics/RenderTarget.hpp>
 	<Fission/Core/Component.h>
 
-1385339084 c:\users\teddy\programming\fission\include\fission\rendering\spritecomponent.h
+1386885595 c:\users\teddy\programming\fission\include\fission\rendering\spritecomponent.h
 	<string>
 	<SFML/System/Clock.hpp>
 	<SFML/Graphics/Sprite.hpp>
@@ -926,7 +927,7 @@
 	<Sqrat/sqrat.h>
 	<Fission/Core/Component.h>
 
-1385248620 source:c:\users\teddy\programming\fission\src\fission\script\scriptsystem.cpp
+1386448364 source:c:\users\teddy\programming\fission\src\fission\script\scriptsystem.cpp
 	<Fission/Script/ScriptSystem.h>
 	<stdio.h>
 	<stdarg.h>
@@ -959,4 +960,7 @@
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Texture.hpp>
 	<SFML/Graphics/RenderTarget.hpp>
+
+1386441268 source:c:\users\teddy\programming\fission\src\fission\core\component.cpp
+	<Fission/Core/Component.h>
 

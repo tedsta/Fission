@@ -86,6 +86,7 @@
 		<Unit filename="include/Fission/Rendering/TransformComponent.h" />
 		<Unit filename="include/Fission/Script/ScriptComponent.h" />
 		<Unit filename="include/Fission/Script/ScriptSystem.h" />
+		<Unit filename="src/Fission/Core/Component.cpp" />
 		<Unit filename="src/Fission/Core/ComponentFactories.cpp" />
 		<Unit filename="src/Fission/Core/Engine.cpp" />
 		<Unit filename="src/Fission/Core/Entity.cpp" />
