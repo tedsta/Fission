@@ -31,7 +31,7 @@ class SpriteComponent : public RenderComponent
         void setRelativeRotation(const float rot){mRelativeRotation=rot;}
 
         /// \brief Set the frame loop
-        void setFrameLoop(int start, int stop){mStartFrame=start; mEndFrame=stop;}
+        void setFrameLoop(int start, int stop){mStartFrame=start; mEndFrame=stop; mCurrentFrame=start;}
 
         // Getters
 

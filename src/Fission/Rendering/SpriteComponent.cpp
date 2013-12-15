@@ -12,6 +12,9 @@ SpriteComponent::SpriteComponent(const std::string& texturePath, int frames, int
     mTexturePath(texturePath), mFrames(frames), mFramesPerRow(framesPerRow), mCurrentFrame(0), mFrameDelay(100), mLoopAnim(true),
     mStartFrame(0), mEndFrame(mFrames-1), mFrameDir(1), mRelativeRotation(0)
 {
+    if (mTexturePath.size() == 0)
+        return;
+
     mSprite = sf::Sprite(*ResourceManager::get()->getTexture(mTexturePath));
 
     // Calculate frame dimensions
@@ -25,7 +28,7 @@ SpriteComponent::~SpriteComponent()
 
 void SpriteComponent::serialize(sf::Packet &packet)
 {
-    Component::serialize(packet);
+    RenderComponent::serialize(packet);
 
     packet << mTexturePath;
     packet << mCurrentFrame << mFrameDir << mFrameDelay << sf::Int8(mLoopAnim) << mFrames << mFramesPerRow;
@@ -34,7 +37,7 @@ void SpriteComponent::serialize(sf::Packet &packet)
 
 void SpriteComponent::deserialize(sf::Packet &packet)
 {
-    Component::deserialize(packet);
+    RenderComponent::deserialize(packet);
 
     packet >> mTexturePath;
     mSprite = sf::Sprite(*ResourceManager::get()->getTexture(mTexturePath));

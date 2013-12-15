@@ -27,6 +27,9 @@ class Component : public RefCounted
         /// \brief Deserialize this component.
         virtual void deserialize(sf::Packet &packet){}
 
+        /// \brief Called immediately after all entities have been deserialized
+        virtual void postDeserialize(){}
+
         /// \brief Get this component's global ID
         int getID() const {return mID;}
 
@@ -42,6 +45,8 @@ class Component : public RefCounted
         }
 
     private:
+        void giveID(int id = -1);
+
         static std::vector<Component*> Components;
         static std::vector<int> FreeIDs;
 

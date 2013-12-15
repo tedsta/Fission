@@ -31,6 +31,7 @@ void bindSquirrel(HSQUIRRELVM vm, Engine *_engine)
     Sqrat::RootTable(vm).Bind("Vector2f", vector2);
 
     Sqrat::Class<Entity> entity(vm);
+    entity.Func("giveID", &Entity::giveID);
     entity.Func("addComponent", &Entity::addComponent);
     entity.Func("addComponentSq", &Entity::addComponentSq);
     entity.Func("getComponent", &Entity::getComponent);

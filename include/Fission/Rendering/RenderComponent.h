@@ -13,6 +13,18 @@ class RenderComponent : public Component
         RenderComponent() : mLit(true), mLayer(0) {}
         virtual ~RenderComponent() {}
 
+        virtual void serialize(sf::Packet& packet)
+        {
+            packet << mLit;
+            packet << mLayer;
+        }
+
+        virtual void deserialize(sf::Packet& packet)
+        {
+            packet >> mLit;
+            packet >> mLayer;
+        }
+
         virtual void render(sf::RenderTarget& target, sf::RenderStates states){}
         virtual void renderShadow(sf::RenderTarget& target, sf::RenderStates states){}
         virtual void renderLit(sf::RenderTarget& target, sf::RenderStates states){}

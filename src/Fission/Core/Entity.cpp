@@ -9,18 +9,8 @@
 std::vector<Entity*> Entity::Entities;
 std::vector<int> Entity::FreeIDs;
 
-Entity::Entity(EventManager *eventManager) : mEventManager(eventManager), mTypeBits(0)
+Entity::Entity(EventManager *eventManager) : mEventManager(eventManager), mTypeBits(0), mComponentCount(0), mID(-1)
 {
-    if (FreeIDs.size() == 0)
-    {
-        mID = Entities.size();
-        Entities.push_back(this);
-    }
-    else
-    {
-        mID = FreeIDs.back();
-        FreeIDs.pop_back();
-    }
 }
 
 Entity::~Entity()
@@ -30,20 +20,64 @@ Entity::~Entity()
         for (auto component : components)
             component->release();
 
-    Entities[mID] = NULL;
-    FreeIDs.push_back(mID);
+    if (mID != -1)
+    {
+        Entities[mID] = NULL;
+        FreeIDs.push_back(mID);
+    }
+
+}
+
+void Entity::giveID(int id)
+{
+    if (mID != -1)
+        return;
+
+    if (id == -1)
+    {
+        if (FreeIDs.size() == 0)
+        {
+            mID = Entities.size();
+            Entities.push_back(this);
+        }
+        else
+        {
+            mID = FreeIDs.back();
+            FreeIDs.pop_back();
+        }
+
+        for (auto& components : mComponents)
+        {
+            for (auto component : components)
+            {
+                component->giveID();
+            }
+        }
+    }
+    else if (id >= Entities.size())
+    {
+        mID = id;
+        Entities.resize(mID+1);
+        Entities[mID] = this;
+    }
+    else if (!Entities[id])
+    {
+        mID = id;
+        Entities[mID] = this;
+    }
 }
 
 void Entity::serialize(sf::Packet &packet) const
 {
     packet << mID;
-    packet << sf::Int32(mComponents.size()); // The component count
+    packet << mComponentCount; // The component count
 
     for (auto& components : mComponents)
     {
         for (auto component : components)
         {
-            packet << component->getTypeBits();
+            packet << static_cast<int>(component->getTypeBits());
+            packet << component->getID();
             component->serialize(packet);
         }
     }
@@ -51,21 +85,31 @@ void Entity::serialize(sf::Packet &packet) const
 
 void Entity::deserialize(sf::Packet &packet)
 {
-    packet >> mID;
+    int id;
+    packet >> id;
+
+    if (id != -1)
+        giveID(id);
 
     // Get all the components
-    sf::Int32 componentCount;
-    TypeBits componentType;
+    int componentType;
+    int componentCount;
+    int componentID;
 
     packet >> componentCount;
     for (int c = 0; c < componentCount; c++)
     {
         packet >> componentType;
+        packet >> componentID;
 
-        auto factory = ComponentFactories::get(componentType);
+        auto factory = ComponentFactories::get(static_cast<TypeBits>(componentType));
         if (factory != NULL)
         {
             Component *component = factory();
+
+            if (componentID != -1)
+                component->giveID(componentID);
+
             component->deserialize(packet);
             addComponent(component);
         }
@@ -77,13 +121,29 @@ void Entity::deserialize(sf::Packet &packet)
     }
 }
 
+void Entity::postDeserialize()
+{
+    for (auto& components : mComponents)
+    {
+        for (auto component : components)
+        {
+            component->postDeserialize();
+        }
+    }
+}
+
 void Entity::addComponent(Component* component)
 {
+    if (mID != -1 && component->getID() == -1)
+        component->giveID();
+
     mTypeBits |= component->getTypeBits();
     int index = bitIndex(component->getTypeBits());
     if (index >= (int)mComponents.size())
         mComponents.resize(index+1);
     mComponents[index].push_back(component);
+
+    mComponentCount++;
 
     mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, this, component));
 }
@@ -93,13 +153,7 @@ void Entity::addComponentSq(Sqrat::Object component)
     Component* _component = component.Cast<Component*>();
     _component->setSqInst(component);
 
-    mTypeBits |= _component->getTypeBits();
-    int index = bitIndex(_component->getTypeBits());
-    if (index >= (int)mComponents.size())
-        mComponents.resize(index+1);
-    mComponents[index].push_back(_component);
-
-    mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, this, _component));
+    addComponent(_component);
 }
 
 Component* Entity::getComponent(TypeBits typeBits)

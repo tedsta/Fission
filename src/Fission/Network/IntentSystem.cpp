@@ -80,7 +80,7 @@ void IntentSystem::processEntity(Entity* entity, const float dt)
 				if (ke->mState == BtnState::PRESSED || ke->mState == BtnState::RELEASED)
                 {
 					sf::Packet packet;
-					packet << intent->mNetID << int(EVT_KEY) << ke->mKey << ke->mState;
+					packet << intent->mNetID << int(EVT_KEY) << int(ke->mKey) << ke->mState;
 					mConn->send(packet, mHndID, 0, 0, false);
 
 					intent->mKeyStates[int(ke->mKey)] = ke->mState;
@@ -101,7 +101,7 @@ void IntentSystem::processEntity(Entity* entity, const float dt)
 				if (me->mState == BtnState::PRESSED || me->mState == BtnState::RELEASED)
                 {
 					sf::Packet packet;
-					packet << intent->mNetID << EVT_MOUSE_BTN << me->mBtn << me->mState;
+					packet << intent->mNetID << int(EVT_MOUSE_BTN) << int(me->mBtn) << me->mState;
 					mConn->send(packet, mHndID, 0, 0, false);
 
 					intent->mMouseStates[int(me->mBtn)] = me->mState;
@@ -119,6 +119,11 @@ void IntentSystem::processEntity(Entity* entity, const float dt)
 				auto me = static_cast<MouseMoveEvent*>(e);
 				intent->mMousePos.x = me->mX;
 				intent->mMousePos.y = me->mY;
+
+				sf::Packet packet;
+				packet << intent->mNetID << int(EVT_MOUSE_MOVE) << intent->mMousePos.x << intent->mMousePos.y;
+				mConn->send(packet, mHndID, 0, 0, false);
+
 				break;
 			}
 			}
@@ -127,73 +132,70 @@ void IntentSystem::processEntity(Entity* entity, const float dt)
 
 	// ###
 	// Packet handling
-	/*for _, p := range i.packets[intent->mNetID] {
-		var id int
-		p.Read(&id)
-		switch id {
-		case KeyEvent:
-			var key input.Key
-			var scancode int
-			var act input.Action
-			var mods input.ModifierKey
-			p.Read(&key, &scancode, &act, &mods)
+	for (auto& packet : mPackets[intent->mNetID])
+	{
+	    int netID;
+		int id;
+		packet >> netID >> id;
+		switch (id)
+		{
+		case EVT_KEY:
+        {
+			int key;
+			int state;
+			packet >> key >> state;
 
-			// Forward controls to other clients
-			if mConn->getType() == NetType::SERVER && (act == BtnState::PRESSED || act == BtnState::RELEASED) {
-				packet := core.NewOutPacket(nil)
-				packet.Write(intent->mNetID, KeyEvent, key, scancode, act, mods)
-				mConn->Send(packet, i.hndId, 0, intent->mNetID, false)
-			}
+			if (state == BtnState::PRESSED || state == BtnState::RELEASED)
+            {
+                // Forward controls to other clients
+                if (mConn->getType() == NetType::SERVER)
+                {
+                    sf::Packet packet;
+                    packet << intent->mNetID << int(EVT_KEY) << key << state;
+                    mConn->send(packet, mHndID, 0, intent->mNetID, false);
+                }
 
-			if act == BtnState::PRESSED {
-				intent->mKeyStates[int(key)] = BtnState::PRESSED
+                intent->mKeyStates[int(key)] = state;
 
-				in := action{input.StickyKeys, int(key), BtnState::PRESSED}
-				if _, ok := intent->mInputMap[in]; ok {
-					intent->mIntents[intent->mInputMap[in]] = true
-				}
-			} else if act == BtnState::RELEASED {
-				intent->mKeyStates[int(key)] = BtnState::RELEASED
+                auto in = IntentComponent::Action(IntentComponent::KEYBOARD, key, state);
+                if (intent->mInputMap.find(in) != intent->mInputMap.end())
+                    intent->mIntents[intent->mInputMap[in]] = true;
+            }
+			break;
+        }
 
-				in := action{input.StickyKeys, int(key), BtnState::RELEASED}
-				if _, ok := intent->mInputMap[in]; ok {
-					intent->mIntents[intent->mInputMap[in]] = true
-				}
-			}
-		case MouseBtnEvent:
-			var btn input.MouseButton
-			var act input.Action
-			var mods input.ModifierKey
-			p.Read(&btn, &act, &mods)
+		case EVT_MOUSE_BTN:
+        {
+			int btn;
+			int state;
+			packet >> btn >> state;
 
-			// Forward controls to other clients
-			if mConn->getType() == NetType::SERVER && (act == BtnState::PRESSED || act == BtnState::RELEASED) {
-				packet := core.NewOutPacket(nil)
-				packet.Write(intent->mNetID, MouseBtnEvent, btn, act, mods)
-				mConn->Send(packet, i.hndId, 0, intent->mNetID, false)
-			}
+			if (state == BtnState::PRESSED || state == BtnState::RELEASED)
+            {
+                // Forward controls to other clients
+                if (mConn->getType() == NetType::SERVER)
+                {
+                    sf::Packet packet;
+                    packet << intent->mNetID << int(EVT_MOUSE_BTN) << int(btn) << state;
+                    mConn->send(packet, mHndID, 0, intent->mNetID, false);
+                }
 
-			if act == BtnState::PRESSED {
-				intent->mMouseStates[btn] = BtnState::PRESSED
+                intent->mMouseStates[int(btn)] = state;
 
-				in := action{input.StickyMouseButtons, btn, BtnState::PRESSED}
-				if _, ok := intent->mInputMap[in]; ok {
-					intent->mIntents[intent->mInputMap[in]] = true
-				}
-			} else if act == BtnState::RELEASED {
-				intent->mMouseStates[btn] = BtnState::RELEASED
+                auto in = IntentComponent::Action(IntentComponent::MOUSE_BTN, int(btn), state);
+                if (intent->mInputMap.find(in) != intent->mInputMap.end())
+                    intent->mIntents[intent->mInputMap[in]] = true;
+            }
+			break;
+        }
 
-				in := action{input.StickyMouseButtons, btn, BtnState::RELEASED}
-				if _, ok := intent->mInputMap[in]; ok {
-					intent->mIntents[intent->mInputMap[in]] = true
-				}
-			}
-		case MouseMoveEvent:
-			var x, y int
-			p.Read(&x, &y)
-			intent->mMouseX, intent->mMouseY = x, y
+		case EVT_MOUSE_MOVE:
+        {
+			packet >> intent->mMousePos.x >> intent->mMousePos.y;
+			break;
+        }
 		}
-	}*/
+	}
 }
 
 void IntentSystem::end(const float dt)
@@ -227,7 +229,6 @@ bool IntentSystem::handleEvent(IEventData const& evt)
 
     if (newEvt)
         mEvents.push_back(newEvt);
-
 
     return false;
 }

@@ -22,6 +22,9 @@ class Entity : public RefCounted
         Entity(EventManager *eventManager);
         virtual ~Entity();
 
+        /// \brief Gives this entity and all of it's components global IDs
+        void giveID(int id = -1);
+
         /// \brief Serialize this entity.
         void serialize(sf::Packet& packet) const;
 
@@ -60,6 +63,8 @@ class Entity : public RefCounted
         }
 
     private:
+        void postDeserialize();
+
         static std::vector<Entity*> Entities;
         static std::vector<int> FreeIDs;
 
@@ -74,6 +79,9 @@ class Entity : public RefCounted
 
         /// The components attached to this entity.
         std::vector<std::vector<Component*>> mComponents;
+
+        /// The number of components attached to this entity
+        int mComponentCount;
 
         // ****************************************************************************************
 

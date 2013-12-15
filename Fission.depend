@@ -702,13 +702,14 @@
 	<SFML/Graphics/Texture.hpp>
 	"Core/Component.h"
 
-1384210945 source:c:\users\teddy\programming\fission\src\fission\core\componentfactories.cpp
+1386975823 source:c:\users\teddy\programming\fission\src\fission\core\componentfactories.cpp
 	<Fission/Core/ComponentFactories.h>
+	<Fission/Core/Entity.h>
 
 1384211803 c:\users\teddy\programming\fission\include\fission\core\componentfactories.h
 	<Fission/Core/Component.h>
 
-1386449717 c:\users\teddy\programming\fission\include\fission\core\component.h
+1387056210 c:\users\teddy\programming\fission\include\fission\core\component.h
 	<vector>
 	<bitset>
 	<SFML/Network/Packet.hpp>
@@ -740,7 +741,7 @@
 
 1384220444 c:\users\teddy\programming\fission\include\fission\core\event.h
 
-1386449711 c:\users\teddy\programming\fission\include\fission\core\entity.h
+1387056487 c:\users\teddy\programming\fission\include\fission\core\entity.h
 	<vector>
 	<bitset>
 	<SFML/Network/Packet.hpp>
@@ -760,7 +761,7 @@
 	<SFML/Network/Packet.hpp>
 	<Fission/Core/Component.h>
 
-1386448311 source:c:\users\teddy\programming\fission\src\fission\core\entity.cpp
+1387056459 source:c:\users\teddy\programming\fission\src\fission\core\entity.cpp
 	<Fission/Core/Entity.h>
 	<Fission/Core/Scene.h>
 	<Fission/Core/Component.h>
@@ -787,7 +788,7 @@
 	<SFML/Graphics/Texture.hpp>
 	<Sqrat/sqrat.h>
 
-1386448334 source:c:\users\teddy\programming\fission\src\fission\core\scene.cpp
+1387056824 source:c:\users\teddy\programming\fission\src\fission\core\scene.cpp
 	<Fission/Core/Scene.h>
 	<iostream>
 	<fstream>
@@ -852,7 +853,7 @@
 	<Fission/Core/Event.h>
 	<Fission/Input/Defs.h>
 
-1385248566 source:c:\users\teddy\programming\fission\src\fission\network\intentsystem.cpp
+1387102304 source:c:\users\teddy\programming\fission\src\fission\network\intentsystem.cpp
 	<Fission/Network/IntentSystem.h>
 	<Fission/Core/EventManager.h>
 	<Fission/Input/Defs.h>
@@ -894,29 +895,30 @@
 	<SFML/Graphics/Font.hpp>
 	<Fission/Core/System.h>
 
-1384211955 c:\users\teddy\programming\fission\include\fission\rendering\transformcomponent.h
+1386995050 c:\users\teddy\programming\fission\include\fission\rendering\transformcomponent.h
 	<SFML/System/Vector2.hpp>
 	<SFML/Graphics/Transformable.hpp>
+	<SFML/Network/Packet.hpp>
 	<Fission/Core/Component.h>
 
-1386831957 c:\users\teddy\programming\fission\include\fission\rendering\rendercomponent.h
+1386995246 c:\users\teddy\programming\fission\include\fission\rendering\rendercomponent.h
 	<SFML/Graphics/RenderTarget.hpp>
 	<Fission/Core/Component.h>
 
-1386885595 c:\users\teddy\programming\fission\include\fission\rendering\spritecomponent.h
+1387071529 c:\users\teddy\programming\fission\include\fission\rendering\spritecomponent.h
 	<string>
 	<SFML/System/Clock.hpp>
 	<SFML/Graphics/Sprite.hpp>
 	<Fission/Rendering/RenderComponent.h>
 
-1385339356 source:c:\users\teddy\programming\fission\src\fission\rendering\spritecomponent.cpp
+1387071478 source:c:\users\teddy\programming\fission\src\fission\rendering\spritecomponent.cpp
 	<Fission/Rendering/SpriteComponent.h>
 	<SFML/Graphics/RenderTarget.hpp>
 	<SFML/Graphics/Texture.hpp>
 	<Fission/Core/ResourceManager.h>
 	<Fission/Rendering/TransformComponent.h>
 
-1384211954 source:c:\users\teddy\programming\fission\src\fission\rendering\transformcomponent.cpp
+1386995268 source:c:\users\teddy\programming\fission\src\fission\rendering\transformcomponent.cpp
 	<Fission/Rendering/TransformComponent.h>
 
 1384211954 source:c:\users\teddy\programming\fission\src\fission\script\scriptcomponent.cpp
@@ -927,7 +929,7 @@
 	<Sqrat/sqrat.h>
 	<Fission/Core/Component.h>
 
-1386448364 source:c:\users\teddy\programming\fission\src\fission\script\scriptsystem.cpp
+1387070313 source:c:\users\teddy\programming\fission\src\fission\script\scriptsystem.cpp
 	<Fission/Script/ScriptSystem.h>
 	<stdio.h>
 	<stdarg.h>
@@ -961,6 +963,6 @@
 	<SFML/Graphics/Texture.hpp>
 	<SFML/Graphics/RenderTarget.hpp>
 
-1386441268 source:c:\users\teddy\programming\fission\src\fission\core\component.cpp
+1386978315 source:c:\users\teddy\programming\fission\src\fission\core\component.cpp
 	<Fission/Core/Component.h>
 

@@ -70,9 +70,12 @@ void Scene::deserialize(sf::Packet &packet)
 
     for (int i = 0; i < entityCount; i++)
     {
-        Entity *entity = new Entity(mEventManager);
+        Entity *entity = createEntity();
         entity->deserialize(packet);
     }
+
+    for (auto entity : mEntities)
+        entity->postDeserialize();
 }
 
 Entity* Scene::createEntity()
