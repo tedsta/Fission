@@ -92,17 +92,22 @@ void Scene::addEntity(Entity *entity)
     mEventManager->fireEvent(EntityEvent(EVENT_ADD_ENTITY, entity));
 }
 
-void Scene::destroyEntity(Entity *entity)
+void Scene::removeEntity(Entity* entity)
 {
     for (auto it = mEntities.begin(); it != mEntities.end(); it++)
     {
         if ((*it) == entity)
         {
-            delete *it;
             mEntities.erase(it);
             return;
         }
     }
+}
+
+void Scene::destroyEntity(Entity* entity)
+{
+    removeEntity(entity);
+    entity->release();
 }
 
 void Scene::clear()

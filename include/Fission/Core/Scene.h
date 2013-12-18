@@ -35,8 +35,11 @@ class Scene
         /// \brief Add a game object to the scene.
         void addEntity(Entity* object);
 
-        /// \brief Destroy a game object and remove it from the scene.
-        void destroyEntity(Entity *object);
+        /// \brief Remove an entity from the scene. Does not delete entity.
+        void removeEntity(Entity* entity);
+
+        /// \brief Destroy an entity and remove it from the scene.
+        void destroyEntity(Entity* entity);
 
         /// \brief Clear the scene.
         void clear();
