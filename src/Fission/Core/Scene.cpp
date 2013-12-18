@@ -99,6 +99,7 @@ void Scene::removeEntity(Entity* entity)
         if ((*it) == entity)
         {
             mEntities.erase(it);
+            mEventManager->fireEvent(EntityEvent(EVENT_REMOVE_ENTITY, entity));
             return;
         }
     }
