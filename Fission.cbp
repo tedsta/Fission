@@ -64,6 +64,7 @@
 		<Unit filename="include/Fission/Core/Engine.h" />
 		<Unit filename="include/Fission/Core/Entity.h" />
 		<Unit filename="include/Fission/Core/EntityEvents.h" />
+		<Unit filename="include/Fission/Core/EntityRef.h" />
 		<Unit filename="include/Fission/Core/Event.h" />
 		<Unit filename="include/Fission/Core/EventManager.h" />
 		<Unit filename="include/Fission/Core/Math.h" />
@@ -90,6 +91,7 @@
 		<Unit filename="src/Fission/Core/ComponentFactories.cpp" />
 		<Unit filename="src/Fission/Core/Engine.cpp" />
 		<Unit filename="src/Fission/Core/Entity.cpp" />
+		<Unit filename="src/Fission/Core/EntityRef.cpp" />
 		<Unit filename="src/Fission/Core/EventManager.cpp" />
 		<Unit filename="src/Fission/Core/ResourceManager.cpp" />
 		<Unit filename="src/Fission/Core/Scene.cpp" />

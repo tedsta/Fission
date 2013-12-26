@@ -87,6 +87,7 @@ Entity* Scene::createEntity()
 
 void Scene::addEntity(Entity *entity)
 {
+    entity->mInScene = true;
     mEntities.push_back(entity);
 
     mEventManager->fireEvent(EntityEvent(EVENT_ADD_ENTITY, entity));
@@ -98,6 +99,7 @@ void Scene::removeEntity(Entity* entity)
     {
         if ((*it) == entity)
         {
+            entity->mInScene = false;
             mEntities.erase(it);
             mEventManager->fireEvent(EntityEvent(EVENT_REMOVE_ENTITY, entity));
             return;

@@ -61,7 +61,8 @@ void SpriteComponent::deserialize(sf::Packet &packet)
 
 void SpriteComponent::render(sf::RenderTarget& target, sf::RenderStates states)
 {
-    if (mAnimClock.getElapsedTime().asMilliseconds() >= mFrameDelay && (mLoopAnim || mCurrentFrame != mEndFrame))
+    if (mAnimClock.getElapsedTime().asMilliseconds() >= mFrameDelay &&
+        (mLoopAnim || (mFrameDir == 1 && mCurrentFrame != mEndFrame) || (mFrameDir == -1 && mCurrentFrame != mStartFrame)))
     {
         mAnimClock.restart();
         mCurrentFrame += mFrameDir;
@@ -88,4 +89,22 @@ void SpriteComponent::renderShadow(sf::RenderTarget& target, sf::RenderStates st
 {
     mSprite.setColor(sf::Color::Black);
     target.draw(mSprite, states); // Rendahhh!!!!
+}
+
+void SpriteComponent::setFrameLoop(int start, int stop)
+{
+    if (start <= stop)
+    {
+        mStartFrame = start;
+        mEndFrame = stop;
+        mCurrentFrame = start;
+        mFrameDir = 1;
+    }
+    else
+    {
+        mStartFrame = stop;
+        mEndFrame = start;
+        mCurrentFrame = start;
+        mFrameDir = -1;
+    }
 }

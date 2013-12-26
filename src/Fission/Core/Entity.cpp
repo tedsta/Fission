@@ -9,7 +9,7 @@
 std::vector<Entity*> Entity::Entities;
 std::vector<int> Entity::FreeIDs;
 
-Entity::Entity(EventManager *eventManager) : mEventManager(eventManager), mTypeBits(0), mComponentCount(0), mID(-1)
+Entity::Entity(EventManager *eventManager) : mEventManager(eventManager), mTypeBits(0), mComponentCount(0), mID(-1), mInScene(false)
 {
 }
 
@@ -145,7 +145,8 @@ void Entity::addComponent(Component* component)
 
     mComponentCount++;
 
-    mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, this, component));
+    if (mInScene)
+        mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, this, component));
 }
 
 void Entity::addComponentSq(Sqrat::Object component)

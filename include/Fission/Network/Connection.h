@@ -41,8 +41,16 @@ class Scene;
 
 class IPacketHandler
 {
+    friend class Connection;
+
 public:
     virtual void handlePacket(sf::Packet& packet, int netID) = 0;
+
+    /// \brief Get the packet handler ID
+    int getHndID() const {return mHndID;}
+
+private:
+    int mHndID;
 };
 
 class Connection

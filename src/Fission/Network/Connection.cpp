@@ -75,7 +75,7 @@ void Connection::connectClient(std::string ipAddress, int port, int incomingBand
         event.type == ENET_EVENT_TYPE_RECEIVE)
     {
         sf::Packet packet;
-        packet.append(event.packet->data+0, event.packet->dataLength-0);
+        packet.append(event.packet->data+1, event.packet->dataLength-1); // offset of 1 is for handler ID tagged onto packets
         packet >> mPeer->mID;
         packet.clear();
         std::cout << "Connection to " << ipAddress << " with ID " << mPeer->mID <<  " succeeded.\n";
@@ -157,10 +157,19 @@ void Connection::update(const float dt)
                 sf::Packet packet;
                 packet.append(event.packet->data+0, event.packet->dataLength-0);
 
-                int hndID;
+                sf::Int8 hndID;
                 packet >> hndID;
                 if (hndID >= 0 && hndID < int(mHandlers.size()))
-                    mHandlers[hndID]->handlePacket(packet, peer->mID);
+                {
+                    if (mNetType == NetType::SERVER)
+                    {
+                        mHandlers[hndID]->handlePacket(packet, peer->mID);
+                    }
+                    else
+                    {
+                        mHandlers[hndID]->handlePacket(packet, 0);
+                    }
+                }
 
                 enet_packet_destroy(event.packet);
 
@@ -278,6 +287,7 @@ void Connection::removePeer(int netID)
 
 int Connection::registerHandlerAuto(IPacketHandler* handler)
 {
+    handler->mHndID = mHandlers.size();
 	mHandlers.push_back(handler);
 	return mHandlers.size()-1;
 }
@@ -287,5 +297,6 @@ void Connection::registerHandler(int hndID, IPacketHandler* handler)
 	if (hndID >= static_cast<int>(mHandlers.size()))
 		mHandlers.resize(hndID+1);
 
+    handler->mHndID = hndID;
 	mHandlers[hndID] = handler;
 }

@@ -32,7 +32,6 @@ class IntentSystem : public System, public IPacketHandler
         Connection* mConn;
         std::vector<IEventData*> mEvents;
         std::map<int, std::vector<sf::Packet>> mPackets;
-        int mHndID;
 };
 
 #endif // INTENTSYSTEM_H

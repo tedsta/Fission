@@ -11,7 +11,7 @@
 
 IntentSystem::IntentSystem(EventManager *eventManager, float lockStep, Connection *conn) : System(eventManager, lockStep, IntentComponent::Type), mConn(conn)
 {
-    mHndID = mConn->registerHandlerAuto(this);
+    mConn->registerHandlerAuto(this);
 	if (mConn->getType() == NetType::CLIENT || mConn->getType() == NetType::NONE)
 	{
 		getEventManager()->addListener(this, EVT_KEY);
@@ -81,7 +81,7 @@ void IntentSystem::processEntity(Entity* entity, const float dt)
                 {
 					sf::Packet packet;
 					packet << intent->mNetID << int(EVT_KEY) << int(ke->mKey) << ke->mState;
-					mConn->send(packet, mHndID, 0, 0, false);
+					mConn->send(packet, getHndID(), 0, 0, false);
 
 					intent->mKeyStates[int(ke->mKey)] = ke->mState;
 
@@ -102,7 +102,7 @@ void IntentSystem::processEntity(Entity* entity, const float dt)
                 {
 					sf::Packet packet;
 					packet << intent->mNetID << int(EVT_MOUSE_BTN) << int(me->mBtn) << me->mState;
-					mConn->send(packet, mHndID, 0, 0, false);
+					mConn->send(packet, getHndID(), 0, 0, false);
 
 					intent->mMouseStates[int(me->mBtn)] = me->mState;
 
@@ -122,7 +122,7 @@ void IntentSystem::processEntity(Entity* entity, const float dt)
 
 				sf::Packet packet;
 				packet << intent->mNetID << int(EVT_MOUSE_MOVE) << intent->mMousePos.x << intent->mMousePos.y;
-				mConn->send(packet, mHndID, 0, 0, false);
+				mConn->send(packet, getHndID(), 0, 0, false);
 
 				break;
 			}
@@ -152,7 +152,7 @@ void IntentSystem::processEntity(Entity* entity, const float dt)
                 {
                     sf::Packet packet;
                     packet << intent->mNetID << int(EVT_KEY) << key << state;
-                    mConn->send(packet, mHndID, 0, intent->mNetID, false);
+                    mConn->send(packet, getHndID(), 0, intent->mNetID, false);
                 }
 
                 intent->mKeyStates[int(key)] = state;
@@ -177,7 +177,7 @@ void IntentSystem::processEntity(Entity* entity, const float dt)
                 {
                     sf::Packet packet;
                     packet << intent->mNetID << int(EVT_MOUSE_BTN) << int(btn) << state;
-                    mConn->send(packet, mHndID, 0, intent->mNetID, false);
+                    mConn->send(packet, getHndID(), 0, intent->mNetID, false);
                 }
 
                 intent->mMouseStates[int(btn)] = state;

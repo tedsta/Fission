@@ -26,6 +26,9 @@ class IntentComponent : public Component
         /// \brief Map a mouse button to an intent
         void mapMouseBtnToIntent(const std::string& intent, int btn, int state);
 
+        /// \brief Set the net ID.
+        void setNetID(int netID){mNetID=netID;}
+
         /// \brief Get whether or not an intent is active
         bool isIntentActive(const std::string& intent);
 

@@ -35,8 +35,6 @@ class RefCounted
                     sq_release(vm, &hobj);
                 }
             }
-
-
         }
 
         /// \brief Set the squirrel instance.
