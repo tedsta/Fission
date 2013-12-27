@@ -48,6 +48,27 @@
 					<Add library="extlibs\lib\libsqstdlib.a" />
 				</Linker>
 			</Target>
+			<Target title="UnitTests">
+				<Option output="bin/UnitTests/FissionTests" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin/UnitTests/" />
+				<Option object_output="obj/UnitTests/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="extlibs\lib\libsfml-audio.a" />
+					<Add library="extlibs\lib\libsfml-network.a" />
+					<Add library="extlibs\lib\libsfml-graphics.a" />
+					<Add library="extlibs\lib\libsfml-window.a" />
+					<Add library="extlibs\lib\libsfml-system.a" />
+					<Add library="extlibs\lib\libBox2D.a" />
+					<Add library="extlibs\lib\libsquirrel.a" />
+					<Add library="extlibs\lib\libsqstdlib.a" />
+					<Add library="extlibs\lib\libenet.a" />
+				</Linker>
+			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-std=c++11" />
@@ -64,6 +85,7 @@
 		<Unit filename="include/Fission/Core/Engine.h" />
 		<Unit filename="include/Fission/Core/Entity.h" />
 		<Unit filename="include/Fission/Core/EntityEvents.h" />
+		<Unit filename="include/Fission/Core/EntityManager.h" />
 		<Unit filename="include/Fission/Core/EntityRef.h" />
 		<Unit filename="include/Fission/Core/Event.h" />
 		<Unit filename="include/Fission/Core/EventManager.h" />
@@ -91,6 +113,7 @@
 		<Unit filename="src/Fission/Core/ComponentFactories.cpp" />
 		<Unit filename="src/Fission/Core/Engine.cpp" />
 		<Unit filename="src/Fission/Core/Entity.cpp" />
+		<Unit filename="src/Fission/Core/EntityManager.cpp" />
 		<Unit filename="src/Fission/Core/EntityRef.cpp" />
 		<Unit filename="src/Fission/Core/EventManager.cpp" />
 		<Unit filename="src/Fission/Core/ResourceManager.cpp" />
@@ -111,6 +134,15 @@
 			<envvars />
 			<debugger />
 			<lib_finder disable_auto="1" />
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

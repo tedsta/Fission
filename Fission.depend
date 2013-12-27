@@ -719,7 +719,7 @@
 
 1385615297 c:\users\teddy\programming\fission\include\fission\core\config.h
 
-1384482115 c:\users\teddy\programming\fission\include\fission\core\refcounted.h
+1388010790 c:\users\teddy\programming\fission\include\fission\core\refcounted.h
 	<iostream>
 	<Sqrat/sqrat.h>
 
@@ -741,7 +741,7 @@
 
 1384220444 c:\users\teddy\programming\fission\include\fission\core\event.h
 
-1387753726 c:\users\teddy\programming\fission\include\fission\core\entity.h
+1388009956 c:\users\teddy\programming\fission\include\fission\core\entity.h
 	<vector>
 	<bitset>
 	<SFML/Network/Packet.hpp>
@@ -822,7 +822,7 @@
 	<Fission/Core/EntityEvents.h>
 	<Fission/Input/Defs.h>
 
-1387755399 source:c:\users\teddy\programming\fission\src\fission\network\connection.cpp
+1387756543 source:c:\users\teddy\programming\fission\src\fission\network\connection.cpp
 	<Fission/Network/Connection.h>
 	<iostream>
 	<Fission/Core/EventManager.h>
@@ -965,4 +965,113 @@
 
 1386978315 source:c:\users\teddy\programming\fission\src\fission\core\component.cpp
 	<Fission/Core/Component.h>
+
+1388089093 source:c:\users\teddy\programming\fission\src\fission\core\entitymanager.cpp
+	"Fission/Core/EntityManager.h"
+	"Fission/Core/EntityRef.h"
+
+1388087659 c:\users\teddy\programming\fission\include\fission\core\entitymanager.h
+	<set>
+	<vector>
+
+1388089420 c:\users\teddy\programming\fission\include\fission\core\entityref.h
+
+1388088039 source:c:\users\teddy\programming\fission\src\fission\core\entityref.cpp
+	"Fission/Core/EntityRef.h"
+
+1388088832 source:c:\users\teddy\programming\fission\src\fission\tests\main.cpp
+	<UnitTest++/UnitTest++.h>
+	<UnitTest++/TestReporterStdout.h>
+
+1387236613 c:\users\teddy\programming\fission\extlibs\include\unittest++\unittest++.h
+	"Config.h"
+	"Test.h"
+	"TestList.h"
+	"TestSuite.h"
+	"TestResults.h"
+	"TestMacros.h"
+	"CheckMacros.h"
+	"TestRunner.h"
+	"TimeConstraint.h"
+
+1387236611 c:\users\teddy\programming\fission\extlibs\include\unittest++\config.h
+
+1387236612 c:\users\teddy\programming\fission\extlibs\include\unittest++\test.h
+	"TestDetails.h"
+
+1387236612 c:\users\teddy\programming\fission\extlibs\include\unittest++\testdetails.h
+
+1387236612 c:\users\teddy\programming\fission\extlibs\include\unittest++\testlist.h
+
+1387236613 c:\users\teddy\programming\fission\extlibs\include\unittest++\testsuite.h
+
+1387236612 c:\users\teddy\programming\fission\extlibs\include\unittest++\testresults.h
+
+1387236612 c:\users\teddy\programming\fission\extlibs\include\unittest++\testmacros.h
+	"Config.h"
+	"ExecuteTest.h"
+	"AssertException.h"
+	"TestDetails.h"
+	"MemoryOutStream.h"
+	"Posix/SignalTranslator.h"
+
+1387236612 c:\users\teddy\programming\fission\extlibs\include\unittest++\executetest.h
+	"TestDetails.h"
+	"MemoryOutStream.h"
+	"AssertException.h"
+	"CurrentTest.h"
+	"Posix/SignalTranslator.h"
+
+1387236612 c:\users\teddy\programming\fission\extlibs\include\unittest++\memoryoutstream.h
+	"Config.h"
+	<sstream>
+	<cstddef>
+
+1387236611 c:\users\teddy\programming\fission\extlibs\include\unittest++\assertexception.h
+	<exception>
+
+1387236611 c:\users\teddy\programming\fission\extlibs\include\unittest++\currenttest.h
+
+1387236613 c:\users\teddy\programming\fission\extlibs\include\unittest++\posix\signaltranslator.h
+	<setjmp.h>
+	<signal.h>
+
+1387236611 c:\users\teddy\programming\fission\extlibs\include\unittest++\checkmacros.h
+	"Checks.h"
+	"AssertException.h"
+	"MemoryOutStream.h"
+	"TestDetails.h"
+	"CurrentTest.h"
+
+1387236611 c:\users\teddy\programming\fission\extlibs\include\unittest++\checks.h
+	"Config.h"
+	"TestResults.h"
+	"MemoryOutStream.h"
+
+1387236613 c:\users\teddy\programming\fission\extlibs\include\unittest++\testrunner.h
+	"Test.h"
+	"TestList.h"
+	"CurrentTest.h"
+
+1387236613 c:\users\teddy\programming\fission\extlibs\include\unittest++\timeconstraint.h
+	"TimeHelpers.h"
+
+1387236613 c:\users\teddy\programming\fission\extlibs\include\unittest++\timehelpers.h
+	"Config.h"
+	"Posix/TimeHelpers.h"
+	"Win32/TimeHelpers.h"
+
+1387236613 c:\users\teddy\programming\fission\extlibs\include\unittest++\posix\timehelpers.h
+	<sys/time.h>
+
+1387236613 c:\users\teddy\programming\fission\extlibs\include\unittest++\win32\timehelpers.h
+	"../Config.h"
+
+1387236612 c:\users\teddy\programming\fission\extlibs\include\unittest++\testreporterstdout.h
+	"TestReporter.h"
+
+1387236612 c:\users\teddy\programming\fission\extlibs\include\unittest++\testreporter.h
+
+1388089005 source:c:\users\teddy\programming\fission\src\fission\tests\testentitymanager.cpp
+	<UnitTest++/UnitTest++.h>
 
