@@ -13,4 +13,14 @@ class TestComponent : public Component
         int mData;
 };
 
+class Test2Component : public Component
+{
+    public:
+        Test2Component() : mData(0)
+        {
+        }
+
+        int mData;
+};
+
 #endif // TESTCOMPONENT_H

@@ -744,7 +744,7 @@
 	<Fission/Core/RefCounted.h>
 	<Fission/Core/Component.h>
 
-1388266233 c:\users\teddy\programming\fission\include\fission\core\system.h
+1388286973 c:\users\teddy\programming\fission\include\fission\core\system.h
 	<set>
 	<Fission/Core/Aspect.h>
 	<Fission/Core/Event.h>
@@ -764,7 +764,7 @@
 	<Fission/Core/EntityEvents.h>
 	<Fission/Core/ComponentFactories.h>
 
-1388224732 c:\users\teddy\programming\fission\include\fission\core\entityevents.h
+1388286973 c:\users\teddy\programming\fission\include\fission\core\entityevents.h
 	<Fission/Core/Event.h>
 
 1384220453 source:c:\users\teddy\programming\fission\src\fission\core\eventmanager.cpp
@@ -792,7 +792,7 @@
 	<Fission/Core/EventManager.h>
 	<Fission/Core/EntityEvents.h>
 
-1388266229 source:c:\users\teddy\programming\fission\src\fission\core\system.cpp
+1388286973 source:c:\users\teddy\programming\fission\src\fission\core\system.cpp
 	<Fission/Core/System.h>
 	<iostream>
 	<Fission/Core/EventManager.h>
@@ -959,27 +959,26 @@
 1386978315 source:c:\users\teddy\programming\fission\src\fission\core\component.cpp
 	<Fission/Core/Component.h>
 
-1388284910 source:c:\users\teddy\programming\fission\src\fission\core\entitymanager.cpp
+1388342119 source:c:\users\teddy\programming\fission\src\fission\core\entitymanager.cpp
 	"Fission/Core/EntityManager.h"
 	<algorithm>
 	"Fission/Core/EntityRef.h"
 
-1388284985 c:\users\teddy\programming\fission\include\fission\core\entitymanager.h
+1388345089 c:\users\teddy\programming\fission\include\fission\core\entitymanager.h
 	<iostream>
 	<vector>
 	<cstddef>
 	"Fission/Core/ComponentFactory.h"
 
-1388089420 c:\users\teddy\programming\fission\include\fission\core\entityref.h
+1388340872 c:\users\teddy\programming\fission\include\fission\core\entityref.h
+	"Fission/Core/EntityManager.h"
 
-1388088039 source:c:\users\teddy\programming\fission\src\fission\core\entityref.cpp
+1388339929 source:c:\users\teddy\programming\fission\src\fission\core\entityref.cpp
 	"Fission/Core/EntityRef.h"
 
-1388283641 source:c:\users\teddy\programming\fission\src\fission\tests\main.cpp
+1388341726 source:c:\users\teddy\programming\fission\src\fission\tests\main.cpp
 	<UnitTest++/UnitTest++.h>
 	<UnitTest++/TestReporterStdout.h>
-	"Fission/Core/ComponentFactory.h"
-	"Fission/Tests/TestComponent.h"
 
 1387236613 c:\users\teddy\programming\fission\extlibs\include\unittest++\unittest++.h
 	"Config.h"
@@ -1070,7 +1069,7 @@
 
 1387236612 c:\users\teddy\programming\fission\extlibs\include\unittest++\testreporter.h
 
-1388284953 source:c:\users\teddy\programming\fission\src\fission\tests\testentitymanager.cpp
+1388340477 source:c:\users\teddy\programming\fission\src\fission\tests\testentitymanager.cpp
 	<UnitTest++/UnitTest++.h>
 	<memory>
 	"Fission/Core/EventManager.h"
@@ -1079,20 +1078,25 @@
 	"Fission/Core/Component.h"
 	"Fission/Tests/TestComponent.h"
 
-1388226687 source:c:\users\teddy\programming\fission\src\fission\core\aspect.cpp
+1388345227 source:c:\users\teddy\programming\fission\src\fission\core\aspect.cpp
 	"Fission/Core/Aspect.h"
+	"Fission/Core/EntityRef.h"
 
-1388262958 c:\users\teddy\programming\fission\include\fission\core\aspect.h
+1388341600 c:\users\teddy\programming\fission\include\fission\core\aspect.h
 	<bitset>
-	<Fission/Core/config.h>
+	"Fission/Core/config.h"
+	"Fission/Core/ComponentFactory.h"
 
-1388225494 source:c:\users\teddy\programming\fission\src\fission\tests\testaspect.cpp
+1388340992 source:c:\users\teddy\programming\fission\src\fission\tests\testaspect.cpp
 	<UnitTest++/UnitTest++.h>
 	<memory>
+	"Fission/Core/EventManager.h"
 	"Fission/Core/EntityManager.h"
 	"Fission/Core/EntityRef.h"
 	"Fission/Core/Component.h"
 	"Fission/Core/Aspect.h"
+	"Fission/Tests/Defs.h"
+	"Fission/Tests/TestComponent.h"
 
 1388264516 source:c:\users\teddy\programming\fission\src\fission\tests\testentityref.cpp
 	<UnitTest++/UnitTest++.h>
@@ -1104,7 +1108,7 @@
 1388282957 source:c:\users\teddy\programming\fission\src\fission\core\componentfactory.cpp
 	"Fission/Core/ComponentFactory.h"
 
-1388283901 c:\users\teddy\programming\fission\include\fission\core\componentfactory.h
+1388341706 c:\users\teddy\programming\fission\include\fission\core\componentfactory.h
 	<unordered_map>
 	<typeinfo>
 	<assert.h>
@@ -1119,6 +1123,8 @@
 1388281604 source:c:\users\teddy\programming\fission\src\fission\core\componenttype.cpp
 	"Fission/Core/ComponentType.h"
 
-1388283478 c:\users\teddy\programming\fission\include\fission\tests\testcomponent.h
+1388285301 c:\users\teddy\programming\fission\include\fission\tests\testcomponent.h
 	"Fission/Core/Component.h"
+
+1388337909 c:\users\teddy\programming\fission\include\fission\tests\defs.h
 

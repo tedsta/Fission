@@ -13,20 +13,6 @@ class ComponentFactory
     public:
         static void deleteComponentTypes();
 
-        template<typename c>
-        static void registerComponent()
-        {
-            assert((std::is_base_of< Component, c >::value == true));
-
-            const std::type_info& t = typeid(c);
-            ComponentType* type = mComponentTypes[t.hash_code()];
-
-            if(type == NULL) {
-                type = new ComponentType();
-                mComponentTypes[t.hash_code()] = type;
-            }
-        }
-
         static ComponentType& getTypeFor(const std::type_info &t);
 
         // Gets the component type object

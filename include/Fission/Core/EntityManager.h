@@ -36,21 +36,49 @@ class EntityManager
             if (!entityExists(ID))
                 return;
 
-            mComponents[ComponentFactory::getID<component>()-1][ID] = new component;
+            const ComponentType& type = ComponentFactory::getTypeFor<component>();
+
+            if (static_cast<std::size_t>(type.getID()) > mComponents.size())
+            {
+                mComponents.resize(type.getID());
+                for (auto& componentRow : mComponents)
+                    componentRow.resize(mNextID, NULL);
+            }
+
+            mComponents[type.getID()-1][ID] = new component;
+            mEntityBits[ID] |= type.getBit();
         }
 
         /// \brief Get a component on an entity.
         template<typename component>
-        component* getComponentFromEntity(int ID)
+        component* getComponentFromEntity(int ID) const
         {
-            return static_cast<component*>(mComponents[ComponentFactory::getID<component>()-1][ID]);
+            if (!entityExists(ID))
+                return NULL;
+
+            const ComponentType& type = ComponentFactory::getTypeFor<component>();
+
+            if (type.getID() <= mComponents.size())
+                return static_cast<component*>(mComponents[ComponentFactory::getID<component>()-1][ID]);
+
+            return NULL;
         }
 
-        bool entityExists(int ID);
+        /// \brief Get entity bits.
+        const std::bitset<MAX_COMPONENTS>& getEntityBits(int ID) const {return mEntityBits[ID];}
+
+        /// \brief Get the number of active entities.
+        int getEntityCount() const {return mEntityCount;}
+
+        /// \brief Get whether or not an entity exists.
+        bool entityExists(int ID) const;
 
     private:
         IEventManager* mEventManager;
-        std::vector<std::vector<Component*>> mComponents; // By type, by entity, respectively
+        std::vector<std::vector<Component*>> mComponents; // By component type, by entity ID.
+        std::vector<std::bitset<MAX_COMPONENTS>> mEntityBits; // By entity ID
+        int mEntityCount; // Total number of active entities
+
         std::vector<int> mFreeIDs;
         int mNextID;
 };

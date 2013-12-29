@@ -82,3 +82,13 @@ TEST(EntityManager_AddComponentToEntity)
     em->addComponentToEntity<TestComponent>(entity->getID());
     CHECK(em->getComponentFromEntity<TestComponent>(entity->getID()) != NULL);
 }
+
+TEST(EntityManager_AddingComponentChangesEntityBits)
+{
+    std::unique_ptr<IEventManager> eventManager(new MockEventManager);
+    std::unique_ptr<EntityManager> em(new EntityManager(eventManager.get()));
+    auto entity = em->createEntity();
+    CHECK(!em->getEntityBits(entity->getID()).test(1));
+    em->addComponentToEntity<Test2Component>(entity->getID());
+    CHECK(em->getEntityBits(entity->getID()).test(1));
+}

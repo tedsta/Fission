@@ -6,7 +6,6 @@
 
 EntityManager::EntityManager(IEventManager* eventManager) : mEventManager(eventManager), mNextID(0)
 {
-    mComponents.resize(ComponentFactory::getTypeCount());
 }
 
 EntityManager::~EntityManager()
@@ -32,7 +31,11 @@ EntityRef* EntityManager::createEntity()
         {
             componentRow.push_back(NULL);
         }
+
+        mEntityBits.push_back(std::bitset<MAX_COMPONENTS>());
     }
+
+    mEntityCount++;
 
     EntityRef* entityRef = createEntityRef(ID);
     return entityRef;
@@ -59,10 +62,12 @@ void EntityManager::destroyEntity(int ID)
         }
     }
 
+    mEntityCount--;
+    mEntityBits[ID].reset();
     mFreeIDs.push_back(ID); // Free up the entity's ID
 }
 
-bool EntityManager::entityExists(int ID)
+bool EntityManager::entityExists(int ID) const
 {
     if (ID == EntityRef::NULL_ID || mNextID <= ID || std::find(mFreeIDs.begin(), mFreeIDs.end(), ID) != mFreeIDs.end())
         return false;

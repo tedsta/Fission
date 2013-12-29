@@ -3,7 +3,8 @@
 
 #include <bitset>
 
-#include <Fission/Core/config.h>
+#include "Fission/Core/config.h"
+#include "Fission/Core/ComponentFactory.h"
 
 class Component;
 class EntityRef;
@@ -56,7 +57,7 @@ class Aspect
         void _all(typelist<component,Rest...>)
         {
             // Add bits to all
-            //mAll |= ComponentTypeManager::getBit<component>();
+            mAll |= ComponentFactory::getBit<component>();
             _all(typelist<Rest...>());
         };
         void _all(typelist<>) { }; // To end the recursion
@@ -65,7 +66,7 @@ class Aspect
         void _one(typelist<component,Rest...>)
         {
             // Add Bits to one
-            //mOne |= ComponentTypeManager::getBit<component>();
+            mOne |= ComponentFactory::getBit<component>();
             _one(typelist<Rest...>());
         };
         void _one(typelist<>) { };
@@ -74,7 +75,7 @@ class Aspect
         void _exclude(typelist<component,Rest...>)
         {
             // Add bits to exclude
-            //mExclude |= ComponentTypeManager::getBit<component>();
+            mExclude |= ComponentFactory::getBit<component>();
             _exclude(typelist<Rest...>());
         };
         void _exclude(typelist<>) { };
