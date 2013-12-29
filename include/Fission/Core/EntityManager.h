@@ -58,7 +58,7 @@ class EntityManager
 
             const ComponentType& type = ComponentFactory::getTypeFor<component>();
 
-            if (type.getID() <= mComponents.size())
+            if (static_cast<std::size_t>(type.getID()) <= mComponents.size())
                 return static_cast<component*>(mComponents[ComponentFactory::getID<component>()-1][ID]);
 
             return NULL;

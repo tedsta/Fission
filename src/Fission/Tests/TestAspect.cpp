@@ -8,7 +8,6 @@
 #include "Fission/Core/Component.h"
 #include "Fission/Core/Aspect.h"
 
-#include "Fission/Tests/Defs.h"
 #include "Fission/Tests/TestComponent.h"
 
 class MockEventManager : public IEventManager
@@ -40,17 +39,29 @@ class MockEventManager : public IEventManager
 		}
 };
 
+class MockEntityRef
+{
+    public:
+        template<typename component>
+        void addComponent()
+        {
+            mBits |= ComponentFactory::getBit<component>();
+        }
+
+        const std::bitset<MAX_COMPONENTS>& getBits(){return mBits;}
+
+    private:
+        std::bitset<MAX_COMPONENTS> mBits;
+};
+
 TEST(Aspect_All)
 {
-    std::unique_ptr<IEventManager> eventManager(new MockEventManager);
-    std::unique_ptr<EntityManager> em(new EntityManager(eventManager.get()));
-
     Aspect all;
     all.all<TestComponent, Test2Component>();
 
-    auto entity = em->createEntity();
-    em->addComponentToEntity<TestComponent>(entity->getID());
-    CHECK(!all.checkEntity(entity));
-    em->addComponentToEntity<Test2Component>(entity->getID());
-    CHECK(all.checkEntity(entity));
+    std::unique_ptr<MockEntityRef> entity(new MockEntityRef);
+    entity->addComponent<TestComponent>();
+    CHECK(!all.checkEntity<MockEntityRef>(entity.get()));
+    entity->addComponent<Test2Component>();
+    CHECK(all.checkEntity<MockEntityRef>(entity.get()));
 }

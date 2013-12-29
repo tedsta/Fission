@@ -964,16 +964,16 @@
 	<algorithm>
 	"Fission/Core/EntityRef.h"
 
-1388345089 c:\users\teddy\programming\fission\include\fission\core\entitymanager.h
+1388347099 c:\users\teddy\programming\fission\include\fission\core\entitymanager.h
 	<iostream>
 	<vector>
 	<cstddef>
 	"Fission/Core/ComponentFactory.h"
 
-1388340872 c:\users\teddy\programming\fission\include\fission\core\entityref.h
+1388346929 c:\users\teddy\programming\fission\include\fission\core\entityref.h
 	"Fission/Core/EntityManager.h"
 
-1388339929 source:c:\users\teddy\programming\fission\src\fission\core\entityref.cpp
+1388347002 source:c:\users\teddy\programming\fission\src\fission\core\entityref.cpp
 	"Fission/Core/EntityRef.h"
 
 1388341726 source:c:\users\teddy\programming\fission\src\fission\tests\main.cpp
@@ -1078,16 +1078,16 @@
 	"Fission/Core/Component.h"
 	"Fission/Tests/TestComponent.h"
 
-1388345227 source:c:\users\teddy\programming\fission\src\fission\core\aspect.cpp
+1388346443 source:c:\users\teddy\programming\fission\src\fission\core\aspect.cpp
 	"Fission/Core/Aspect.h"
 	"Fission/Core/EntityRef.h"
 
-1388341600 c:\users\teddy\programming\fission\include\fission\core\aspect.h
+1388346458 c:\users\teddy\programming\fission\include\fission\core\aspect.h
 	<bitset>
 	"Fission/Core/config.h"
 	"Fission/Core/ComponentFactory.h"
 
-1388340992 source:c:\users\teddy\programming\fission\src\fission\tests\testaspect.cpp
+1388346859 source:c:\users\teddy\programming\fission\src\fission\tests\testaspect.cpp
 	<UnitTest++/UnitTest++.h>
 	<memory>
 	"Fission/Core/EventManager.h"
@@ -1095,7 +1095,6 @@
 	"Fission/Core/EntityRef.h"
 	"Fission/Core/Component.h"
 	"Fission/Core/Aspect.h"
-	"Fission/Tests/Defs.h"
 	"Fission/Tests/TestComponent.h"
 
 1388264516 source:c:\users\teddy\programming\fission\src\fission\tests\testentityref.cpp

@@ -19,7 +19,15 @@ class Aspect
         virtual ~Aspect();
 
         /// \brief Check if an entity is compatible with this aspect.
-        bool checkEntity(EntityRef* entity);
+        template <typename EntityRefT = EntityRef> // This is a template so the unit test can mock EntityRef.
+        bool checkEntity(EntityRefT* entity)
+        {
+            std::bitset<MAX_COMPONENTS> entityBits = entity->getBits();
+            if ((entityBits&mAll) == mAll && (mOne.none() || (entityBits&mOne).any()) && (entityBits&mExclude).none())
+                return true;
+
+            return false;
+        }
 
         /// \brief Require all of these components.
         template<typename...components>
