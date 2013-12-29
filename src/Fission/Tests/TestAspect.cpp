@@ -56,12 +56,35 @@ class MockEntityRef
 
 TEST(Aspect_All)
 {
-    Aspect all;
-    all.all<TestComponent, Test2Component>();
+    Aspect aspect;
+    aspect.all<TestComponent, Test2Component>();
 
     std::unique_ptr<MockEntityRef> entity(new MockEntityRef);
     entity->addComponent<TestComponent>();
-    CHECK(!all.checkEntity<MockEntityRef>(entity.get()));
+    CHECK(!aspect.checkEntity<MockEntityRef>(entity.get()));
     entity->addComponent<Test2Component>();
-    CHECK(all.checkEntity<MockEntityRef>(entity.get()));
+    CHECK(aspect.checkEntity<MockEntityRef>(entity.get()));
+}
+
+TEST(Aspect_One)
+{
+    Aspect aspect;
+    aspect.one<TestComponent, Test2Component>();
+
+    std::unique_ptr<MockEntityRef> entity(new MockEntityRef);
+    CHECK(!aspect.checkEntity<MockEntityRef>(entity.get()));
+    entity->addComponent<Test2Component>();
+    CHECK(aspect.checkEntity<MockEntityRef>(entity.get()));
+}
+
+TEST(Aspect_Exclude)
+{
+    Aspect aspect;
+    aspect.exclude<Test2Component>();
+
+    std::unique_ptr<MockEntityRef> entity(new MockEntityRef);
+    entity->addComponent<TestComponent>();
+    CHECK(aspect.checkEntity<MockEntityRef>(entity.get()));
+    entity->addComponent<Test2Component>();
+    CHECK(!aspect.checkEntity<MockEntityRef>(entity.get()));
 }
