@@ -7,6 +7,8 @@
 #include "Fission/Core/EntityRef.h"
 #include "Fission/Core/Component.h"
 
+#include "Fission/Tests/TestComponent.h"
+
 class MockEventManager : public IEventManager
 {
     public:
@@ -32,17 +34,8 @@ class MockEventManager : public IEventManager
 
 		bool fireEvent(IEventData const& evt) const
 		{
+		    return false;
 		}
-};
-
-class TestComponent : public Component
-{
-    public:
-        TestComponent() : mData(0)
-        {
-        }
-
-        int mData;
 };
 
 TEST(EntityManager_CreateEntityIncrementIDs)
@@ -77,7 +70,7 @@ TEST(EntityManager_DestroyEntity)
     std::unique_ptr<EntityManager> em(new EntityManager(eventManager.get()));
     auto entity = em->createEntity();
     em->destroyEntity(entity->getID());
-    CHECK(em->createEntityRef(entity->getID())->getID() == EntityRef::NULL_ID);
+    CHECK(!em->entityExists(entity->getID()));
 }
 
 TEST(EntityManager_AddComponentToEntity)
@@ -85,5 +78,7 @@ TEST(EntityManager_AddComponentToEntity)
     std::unique_ptr<IEventManager> eventManager(new MockEventManager);
     std::unique_ptr<EntityManager> em(new EntityManager(eventManager.get()));
     auto entity = em->createEntity();
-    //em->addComponentToEntity<TestComponent>(entity->getID());
+    CHECK(em->getComponentFromEntity<TestComponent>(entity->getID()) == NULL);
+    em->addComponentToEntity<TestComponent>(entity->getID());
+    CHECK(em->getComponentFromEntity<TestComponent>(entity->getID()) != NULL);
 }

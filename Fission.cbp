@@ -83,6 +83,8 @@
 		</Compiler>
 		<Unit filename="include/Fission/Core/Aspect.h" />
 		<Unit filename="include/Fission/Core/Component.h" />
+		<Unit filename="include/Fission/Core/ComponentFactory.h" />
+		<Unit filename="include/Fission/Core/ComponentType.h" />
 		<Unit filename="include/Fission/Core/Engine.h" />
 		<Unit filename="include/Fission/Core/EntityEvents.h" />
 		<Unit filename="include/Fission/Core/EntityManager.h" />
@@ -107,7 +109,12 @@
 		<Unit filename="include/Fission/Rendering/TransformComponent.h" />
 		<Unit filename="include/Fission/Script/ScriptComponent.h" />
 		<Unit filename="include/Fission/Script/ScriptSystem.h" />
+		<Unit filename="include/Fission/Tests/TestComponent.h">
+			<Option target="UnitTests" />
+		</Unit>
 		<Unit filename="src/Fission/Core/Aspect.cpp" />
+		<Unit filename="src/Fission/Core/ComponentFactory.cpp" />
+		<Unit filename="src/Fission/Core/ComponentType.cpp" />
 		<Unit filename="src/Fission/Core/Engine.cpp" />
 		<Unit filename="src/Fission/Core/EntityManager.cpp" />
 		<Unit filename="src/Fission/Core/EntityRef.cpp" />

@@ -959,22 +959,27 @@
 1386978315 source:c:\users\teddy\programming\fission\src\fission\core\component.cpp
 	<Fission/Core/Component.h>
 
-1388266149 source:c:\users\teddy\programming\fission\src\fission\core\entitymanager.cpp
+1388284910 source:c:\users\teddy\programming\fission\src\fission\core\entitymanager.cpp
 	"Fission/Core/EntityManager.h"
 	<algorithm>
 	"Fission/Core/EntityRef.h"
 
-1388266182 c:\users\teddy\programming\fission\include\fission\core\entitymanager.h
+1388284985 c:\users\teddy\programming\fission\include\fission\core\entitymanager.h
+	<iostream>
 	<vector>
+	<cstddef>
+	"Fission/Core/ComponentFactory.h"
 
 1388089420 c:\users\teddy\programming\fission\include\fission\core\entityref.h
 
 1388088039 source:c:\users\teddy\programming\fission\src\fission\core\entityref.cpp
 	"Fission/Core/EntityRef.h"
 
-1388088832 source:c:\users\teddy\programming\fission\src\fission\tests\main.cpp
+1388283641 source:c:\users\teddy\programming\fission\src\fission\tests\main.cpp
 	<UnitTest++/UnitTest++.h>
 	<UnitTest++/TestReporterStdout.h>
+	"Fission/Core/ComponentFactory.h"
+	"Fission/Tests/TestComponent.h"
 
 1387236613 c:\users\teddy\programming\fission\extlibs\include\unittest++\unittest++.h
 	"Config.h"
@@ -1065,13 +1070,14 @@
 
 1387236612 c:\users\teddy\programming\fission\extlibs\include\unittest++\testreporter.h
 
-1388272234 source:c:\users\teddy\programming\fission\src\fission\tests\testentitymanager.cpp
+1388284953 source:c:\users\teddy\programming\fission\src\fission\tests\testentitymanager.cpp
 	<UnitTest++/UnitTest++.h>
 	<memory>
 	"Fission/Core/EventManager.h"
 	"Fission/Core/EntityManager.h"
 	"Fission/Core/EntityRef.h"
 	"Fission/Core/Component.h"
+	"Fission/Tests/TestComponent.h"
 
 1388226687 source:c:\users\teddy\programming\fission\src\fission\core\aspect.cpp
 	"Fission/Core/Aspect.h"
@@ -1093,5 +1099,26 @@
 	<memory>
 	"Fission/Core/EntityManager.h"
 	"Fission/Core/EntityRef.h"
+	"Fission/Core/Component.h"
+
+1388282957 source:c:\users\teddy\programming\fission\src\fission\core\componentfactory.cpp
+	"Fission/Core/ComponentFactory.h"
+
+1388283901 c:\users\teddy\programming\fission\include\fission\core\componentfactory.h
+	<unordered_map>
+	<typeinfo>
+	<assert.h>
+	<bitset>
+	"Fission/Core/ComponentType.h"
+	"Fission/Core/Component.h"
+
+1388281477 c:\users\teddy\programming\fission\include\fission\core\componenttype.h
+	<bitset>
+	"Fission/Core/config.h"
+
+1388281604 source:c:\users\teddy\programming\fission\src\fission\core\componenttype.cpp
+	"Fission/Core/ComponentType.h"
+
+1388283478 c:\users\teddy\programming\fission\include\fission\tests\testcomponent.h
 	"Fission/Core/Component.h"
 

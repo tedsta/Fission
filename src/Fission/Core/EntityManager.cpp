@@ -4,9 +4,9 @@
 
 #include "Fission/Core/EntityRef.h"
 
-EntityManager::EntityManager(IEventManager* eventManager) : mNextID(0), mEventManager(eventManager)
+EntityManager::EntityManager(IEventManager* eventManager) : mEventManager(eventManager), mNextID(0)
 {
-    //ctor
+    mComponents.resize(ComponentFactory::getTypeCount());
 }
 
 EntityManager::~EntityManager()
@@ -28,7 +28,7 @@ EntityRef* EntityManager::createEntity()
         ID = mNextID;
         mNextID++;
 
-        for (auto componentRow : mComponents)
+        for (auto& componentRow : mComponents)
         {
             componentRow.push_back(NULL);
         }
@@ -40,7 +40,7 @@ EntityRef* EntityManager::createEntity()
 
 EntityRef* EntityManager::createEntityRef(int ID)
 {
-    if (ID >= mNextID || std::find(mFreeIDs.begin(), mFreeIDs.end(), ID) != mFreeIDs.end())
+    if (!entityExists(ID))
     {
         return new EntityRef(this);
     }
@@ -50,7 +50,7 @@ EntityRef* EntityManager::createEntityRef(int ID)
 
 void EntityManager::destroyEntity(int ID)
 {
-    for (auto componentRow : mComponents) // Component arrays, by type
+    for (auto& componentRow : mComponents) // Component arrays, by type
     {
         if (componentRow[ID]) // If the entity has this component type, delete it
         {
@@ -60,4 +60,12 @@ void EntityManager::destroyEntity(int ID)
     }
 
     mFreeIDs.push_back(ID); // Free up the entity's ID
+}
+
+bool EntityManager::entityExists(int ID)
+{
+    if (ID == EntityRef::NULL_ID || mNextID <= ID || std::find(mFreeIDs.begin(), mFreeIDs.end(), ID) != mFreeIDs.end())
+        return false;
+
+    return true;
 }
