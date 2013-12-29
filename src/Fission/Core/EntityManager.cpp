@@ -13,7 +13,7 @@ EntityManager::~EntityManager()
     //dtor
 }
 
-EntityRef* EntityManager::createEntity()
+int EntityManager::createEntity()
 {
     int ID;
 
@@ -39,8 +39,7 @@ EntityRef* EntityManager::createEntity()
 
     mEntityCount++;
 
-    EntityRef* entityRef = createEntityRef(ID);
-    return entityRef;
+    return ID;
 }
 
 EntityRef* EntityManager::createEntityRef(int ID)

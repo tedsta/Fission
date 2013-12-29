@@ -22,8 +22,8 @@ class EntityManager
         virtual ~EntityManager();
 
         /// \brief Creates a new entity.
-        /// \return EntityRef to new entity.
-        EntityRef* createEntity();
+        /// \return ID of new entity.
+        int createEntity();
 
         /// \brief Creates a new entity entity reference to an existing entity.
         EntityRef* createEntityRef(int ID);
