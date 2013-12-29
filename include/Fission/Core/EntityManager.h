@@ -6,6 +6,8 @@
 #include <cstddef>
 
 #include "Fission/Core/ComponentTypeManager.h"
+#include "Fission/Core/EventManager.h"
+#include "Fission/Core/EntityEvents.h"
 
 class IEventManager;
 class Component;
@@ -47,6 +49,8 @@ class EntityManager
 
             mComponents[type.getID()-1][ID] = new component;
             mEntityBits[ID] |= type.getBit();
+
+            mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, createEntityRef(ID), mComponents[type.getID()-1][ID]));
         }
 
         /// \brief Get a component on an entity.

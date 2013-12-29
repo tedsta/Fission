@@ -744,7 +744,7 @@
 	<Fission/Core/RefCounted.h>
 	<Fission/Core/Component.h>
 
-1388286973 c:\users\teddy\programming\fission\include\fission\core\system.h
+1388348214 c:\users\teddy\programming\fission\include\fission\core\system.h
 	<set>
 	<Fission/Core/Aspect.h>
 	<Fission/Core/Event.h>
@@ -798,14 +798,14 @@
 	<Fission/Core/EventManager.h>
 	<Fission/Core/EntityEvents.h>
 
-1388232453 source:c:\users\teddy\programming\fission\src\fission\input\inputsystem.cpp
+1388348439 source:c:\users\teddy\programming\fission\src\fission\input\inputsystem.cpp
 	<Fission/Input/InputSystem.h>
 	<SFML/Window/Event.hpp>
 	<Fission/Core/EventManager.h>
 	<Fission/Input/Defs.h>
 	<Fission/Input/Events.h>
 
-1388232431 c:\users\teddy\programming\fission\include\fission\input\inputsystem.h
+1388348427 c:\users\teddy\programming\fission\include\fission\input\inputsystem.h
 	<SFML/Window/Window.hpp>
 	<Fission/Core/System.h>
 
@@ -964,11 +964,13 @@
 	<algorithm>
 	"Fission/Core/EntityRef.h"
 
-1388347857 c:\users\teddy\programming\fission\include\fission\core\entitymanager.h
+1388348787 c:\users\teddy\programming\fission\include\fission\core\entitymanager.h
 	<iostream>
 	<vector>
 	<cstddef>
 	"Fission/Core/ComponentTypeManager.h"
+	"Fission/Core/EventManager.h"
+	"Fission/Core/EntityEvents.h"
 
 1388346929 c:\users\teddy\programming\fission\include\fission\core\entityref.h
 	"Fission/Core/EntityManager.h"
@@ -1087,7 +1089,7 @@
 	"Fission/Core/config.h"
 	"Fission/Core/ComponentTypeManager.h"
 
-1388347244 source:c:\users\teddy\programming\fission\src\fission\tests\testaspect.cpp
+1388347854 source:c:\users\teddy\programming\fission\src\fission\tests\testaspect.cpp
 	<UnitTest++/UnitTest++.h>
 	<memory>
 	"Fission/Core/EventManager.h"
@@ -1134,4 +1136,7 @@
 	<bitset>
 	"Fission/Core/ComponentType.h"
 	"Fission/Core/Component.h"
+
+1388347857 source:c:\users\teddy\programming\fission\src\fission\core\componenttypemanager.cpp
+	"Fission/Core/ComponentTypeManager.h"
 

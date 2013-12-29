@@ -6,7 +6,7 @@
 #include <Fission/Input/Defs.h>
 #include <Fission/Input/Events.h>
 
-InputSystem::InputSystem(EventManager *eventManager, float lockStep, sf::Window *window) : System(eventManager, lockStep), mWindow(window)
+InputSystem::InputSystem(IEventManager* eventManager, float lockStep, sf::Window* window) : System(eventManager, lockStep), mWindow(window)
 {
     //ctor
 }

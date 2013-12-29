@@ -15,7 +15,7 @@ class System : public IEventListener
     friend class Engine;
 
     public:
-        System(IEventManager*eventManager, float lockStep);
+        System(IEventManager* eventManager, float lockStep);
         virtual ~System();
 
         /// \brief Event listener event handling callback.
