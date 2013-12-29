@@ -27,11 +27,13 @@ EntityRef* EntityManager::createEntity()
         ID = mNextID;
         mNextID++;
 
+        // Add all of the entity's null components to the component table
         for (auto& componentRow : mComponents)
         {
             componentRow.push_back(NULL);
         }
 
+        // Create the entity bits for this entity.
         mEntityBits.push_back(std::bitset<MAX_COMPONENTS>());
     }
 
@@ -43,7 +45,7 @@ EntityRef* EntityManager::createEntity()
 
 EntityRef* EntityManager::createEntityRef(int ID)
 {
-    if (!entityExists(ID))
+    if (!entityExists(ID)) // Entity doesn't exist, return a null EntityRef
     {
         return new EntityRef(this);
     }

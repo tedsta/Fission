@@ -40,16 +40,40 @@ class EntityManager
 
             const ComponentType& type = ComponentTypeManager::getTypeFor<component>();
 
-            if (static_cast<std::size_t>(type.getID()) > mComponents.size())
+            if (static_cast<std::size_t>(type.getID()) > mComponents.size()) // Our component table's type dimension isn't big enough yet.
             {
                 mComponents.resize(type.getID());
                 for (auto& componentRow : mComponents)
                     componentRow.resize(mNextID, NULL);
             }
 
-            mComponents[type.getID()-1][ID] = new component;
-            mEntityBits[ID] |= type.getBit();
+            mComponents[type.getID()-1][ID] = new component; // Create the new component
+            mEntityBits[ID] |= type.getBit(); // Add the component's bit to the entity's bits.
 
+            // Tell the world the component's been added
+            mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, createEntityRef(ID), mComponents[type.getID()-1][ID]));
+        }
+
+        /// \brief Remove a component from an entity.
+        template<typename component>
+        void removeComponentFromEntity(int ID)
+        {
+            if (!entityExists(ID))
+                return;
+
+            const ComponentType& type = ComponentTypeManager::getTypeFor<component>();
+
+            if (static_cast<std::size_t>(type.getID()) > mComponents.size()) // No entities have this component
+                return;
+
+            if (!mComponents[type.getID()-1][ID]) // This entity doesn't have this component
+                return;
+
+            delete mComponents[type.getID()-1][ID]; // Delete the component
+            mComponents[type.getID()-1][ID] = NULL;
+            mEntityBits[ID] &= type.getBit().flip(); // Remove the component's bit from the entity's bits.
+
+            // Tell the world that this component's been removed from this entity.
             mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, createEntityRef(ID), mComponents[type.getID()-1][ID]));
         }
 
