@@ -964,11 +964,11 @@
 	<algorithm>
 	"Fission/Core/EntityRef.h"
 
-1388347099 c:\users\teddy\programming\fission\include\fission\core\entitymanager.h
+1388347857 c:\users\teddy\programming\fission\include\fission\core\entitymanager.h
 	<iostream>
 	<vector>
 	<cstddef>
-	"Fission/Core/ComponentFactory.h"
+	"Fission/Core/ComponentTypeManager.h"
 
 1388346929 c:\users\teddy\programming\fission\include\fission\core\entityref.h
 	"Fission/Core/EntityManager.h"
@@ -1082,10 +1082,10 @@
 	"Fission/Core/Aspect.h"
 	"Fission/Core/EntityRef.h"
 
-1388346458 c:\users\teddy\programming\fission\include\fission\core\aspect.h
+1388347857 c:\users\teddy\programming\fission\include\fission\core\aspect.h
 	<bitset>
 	"Fission/Core/config.h"
-	"Fission/Core/ComponentFactory.h"
+	"Fission/Core/ComponentTypeManager.h"
 
 1388347244 source:c:\users\teddy\programming\fission\src\fission\tests\testaspect.cpp
 	<UnitTest++/UnitTest++.h>
@@ -1126,4 +1126,12 @@
 	"Fission/Core/Component.h"
 
 1388337909 c:\users\teddy\programming\fission\include\fission\tests\defs.h
+
+1388347880 c:\users\teddy\programming\fission\include\fission\core\componenttypemanager.h
+	<unordered_map>
+	<typeinfo>
+	<assert.h>
+	<bitset>
+	"Fission/Core/ComponentType.h"
+	"Fission/Core/Component.h"
 

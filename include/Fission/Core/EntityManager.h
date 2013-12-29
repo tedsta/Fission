@@ -5,7 +5,7 @@
 #include <vector>
 #include <cstddef>
 
-#include "Fission/Core/ComponentFactory.h"
+#include "Fission/Core/ComponentTypeManager.h"
 
 class IEventManager;
 class Component;
@@ -36,7 +36,7 @@ class EntityManager
             if (!entityExists(ID))
                 return;
 
-            const ComponentType& type = ComponentFactory::getTypeFor<component>();
+            const ComponentType& type = ComponentTypeManager::getTypeFor<component>();
 
             if (static_cast<std::size_t>(type.getID()) > mComponents.size())
             {
@@ -56,10 +56,10 @@ class EntityManager
             if (!entityExists(ID))
                 return NULL;
 
-            const ComponentType& type = ComponentFactory::getTypeFor<component>();
+            const ComponentType& type = ComponentTypeManager::getTypeFor<component>();
 
             if (static_cast<std::size_t>(type.getID()) <= mComponents.size())
-                return static_cast<component*>(mComponents[ComponentFactory::getID<component>()-1][ID]);
+                return static_cast<component*>(mComponents[ComponentTypeManager::getID<component>()-1][ID]);
 
             return NULL;
         }

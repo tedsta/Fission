@@ -1,5 +1,5 @@
-#ifndef COMPONENTFACTORY_H
-#define COMPONENTFACTORY_H
+#ifndef COMPONENTTYPEMANAGER_H
+#define COMPONENTTYPEMANAGER_H
 
 #include <unordered_map>
 #include <typeinfo>
@@ -8,7 +8,7 @@
 #include "Fission/Core/ComponentType.h"
 #include "Fission/Core/Component.h"
 
-class ComponentFactory
+class ComponentTypeManager
 {
     public:
         static void deleteComponentTypes();
@@ -55,8 +55,8 @@ class ComponentFactory
         }
 
     private:
-        ComponentFactory();
+        ComponentTypeManager();
         static std::unordered_map<size_t, ComponentType*> mComponentTypes;
 };
 
-#endif // COMPONENTFACTORY_H
+#endif // COMPONENTTYPEMANAGER_H

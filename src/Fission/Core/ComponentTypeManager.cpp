@@ -1,11 +1,11 @@
-#include "Fission/Core/ComponentFactory.h"
+#include "Fission/Core/ComponentTypeManager.h"
 
-ComponentFactory::ComponentFactory()
+ComponentTypeManager::ComponentTypeManager()
 {
     //ctor
 }
 
-ComponentType& ComponentFactory::getTypeFor(const std::type_info &t)
+ComponentType& ComponentTypeManager::getTypeFor(const std::type_info &t)
 {
     ComponentType* type = mComponentTypes[t.hash_code()];
 
@@ -17,7 +17,7 @@ ComponentType& ComponentFactory::getTypeFor(const std::type_info &t)
     return *type;
 }
 
-void ComponentFactory::deleteComponentTypes()
+void ComponentTypeManager::deleteComponentTypes()
 {
     std::unordered_map<size_t,ComponentType*>::iterator it;
 
@@ -28,4 +28,4 @@ void ComponentFactory::deleteComponentTypes()
     mComponentTypes.clear();
 }
 
-std::unordered_map<size_t,ComponentType*>ComponentFactory::mComponentTypes;
+std::unordered_map<size_t,ComponentType*>ComponentTypeManager::mComponentTypes;

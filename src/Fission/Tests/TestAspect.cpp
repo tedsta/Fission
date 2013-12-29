@@ -45,7 +45,7 @@ class MockEntityRef
         template<typename component>
         void addComponent()
         {
-            mBits |= ComponentFactory::getBit<component>();
+            mBits |= ComponentTypeManager::getBit<component>();
         }
 
         const std::bitset<MAX_COMPONENTS>& getBits(){return mBits;}
