@@ -122,6 +122,9 @@
 		<Unit filename="src/Fission/Core/ResourceManager.cpp" />
 		<Unit filename="src/Fission/Core/System.cpp" />
 		<Unit filename="src/Fission/Input/InputSystem.cpp" />
+		<Unit filename="src/Fission/Network/Connection.cpp" />
+		<Unit filename="src/Fission/Network/IntentComponent.cpp" />
+		<Unit filename="src/Fission/Network/IntentSystem.cpp" />
 		<Unit filename="src/Fission/Tests/TestAspect.cpp">
 			<Option target="UnitTests" />
 		</Unit>

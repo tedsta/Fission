@@ -9,7 +9,8 @@
 
 #include <iostream>
 
-IntentSystem::IntentSystem(EventManager *eventManager, float lockStep, Connection *conn) : System(eventManager, lockStep), mConn(conn)
+IntentSystem::IntentSystem(IEventManager* eventManager, float lockStep, Connection *conn) : System(eventManager, lockStep),
+    mConn(conn)
 {
     mConn->registerHandlerAuto(this);
 	if (mConn->getType() == NetType::CLIENT || mConn->getType() == NetType::NONE)
@@ -31,7 +32,7 @@ void IntentSystem::begin(const float dt)
 
 void IntentSystem::processEntity(EntityRef* entity, const float dt)
 {
-    auto intent = static_cast<IntentComponent*>(entity->getComponent(IntentComponent::Type));
+    auto intent = entity->getComponent<IntentComponent>();
 
 	for (auto& it : intent->mIntents)
 		it.second = false;

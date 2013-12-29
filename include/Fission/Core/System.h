@@ -41,7 +41,7 @@ class System : public IEventListener
         virtual void onEntityRemoved(EntityRef* entity){}
 
         /// \brief Get the event manager
-        IEventManager*getEventManager(){return mEventManager;}
+        IEventManager* getEventManager(){return mEventManager;}
 
         // The aspect for this system. Determines which entities are processed by this system
         // based on their components.

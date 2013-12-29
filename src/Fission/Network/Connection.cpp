@@ -5,7 +5,7 @@
 #include <Fission/Core/Component.h>
 #include <Fission/Network/NetworkEvents.h>
 
-Connection::Connection(EventManager *eventManager) : mEventManager(eventManager), mNetType(NetType::NONE), mNextID(1)
+Connection::Connection(IEventManager* eventManager) : mEventManager(eventManager), mNetType(NetType::NONE), mNextID(1)
 {
     enet_initialize();
 }

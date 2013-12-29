@@ -15,7 +15,7 @@ class EntityRef;
 
 class EntityManager
 {
-    friend class EntityRef;
+    friend class ComponentMapper;
 
     public:
         EntityManager(IEventManager* eventManager);
@@ -77,7 +77,8 @@ class EntityManager
             mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, createEntityRef(ID), mComponents[type.getID()-1][ID]));
         }
 
-        /// \brief Get a component on an entity.
+        /// \brief Slow, convenient way to get a component on an entity. Do not use in code that is executed
+        /// every frame. In those areas, use the overloaded method and supply the component ID.
         template<typename component>
         component* getComponentFromEntity(int ID) const
         {
@@ -87,7 +88,30 @@ class EntityManager
             const ComponentType& type = ComponentTypeManager::getTypeFor<component>();
 
             if (static_cast<std::size_t>(type.getID()) <= mComponents.size())
-                return static_cast<component*>(mComponents[ComponentTypeManager::getID<component>()-1][ID]);
+                return static_cast<component*>(mComponents[type.getID()-1][ID]);
+
+            return NULL;
+        }
+
+        /// \brief Fastest, unsafe way to get a component on an entity.
+        /// \note Template is for casting convenience
+        template<typename component = Component>
+        component* getComponentFromEntity(int ID, int componentID) const
+        {
+            return static_cast<component*>(mComponents[componentID-1][ID]);
+        }
+
+        /// \brief Fast, safe way to get a component on an entity. Use the unsafe version if you
+        /// are certain both the entity and the component exist.
+        /// \note Template is for casting convenience
+        template<typename component = Component>
+        component* getComponentFromEntitySafe(int ID, int componentID) const
+        {
+            if (!entityExists(ID))
+                return NULL;
+
+            if (static_cast<std::size_t>(componentID) <= mComponents.size())
+                return static_cast<component*>(mComponents[componentID-1][ID]);
 
             return NULL;
         }
