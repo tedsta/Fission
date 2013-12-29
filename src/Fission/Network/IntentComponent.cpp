@@ -2,8 +2,6 @@
 
 #include <iostream>
 
-TypeBits IntentComponent::Type;
-
 IntentComponent::IntentComponent()
 {
     for (int k = 0; k < sf::Keyboard::KeyCount; k++)

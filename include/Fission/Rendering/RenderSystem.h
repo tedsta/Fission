@@ -15,7 +15,7 @@ class DebugDisplay;
 class RenderSystem : public System
 {
     public:
-        RenderSystem(EventManager *eventManager, float lockStep, sf::Font* debugFont = NULL, TypeBits renderableTypeBits = 0);
+        RenderSystem(IEventManager* eventManager, float lockStep, sf::Font* debugFont = NULL, TypeBits renderableTypeBits = 0);
         virtual ~RenderSystem();
 
         void addAdditionalSprite(sf::Sprite* sprite){mAdditionalSprites.push_back(sprite);}
@@ -40,7 +40,7 @@ class RenderSystem : public System
         void begin(const float dt);
 
         /// \brief Process entity function for systems
-        void processEntity(Entity* entity, const float dt);
+        void processEntity(EntityRef* entity, const float dt);
 
         /// \brief end function for systems
         void end(const float dt);

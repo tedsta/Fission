@@ -7,12 +7,12 @@
 #include <Fission/Core/Event.h>
 #include <Fission/Network/Connection.h>
 
-class EventManager;
+class IEventManager;
 
 class IntentSystem : public System, public IPacketHandler
 {
     public:
-        IntentSystem(EventManager *eventManager, float lockStep, Connection *conn);
+        IntentSystem(IEventManager*eventManager, float lockStep, Connection *conn);
         virtual ~IntentSystem();
 
         bool handleEvent(IEventData const& evt);
@@ -23,7 +23,7 @@ class IntentSystem : public System, public IPacketHandler
         void begin(const float dt);
 
         /// \brief Process entity function for systems
-        void processEntity(Entity* entity, const float dt);
+        void processEntity(EntityRef* entity, const float dt);
 
         /// \brief end function for systems
         void end(const float dt);

@@ -59,13 +59,12 @@ void RenderSystem::begin(const float dt)
                 {
                     rCmpnt->render(mWindow, states);
                 }
-
             }
         }
     }
 }
 
-void RenderSystem::processEntity(Entity* entity, const float dt)
+void RenderSystem::processEntity(EntityRef* entity, const float dt)
 {
 }
 

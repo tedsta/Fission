@@ -5,6 +5,7 @@
 #include <map>
 
 #include <SFML/Window/Event.hpp>
+
 #include <Fission/Core/Component.h>
 #include <Fission/Core/Event.h>
 #include <Fission/Input/Defs.h>
@@ -34,10 +35,6 @@ class IntentComponent : public Component
 
         /// \brief Get the position of the mouse cursor
         sf::Vector2f getMousePos(){return mMousePos;}
-
-        static TypeBits Type;
-        const TypeBits getTypeBits() const {return Type;}
-        static Component* factory() {return new IntentComponent();}
 
     private:
         enum

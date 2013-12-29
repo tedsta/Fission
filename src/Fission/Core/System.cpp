@@ -5,8 +5,8 @@
 #include <Fission/Core/EventManager.h>
 #include <Fission/Core/EntityEvents.h>
 
-System::System(EventManager *eventManager, float _lockStep, TypeBits typeBits, TypeBits optBits) : mEventManager(eventManager),
-    mTypeBits(typeBits), lockStep(_lockStep), dtAccumulator(0.f), mOptBits(optBits)
+System::System(IEventManager* eventManager, float lockStep) : mEventManager(eventManager),
+    mLockStep(lockStep), mDtAccumulator(0.f)
 {
     mEventManager->addListener(this, EVENT_ADD_ENTITY);
     mEventManager->addListener(this, EVENT_REMOVE_ENTITY);
@@ -30,10 +30,10 @@ bool System::handleEvent(IEventData const& evt)
     case EVENT_ADD_COMPONENT:
     case EVENT_REMOVE_COMPONENT:
         {
-            Entity *entity = static_cast<const EntityComponentEvent&>(evt).mEntity;
+            EntityRef* entity = static_cast<const EntityComponentEvent&>(evt).mEntity;
 
             // Check if the entity still meets the requirements
-            if ((entity->getTypeBits()&mTypeBits) == mTypeBits && (mOptBits == 0 || (entity->getTypeBits()&mOptBits) > 0))
+            if (mAspect.checkEntity(entity))
             {
                 if (mActiveEntities.find(entity) == mActiveEntities.end())
                 {
@@ -41,7 +41,7 @@ bool System::handleEvent(IEventData const& evt)
                     onEntityAdded(entity);
                 }
             }
-            else if (mActiveEntities.find(entity) != mActiveEntities.end())
+            else if (!mAspect.checkEntity(entity))
             {
                 mActiveEntities.erase(entity); // Remove the entity from the active entities if it does not meet the requirements
                 onEntityRemoved(entity);
@@ -52,7 +52,7 @@ bool System::handleEvent(IEventData const& evt)
 
     case EVENT_REMOVE_ENTITY:
         {
-            Entity *entity = static_cast<const EntityComponentEvent&>(evt).mEntity;
+            EntityRef* entity = static_cast<const EntityComponentEvent&>(evt).mEntity;
             if (mActiveEntities.find(entity) != mActiveEntities.end())
             {
                 mActiveEntities.erase(entity); // Remove the entity from the active entities if it does not meet the requirements
@@ -68,7 +68,7 @@ bool System::handleEvent(IEventData const& evt)
 void System::processEntities(const float dt)
 {
     // Iterate through the active entities and process each one
-    for (Entity *entity : mActiveEntities)
+    for (EntityRef* entity : mActiveEntities)
     {
         processEntity(entity, dt);
     }

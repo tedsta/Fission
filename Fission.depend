@@ -709,32 +709,26 @@
 1384211803 c:\users\teddy\programming\fission\include\fission\core\componentfactories.h
 	<Fission/Core/Component.h>
 
-1387056210 c:\users\teddy\programming\fission\include\fission\core\component.h
-	<vector>
-	<bitset>
+1388263583 c:\users\teddy\programming\fission\include\fission\core\component.h
 	<SFML/Network/Packet.hpp>
-	<Sqrat/sqrat.h>
-	<Fission/Core/config.h>
-	<Fission/Core/RefCounted.h>
 
-1385615297 c:\users\teddy\programming\fission\include\fission\core\config.h
+1388262997 c:\users\teddy\programming\fission\include\fission\core\config.h
 
 1388010790 c:\users\teddy\programming\fission\include\fission\core\refcounted.h
 	<iostream>
 	<Sqrat/sqrat.h>
 
-1386317986 source:c:\users\teddy\programming\fission\src\fission\core\engine.cpp
+1388175859 source:c:\users\teddy\programming\fission\src\fission\core\engine.cpp
 	<Fission/Core/Engine.h>
 	<Fission/Core/EventManager.h>
-	<Fission/Core/Entity.h>
 	<Fission/Core/System.h>
-	<Fission/Core/Scene.h>
+	<Fission/Core/EntityManager.h>
 	<iostream>
 
-1375921719 c:\users\teddy\programming\fission\include\fission\core\engine.h
+1388266158 c:\users\teddy\programming\fission\include\fission\core\engine.h
 	<vector>
 
-1384220405 c:\users\teddy\programming\fission\include\fission\core\eventmanager.h
+1388271943 c:\users\teddy\programming\fission\include\fission\core\eventmanager.h
 	<map>
 	<list>
 	<Fission/Core/Event.h>
@@ -750,10 +744,11 @@
 	<Fission/Core/RefCounted.h>
 	<Fission/Core/Component.h>
 
-1386372768 c:\users\teddy\programming\fission\include\fission\core\system.h
+1388266233 c:\users\teddy\programming\fission\include\fission\core\system.h
 	<set>
+	<Fission/Core/Aspect.h>
 	<Fission/Core/Event.h>
-	<Fission/Core/Entity.h>
+	<Fission/Core/EntityRef.h>
 
 1387407297 c:\users\teddy\programming\fission\include\fission\core\scene.h
 	<vector>
@@ -769,7 +764,7 @@
 	<Fission/Core/EntityEvents.h>
 	<Fission/Core/ComponentFactories.h>
 
-1384220405 c:\users\teddy\programming\fission\include\fission\core\entityevents.h
+1388224732 c:\users\teddy\programming\fission\include\fission\core\entityevents.h
 	<Fission/Core/Event.h>
 
 1384220453 source:c:\users\teddy\programming\fission\src\fission\core\eventmanager.cpp
@@ -797,20 +792,20 @@
 	<Fission/Core/EventManager.h>
 	<Fission/Core/EntityEvents.h>
 
-1386374752 source:c:\users\teddy\programming\fission\src\fission\core\system.cpp
+1388266229 source:c:\users\teddy\programming\fission\src\fission\core\system.cpp
 	<Fission/Core/System.h>
 	<iostream>
 	<Fission/Core/EventManager.h>
 	<Fission/Core/EntityEvents.h>
 
-1385248493 source:c:\users\teddy\programming\fission\src\fission\input\inputsystem.cpp
+1388232453 source:c:\users\teddy\programming\fission\src\fission\input\inputsystem.cpp
 	<Fission/Input/InputSystem.h>
 	<SFML/Window/Event.hpp>
 	<Fission/Core/EventManager.h>
 	<Fission/Input/Defs.h>
 	<Fission/Input/Events.h>
 
-1385248511 c:\users\teddy\programming\fission\include\fission\input\inputsystem.h
+1388232431 c:\users\teddy\programming\fission\include\fission\input\inputsystem.h
 	<SFML/Window/Window.hpp>
 	<Fission/Core/System.h>
 
@@ -822,13 +817,11 @@
 	<Fission/Core/EntityEvents.h>
 	<Fission/Input/Defs.h>
 
-1387756543 source:c:\users\teddy\programming\fission\src\fission\network\connection.cpp
+1388232498 source:c:\users\teddy\programming\fission\src\fission\network\connection.cpp
 	<Fission/Network/Connection.h>
 	<iostream>
 	<Fission/Core/EventManager.h>
-	<Fission/Core/Entity.h>
 	<Fission/Core/Component.h>
-	<Fission/Core/Scene.h>
 	<Fission/Network/NetworkEvents.h>
 
 1387752491 c:\users\teddy\programming\fission\include\fission\network\connection.h
@@ -841,11 +834,11 @@
 	<Fission/Core/EntityEvents.h>
 	<Fission/Input/Events.h>
 
-1386935393 source:c:\users\teddy\programming\fission\src\fission\network\intentcomponent.cpp
+1388263764 source:c:\users\teddy\programming\fission\src\fission\network\intentcomponent.cpp
 	<Fission/Network/IntentComponent.h>
 	<iostream>
 
-1387751346 c:\users\teddy\programming\fission\include\fission\network\intentcomponent.h
+1388263619 c:\users\teddy\programming\fission\include\fission\network\intentcomponent.h
 	<string>
 	<map>
 	<SFML/Window/Event.hpp>
@@ -966,12 +959,12 @@
 1386978315 source:c:\users\teddy\programming\fission\src\fission\core\component.cpp
 	<Fission/Core/Component.h>
 
-1388089093 source:c:\users\teddy\programming\fission\src\fission\core\entitymanager.cpp
+1388266149 source:c:\users\teddy\programming\fission\src\fission\core\entitymanager.cpp
 	"Fission/Core/EntityManager.h"
+	<algorithm>
 	"Fission/Core/EntityRef.h"
 
-1388087659 c:\users\teddy\programming\fission\include\fission\core\entitymanager.h
-	<set>
+1388266182 c:\users\teddy\programming\fission\include\fission\core\entitymanager.h
 	<vector>
 
 1388089420 c:\users\teddy\programming\fission\include\fission\core\entityref.h
@@ -1072,6 +1065,33 @@
 
 1387236612 c:\users\teddy\programming\fission\extlibs\include\unittest++\testreporter.h
 
-1388089005 source:c:\users\teddy\programming\fission\src\fission\tests\testentitymanager.cpp
+1388272234 source:c:\users\teddy\programming\fission\src\fission\tests\testentitymanager.cpp
 	<UnitTest++/UnitTest++.h>
+	<memory>
+	"Fission/Core/EventManager.h"
+	"Fission/Core/EntityManager.h"
+	"Fission/Core/EntityRef.h"
+	"Fission/Core/Component.h"
+
+1388226687 source:c:\users\teddy\programming\fission\src\fission\core\aspect.cpp
+	"Fission/Core/Aspect.h"
+
+1388262958 c:\users\teddy\programming\fission\include\fission\core\aspect.h
+	<bitset>
+	<Fission/Core/config.h>
+
+1388225494 source:c:\users\teddy\programming\fission\src\fission\tests\testaspect.cpp
+	<UnitTest++/UnitTest++.h>
+	<memory>
+	"Fission/Core/EntityManager.h"
+	"Fission/Core/EntityRef.h"
+	"Fission/Core/Component.h"
+	"Fission/Core/Aspect.h"
+
+1388264516 source:c:\users\teddy\programming\fission\src\fission\tests\testentityref.cpp
+	<UnitTest++/UnitTest++.h>
+	<memory>
+	"Fission/Core/EntityManager.h"
+	"Fission/Core/EntityRef.h"
+	"Fission/Core/Component.h"
 

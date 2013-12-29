@@ -2,9 +2,7 @@
 
 #include <iostream>
 #include <Fission/Core/EventManager.h>
-#include <Fission/Core/Entity.h>
 #include <Fission/Core/Component.h>
-#include <Fission/Core/Scene.h>
 #include <Fission/Network/NetworkEvents.h>
 
 Connection::Connection(EventManager *eventManager) : mEventManager(eventManager), mNetType(NetType::NONE), mNextID(1)

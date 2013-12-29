@@ -6,7 +6,7 @@
 #include <Fission/Input/Defs.h>
 #include <Fission/Input/Events.h>
 
-InputSystem::InputSystem(EventManager *eventManager, float lockStep, sf::Window *window) : System(eventManager, lockStep, 0), mWindow(window)
+InputSystem::InputSystem(EventManager *eventManager, float lockStep, sf::Window *window) : System(eventManager, lockStep), mWindow(window)
 {
     //ctor
 }
@@ -47,7 +47,7 @@ void InputSystem::begin(const float dt)
     }
 }
 
-void InputSystem::processEntity(Entity* entity, const float dt)
+void InputSystem::processEntity(EntityRef* entity, const float dt)
 {
 }
 

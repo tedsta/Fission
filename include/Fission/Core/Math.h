@@ -116,13 +116,9 @@ inline float getShortestAngle(float a1, float a2)
 
     if (a2 == behindMe)
         moveDir = 1; // or randomly choose
-    else if ((a2 > behindMe && a2 < a1) ||
-             (a1 < 180 && (a2 > behindMe ||
-                                      a2 < a1)))
+    else if ((a2 > behindMe && a2 < a1) || (a1 < 180 && (a2 > behindMe || a2 < a1)))
         moveDir = -1;
-    else if ((a2 < behindMe && a2 > a1) ||
-             (a1 > 180 && (a2 < behindMe ||
-                                      a2 > a1)))
+    else if ((a2 < behindMe && a2 > a1) || (a1 > 180 && (a2 < behindMe || a2 > a1)))
         moveDir= 1;
 
     return moveDir*shortestAngle;

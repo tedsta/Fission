@@ -8,13 +8,13 @@
 class InputSystem : public System
 {
     public:
-        InputSystem(EventManager *eventManager, float lockStep, sf::Window *window);
+        InputSystem(IEventManager* eventManager, float lockStep, sf::Window *window);
         virtual ~InputSystem();
 
     protected:
         void begin(const float dt);
 
-        void processEntity(Entity* entity, const float dt);
+        void processEntity(EntityRef* entity, const float dt);
 
         void end(const float dt);
 

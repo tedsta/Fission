@@ -15,7 +15,7 @@ T* componentCast(Component* data){return reinterpret_cast<T*>(data);}
 class ScriptSystem : public System
 {
     public:
-        ScriptSystem(EventManager *eventManager, float lockStep, Engine *engine);
+        ScriptSystem(IEventManager* eventManager, float lockStep, Engine *engine);
         virtual ~ScriptSystem();
 
         /// \brief Creates a new script

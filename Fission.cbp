@@ -67,6 +67,7 @@
 					<Add library="extlibs\lib\libsquirrel.a" />
 					<Add library="extlibs\lib\libsqstdlib.a" />
 					<Add library="extlibs\lib\libenet.a" />
+					<Add library="extlibs\lib\libUnitTest++.a" />
 				</Linker>
 			</Target>
 		</Build>
@@ -80,19 +81,16 @@
 			<Add directory="extlibs/include" />
 			<Add directory="extlibs/include/Squirrel" />
 		</Compiler>
+		<Unit filename="include/Fission/Core/Aspect.h" />
 		<Unit filename="include/Fission/Core/Component.h" />
-		<Unit filename="include/Fission/Core/ComponentFactories.h" />
 		<Unit filename="include/Fission/Core/Engine.h" />
-		<Unit filename="include/Fission/Core/Entity.h" />
 		<Unit filename="include/Fission/Core/EntityEvents.h" />
 		<Unit filename="include/Fission/Core/EntityManager.h" />
 		<Unit filename="include/Fission/Core/EntityRef.h" />
 		<Unit filename="include/Fission/Core/Event.h" />
 		<Unit filename="include/Fission/Core/EventManager.h" />
 		<Unit filename="include/Fission/Core/Math.h" />
-		<Unit filename="include/Fission/Core/RefCounted.h" />
 		<Unit filename="include/Fission/Core/ResourceManager.h" />
-		<Unit filename="include/Fission/Core/Scene.h" />
 		<Unit filename="include/Fission/Core/System.h" />
 		<Unit filename="include/Fission/Core/config.h" />
 		<Unit filename="include/Fission/Input/Defs.h" />
@@ -109,26 +107,25 @@
 		<Unit filename="include/Fission/Rendering/TransformComponent.h" />
 		<Unit filename="include/Fission/Script/ScriptComponent.h" />
 		<Unit filename="include/Fission/Script/ScriptSystem.h" />
-		<Unit filename="src/Fission/Core/Component.cpp" />
-		<Unit filename="src/Fission/Core/ComponentFactories.cpp" />
+		<Unit filename="src/Fission/Core/Aspect.cpp" />
 		<Unit filename="src/Fission/Core/Engine.cpp" />
-		<Unit filename="src/Fission/Core/Entity.cpp" />
 		<Unit filename="src/Fission/Core/EntityManager.cpp" />
 		<Unit filename="src/Fission/Core/EntityRef.cpp" />
 		<Unit filename="src/Fission/Core/EventManager.cpp" />
 		<Unit filename="src/Fission/Core/ResourceManager.cpp" />
-		<Unit filename="src/Fission/Core/Scene.cpp" />
 		<Unit filename="src/Fission/Core/System.cpp" />
-		<Unit filename="src/Fission/Input/InputSystem.cpp" />
-		<Unit filename="src/Fission/Network/Connection.cpp" />
-		<Unit filename="src/Fission/Network/IntentComponent.cpp" />
-		<Unit filename="src/Fission/Network/IntentSystem.cpp" />
-		<Unit filename="src/Fission/Rendering/DebugDisplay.cpp" />
-		<Unit filename="src/Fission/Rendering/RenderSystem.cpp" />
-		<Unit filename="src/Fission/Rendering/SpriteComponent.cpp" />
-		<Unit filename="src/Fission/Rendering/TransformComponent.cpp" />
-		<Unit filename="src/Fission/Script/ScriptComponent.cpp" />
-		<Unit filename="src/Fission/Script/ScriptSystem.cpp" />
+		<Unit filename="src/Fission/Tests/TestAspect.cpp">
+			<Option target="UnitTests" />
+		</Unit>
+		<Unit filename="src/Fission/Tests/TestEntityManager.cpp">
+			<Option target="UnitTests" />
+		</Unit>
+		<Unit filename="src/Fission/Tests/TestEntityRef.cpp">
+			<Option target="UnitTests" />
+		</Unit>
+		<Unit filename="src/Fission/Tests/main.cpp">
+			<Option target="UnitTests" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<envvars />

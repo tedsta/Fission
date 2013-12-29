@@ -3,9 +3,9 @@
 
 #include <vector>
 
-class Scene;
+class EntityManager;
 class System;
-class EventManager;
+class IEventManager;
 
 /// \brief Core class to facilitate all of the systems and the scene.
 class Engine
@@ -21,19 +21,19 @@ class Engine
         void addSystem(System *system){mSystems.push_back(system);}
 
         /// \brief Gets the event manager.
-        EventManager *getEventManager() const {return mEventManager;}
+        IEventManager* getEventManager() const {return mEventManager;}
 
-        /// \brief Gets the current scene.
-        Scene *getScene() const {return mScene;}
+        /// \brief Gets the entity manager.
+        EntityManager* getEntityManager() const {return mEntityManager;}
 
     private:
-        /// The event manager
-        EventManager *mEventManager;
+        // The event manager
+        IEventManager* mEventManager;
 
-        /// The current scene
-        Scene *mScene;
+        // The entity manager
+        EntityManager* mEntityManager;
 
-        /// The systems this engine has to manage
+        // The systems this engine has to manage
         std::vector<System*> mSystems;
 };
 

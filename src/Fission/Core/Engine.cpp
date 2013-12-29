@@ -1,23 +1,22 @@
 #include <Fission/Core/Engine.h>
 
 #include <Fission/Core/EventManager.h>
-#include <Fission/Core/Entity.h>
 #include <Fission/Core/System.h>
-#include <Fission/Core/Scene.h>
+#include <Fission/Core/EntityManager.h>
 
 #include <iostream>
 
 Engine::Engine()
 {
     mEventManager = new EventManager;
-    mScene = new Scene(mEventManager);
+    mEntityManager = new EntityManager(mEventManager);
 }
 
 Engine::~Engine()
 {
-    delete mScene;
+    delete mEntityManager;
 
-    for (System *system : mSystems)
+    for (System* system : mSystems)
     {
         delete system;
     }
@@ -29,7 +28,7 @@ void Engine::update(const float dt)
 {
     for (System *system : mSystems)
     {
-        if (system->lockStep <= 0)
+        if (system->mLockStep <= 0)
         {
             system->begin(dt);
             system->processEntities(dt);
@@ -37,14 +36,14 @@ void Engine::update(const float dt)
         }
         else
         {
-            system->dtAccumulator += dt;
+            system->mDtAccumulator += dt;
 
-            while (system->dtAccumulator >= system->lockStep)
+            while (system->mDtAccumulator >= system->mLockStep)
             {
-                system->dtAccumulator -= system->lockStep;
-                system->begin(system->lockStep);
-                system->processEntities(system->lockStep);
-                system->end(system->lockStep);
+                system->mDtAccumulator -= system->mLockStep;
+                system->begin(system->mLockStep);
+                system->processEntities(system->mLockStep);
+                system->end(system->mLockStep);
             }
         }
     }

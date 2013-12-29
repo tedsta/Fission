@@ -36,7 +36,7 @@ struct Peer
 
 class Entity;
 class Component;
-class EventManager;
+class IEventManager;
 class Scene;
 
 class IPacketHandler
@@ -56,7 +56,7 @@ private:
 class Connection
 {
     public:
-        Connection(EventManager* eventManager);
+        Connection(IEventManager* eventManager);
         virtual ~Connection();
 
         /// \brief Begins hosting a server.
@@ -112,7 +112,7 @@ class Connection
 
     private:
         // Some dependencies
-        EventManager *mEventManager;
+        IEventManager*mEventManager;
 
         /// Server or client?
         int mNetType;

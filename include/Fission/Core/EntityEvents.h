@@ -3,7 +3,7 @@
 
 #include <Fission/Core/Event.h>
 
-class Entity;
+class EntityRef;
 class Component;
 
 enum
@@ -18,17 +18,17 @@ enum
 
 struct EntityEvent : public IEventData
 {
-    EntityEvent(EventID evtType, Entity *e) : IEventData(evtType), mEntity(e) {}
-    Entity *mEntity;
+    EntityEvent(EventID evtType, EntityRef *e) : IEventData(evtType), mEntity(e) {}
+    EntityRef* mEntity;
 };
 
 struct EntityComponentEvent : public IEventData
 {
-    EntityComponentEvent(EventID evtType, Entity *e, Component *c)
+    EntityComponentEvent(EventID evtType, EntityRef *e, Component *c)
         : IEventData(evtType), mEntity(e), mComponent(c) {}
 
-    Entity *mEntity;
-    Component *mComponent;
+    EntityRef* mEntity;
+    Component* mComponent;
 };
 
 #endif
