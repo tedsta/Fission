@@ -709,7 +709,7 @@
 1384211803 c:\users\teddy\programming\fission\include\fission\core\componentfactories.h
 	<Fission/Core/Component.h>
 
-1388263583 c:\users\teddy\programming\fission\include\fission\core\component.h
+1388373636 c:\users\teddy\programming\fission\include\fission\core\component.h
 	<SFML/Network/Packet.hpp>
 
 1388262997 c:\users\teddy\programming\fission\include\fission\core\config.h
@@ -834,11 +834,12 @@
 	<Fission/Core/EntityEvents.h>
 	<Fission/Input/Events.h>
 
-1388263764 source:c:\users\teddy\programming\fission\src\fission\network\intentcomponent.cpp
+1388373987 source:c:\users\teddy\programming\fission\src\fission\network\intentcomponent.cpp
 	<Fission/Network/IntentComponent.h>
 	<iostream>
+	<Fission/Core/ComponentTypeManager.h>
 
-1388263619 c:\users\teddy\programming\fission\include\fission\network\intentcomponent.h
+1388370758 c:\users\teddy\programming\fission\include\fission\network\intentcomponent.h
 	<string>
 	<map>
 	<SFML/Window/Event.hpp>
@@ -964,7 +965,7 @@
 	<algorithm>
 	"Fission/Core/EntityRef.h"
 
-1388359364 c:\users\teddy\programming\fission\include\fission\core\entitymanager.h
+1388375142 c:\users\teddy\programming\fission\include\fission\core\entitymanager.h
 	<iostream>
 	<vector>
 	<cstddef>
@@ -972,15 +973,17 @@
 	"Fission/Core/EventManager.h"
 	"Fission/Core/EntityEvents.h"
 
-1388359393 c:\users\teddy\programming\fission\include\fission\core\entityref.h
+1388365540 c:\users\teddy\programming\fission\include\fission\core\entityref.h
 	"Fission/Core/EntityManager.h"
 
 1388347002 source:c:\users\teddy\programming\fission\src\fission\core\entityref.cpp
 	"Fission/Core/EntityRef.h"
 
-1388341726 source:c:\users\teddy\programming\fission\src\fission\tests\main.cpp
+1388373051 source:c:\users\teddy\programming\fission\src\fission\tests\main.cpp
 	<UnitTest++/UnitTest++.h>
 	<UnitTest++/TestReporterStdout.h>
+	"Fission/Core/ComponentTypeManager.h"
+	"Fission/Tests/TestComponent.h"
 
 1387236613 c:\users\teddy\programming\fission\extlibs\include\unittest++\unittest++.h
 	"Config.h"
@@ -1071,7 +1074,7 @@
 
 1387236612 c:\users\teddy\programming\fission\extlibs\include\unittest++\testreporter.h
 
-1388350761 source:c:\users\teddy\programming\fission\src\fission\tests\testentitymanager.cpp
+1388374894 source:c:\users\teddy\programming\fission\src\fission\tests\testentitymanager.cpp
 	<UnitTest++/UnitTest++.h>
 	<memory>
 	"Fission/Core/EventManager.h"
@@ -1124,19 +1127,20 @@
 1388281604 source:c:\users\teddy\programming\fission\src\fission\core\componenttype.cpp
 	"Fission/Core/ComponentType.h"
 
-1388285301 c:\users\teddy\programming\fission\include\fission\tests\testcomponent.h
+1388373927 c:\users\teddy\programming\fission\include\fission\tests\testcomponent.h
 	"Fission/Core/Component.h"
 
 1388337909 c:\users\teddy\programming\fission\include\fission\tests\defs.h
 
-1388347880 c:\users\teddy\programming\fission\include\fission\core\componenttypemanager.h
-	<unordered_map>
-	<typeinfo>
-	<assert.h>
+1388374789 c:\users\teddy\programming\fission\include\fission\core\componenttypemanager.h
+	<vector>
 	<bitset>
-	"Fission/Core/ComponentType.h"
+	"Fission/Core/config.h"
 	"Fission/Core/Component.h"
 
-1388347857 source:c:\users\teddy\programming\fission\src\fission\core\componenttypemanager.cpp
+1388374795 source:c:\users\teddy\programming\fission\src\fission\core\componenttypemanager.cpp
 	"Fission/Core/ComponentTypeManager.h"
+
+1388373896 source:c:\users\teddy\programming\fission\src\fission\tests\testcomponent.cpp
+	"Fission/Tests/TestComponent.h"
 

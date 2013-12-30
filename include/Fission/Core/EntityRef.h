@@ -17,26 +17,19 @@ class EntityRef
             mEntityManager->addComponentToEntity<component>(mID);
         }
 
-        /// \brief Slow, convenient way to get a component from this entity
+        /// \brief Fast, unsafe way to get a component from this entity.
         template<typename component>
         component* getComponent() const
         {
             return mEntityManager->getComponentFromEntity<component>(mID);
         }
 
-        /// \brief Fast, unsafe way to get a component from this entity.
-        template<typename component>
-        component* getComponent(int componentID) const
-        {
-            return mEntityManager->getComponentFromEntity<component>(mID, componentID);
-        }
-
         /// \brief Fast, safe way to get a component from this entity. Use the unsafe version if
         /// you are certain that both this entity and the component exist.
         template<typename component>
-        component* getComponentSafe(int componentID) const
+        component* getComponentSafe() const
         {
-            return mEntityManager->getComponentFromEntitySafe<component>(mID, componentID);
+            return mEntityManager->getComponentFromEntitySafe<component>(mID);
         }
 
         /// \brief Get the ID of the entity this points to.

@@ -11,6 +11,9 @@ class TestComponent : public Component
         }
 
         int mData;
+
+        static ComponentType Type;
+        ComponentType getType(){return Type;}
 };
 
 class Test2Component : public Component
@@ -21,6 +24,9 @@ class Test2Component : public Component
         }
 
         int mData;
+
+        static ComponentType Type;
+        ComponentType getType(){return Type;}
 };
 
 #endif // TESTCOMPONENT_H

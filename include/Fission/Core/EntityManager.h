@@ -38,20 +38,18 @@ class EntityManager
             if (!entityExists(ID))
                 return;
 
-            const ComponentType& type = ComponentTypeManager::getTypeFor<component>();
-
-            if (static_cast<std::size_t>(type.getID()) > mComponents.size()) // Our component table's type dimension isn't big enough yet.
+            if (component::Type >= mComponents.size()) // Our component table's type dimension isn't big enough yet.
             {
-                mComponents.resize(type.getID());
+                mComponents.resize(component::Type+1);
                 for (auto& componentRow : mComponents)
                     componentRow.resize(mNextID, NULL);
             }
 
-            mComponents[type.getID()-1][ID] = new component; // Create the new component
-            mEntityBits[ID] |= type.getBit(); // Add the component's bit to the entity's bits.
+            mComponents[component::Type][ID] = new component; // Create the new component
+            mEntityBits[ID] |= ComponentTypeManager::getBit<component>(); // Add the component's bit to the entity's bits.
 
             // Tell the world the component's been added
-            mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, createEntityRef(ID), mComponents[type.getID()-1][ID]));
+            mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, createEntityRef(ID), mComponents[component::Type][ID]));
         }
 
         /// \brief Remove a component from an entity.
@@ -61,57 +59,39 @@ class EntityManager
             if (!entityExists(ID))
                 return;
 
-            const ComponentType& type = ComponentTypeManager::getTypeFor<component>();
-
-            if (static_cast<std::size_t>(type.getID()) > mComponents.size()) // No entities have this component
+            if (component::Type >= mComponents.size()) // No entities have this component
                 return;
 
-            if (!mComponents[type.getID()-1][ID]) // This entity doesn't have this component
+            if (!mComponents[component::Type][ID]) // This entity doesn't have this component
                 return;
 
-            delete mComponents[type.getID()-1][ID]; // Delete the component
-            mComponents[type.getID()-1][ID] = NULL;
-            mEntityBits[ID] &= type.getBit().flip(); // Remove the component's bit from the entity's bits.
+            delete mComponents[component::Type][ID]; // Delete the component
+            mComponents[component::Type][ID] = NULL;
+            mEntityBits[ID] &= ComponentTypeManager::getBit<component>().flip(); // Remove the component's bit from the entity's bits.
 
             // Tell the world that this component's been removed from this entity.
-            mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, createEntityRef(ID), mComponents[type.getID()-1][ID]));
-        }
-
-        /// \brief Slow, convenient way to get a component on an entity. Do not use in code that is executed
-        /// every frame. In those areas, use the overloaded method and supply the component ID.
-        template<typename component>
-        component* getComponentFromEntity(int ID) const
-        {
-            if (!entityExists(ID))
-                return NULL;
-
-            const ComponentType& type = ComponentTypeManager::getTypeFor<component>();
-
-            if (static_cast<std::size_t>(type.getID()) <= mComponents.size())
-                return static_cast<component*>(mComponents[type.getID()-1][ID]);
-
-            return NULL;
+            mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, createEntityRef(ID), mComponents[component::Type][ID]));
         }
 
         /// \brief Fastest, unsafe way to get a component on an entity.
         /// \note Template is for casting convenience
-        template<typename component = Component>
-        component* getComponentFromEntity(int ID, int componentID) const
+        template<typename component>
+        component* getComponentFromEntity(int ID) const
         {
-            return static_cast<component*>(mComponents[componentID-1][ID]);
+            return static_cast<component*>(mComponents[component::Type][ID]);
         }
 
         /// \brief Fast, safe way to get a component on an entity. Use the unsafe version if you
         /// are certain both the entity and the component exist.
         /// \note Template is for casting convenience
-        template<typename component = Component>
-        component* getComponentFromEntitySafe(int ID, int componentID) const
+        template<typename component>
+        component* getComponentFromEntitySafe(int ID) const
         {
             if (!entityExists(ID))
                 return NULL;
 
-            if (static_cast<std::size_t>(componentID) <= mComponents.size())
-                return static_cast<component*>(mComponents[componentID-1][ID]);
+            if (static_cast<std::size_t>(component::Type) < mComponents.size())
+                return static_cast<component*>(mComponents[component::Type][ID]);
 
             return NULL;
         }

@@ -2,6 +2,10 @@
 
 #include <iostream>
 
+#include <Fission/Core/ComponentTypeManager.h>
+
+ComponentType IntentComponent::Type;
+
 IntentComponent::IntentComponent()
 {
     for (int k = 0; k < sf::Keyboard::KeyCount; k++)

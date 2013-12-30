@@ -78,9 +78,9 @@ TEST(EntityManager_AddComponentToEntity)
     std::unique_ptr<IEventManager> eventManager(new MockEventManager);
     std::unique_ptr<EntityManager> em(new EntityManager(eventManager.get()));
     auto entityID = em->createEntity();
-    CHECK(em->getComponentFromEntity<TestComponent>(entityID) == NULL);
+    CHECK(em->getComponentFromEntitySafe<TestComponent>(entityID) == NULL);
     em->addComponentToEntity<TestComponent>(entityID);
-    CHECK(em->getComponentFromEntity<TestComponent>(entityID) != NULL);
+    CHECK(em->getComponentFromEntitySafe<TestComponent>(entityID) != NULL);
 }
 
 TEST(EntityManager_RemoveComponentFromEntity)
@@ -90,7 +90,7 @@ TEST(EntityManager_RemoveComponentFromEntity)
     auto entityID = em->createEntity();
     em->addComponentToEntity<TestComponent>(entityID);
     em->removeComponentFromEntity<TestComponent>(entityID);
-    CHECK(em->getComponentFromEntity<TestComponent>(entityID) == NULL);
+    CHECK(em->getComponentFromEntitySafe<TestComponent>(entityID) == NULL);
 }
 
 TEST(EntityManager_AddingComponentChangesEntityBits)
@@ -100,7 +100,7 @@ TEST(EntityManager_AddingComponentChangesEntityBits)
     auto entityID = em->createEntity();
     CHECK(!em->getEntityBits(entityID).test(1));
     em->addComponentToEntity<Test2Component>(entityID);
-    CHECK(em->getEntityBits(entityID).test(1));
+    CHECK(em->getEntityBits(entityID).test(Test2Component::Type));
 }
 
 TEST(EntityManager_RemovingComponentChangesEntityBits)
@@ -110,5 +110,5 @@ TEST(EntityManager_RemovingComponentChangesEntityBits)
     auto entityID = em->createEntity();
     em->addComponentToEntity<Test2Component>(entityID);
     em->removeComponentFromEntity<Test2Component>(entityID);
-    CHECK(!em->getEntityBits(entityID).test(1));
+    CHECK(!em->getEntityBits(entityID).test(Test2Component::Type));
 }

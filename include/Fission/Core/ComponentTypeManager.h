@@ -1,62 +1,43 @@
 #ifndef COMPONENTTYPEMANAGER_H
 #define COMPONENTTYPEMANAGER_H
 
-#include <unordered_map>
-#include <typeinfo>
-#include <assert.h>
+#include <vector>
 #include <bitset>
-#include "Fission/Core/ComponentType.h"
+
+#include "Fission/Core/config.h"
 #include "Fission/Core/Component.h"
 
 class ComponentTypeManager
 {
     public:
-        static void deleteComponentTypes();
-
-        static ComponentType& getTypeFor(const std::type_info &t);
-
-        // Gets the component type object
+        /// \brief Register a component type.
         template<typename c>
-        static ComponentType& getTypeFor()
+        static void add()
         {
-            //Check if we are being legal with components and shizzle
-            //Component * c = (component*)0;
+            // Set the component's type ID
+            c::Type = mNextID;
+            mNextID++;
 
-            assert((std::is_base_of<Component, c >::value == true));
+            // Create the component bit
+            std::bitset<MAX_COMPONENTS> bit;
+            bit.set(c::Type);
+            mBits.push_back(bit);
 
-            return getTypeFor(typeid(c));
+            // Create the factory function
+            mFactories.push_back(&Component::factory<c>);
         }
 
-        // Gets the bit set of a component
+        /// \brief Gets the bit set of a component.
         template<typename c>
-        static std::bitset<MAX_COMPONENTS> getBit() {
-
-            //Check if we are being legal with components and shizzle
-            //Component * c = (component*)0;
-
-            assert((std::is_base_of< Component, c >::value == true));
-            return getTypeFor(typeid(c)).getBit();
-        }
-
-        // Gets the component ID
-        template<typename c>
-        static int getID()
+        static std::bitset<MAX_COMPONENTS> getBit()
         {
-            //Check if we are being legal with components and shizzle
-
-            assert((std::is_base_of< Component, c >::value == true));
-
-            return getTypeFor(typeid(c)).getID();
-        };
-
-        static int getTypeCount()
-        {
-            return mComponentTypes.size();
+            return mBits[c::Type];
         }
 
     private:
-        ComponentTypeManager();
-        static std::unordered_map<size_t, ComponentType*> mComponentTypes;
+        static std::vector<std::bitset<MAX_COMPONENTS>> mBits;
+        static std::vector<ComponentFactory> mFactories;
+        static int mNextID;
 };
 
 #endif // COMPONENTTYPEMANAGER_H
