@@ -709,7 +709,7 @@
 1384211803 c:\users\teddy\programming\fission\include\fission\core\componentfactories.h
 	<Fission/Core/Component.h>
 
-1388373636 c:\users\teddy\programming\fission\include\fission\core\component.h
+1388527864 c:\users\teddy\programming\fission\include\fission\core\component.h
 	<SFML/Network/Packet.hpp>
 
 1388262997 c:\users\teddy\programming\fission\include\fission\core\config.h
@@ -839,7 +839,7 @@
 	<iostream>
 	<Fission/Core/ComponentTypeManager.h>
 
-1388370758 c:\users\teddy\programming\fission\include\fission\network\intentcomponent.h
+1388375461 c:\users\teddy\programming\fission\include\fission\network\intentcomponent.h
 	<string>
 	<map>
 	<SFML/Window/Event.hpp>
@@ -873,7 +873,7 @@
 	<SFML/Graphics/Font.hpp>
 	<SFML/Graphics/RenderTarget.hpp>
 
-1386833168 source:c:\users\teddy\programming\fission\src\fission\rendering\rendersystem.cpp
+1388524412 source:c:\users\teddy\programming\fission\src\fission\rendering\rendersystem.cpp
 	<Fission/Rendering/RenderSystem.h>
 	<Fission/Rendering/DebugDisplay.h>
 	<Fission/Rendering/TransformComponent.h>
@@ -881,7 +881,7 @@
 	<Fission/Rendering/SpriteComponent.h>
 	<iostream>
 
-1385372552 c:\users\teddy\programming\fission\include\fission\rendering\rendersystem.h
+1388524394 c:\users\teddy\programming\fission\include\fission\rendering\rendersystem.h
 	<vector>
 	<SFML/Graphics/RenderWindow.hpp>
 	<SFML/Graphics/RenderTexture.hpp>
@@ -889,7 +889,7 @@
 	<SFML/Graphics/Font.hpp>
 	<Fission/Core/System.h>
 
-1386995050 c:\users\teddy\programming\fission\include\fission\rendering\transformcomponent.h
+1388439965 c:\users\teddy\programming\fission\include\fission\rendering\transformcomponent.h
 	<SFML/System/Vector2.hpp>
 	<SFML/Graphics/Transformable.hpp>
 	<SFML/Network/Packet.hpp>
@@ -899,20 +899,20 @@
 	<SFML/Graphics/RenderTarget.hpp>
 	<Fission/Core/Component.h>
 
-1387425061 c:\users\teddy\programming\fission\include\fission\rendering\spritecomponent.h
+1388439486 c:\users\teddy\programming\fission\include\fission\rendering\spritecomponent.h
 	<string>
 	<SFML/System/Clock.hpp>
 	<SFML/Graphics/Sprite.hpp>
 	<Fission/Rendering/RenderComponent.h>
 
-1387428192 source:c:\users\teddy\programming\fission\src\fission\rendering\spritecomponent.cpp
+1388440950 source:c:\users\teddy\programming\fission\src\fission\rendering\spritecomponent.cpp
 	<Fission/Rendering/SpriteComponent.h>
 	<SFML/Graphics/RenderTarget.hpp>
 	<SFML/Graphics/Texture.hpp>
 	<Fission/Core/ResourceManager.h>
 	<Fission/Rendering/TransformComponent.h>
 
-1386995268 source:c:\users\teddy\programming\fission\src\fission\rendering\transformcomponent.cpp
+1388440961 source:c:\users\teddy\programming\fission\src\fission\rendering\transformcomponent.cpp
 	<Fission/Rendering/TransformComponent.h>
 
 1384211954 source:c:\users\teddy\programming\fission\src\fission\script\scriptcomponent.cpp
@@ -1127,7 +1127,7 @@
 1388281604 source:c:\users\teddy\programming\fission\src\fission\core\componenttype.cpp
 	"Fission/Core/ComponentType.h"
 
-1388373927 c:\users\teddy\programming\fission\include\fission\tests\testcomponent.h
+1388527888 c:\users\teddy\programming\fission\include\fission\tests\testcomponent.h
 	"Fission/Core/Component.h"
 
 1388337909 c:\users\teddy\programming\fission\include\fission\tests\defs.h
@@ -1143,4 +1143,15 @@
 
 1388373896 source:c:\users\teddy\programming\fission\src\fission\tests\testcomponent.cpp
 	"Fission/Tests/TestComponent.h"
+
+1388523620 source:c:\users\teddy\programming\fission\src\fission\rendering\rendermanager.cpp
+	"Fission/Rendering/RenderManager.h"
+
+1388524351 c:\users\teddy\programming\fission\include\fission\rendering\rendermanager.h
+	<vector>
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/RenderTexture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/Graphics/Sprite.hpp>
+	"Fission/Rendering/DebugDisplay.h"
 

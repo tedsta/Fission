@@ -7,23 +7,21 @@
 
 #include <iostream>
 
-RenderSystem::RenderSystem(EventManager *eventManager, float lockStep, sf::Font* debugFont, TypeBits renderableTypeBits) :
-    System(eventManager, lockStep, TransformComponent::Type, SpriteComponent::Type|renderableTypeBits)
+RenderSystem::RenderSystem(IEventManager* eventManager, float lockStep) :
+    System(eventManager, lockStep)
 {
-    mWindow.create(sf::VideoMode(800,600,32), "Fission");
-    mView = mWindow.getView();
-    mDebugDisplay = new DebugDisplay(debugFont);
+    //mWindow.create(sf::VideoMode(800,600,32), "Fission");
+    //mView = mWindow.getView();
 }
 
 RenderSystem::~RenderSystem()
 {
     //mWindow.close();
-    delete mDebugDisplay;
 }
 
 void RenderSystem::begin(const float dt)
 {
-    mWindow.clear(mBackgroundColor); // Clear the window
+    /*mWindow.clear(mBackgroundColor); // Clear the window
     mWindow.setView(mView);
 
     // Calculate the number of layers
@@ -61,7 +59,7 @@ void RenderSystem::begin(const float dt)
                 }
             }
         }
-    }
+    }*/
 }
 
 void RenderSystem::processEntity(EntityRef* entity, const float dt)
@@ -70,9 +68,11 @@ void RenderSystem::processEntity(EntityRef* entity, const float dt)
 
 void RenderSystem::end(const float dt)
 {
-    mWindow.setView(mWindow.getDefaultView());
+    /*mWindow.setView(mWindow.getDefaultView());
     for (auto sprite : mAdditionalSprites)
         mWindow.draw(*sprite);
     mDebugDisplay->render(mWindow);
     mWindow.display(); // Display to the window
+
+    */
 }

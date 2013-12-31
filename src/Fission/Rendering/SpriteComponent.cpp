@@ -6,7 +6,7 @@
 #include <Fission/Core/ResourceManager.h>
 #include <Fission/Rendering/TransformComponent.h>
 
-TypeBits SpriteComponent::Type;
+ComponentType SpriteComponent::Type;
 
 SpriteComponent::SpriteComponent(const std::string& texturePath, int frames, int framesPerRow) :
     mTexturePath(texturePath), mFrames(frames), mFramesPerRow(framesPerRow), mCurrentFrame(0), mFrameDelay(100), mLoopAnim(true),

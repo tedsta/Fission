@@ -16,9 +16,8 @@ class TransformComponent : public Component, public sf::Transformable
         void serialize(sf::Packet& packet);
         void deserialize(sf::Packet& packet);
 
-        static TypeBits Type;
-        const TypeBits getTypeBits() const {return Type;}
-        static Component* factory() {return new TransformComponent();}
+        static ComponentType Type;
+        const ComponentType getTypeBits() const {return Type;}
 
     private:
 };

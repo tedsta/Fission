@@ -3,6 +3,13 @@
 
 #include <SFML/Network/Packet.hpp>
 
+// Adds things that all components need
+#define FISSION_COMPONENT \
+    public: \
+        static ComponentType Type; \
+        ComponentType getType() const {return Type;} \
+    private:
+
 class Component;
 
 /// \brief Type definition for component type IDs
@@ -20,7 +27,7 @@ class Component
         virtual ~Component(){}
 
         /// \brief Get the component type ID of this component.
-        virtual ComponentType getType() = 0;
+        virtual ComponentType getType() const = 0;
 
     private:
         /// \brief A template component factory.

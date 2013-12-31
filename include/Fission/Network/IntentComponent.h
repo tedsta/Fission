@@ -37,7 +37,7 @@ class IntentComponent : public Component
         sf::Vector2f getMousePos(){return mMousePos;}
 
         static ComponentType Type;
-        ComponentType getType(){return Type;}
+        ComponentType getType() const {return Type;}
 
     private:
         enum

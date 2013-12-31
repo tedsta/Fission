@@ -46,9 +46,8 @@ class SpriteComponent : public RenderComponent
         const sf::Vector2f& getFrameDim() const {return mFrameDim;}
         sf::FloatRect getBounds() const {return sf::FloatRect(0, 0, mFrameDim.x, mFrameDim.y);}
 
-        static TypeBits Type;
-        const TypeBits getTypeBits() const {return Type;}
-        static Component* factory() {return new SpriteComponent();}
+        static ComponentType Type;
+        const ComponentType getTypeBits() const {return Type;}
 
     private:
         /// The SFML sprite to draw

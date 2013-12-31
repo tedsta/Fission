@@ -15,25 +15,8 @@ class DebugDisplay;
 class RenderSystem : public System
 {
     public:
-        RenderSystem(IEventManager* eventManager, float lockStep, sf::Font* debugFont = NULL, TypeBits renderableTypeBits = 0);
+        RenderSystem(IEventManager* eventManager, float lockStep);
         virtual ~RenderSystem();
-
-        void addAdditionalSprite(sf::Sprite* sprite){mAdditionalSprites.push_back(sprite);}
-
-        // Setters
-
-        void setBackgroundColor(sf::Color col){mBackgroundColor=col;}
-
-        // Getters
-
-        /// \brief Get the SFML render window
-        sf::RenderWindow& getWindow(){return mWindow;}
-
-        /// \brief Return a reference to the SFML view
-        sf::View& getView(){return mView;}
-
-        /// \brief Get the debug display
-        DebugDisplay* getDebugDisplay(){return mDebugDisplay;}
 
     protected:
         /// \brief begin function for systems
@@ -46,20 +29,6 @@ class RenderSystem : public System
         void end(const float dt);
 
     private:
-        // The SFML render window
-        sf::RenderWindow mWindow;
-
-        // The SFML view
-        sf::View mView;
-
-        // The background color
-        sf::Color mBackgroundColor;
-
-        // The debug display
-        DebugDisplay* mDebugDisplay;
-
-        // Additional sprites to render
-        std::vector<sf::Sprite*> mAdditionalSprites;
 };
 
 #endif // RENDERSYSTEM_H

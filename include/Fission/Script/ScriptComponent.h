@@ -14,9 +14,8 @@ class ScriptComponent : public Component
         /// \brief Execute the update function
         void executeUpdate(const float dt);
 
-        static TypeBits Type;
-        const TypeBits getTypeBits() const {return Type;}
-        static Component* factory() {return new ScriptComponent();}
+        static ComponentType Type;
+        ComponentType getType() const {return Type;}
 
     private:
         Sqrat::Function mUpdateFunction;

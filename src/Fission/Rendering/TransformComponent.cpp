@@ -1,6 +1,6 @@
 #include <Fission/Rendering/TransformComponent.h>
 
-TypeBits TransformComponent::Type;
+ComponentType TransformComponent::Type;
 
 TransformComponent::TransformComponent(sf::Vector2f pos, float rot, sf::Vector2f scale)
 {

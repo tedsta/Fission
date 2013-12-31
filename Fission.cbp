@@ -83,7 +83,6 @@
 		</Compiler>
 		<Unit filename="include/Fission/Core/Aspect.h" />
 		<Unit filename="include/Fission/Core/Component.h" />
-		<Unit filename="include/Fission/Core/ComponentType.h" />
 		<Unit filename="include/Fission/Core/ComponentTypeManager.h" />
 		<Unit filename="include/Fission/Core/Engine.h" />
 		<Unit filename="include/Fission/Core/EntityEvents.h" />
@@ -113,7 +112,6 @@
 			<Option target="UnitTests" />
 		</Unit>
 		<Unit filename="src/Fission/Core/Aspect.cpp" />
-		<Unit filename="src/Fission/Core/ComponentType.cpp" />
 		<Unit filename="src/Fission/Core/ComponentTypeManager.cpp" />
 		<Unit filename="src/Fission/Core/Engine.cpp" />
 		<Unit filename="src/Fission/Core/EntityManager.cpp" />
@@ -125,7 +123,14 @@
 		<Unit filename="src/Fission/Network/Connection.cpp" />
 		<Unit filename="src/Fission/Network/IntentComponent.cpp" />
 		<Unit filename="src/Fission/Network/IntentSystem.cpp" />
+		<Unit filename="src/Fission/Rendering/DebugDisplay.cpp" />
+		<Unit filename="src/Fission/Rendering/RenderSystem.cpp" />
+		<Unit filename="src/Fission/Rendering/SpriteComponent.cpp" />
+		<Unit filename="src/Fission/Rendering/TransformComponent.cpp" />
 		<Unit filename="src/Fission/Tests/TestAspect.cpp">
+			<Option target="UnitTests" />
+		</Unit>
+		<Unit filename="src/Fission/Tests/TestComponent.cpp">
 			<Option target="UnitTests" />
 		</Unit>
 		<Unit filename="src/Fission/Tests/TestEntityManager.cpp">

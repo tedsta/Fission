@@ -5,28 +5,26 @@
 
 class TestComponent : public Component
 {
+    FISSION_COMPONENT
+
     public:
         TestComponent() : mData(0)
         {
         }
 
         int mData;
-
-        static ComponentType Type;
-        ComponentType getType(){return Type;}
 };
 
 class Test2Component : public Component
 {
+    FISSION_COMPONENT
+
     public:
         Test2Component() : mData(0)
         {
         }
 
         int mData;
-
-        static ComponentType Type;
-        ComponentType getType(){return Type;}
 };
 
 #endif // TESTCOMPONENT_H
