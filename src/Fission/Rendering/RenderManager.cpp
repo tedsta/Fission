@@ -6,7 +6,7 @@
 #include "Fission/Rendering/TransformComponent.h"
 
 RenderManager::RenderManager(int width, int height, const std::string& wndName, int layers, sf::Font* debugFont) :
-    mDebugDisplay(debugFont), mLayers(layers)
+    mBackgroundColor(sf::Color::Black), mDebugDisplay(debugFont), mLayers(layers)
 {
     mWindow.create(sf::VideoMode(width, height, 32), wndName);
     mView = mWindow.getView();
@@ -18,16 +18,31 @@ RenderManager::~RenderManager()
 
 void RenderManager::renderLayers()
 {
-    for (auto& layer : mLayers)
-    {
-        for (auto& renderable : layer)
-        {
-            sf::RenderStates states;
-            states.transform = renderable.transform->getTransform();
+    mWindow.clear(mBackgroundColor); // Clear the window
+    mWindow.setView(mView);
 
-            mRenderSystems[renderable.componentID]->render(renderable.render, mWindow, states);
+    for (std::size_t i = 0; i < mLayers.size(); i++)
+    {
+        for (std::size_t j = 0; j < mLayers[i].size(); j++)
+        {
+            if (mLayers[i][j].render->getLayer() != static_cast<int>(i)) // If this renderable isn't in the right layer
+            {
+                // Put the renderable in the right layer
+                mLayers[mLayers[i][j].render->getLayer()].push_back(mLayers[i][j]);
+                mLayers[i].erase(mLayers[i].begin()+j);
+                j--;
+                continue;
+            }
+
+            sf::RenderStates states;
+            states.transform = mLayers[i][j].transform->getTransform();
+
+            mRenderSystems[mLayers[i][j].componentID]->render(mLayers[i][j].render, mWindow, states);
         }
     }
+
+    mWindow.setView(mWindow.getDefaultView());
+    mWindow.display();
 }
 
 void RenderManager::addRenderableToLayer(int layer, EntityRef* entity, int componentID)

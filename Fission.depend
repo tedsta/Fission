@@ -1147,10 +1147,14 @@
 1388373896 source:c:\users\teddy\programming\fission\src\fission\tests\testcomponent.cpp
 	"Fission/Tests/TestComponent.h"
 
-1388550541 source:c:\users\teddy\programming\fission\src\fission\rendering\rendermanager.cpp
+1388615368 source:c:\users\teddy\programming\fission\src\fission\rendering\rendermanager.cpp
 	"Fission/Rendering/RenderManager.h"
+	"Fission/Core/EntityRef.h"
+	"Fission/Rendering/RenderComponent.h"
+	"Fission/Rendering/RenderSystem.h"
+	"Fission/Rendering/TransformComponent.h"
 
-1388612128 c:\users\teddy\programming\fission\include\fission\rendering\rendermanager.h
+1388614985 c:\users\teddy\programming\fission\include\fission\rendering\rendermanager.h
 	<set>
 	<vector>
 	<SFML/Graphics/Font.hpp>

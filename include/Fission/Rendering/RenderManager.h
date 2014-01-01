@@ -51,6 +51,8 @@ class RenderManager
         sf::RenderWindow mWindow;
         sf::View mView;
 
+        sf::Color mBackgroundColor;
+
         DebugDisplay mDebugDisplay;
 
         std::vector<RenderSystem*> mRenderSystems;
