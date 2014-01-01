@@ -1,6 +1,7 @@
 #ifndef RENDERMANAGER_H
 #define RENDERMANAGER_H
 
+#include <set>
 #include <vector>
 
 #include <SFML/Graphics/Font.hpp>
@@ -10,8 +11,15 @@
 
 #include "Fission/Rendering/DebugDisplay.h"
 
+class EntityRef;
+class RenderSystem;
+class RenderComponent;
+class TransformComponent;
+
 class RenderManager
 {
+    friend class RenderSystem;
+
     public:
         RenderManager(int width, int height, const std::string& wndName, int layers, sf::Font* debugFont);
         ~RenderManager();
@@ -30,10 +38,23 @@ class RenderManager
         DebugDisplay& getDebugDisplay(){return mDebugDisplay;}
 
     private:
+        struct Renderable
+        {
+            int componentID;
+            TransformComponent* transform;
+            RenderComponent* render;
+        };
+
+        void addRenderableToLayer(int layer, EntityRef* entity, int componentID);
+        void removeRenderableFromLayer(int layer, int componentID);
+
         sf::RenderWindow mWindow;
         sf::View mView;
 
         DebugDisplay mDebugDisplay;
+
+        std::vector<RenderSystem*> mRenderSystems;
+        std::vector<std::vector<Renderable>> mLayers;
 };
 
 #endif // RENDERMANAGER_H

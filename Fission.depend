@@ -881,7 +881,7 @@
 	<Fission/Rendering/SpriteComponent.h>
 	<iostream>
 
-1388536674 c:\users\teddy\programming\fission\include\fission\rendering\rendersystem.h
+1388612378 c:\users\teddy\programming\fission\include\fission\rendering\rendersystem.h
 	<vector>
 	<SFML/Graphics/RenderWindow.hpp>
 	<SFML/Graphics/RenderTexture.hpp>
@@ -1147,10 +1147,11 @@
 1388373896 source:c:\users\teddy\programming\fission\src\fission\tests\testcomponent.cpp
 	"Fission/Tests/TestComponent.h"
 
-1388523620 source:c:\users\teddy\programming\fission\src\fission\rendering\rendermanager.cpp
+1388550541 source:c:\users\teddy\programming\fission\src\fission\rendering\rendermanager.cpp
 	"Fission/Rendering/RenderManager.h"
 
-1388524351 c:\users\teddy\programming\fission\include\fission\rendering\rendermanager.h
+1388612128 c:\users\teddy\programming\fission\include\fission\rendering\rendermanager.h
+	<set>
 	<vector>
 	<SFML/Graphics/Font.hpp>
 	<SFML/Graphics/RenderTexture.hpp>

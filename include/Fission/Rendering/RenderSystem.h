@@ -15,6 +15,8 @@
 
 class RenderSystem : public System
 {
+    friend class RenderManager;
+
     public:
         RenderSystem(IEventManager* eventManager, RenderManager* renderManager, float lockStep) :
             System(eventManager, lockStep), mRenderManager(renderManager)
@@ -41,18 +43,23 @@ class RenderSystem : public System
         /// \brief Process entity function for systems
         void processEntity(EntityRef* entity, const float dt)
         {
-            auto transCmp = entity->getComponent<TransformComponent>();
-            auto rndCmp = static_cast<RenderComponent*>(entity->getComponent(mComponentID));
-
-            sf::RenderStates states;
-            states.transform = transCmp->getTransform();
-
-            render(rndCmp, mRenderManager->getWindow(), states);
         }
 
         /// \brief end function for systems
         void end(const float dt)
         {
+        }
+
+        void onEntityAdded(EntityRef* entity)
+        {
+            auto rndCmp = static_cast<RenderComponent*>(entity->getComponent(mComponentID));
+            mRenderManager->addRenderableToLayer(rndCmp->getLayer(), entity, mComponentID);
+        }
+
+        void onEntityRemoved(EntityRef* entity)
+        {
+            auto rndCmp = static_cast<RenderComponent*>(entity->getComponent(mComponentID));
+            mRenderManager->removeRenderableFromLayer(rndCmp->getLayer(), mComponentID);
         }
 
         virtual void render(RenderComponent* component, sf::RenderTarget& target, sf::RenderStates& states) = 0;
