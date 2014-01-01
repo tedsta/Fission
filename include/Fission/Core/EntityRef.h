@@ -32,6 +32,13 @@ class EntityRef
             return mEntityManager->getComponentFromEntitySafe<component>(mID);
         }
 
+        /// \brief Get a component on an entity using the component's integer type ID.
+        /// Useful for when you can't call the template method
+        Component* getComponent(int componentID) const
+        {
+            return mEntityManager->getComponentFromEntity(mID, componentID);
+        }
+
         /// \brief Get the ID of the entity this points to.
         int getID() const {return mID;}
 

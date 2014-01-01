@@ -81,6 +81,13 @@ class EntityManager
             return static_cast<component*>(mComponents[component::Type][ID]);
         }
 
+        /// \brief Get a component on an entity using the component's integer type ID.
+        /// Useful for when you can't call the template method
+        Component* getComponentFromEntity(int ID, int componentID) const
+        {
+            return mComponents[componentID][ID];
+        }
+
         /// \brief Fast, safe way to get a component on an entity. Use the unsafe version if you
         /// are certain both the entity and the component exist.
         /// \note Template is for casting convenience

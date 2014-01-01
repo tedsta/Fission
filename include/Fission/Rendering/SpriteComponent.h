@@ -10,6 +10,10 @@
 
 class SpriteComponent : public RenderComponent
 {
+    FISSION_COMPONENT
+
+    friend class SpriteRenderSystem;
+
     public:
         SpriteComponent(const std::string& texturePath = "", int frames = 1, int framesPerRow = 1);
         virtual ~SpriteComponent();
@@ -45,9 +49,6 @@ class SpriteComponent : public RenderComponent
         const sf::Sprite& getSprite() const {return mSprite;}
         const sf::Vector2f& getFrameDim() const {return mFrameDim;}
         sf::FloatRect getBounds() const {return sf::FloatRect(0, 0, mFrameDim.x, mFrameDim.y);}
-
-        static ComponentType Type;
-        const ComponentType getTypeBits() const {return Type;}
 
     private:
         /// The SFML sprite to draw

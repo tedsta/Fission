@@ -839,7 +839,7 @@
 	<iostream>
 	<Fission/Core/ComponentTypeManager.h>
 
-1388375461 c:\users\teddy\programming\fission\include\fission\network\intentcomponent.h
+1388529640 c:\users\teddy\programming\fission\include\fission\network\intentcomponent.h
 	<string>
 	<map>
 	<SFML/Window/Event.hpp>
@@ -873,7 +873,7 @@
 	<SFML/Graphics/Font.hpp>
 	<SFML/Graphics/RenderTarget.hpp>
 
-1388524412 source:c:\users\teddy\programming\fission\src\fission\rendering\rendersystem.cpp
+1388528370 source:c:\users\teddy\programming\fission\src\fission\rendering\rendersystem.cpp
 	<Fission/Rendering/RenderSystem.h>
 	<Fission/Rendering/DebugDisplay.h>
 	<Fission/Rendering/TransformComponent.h>
@@ -881,15 +881,18 @@
 	<Fission/Rendering/SpriteComponent.h>
 	<iostream>
 
-1388524394 c:\users\teddy\programming\fission\include\fission\rendering\rendersystem.h
+1388536674 c:\users\teddy\programming\fission\include\fission\rendering\rendersystem.h
 	<vector>
 	<SFML/Graphics/RenderWindow.hpp>
 	<SFML/Graphics/RenderTexture.hpp>
 	<SFML/Graphics/Sprite.hpp>
 	<SFML/Graphics/Font.hpp>
 	<Fission/Core/System.h>
+	<Fission/Rendering/RenderComponent.h>
+	<Fission/Rendering/RenderManager.h>
+	<Fission/Rendering/TransformComponent.h>
 
-1388439965 c:\users\teddy\programming\fission\include\fission\rendering\transformcomponent.h
+1388528860 c:\users\teddy\programming\fission\include\fission\rendering\transformcomponent.h
 	<SFML/System/Vector2.hpp>
 	<SFML/Graphics/Transformable.hpp>
 	<SFML/Network/Packet.hpp>
@@ -899,7 +902,7 @@
 	<SFML/Graphics/RenderTarget.hpp>
 	<Fission/Core/Component.h>
 
-1388439486 c:\users\teddy\programming\fission\include\fission\rendering\spritecomponent.h
+1388530042 c:\users\teddy\programming\fission\include\fission\rendering\spritecomponent.h
 	<string>
 	<SFML/System/Clock.hpp>
 	<SFML/Graphics/Sprite.hpp>
@@ -965,7 +968,7 @@
 	<algorithm>
 	"Fission/Core/EntityRef.h"
 
-1388375142 c:\users\teddy\programming\fission\include\fission\core\entitymanager.h
+1388535545 c:\users\teddy\programming\fission\include\fission\core\entitymanager.h
 	<iostream>
 	<vector>
 	<cstddef>
@@ -973,7 +976,7 @@
 	"Fission/Core/EventManager.h"
 	"Fission/Core/EntityEvents.h"
 
-1388365540 c:\users\teddy\programming\fission\include\fission\core\entityref.h
+1388535958 c:\users\teddy\programming\fission\include\fission\core\entityref.h
 	"Fission/Core/EntityManager.h"
 
 1388347002 source:c:\users\teddy\programming\fission\src\fission\core\entityref.cpp
@@ -1154,4 +1157,11 @@
 	<SFML/Graphics/RenderWindow.hpp>
 	<SFML/Graphics/Sprite.hpp>
 	"Fission/Rendering/DebugDisplay.h"
+
+1388536612 source:c:\users\teddy\programming\fission\src\fission\rendering\spriterendersystem.cpp
+	"Fission/Rendering/SpriteRenderSystem.h"
+	"Fission/Rendering/SpriteComponent.h"
+
+1388536638 c:\users\teddy\programming\fission\include\fission\rendering\spriterendersystem.h
+	"Fission/Rendering/RenderSystem.h"
 

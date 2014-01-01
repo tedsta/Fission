@@ -9,15 +9,14 @@
 
 class TransformComponent : public Component, public sf::Transformable
 {
+    FISSION_COMPONENT
+
     public:
         TransformComponent(sf::Vector2f pos = sf::Vector2f(0, 0), float rot = 0, sf::Vector2f scale = sf::Vector2f(1, 1));
         virtual ~TransformComponent();
 
         void serialize(sf::Packet& packet);
         void deserialize(sf::Packet& packet);
-
-        static ComponentType Type;
-        const ComponentType getTypeBits() const {return Type;}
 
     private:
 };

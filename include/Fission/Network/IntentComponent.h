@@ -12,6 +12,8 @@
 
 class IntentComponent : public Component
 {
+    FISSION_COMPONENT
+
     friend class IntentSystem;
 
     public:
@@ -35,9 +37,6 @@ class IntentComponent : public Component
 
         /// \brief Get the position of the mouse cursor
         sf::Vector2f getMousePos(){return mMousePos;}
-
-        static ComponentType Type;
-        ComponentType getType() const {return Type;}
 
     private:
         enum
