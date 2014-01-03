@@ -13,60 +13,64 @@
 #include <Fission/Rendering/RenderManager.h>
 #include <Fission/Rendering/TransformComponent.h>
 
-class RenderSystem : public System
+namespace fission
 {
-    friend class RenderManager;
+    class RenderSystem : public System
+    {
+        friend class RenderManager;
 
-    public:
-        RenderSystem(IEventManager* eventManager, RenderManager* renderManager, float lockStep) :
-            System(eventManager, lockStep), mRenderManager(renderManager)
-        {
-        }
+        public:
+            RenderSystem(IEventManager* eventManager, RenderManager* renderManager, float lockStep) :
+                System(eventManager, lockStep), mRenderManager(renderManager)
+            {
+            }
 
-        virtual ~RenderSystem()
-        {
-        }
+            virtual ~RenderSystem()
+            {
+            }
 
-    protected:
-        template<typename RenderComponentT>
-        void initialize()
-        {
-            mComponentID = RenderComponentT::Type;
-            mAspect.all<TransformComponent, RenderComponentT>();
-        }
+        protected:
+            template<typename RenderComponentT>
+            void initialize()
+            {
+                mComponentID = RenderComponentT::Type;
+                mAspect.all<TransformComponent, RenderComponentT>();
+            }
 
-        /// \brief begin function for systems
-        void begin(const float dt)
-        {
-        }
+            /// \brief begin function for systems
+            void begin(const float dt)
+            {
+            }
 
-        /// \brief Process entity function for systems
-        void processEntity(EntityRef* entity, const float dt)
-        {
-        }
+            /// \brief Process entity function for systems
+            void processEntity(EntityRef* entity, const float dt)
+            {
+            }
 
-        /// \brief end function for systems
-        void end(const float dt)
-        {
-        }
+            /// \brief end function for systems
+            void end(const float dt)
+            {
+            }
 
-        void onEntityAdded(EntityRef* entity)
-        {
-            auto rndCmp = static_cast<RenderComponent*>(entity->getComponent(mComponentID));
-            mRenderManager->addRenderableToLayer(rndCmp->getLayer(), entity, mComponentID);
-        }
+            void onEntityAdded(EntityRef* entity)
+            {
+                auto rndCmp = static_cast<RenderComponent*>(entity->getComponent(mComponentID));
+                mRenderManager->addRenderableToLayer(rndCmp->getLayer(), entity, mComponentID);
+            }
 
-        void onEntityRemoved(EntityRef* entity)
-        {
-            auto rndCmp = static_cast<RenderComponent*>(entity->getComponent(mComponentID));
-            mRenderManager->removeRenderableFromLayer(rndCmp->getLayer(), mComponentID);
-        }
+            void onEntityRemoved(EntityRef* entity)
+            {
+                auto rndCmp = static_cast<RenderComponent*>(entity->getComponent(mComponentID));
+                mRenderManager->removeRenderableFromLayer(rndCmp->getLayer(), mComponentID);
+            }
 
-        virtual void render(RenderComponent* component, sf::RenderTarget& target, sf::RenderStates& states) = 0;
+            virtual void render(RenderComponent* component, sf::RenderTarget& target, sf::RenderStates& states) = 0;
 
-    private:
-        RenderManager* mRenderManager;
-        int mComponentID; // Type ID of the render component to process
-};
+        private:
+            RenderManager* mRenderManager;
+            int mComponentID; // Type ID of the render component to process
+    };
+}
+
 
 #endif // RENDERSYSTEM_H

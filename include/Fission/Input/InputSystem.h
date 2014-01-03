@@ -5,21 +5,25 @@
 
 #include <Fission/Core/System.h>
 
-class InputSystem : public System
+namespace fission
 {
-    public:
-        InputSystem(IEventManager* eventManager, float lockStep, sf::Window* window);
-        virtual ~InputSystem();
+    class InputSystem : public System
+    {
+        public:
+            InputSystem(IEventManager* eventManager, float lockStep, sf::Window* window);
+            virtual ~InputSystem();
 
-    protected:
-        void begin(const float dt);
+        protected:
+            void begin(const float dt);
 
-        void processEntity(EntityRef* entity, const float dt);
+            void processEntity(EntityRef* entity, const float dt);
 
-        void end(const float dt);
+            void end(const float dt);
 
-    private:
-        sf::Window *mWindow;
-};
+        private:
+            sf::Window *mWindow;
+    };
+}
+
 
 #endif // INPUTSYSTEM_H

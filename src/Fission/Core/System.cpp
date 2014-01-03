@@ -5,71 +5,75 @@
 #include <Fission/Core/EventManager.h>
 #include <Fission/Core/EntityEvents.h>
 
-System::System(IEventManager* eventManager, float lockStep) : mEventManager(eventManager),
-    mLockStep(lockStep), mDtAccumulator(0.f)
+namespace fission
 {
-    mEventManager->addListener(this, EVENT_ADD_ENTITY);
-    mEventManager->addListener(this, EVENT_REMOVE_ENTITY);
-    mEventManager->addListener(this, EVENT_ADD_COMPONENT);
-    mEventManager->addListener(this, EVENT_REMOVE_COMPONENT);
-}
-
-System::~System()
-{
-    mEventManager->removeListener(this, EVENT_ADD_ENTITY);
-    mEventManager->removeListener(this, EVENT_REMOVE_ENTITY);
-    mEventManager->removeListener(this, EVENT_ADD_COMPONENT);
-    mEventManager->removeListener(this, EVENT_REMOVE_COMPONENT);
-}
-
-bool System::handleEvent(IEventData const& evt)
-{
-    switch (evt.getID())
+    System::System(IEventManager* eventManager, float lockStep) : mEventManager(eventManager),
+        mLockStep(lockStep), mDtAccumulator(0.f)
     {
-    case EVENT_ADD_ENTITY:
-    case EVENT_ADD_COMPONENT:
-    case EVENT_REMOVE_COMPONENT:
-        {
-            EntityRef* entity = static_cast<const EntityComponentEvent&>(evt).mEntity;
+        mEventManager->addListener(this, EVENT_ADD_ENTITY);
+        mEventManager->addListener(this, EVENT_REMOVE_ENTITY);
+        mEventManager->addListener(this, EVENT_ADD_COMPONENT);
+        mEventManager->addListener(this, EVENT_REMOVE_COMPONENT);
+    }
 
-            // Check if the entity still meets the requirements
-            if (mAspect.checkEntity(entity))
+    System::~System()
+    {
+        mEventManager->removeListener(this, EVENT_ADD_ENTITY);
+        mEventManager->removeListener(this, EVENT_REMOVE_ENTITY);
+        mEventManager->removeListener(this, EVENT_ADD_COMPONENT);
+        mEventManager->removeListener(this, EVENT_REMOVE_COMPONENT);
+    }
+
+    bool System::handleEvent(IEventData const& evt)
+    {
+        switch (evt.getID())
+        {
+        case EVENT_ADD_ENTITY:
+        case EVENT_ADD_COMPONENT:
+        case EVENT_REMOVE_COMPONENT:
             {
-                if (mActiveEntities.find(entity) == mActiveEntities.end())
+                EntityRef* entity = static_cast<const EntityComponentEvent&>(evt).mEntity;
+
+                // Check if the entity still meets the requirements
+                if (mAspect.checkEntity(entity))
                 {
-                    mActiveEntities.insert(entity); // Add the entity to the active entities if it meets the requirements
-                    onEntityAdded(entity);
+                    if (mActiveEntities.find(entity) == mActiveEntities.end())
+                    {
+                        mActiveEntities.insert(entity); // Add the entity to the active entities if it meets the requirements
+                        onEntityAdded(entity);
+                    }
                 }
-            }
-            else if (!mAspect.checkEntity(entity))
-            {
-                mActiveEntities.erase(entity); // Remove the entity from the active entities if it does not meet the requirements
-                onEntityRemoved(entity);
+                else if (!mAspect.checkEntity(entity))
+                {
+                    mActiveEntities.erase(entity); // Remove the entity from the active entities if it does not meet the requirements
+                    onEntityRemoved(entity);
+                }
+
+                break;
             }
 
-            break;
+        case EVENT_REMOVE_ENTITY:
+            {
+                EntityRef* entity = static_cast<const EntityComponentEvent&>(evt).mEntity;
+                if (mActiveEntities.find(entity) != mActiveEntities.end())
+                {
+                    mActiveEntities.erase(entity); // Remove the entity from the active entities if it does not meet the requirements
+                    onEntityRemoved(entity);
+                }
+                break;
+            }
         }
 
-    case EVENT_REMOVE_ENTITY:
-        {
-            EntityRef* entity = static_cast<const EntityComponentEvent&>(evt).mEntity;
-            if (mActiveEntities.find(entity) != mActiveEntities.end())
-            {
-                mActiveEntities.erase(entity); // Remove the entity from the active entities if it does not meet the requirements
-                onEntityRemoved(entity);
-            }
-            break;
-        }
+        return false;
     }
 
-    return false;
-}
-
-void System::processEntities(const float dt)
-{
-    // Iterate through the active entities and process each one
-    for (EntityRef* entity : mActiveEntities)
+    void System::processEntities(const float dt)
     {
-        processEntity(entity, dt);
+        // Iterate through the active entities and process each one
+        for (EntityRef* entity : mActiveEntities)
+        {
+            processEntity(entity, dt);
+        }
     }
 }
+

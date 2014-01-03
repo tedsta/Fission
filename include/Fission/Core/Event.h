@@ -1,23 +1,27 @@
 #ifndef __EVENT_H__
 #define __EVENT_H__
 
-typedef unsigned int EventID;
-
-class IEventData
+namespace fission
 {
-    public:
-        IEventData(EventID ID) : mID(ID) {}
+    typedef unsigned int EventID;
 
-        EventID getID() const { return mID; }
+    class IEventData
+    {
+        public:
+            IEventData(EventID ID) : mID(ID) {}
 
-    private:
-        EventID mID;
-};
+            EventID getID() const { return mID; }
 
-class IEventListener
-{
-    public:
-        virtual bool handleEvent(const IEventData &event) = 0;
-};
+        private:
+            EventID mID;
+    };
+
+    class IEventListener
+    {
+        public:
+            virtual bool handleEvent(const IEventData &event) = 0;
+    };
+}
+
 
 #endif

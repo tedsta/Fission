@@ -10,6 +10,8 @@
 
 #include "Fission/Tests/TestComponent.h"
 
+using namespace fission;
+
 class MockEventManager : public IEventManager
 {
     public:
@@ -48,10 +50,10 @@ class MockEntityRef
             mBits |= ComponentTypeManager::getBit<component>();
         }
 
-        const std::bitset<MAX_COMPONENTS>& getBits(){return mBits;}
+        const std::bitset<MaxComponents>& getBits(){return mBits;}
 
     private:
-        std::bitset<MAX_COMPONENTS> mBits;
+        std::bitset<MaxComponents> mBits;
 };
 
 TEST(Aspect_All)

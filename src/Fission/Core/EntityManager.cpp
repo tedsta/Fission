@@ -4,74 +4,78 @@
 
 #include "Fission/Core/EntityRef.h"
 
-EntityManager::EntityManager(IEventManager* eventManager) : mEventManager(eventManager), mNextID(0)
+namespace fission
 {
-}
-
-EntityManager::~EntityManager()
-{
-    //dtor
-}
-
-int EntityManager::createEntity()
-{
-    int ID;
-
-    if (!mFreeIDs.empty()) // If there's a free ID we can give this entity
+    EntityManager::EntityManager(IEventManager* eventManager) : mEventManager(eventManager), mNextID(0)
     {
-        ID = mFreeIDs.back();
-        mFreeIDs.pop_back();
     }
-    else // Need to make a new ID for this entity
-    {
-        ID = mNextID;
-        mNextID++;
 
-        // Add all of the entity's null components to the component table
-        for (auto& componentRow : mComponents)
+    EntityManager::~EntityManager()
+    {
+        //dtor
+    }
+
+    int EntityManager::createEntity()
+    {
+        int ID;
+
+        if (!mFreeIDs.empty()) // If there's a free ID we can give this entity
         {
-            componentRow.push_back(NULL);
+            ID = mFreeIDs.back();
+            mFreeIDs.pop_back();
+        }
+        else // Need to make a new ID for this entity
+        {
+            ID = mNextID;
+            mNextID++;
+
+            // Add all of the entity's null components to the component table
+            for (auto& componentRow : mComponents)
+            {
+                componentRow.push_back(NULL);
+            }
+
+            // Create the entity bits for this entity.
+            mEntityBits.push_back(std::bitset<MaxComponents>());
         }
 
-        // Create the entity bits for this entity.
-        mEntityBits.push_back(std::bitset<MAX_COMPONENTS>());
+        mEntityCount++;
+
+        return ID;
     }
 
-    mEntityCount++;
-
-    return ID;
-}
-
-EntityRef* EntityManager::createEntityRef(int ID)
-{
-    if (!entityExists(ID)) // Entity doesn't exist, return a null EntityRef
+    EntityRef* EntityManager::createEntityRef(int ID)
     {
-        return new EntityRef(this);
-    }
-
-    return new EntityRef(this, ID);
-}
-
-void EntityManager::destroyEntity(int ID)
-{
-    for (auto& componentRow : mComponents) // Component arrays, by type
-    {
-        if (componentRow[ID]) // If the entity has this component type, delete it
+        if (!entityExists(ID)) // Entity doesn't exist, return a null EntityRef
         {
-            delete componentRow[ID];
-            componentRow[ID] = NULL;
+            return new EntityRef(this);
         }
+
+        return new EntityRef(this, ID);
     }
 
-    mEntityCount--;
-    mEntityBits[ID].reset();
-    mFreeIDs.push_back(ID); // Free up the entity's ID
+    void EntityManager::destroyEntity(int ID)
+    {
+        for (auto& componentRow : mComponents) // Component arrays, by type
+        {
+            if (componentRow[ID]) // If the entity has this component type, delete it
+            {
+                delete componentRow[ID];
+                componentRow[ID] = NULL;
+            }
+        }
+
+        mEntityCount--;
+        mEntityBits[ID].reset();
+        mFreeIDs.push_back(ID); // Free up the entity's ID
+    }
+
+    bool EntityManager::entityExists(int ID) const
+    {
+        if (ID == EntityRef::NULL_ID || mNextID <= ID || std::find(mFreeIDs.begin(), mFreeIDs.end(), ID) != mFreeIDs.end())
+            return false;
+
+        return true;
+    }
 }
 
-bool EntityManager::entityExists(int ID) const
-{
-    if (ID == EntityRef::NULL_ID || mNextID <= ID || std::find(mFreeIDs.begin(), mFreeIDs.end(), ID) != mFreeIDs.end())
-        return false;
-
-    return true;
-}

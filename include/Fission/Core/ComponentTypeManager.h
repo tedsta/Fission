@@ -7,37 +7,44 @@
 #include "Fission/Core/config.h"
 #include "Fission/Core/Component.h"
 
-class ComponentTypeManager
+namespace fission
 {
-    public:
-        /// \brief Register a component type.
-        template<typename c>
-        static void add()
-        {
-            // Set the component's type ID
-            c::Type = mNextID;
-            mNextID++;
+    class ComponentTypeManager
+    {
+        public:
+            /// \brief Register a component type.
+            template<typename c>
+            static void add()
+            {
+                // Set the component's type ID
+                c::Type = mNextID;
+                mNextID++;
 
-            // Create the component bit
-            std::bitset<MAX_COMPONENTS> bit;
-            bit.set(c::Type);
-            mBits.push_back(bit);
+                // Create the component bit
+                std::bitset<MaxComponents> bit;
+                bit.set(c::Type);
+                mBits.push_back(bit);
 
-            // Create the factory function
-            mFactories.push_back(&Component::factory<c>);
-        }
+                // Create the factory function
+                mFactories.push_back(&Component::factory<c>);
+            }
 
-        /// \brief Gets the bit set of a component.
-        template<typename c>
-        static std::bitset<MAX_COMPONENTS> getBit()
-        {
-            return mBits[c::Type];
-        }
+            /// \brief Create a new component by it's type ID
+            Component* createComponent(ComponentType type);
 
-    private:
-        static std::vector<std::bitset<MAX_COMPONENTS>> mBits;
-        static std::vector<ComponentFactory> mFactories;
-        static int mNextID;
-};
+            /// \brief Gets the bit set of a component.
+            template<typename c>
+            static std::bitset<MaxComponents> getBit()
+            {
+                return mBits[c::Type];
+            }
+
+        private:
+            static std::vector<std::bitset<MaxComponents>> mBits;
+            static std::vector<ComponentFactory> mFactories;
+            static int mNextID;
+    };
+}
+
 
 #endif // COMPONENTTYPEMANAGER_H

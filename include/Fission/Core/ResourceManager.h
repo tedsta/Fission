@@ -9,45 +9,48 @@
 
 #include <Sqrat/sqrat.h>
 
-struct Resource
+namespace fission
 {
-    std::string mName;
-    void *mData;
-};
+    struct Resource
+    {
+        std::string mName;
+        void *mData;
+    };
 
-/// \brief Manages all of the resources
-class ResourceManager
-{
-    public:
-        virtual ~ResourceManager();
+    /// \brief Manages all of the resources
+    class ResourceManager
+    {
+        public:
+            virtual ~ResourceManager();
 
-        /// \brief Add a resource
-        void add(const std::string& name, void* data);
+            /// \brief Add a resource
+            void add(const std::string& name, void* data);
 
-        /// \brief Get a resource
-        void* get(const std::string& name);
+            /// \brief Get a resource
+            void* get(const std::string& name);
 
-        /// \brief Get a texture.
-        sf::Texture *getTexture(const std::string& name);
+            /// \brief Get a texture.
+            sf::Texture *getTexture(const std::string& name);
 
-        /// \brief Get a font.
-        sf::Font *getFont(const std::string& name);
+            /// \brief Get a font.
+            sf::Font *getFont(const std::string& name);
 
-        /// \brief Get a script.
-        Sqrat::Script *getScript(const std::string& name, HSQUIRRELVM master = NULL);
+            /// \brief Get a script.
+            Sqrat::Script *getScript(const std::string& name, HSQUIRRELVM master = NULL);
 
-        static void init(){Instance=new ResourceManager;}
-        static ResourceManager* get(){return Instance;}
+            static void init(){Instance=new ResourceManager;}
+            static ResourceManager* get(){return Instance;}
 
-    private:
-        ResourceManager();
+        private:
+            ResourceManager();
 
-        static ResourceManager* Instance;
+            static ResourceManager* Instance;
 
-        Resource *findResource(std::string name);
+            Resource *findResource(std::string name);
 
-        /// All of the resources
-        std::vector <Resource> mResources;
-};
+            /// All of the resources
+            std::vector <Resource> mResources;
+    };
+}
 
 #endif // RESOURCEMANAGER_H

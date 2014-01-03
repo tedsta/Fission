@@ -3,39 +3,46 @@
 
 #include <SFML/Network/Packet.hpp>
 
-// Adds things that all components need
-#define FISSION_COMPONENT \
-    public: \
-        static ComponentType Type; \
-        ComponentType getType() const {return Type;} \
-    private:
-
-class Component;
-
-/// \brief Type definition for component type IDs
-typedef std::size_t ComponentType;
-
-/// \brief Type definition for component factory functions.
-typedef Component* (*ComponentFactory)();
-
-/// \brief A tag class for components. Components must inherit from this.
-class Component
+namespace fission
 {
-    friend class ComponentTypeManager;
+    // Adds things that all components need
+    #define FISSION_COMPONENT \
+        public: \
+            static fission::ComponentType Type; \
+            fission::ComponentType getType() const {return Type;} \
+        private:
 
-    public:
-        virtual ~Component(){}
+    class Component;
 
-        /// \brief Get the component type ID of this component.
-        virtual ComponentType getType() const = 0;
+    /// \brief Type definition for component type IDs
+    typedef std::size_t ComponentType;
 
-    private:
-        /// \brief A template component factory.
-        template <typename c>
-        static Component* factory()
-        {
-            return new c;
-        }
-};
+    /// \brief Type definition for component factory functions.
+    typedef Component* (*ComponentFactory)();
+
+    /// \brief A tag class for components. Components must inherit from this.
+    class Component
+    {
+        friend class ComponentTypeManager;
+
+        public:
+            virtual ~Component(){}
+
+            // Serialization stuff
+            virtual void serialize(sf::Packet &packet){}
+            virtual void deserialize(sf::Packet &packet){}
+
+            /// \brief Get the component type ID of this component.
+            virtual ComponentType getType() const {return 0;}
+
+        private:
+            /// \brief A template component factory.
+            template <typename c>
+            static Component* factory()
+            {
+                return new c;
+            }
+    };
+}
 
 #endif // COMPONENT_H

@@ -1,4 +1,4 @@
 #include "Fission/Tests/TestComponent.h"
 
-ComponentType TestComponent::Type;
-ComponentType Test2Component::Type;
+fission::ComponentType TestComponent::Type;
+fission::ComponentType Test2Component::Type;

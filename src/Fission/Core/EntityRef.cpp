@@ -1,11 +1,15 @@
 #include "Fission/Core/EntityRef.h"
 
-EntityRef::EntityRef(EntityManager* em, int ID) : mEntityManager(em), mID(ID)
+namespace fission
 {
-    //ctor
+    EntityRef::EntityRef(EntityManager* em, int ID) : mEntityManager(em), mID(ID)
+    {
+        //ctor
+    }
+
+    const std::bitset<MaxComponents>& EntityRef::getBits() const
+    {
+        return mEntityManager->getEntityBits(mID);
+    }
 }
 
-const std::bitset<MAX_COMPONENTS>& EntityRef::getBits() const
-{
-    return mEntityManager->getEntityBits(mID);
-}

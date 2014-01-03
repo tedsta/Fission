@@ -11,52 +11,55 @@
 
 #include "Fission/Rendering/DebugDisplay.h"
 
-class EntityRef;
-class RenderSystem;
-class RenderComponent;
-class TransformComponent;
-
-class RenderManager
+namespace fission
 {
-    friend class RenderSystem;
+    class EntityRef;
+    class RenderSystem;
+    class RenderComponent;
+    class TransformComponent;
 
-    public:
-        RenderManager(int width, int height, const std::string& wndName, int layers, sf::Font* debugFont);
-        ~RenderManager();
+    class RenderManager
+    {
+        friend class RenderSystem;
 
-        void renderLayers();
+        public:
+            RenderManager(int width, int height, const std::string& wndName, int layers, sf::Font* debugFont);
+            ~RenderManager();
 
-        // Getters
+            void renderLayers();
 
-        /// \brief Get the SFML render window
-        sf::RenderWindow& getWindow(){return mWindow;}
+            // Getters
 
-        /// \brief Return a reference to the SFML view
-        sf::View& getView(){return mView;}
+            /// \brief Get the SFML render window
+            sf::RenderWindow& getWindow(){return mWindow;}
 
-        /// \brief Get the debug display
-        DebugDisplay& getDebugDisplay(){return mDebugDisplay;}
+            /// \brief Return a reference to the SFML view
+            sf::View& getView(){return mView;}
 
-    private:
-        struct Renderable
-        {
-            int componentID;
-            TransformComponent* transform;
-            RenderComponent* render;
-        };
+            /// \brief Get the debug display
+            DebugDisplay& getDebugDisplay(){return mDebugDisplay;}
 
-        void addRenderableToLayer(int layer, EntityRef* entity, int componentID);
-        void removeRenderableFromLayer(int layer, int componentID);
+        private:
+            struct Renderable
+            {
+                int componentID;
+                TransformComponent* transform;
+                RenderComponent* render;
+            };
 
-        sf::RenderWindow mWindow;
-        sf::View mView;
+            void addRenderableToLayer(int layer, EntityRef* entity, int componentID);
+            void removeRenderableFromLayer(int layer, int componentID);
 
-        sf::Color mBackgroundColor;
+            sf::RenderWindow mWindow;
+            sf::View mView;
 
-        DebugDisplay mDebugDisplay;
+            sf::Color mBackgroundColor;
 
-        std::vector<RenderSystem*> mRenderSystems;
-        std::vector<std::vector<Renderable>> mLayers;
-};
+            DebugDisplay mDebugDisplay;
+
+            std::vector<RenderSystem*> mRenderSystems;
+            std::vector<std::vector<Renderable>> mLayers;
+    };
+}
 
 #endif // RENDERMANAGER_H

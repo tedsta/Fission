@@ -4,6 +4,8 @@
 #include "Fission/Core/ComponentTypeManager.h"
 #include "Fission/Tests/TestComponent.h"
 
+using namespace fission;
+
 int main(int, char const *[])
 {
     ComponentTypeManager::add<TestComponent>();

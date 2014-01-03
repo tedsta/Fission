@@ -5,39 +5,43 @@
 
 #include <Fission/Core/System.h>
 
-class Engine;
-class Component;
-
-/// \brief a little template function to help you cast components in squirrel
-template<typename T>
-T* componentCast(Component* data){return reinterpret_cast<T*>(data);}
-
-class ScriptSystem : public System
+namespace fission
 {
-    public:
-        ScriptSystem(IEventManager* eventManager, float lockStep, Engine *engine);
-        virtual ~ScriptSystem();
+    class Engine;
+    class Component;
 
-        /// \brief Creates a new script
-        HSQUIRRELVM createScript(const std::string& fileName);
+    /// \brief a little template function to help you cast components in squirrel
+    template<typename T>
+    T* componentCast(Component* data){return reinterpret_cast<T*>(data);}
 
-        /// \brief Adds a new binder function
-        void addBinder(void (*binder)(HSQUIRRELVM)){mBinders.push_back(binder);binder(mVM);}
+    class ScriptSystem : public System
+    {
+        public:
+            ScriptSystem(IEventManager* eventManager, float lockStep, Engine *engine);
+            virtual ~ScriptSystem();
 
-        // Accessors
+            /// \brief Creates a new script
+            HSQUIRRELVM createScript(const std::string& fileName);
 
-        /// \brief Get the Squirrel VM
-        HSQUIRRELVM getVM(){return mVM;}
+            /// \brief Adds a new binder function
+            void addBinder(void (*binder)(HSQUIRRELVM)){mBinders.push_back(binder);binder(mVM);}
 
-    protected:
-        void processEntity(Entity *entity, const float dt);
+            // Accessors
 
-    private:
-        HSQUIRRELVM mVM;
+            /// \brief Get the Squirrel VM
+            HSQUIRRELVM getVM(){return mVM;}
 
-        Engine *mEngine;
+        protected:
+            void processEntity(EntityRef* entity, const float dt);
 
-        std::vector<void (*)(HSQUIRRELVM)> mBinders; // Binding functions
-};
+        private:
+            HSQUIRRELVM mVM;
+
+            Engine *mEngine;
+
+            std::vector<void (*)(HSQUIRRELVM)> mBinders; // Binding functions
+    };
+}
+
 
 #endif // SCRIPTSYSTEM_H

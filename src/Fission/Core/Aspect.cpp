@@ -2,12 +2,16 @@
 
 #include "Fission/Core/EntityRef.h"
 
-Aspect::Aspect()
+namespace fission
 {
-    //ctor
+    Aspect::Aspect()
+    {
+        //ctor
+    }
+
+    Aspect::~Aspect()
+    {
+        //dtor
+    }
 }
 
-Aspect::~Aspect()
-{
-    //dtor
-}

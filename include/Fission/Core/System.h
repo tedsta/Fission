@@ -7,59 +7,63 @@
 #include <Fission/Core/Event.h>
 #include <Fission/Core/EntityRef.h>
 
-class IEventManager;
-
-/// \brief Abstract base class of all entity processing systems.
-class System : public IEventListener
+namespace fission
 {
-    friend class Engine;
+    class IEventManager;
 
-    public:
-        System(IEventManager* eventManager, float lockStep);
-        virtual ~System();
+    /// \brief Abstract base class of all entity processing systems.
+    class System : public IEventListener
+    {
+        friend class Engine;
 
-        /// \brief Event listener event handling callback.
-        virtual bool handleEvent(IEventData const& evt);
+        public:
+            System(IEventManager* eventManager, float lockStep);
+            virtual ~System();
 
-        /// \brief Get the active entities
-        const std::set<EntityRef*>& getActiveEntities(){return mActiveEntities;}
+            /// \brief Event listener event handling callback.
+            virtual bool handleEvent(IEventData const& evt);
 
-    protected:
-        /// \brief Called each time before processing any entities.
-        virtual void begin(const float dt){}
+            /// \brief Get the active entities
+            const std::set<EntityRef*>& getActiveEntities(){return mActiveEntities;}
 
-        /// \brief Process a single entity.
-        virtual void processEntity(EntityRef* entity, const float dt) = 0;
+        protected:
+            /// \brief Called each time before processing any entities.
+            virtual void begin(const float dt){}
 
-        /// \brief Called each time after processing all of the entities.
-        virtual void end(const float dt){}
+            /// \brief Process a single entity.
+            virtual void processEntity(EntityRef* entity, const float dt) = 0;
 
-        /// \brief Called when an entity is added to this system
-        virtual void onEntityAdded(EntityRef* entity){}
+            /// \brief Called each time after processing all of the entities.
+            virtual void end(const float dt){}
 
-        /// \brief Called when an entity is removed from this system
-        virtual void onEntityRemoved(EntityRef* entity){}
+            /// \brief Called when an entity is added to this system
+            virtual void onEntityAdded(EntityRef* entity){}
 
-        /// \brief Get the event manager
-        IEventManager* getEventManager(){return mEventManager;}
+            /// \brief Called when an entity is removed from this system
+            virtual void onEntityRemoved(EntityRef* entity){}
 
-        // The aspect for this system. Determines which entities are processed by this system
-        // based on their components.
-        Aspect mAspect;
+            /// \brief Get the event manager
+            IEventManager* getEventManager(){return mEventManager;}
 
-    private:
-        /// \brief Processes all of the active entities. Used internally.
-        void processEntities(const float dt);
+            // The aspect for this system. Determines which entities are processed by this system
+            // based on their components.
+            Aspect mAspect;
 
-        // The event manager
-        IEventManager* mEventManager;
+        private:
+            /// \brief Processes all of the active entities. Used internally.
+            void processEntities(const float dt);
 
-        // The active entities this system should process.
-        std::set<EntityRef*> mActiveEntities;
+            // The event manager
+            IEventManager* mEventManager;
 
-        // Used by engine for lockstep
-        float mLockStep;
-        float mDtAccumulator;
-};
+            // The active entities this system should process.
+            std::set<EntityRef*> mActiveEntities;
+
+            // Used by engine for lockstep
+            float mLockStep;
+            float mDtAccumulator;
+    };
+}
+
 
 #endif // SYSTEM_H

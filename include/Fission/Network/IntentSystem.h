@@ -7,31 +7,35 @@
 #include <Fission/Core/Event.h>
 #include <Fission/Network/Connection.h>
 
-class IEventManager;
-
-class IntentSystem : public System, public IPacketHandler
+namespace fission
 {
-    public:
-        IntentSystem(IEventManager* eventManager, float lockStep, Connection *conn);
-        virtual ~IntentSystem();
+    class IEventManager;
 
-        bool handleEvent(IEventData const& evt);
-        void handlePacket(sf::Packet& packet, int netID);
+    class IntentSystem : public System, public IPacketHandler
+    {
+        public:
+            IntentSystem(IEventManager* eventManager, float lockStep, Connection *conn);
+            virtual ~IntentSystem();
 
-    protected:
-        /// \brief begin function for systems
-        void begin(const float dt);
+            bool handleEvent(IEventData const& evt);
+            void handlePacket(sf::Packet& packet, int netID);
 
-        /// \brief Process entity function for systems
-        void processEntity(EntityRef* entity, const float dt);
+        protected:
+            /// \brief begin function for systems
+            void begin(const float dt);
 
-        /// \brief end function for systems
-        void end(const float dt);
+            /// \brief Process entity function for systems
+            void processEntity(EntityRef* entity, const float dt);
 
-    private:
-        Connection* mConn;
-        std::vector<IEventData*> mEvents;
-        std::map<int, std::vector<sf::Packet>> mPackets;
-};
+            /// \brief end function for systems
+            void end(const float dt);
+
+        private:
+            Connection* mConn;
+            std::vector<IEventData*> mEvents;
+            std::map<int, std::vector<sf::Packet>> mPackets;
+    };
+}
+
 
 #endif // INTENTSYSTEM_H

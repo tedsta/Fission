@@ -2,28 +2,32 @@
 
 #include <SFML/Graphics/Text.hpp>
 
-DebugDisplay::DebugDisplay(sf::Font* font) : mFont(font)
+namespace fission
 {
-    //ctor
-}
-
-DebugDisplay::~DebugDisplay()
-{
-    //dtor
-}
-
-void DebugDisplay::render(sf::RenderTarget& target)
-{
-    int y = 0;
-    for (auto it : mMessages)
+    DebugDisplay::DebugDisplay(sf::Font* font) : mFont(font)
     {
-        sf::Text msg;
-        msg.setFont(*mFont);
-        msg.setString(it.first+": "+it.second);
-        msg.setCharacterSize(24);
-        msg.setColor(sf::Color::White);
-        msg.setPosition(5, y);
-        target.draw(msg);
-        y += 30;
+        //ctor
+    }
+
+    DebugDisplay::~DebugDisplay()
+    {
+        //dtor
+    }
+
+    void DebugDisplay::render(sf::RenderTarget& target)
+    {
+        int y = 0;
+        for (auto it : mMessages)
+        {
+            sf::Text msg;
+            msg.setFont(*mFont);
+            msg.setString(it.first+": "+it.second);
+            msg.setCharacterSize(24);
+            msg.setColor(sf::Color::White);
+            msg.setPosition(5, y);
+            target.draw(msg);
+            y += 30;
+        }
     }
 }
+

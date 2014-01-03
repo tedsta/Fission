@@ -6,51 +6,55 @@
 #include <Fission/Input/Defs.h>
 #include <Fission/Input/Events.h>
 
-InputSystem::InputSystem(IEventManager* eventManager, float lockStep, sf::Window* window) : System(eventManager, lockStep), mWindow(window)
+namespace fission
 {
-    //ctor
-}
-
-InputSystem::~InputSystem()
-{
-    //dtor
-}
-
-void InputSystem::begin(const float dt)
-{
-    sf::Event event;
-    while (mWindow->pollEvent(event))
+    InputSystem::InputSystem(IEventManager* eventManager, float lockStep, sf::Window* window) : System(eventManager, lockStep), mWindow(window)
     {
-        switch (event.type)
+        //ctor
+    }
+
+    InputSystem::~InputSystem()
+    {
+        //dtor
+    }
+
+    void InputSystem::begin(const float dt)
+    {
+        sf::Event event;
+        while (mWindow->pollEvent(event))
         {
-        case sf::Event::Closed:
-            mWindow->close();
-            break;
-        case sf::Event::KeyPressed:
-            getEventManager()->fireEvent(KeyEvent(event.key.code, BtnState::PRESSED));
-            break;
-        case sf::Event::KeyReleased:
-            getEventManager()->fireEvent(KeyEvent(event.key.code, BtnState::RELEASED));
-            break;
-        case sf::Event::MouseButtonPressed:
-            getEventManager()->fireEvent(MouseBtnEvent(event.mouseButton.button, BtnState::PRESSED));
-            break;
-        case sf::Event::MouseButtonReleased:
-            getEventManager()->fireEvent(MouseBtnEvent(event.mouseButton.button, BtnState::RELEASED));
-            break;
-        case sf::Event::MouseMoved:
-            getEventManager()->fireEvent(MouseMoveEvent(event.mouseMove.x, event.mouseMove.y));
-            break;
-        default:
-            break;
+            switch (event.type)
+            {
+            case sf::Event::Closed:
+                mWindow->close();
+                break;
+            case sf::Event::KeyPressed:
+                getEventManager()->fireEvent(KeyEvent(event.key.code, BtnState::PRESSED));
+                break;
+            case sf::Event::KeyReleased:
+                getEventManager()->fireEvent(KeyEvent(event.key.code, BtnState::RELEASED));
+                break;
+            case sf::Event::MouseButtonPressed:
+                getEventManager()->fireEvent(MouseBtnEvent(event.mouseButton.button, BtnState::PRESSED));
+                break;
+            case sf::Event::MouseButtonReleased:
+                getEventManager()->fireEvent(MouseBtnEvent(event.mouseButton.button, BtnState::RELEASED));
+                break;
+            case sf::Event::MouseMoved:
+                getEventManager()->fireEvent(MouseMoveEvent(event.mouseMove.x, event.mouseMove.y));
+                break;
+            default:
+                break;
+            }
         }
+    }
+
+    void InputSystem::processEntity(EntityRef* entity, const float dt)
+    {
+    }
+
+    void InputSystem::end(const float dt)
+    {
     }
 }
 
-void InputSystem::processEntity(EntityRef* entity, const float dt)
-{
-}
-
-void InputSystem::end(const float dt)
-{
-}

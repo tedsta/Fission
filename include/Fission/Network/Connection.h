@@ -5,132 +5,136 @@
 
 #include <SFML/Network/Packet.hpp>
 
-namespace NetType
+namespace fission
 {
-    enum
+    namespace NetType
     {
-        NONE,
-        SERVER,
-        CLIENT
+        enum
+        {
+            NONE,
+            SERVER,
+            CLIENT
+        };
     };
-};
 
-namespace PacketType
-{
-    enum
+    namespace PacketType
     {
-        BEGIN_SCENE_SEND,
-        SCENE_SEND_PROGRESS,
-        END_SCENE_SEND,
-        CREATE_OBJECT,
-        USER_MESSAGE
+        enum
+        {
+            BEGIN_SCENE_SEND,
+            SCENE_SEND_PROGRESS,
+            END_SCENE_SEND,
+            CREATE_OBJECT,
+            USER_MESSAGE
+        };
     };
-};
 
-struct Peer
-{
-    int mID;
-    std::string mIPAddress;
-    ENetPeer *mPeer;
-};
+    struct Peer
+    {
+        int mID;
+        std::string mIPAddress;
+        ENetPeer *mPeer;
+    };
 
-class Entity;
-class Component;
-class IEventManager;
-class Scene;
+    class Entity;
+    class Component;
+    class IEventManager;
+    class Scene;
 
-class IPacketHandler
-{
-    friend class Connection;
+    class IPacketHandler
+    {
+        friend class Connection;
 
-public:
-    virtual void handlePacket(sf::Packet& packet, int netID) = 0;
-
-    /// \brief Get the packet handler ID
-    int getHndID() const {return mHndID;}
-
-private:
-    int mHndID;
-};
-
-class Connection
-{
     public:
-        Connection(IEventManager* eventManager);
-        virtual ~Connection();
+        virtual void handlePacket(sf::Packet& packet, int netID) = 0;
 
-        /// \brief Begins hosting a server.
-        /// \param port The port to host on.
-        /// \param incomingBandwidth The cap on incoming bandwidth. Leave at 0 for unlimited.
-        /// \param outgoingBandwidth The cap on outgoing bandwidth. Leave at 0 for unlimited.
-        void hostServer(int port, int incomingBandwidth = 0, int outgoingBandwidth = 0);
-
-        /// \brief Connects to a server.
-        /// \param ipAddress The address of the server to connect to.
-        /// \param port The port the server is hosting on.
-        /// \param incomingBandwidth The cap on incoming bandwidth. Leave at 0 for unlimited.
-        /// \param outgoingBandwidth The cap on outgoing bandwidth. Leave at 0 for unlimited.
-        void connectClient(std::string ipAddress, int port, int incomingBandwidth = 57600 / 8, int outgoingBandwidth = 14400 / 8);
-
-        /// \brief If it's a server, disconnect a client. If it's a client, disconnect from the
-        /// server.
-        /// \note netID is only relevant to servers.
-        void disconnect(int netID = 0);
-
-        /// \brief Update the networking manager.
-        void update(const float dt);
-
-        /// \brief Send a packet over the network.
-        /// \param packet The packet to send.
-        /// \param netID If it's a server, the ID of the peer to send the packet to. Set
-        /// to 0 to broadcast to all clients.
-        /// \param excludeID If it's a server and the packet is sent to all clients, the ID of the
-        /// peer to exclude when sending. Set to 0 to exclude no one.
-        /// \param reliable Whether or not to send the packet reliably.
-        void send(sf::Packet& packet, int hndID, int netID = 0, int excludeID = 0, bool reliable = true);
-
-        /// \brief Find the ID of a peer with the specified IP address.
-        int findPeerID(std::string IP);
-
-        /// \brief Find a peer by ID.
-        Peer *findPeer(int netID);
-
-        /// \brief Remove a peer
-        void removePeer(int netID);
-
-        /// \brief Automatically register the handler to the  next unused ID and return the ID
-        int registerHandlerAuto(IPacketHandler* handler);
-
-        /// \brief Register a handler to a specific handler ID
-        void registerHandler(int hndID, IPacketHandler* handler);
-
-        /// \brief Get the network role - server or client.
-        int getType(){return mNetType;}
-
-        /// \brief If this is a client, get the network ID.
-        int getNetID(){if (mPeer){return mPeer->mID;} return 0;}
+        /// \brief Get the packet handler ID
+        int getHndID() const {return mHndID;}
 
     private:
-        // Some dependencies
-        IEventManager*mEventManager;
+        int mHndID;
+    };
 
-        /// Server or client?
-        int mNetType;
+    class Connection
+    {
+        public:
+            Connection(IEventManager* eventManager);
+            virtual ~Connection();
 
-        /// The network host
-        ENetHost *mHost;
+            /// \brief Begins hosting a server.
+            /// \param port The port to host on.
+            /// \param incomingBandwidth The cap on incoming bandwidth. Leave at 0 for unlimited.
+            /// \param outgoingBandwidth The cap on outgoing bandwidth. Leave at 0 for unlimited.
+            void hostServer(int port, int incomingBandwidth = 0, int outgoingBandwidth = 0);
 
-        /// If it's a client, the peer
-        Peer *mPeer;
+            /// \brief Connects to a server.
+            /// \param ipAddress The address of the server to connect to.
+            /// \param port The port the server is hosting on.
+            /// \param incomingBandwidth The cap on incoming bandwidth. Leave at 0 for unlimited.
+            /// \param outgoingBandwidth The cap on outgoing bandwidth. Leave at 0 for unlimited.
+            void connectClient(std::string ipAddress, int port, int incomingBandwidth = 57600 / 8, int outgoingBandwidth = 14400 / 8);
 
-        /// The list of clients if I'm a server
-        std::vector <Peer*> mPeers;
+            /// \brief If it's a server, disconnect a client. If it's a client, disconnect from the
+            /// server.
+            /// \note netID is only relevant to servers.
+            void disconnect(int netID = 0);
 
-        /// The ID for the next peer
-        int mNextID;
+            /// \brief Update the networking manager.
+            void update(const float dt);
 
-        /// The packet handlers
-        std::vector<IPacketHandler*> mHandlers;
-};
+            /// \brief Send a packet over the network.
+            /// \param packet The packet to send.
+            /// \param netID If it's a server, the ID of the peer to send the packet to. Set
+            /// to 0 to broadcast to all clients.
+            /// \param excludeID If it's a server and the packet is sent to all clients, the ID of the
+            /// peer to exclude when sending. Set to 0 to exclude no one.
+            /// \param reliable Whether or not to send the packet reliably.
+            void send(sf::Packet& packet, int hndID, int netID = 0, int excludeID = 0, bool reliable = true);
+
+            /// \brief Find the ID of a peer with the specified IP address.
+            int findPeerID(std::string IP);
+
+            /// \brief Find a peer by ID.
+            Peer *findPeer(int netID);
+
+            /// \brief Remove a peer
+            void removePeer(int netID);
+
+            /// \brief Automatically register the handler to the  next unused ID and return the ID
+            int registerHandlerAuto(IPacketHandler* handler);
+
+            /// \brief Register a handler to a specific handler ID
+            void registerHandler(int hndID, IPacketHandler* handler);
+
+            /// \brief Get the network role - server or client.
+            int getType(){return mNetType;}
+
+            /// \brief If this is a client, get the network ID.
+            int getNetID(){if (mPeer){return mPeer->mID;} return 0;}
+
+        private:
+            // Some dependencies
+            IEventManager*mEventManager;
+
+            /// Server or client?
+            int mNetType;
+
+            /// The network host
+            ENetHost *mHost;
+
+            /// If it's a client, the peer
+            Peer *mPeer;
+
+            /// The list of clients if I'm a server
+            std::vector <Peer*> mPeers;
+
+            /// The ID for the next peer
+            int mNextID;
+
+            /// The packet handlers
+            std::vector<IPacketHandler*> mHandlers;
+    };
+}
+
 
 #endif // NETWORKMANAGER_H

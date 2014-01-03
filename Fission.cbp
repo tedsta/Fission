@@ -108,7 +108,6 @@
 		<Unit filename="include/Fission/Rendering/SpriteComponent.h" />
 		<Unit filename="include/Fission/Rendering/SpriteRenderSystem.h" />
 		<Unit filename="include/Fission/Rendering/TransformComponent.h" />
-		<Unit filename="include/Fission/Script/ScriptComponent.h" />
 		<Unit filename="include/Fission/Script/ScriptSystem.h" />
 		<Unit filename="include/Fission/Tests/TestComponent.h">
 			<Option target="UnitTests" />
@@ -130,6 +129,7 @@
 		<Unit filename="src/Fission/Rendering/SpriteComponent.cpp" />
 		<Unit filename="src/Fission/Rendering/SpriteRenderSystem.cpp" />
 		<Unit filename="src/Fission/Rendering/TransformComponent.cpp" />
+		<Unit filename="src/Fission/Script/ScriptSystem.cpp" />
 		<Unit filename="src/Fission/Tests/TestAspect.cpp">
 			<Option target="UnitTests" />
 		</Unit>
