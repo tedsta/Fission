@@ -2,7 +2,7 @@
 #include <assert.h>
 #include <iostream>
 
-namespace fission
+namespace fsn
 {
     EventManager::EventManager()
     {

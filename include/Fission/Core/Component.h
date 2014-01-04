@@ -3,13 +3,13 @@
 
 #include <SFML/Network/Packet.hpp>
 
-namespace fission
+namespace fsn
 {
     // Adds things that all components need
     #define FISSION_COMPONENT \
         public: \
-            static fission::ComponentType Type; \
-            fission::ComponentType getType() const {return Type;} \
+            static fsn::ComponentType Type; \
+            fsn::ComponentType getType() const {return Type;} \
         private:
 
     class Component;

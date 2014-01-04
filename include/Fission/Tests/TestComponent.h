@@ -3,7 +3,7 @@
 
 #include "Fission/Core/Component.h"
 
-class TestComponent : public fission::Component
+class TestComponent : public fsn::Component
 {
     FISSION_COMPONENT
 
@@ -15,7 +15,7 @@ class TestComponent : public fission::Component
         int mData;
 };
 
-class Test2Component : public fission::Component
+class Test2Component : public fsn::Component
 {
     FISSION_COMPONENT
 

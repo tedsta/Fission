@@ -10,7 +10,7 @@
 #include <Fission/Core/Event.h>
 #include <Fission/Input/Defs.h>
 
-namespace fission
+namespace fsn
 {
     class IntentComponent : public Component
     {

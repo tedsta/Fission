@@ -11,7 +11,7 @@
 #include <Fission/Core/EntityManager.h>
 #include <Fission/Core/Engine.h>
 
-namespace fission
+namespace fsn
 {
     void printfunc(HSQUIRRELVM v, const SQChar *s, ...)
     {

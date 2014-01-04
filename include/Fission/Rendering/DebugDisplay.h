@@ -6,7 +6,7 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
-namespace fission
+namespace fsn
 {
     class DebugDisplay
     {

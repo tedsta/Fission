@@ -6,7 +6,7 @@
 #include <Fission/Core/EntityEvents.h>
 #include <Fission/Input/Defs.h>
 
-namespace fission
+namespace fsn
 {
     enum
     {
@@ -18,20 +18,20 @@ namespace fission
     // KeyEvent
     struct KeyEvent : public IEventData
     {
-        KeyEvent(sf::Keyboard::Key key, int state) : IEventData(EVT_KEY), mKey(key), mState(state) {}
+        KeyEvent(sf::Keyboard::Key key, ButtonState state) : IEventData(EVT_KEY), mKey(key), mState(state) {}
         static EventID Type;
 
         sf::Keyboard::Key mKey;
-        int mState;
+        ButtonState mState;
     };
 
     // MouseBtnEvent
     struct MouseBtnEvent : public IEventData
     {
-        MouseBtnEvent(sf::Mouse::Button btn, int state) : IEventData(EVT_MOUSE_BTN), mBtn(btn), mState(state) {}
+        MouseBtnEvent(sf::Mouse::Button btn, ButtonState state) : IEventData(EVT_MOUSE_BTN), mBtn(btn), mState(state) {}
 
         sf::Mouse::Button mBtn;
-        int mState;
+        ButtonState mState;
     };
 
     // MouseMoveEvent

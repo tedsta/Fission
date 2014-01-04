@@ -4,16 +4,16 @@
 
 #include <Fission/Core/ComponentTypeManager.h>
 
-namespace fission
+namespace fsn
 {
     ComponentType IntentComponent::Type;
 
     IntentComponent::IntentComponent()
     {
         for (int k = 0; k < sf::Keyboard::KeyCount; k++)
-            mKeyStates[k] = BtnState::UP;
+            mKeyStates[k] = Up;
         for (int b = 0; b < sf::Mouse::ButtonCount; b++)
-            mMouseStates[b] = BtnState::UP;
+            mMouseStates[b] = Up;
     }
 
     IntentComponent::~IntentComponent()

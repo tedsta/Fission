@@ -1,7 +1,7 @@
 #ifndef CONFIG_H_INCLUDED
 #define CONFIG_H_INCLUDED
 
-namespace fission
+namespace fsn
 {
     // Maximum number of component types
     const int MaxComponents = 64;

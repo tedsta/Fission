@@ -8,7 +8,7 @@
 
 #include <Fission/Rendering/RenderComponent.h>
 
-namespace fission
+namespace fsn
 {
     class SpriteComponent : public RenderComponent
     {

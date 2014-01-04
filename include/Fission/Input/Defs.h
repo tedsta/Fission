@@ -1,18 +1,15 @@
 #ifndef INPUTDEFS_H_INCLUDED
 #define INPUTDEFS_H_INCLUDED
 
-namespace fission
+namespace fsn
 {
-    namespace BtnState
+    enum ButtonState
     {
-        enum
-        {
-            UP,
-            DOWN,
-            PRESSED,
-            RELEASED
-        };
-    }
+        Up,
+        Down,
+        Pressed,
+        Released
+    };
 }
 
 

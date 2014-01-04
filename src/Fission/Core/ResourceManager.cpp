@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace fission
+namespace fsn
 {
     ResourceManager* ResourceManager::Instance;
 

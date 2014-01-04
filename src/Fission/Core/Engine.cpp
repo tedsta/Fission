@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-namespace fission
+namespace fsn
 {
     Engine::Engine()
     {

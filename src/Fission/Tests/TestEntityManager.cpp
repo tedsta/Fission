@@ -9,7 +9,7 @@
 
 #include "Fission/Tests/TestComponent.h"
 
-using namespace fission;
+using namespace fsn;
 
 class MockEventManager : public IEventManager
 {

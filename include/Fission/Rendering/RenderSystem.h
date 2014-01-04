@@ -13,29 +13,39 @@
 #include <Fission/Rendering/RenderManager.h>
 #include <Fission/Rendering/TransformComponent.h>
 
-namespace fission
+namespace fsn
 {
-    class RenderSystem : public System
+    class IRenderSystem : public System
+    {
+        friend class RenderManager;
+
+        public:
+            IRenderSystem(IEventManager* eventManager, float lockStep) : System(eventManager, lockStep)
+            {
+            }
+
+        protected:
+            virtual void render(RenderComponent* component, sf::RenderTarget& target, sf::RenderStates& states) = 0;
+
+        private:
+    };
+
+    template <typename RenderComponentT>
+    class RenderSystem : public IRenderSystem
     {
         friend class RenderManager;
 
         public:
             RenderSystem(IEventManager* eventManager, RenderManager* renderManager, float lockStep) :
-                System(eventManager, lockStep), mRenderManager(renderManager)
+                IRenderSystem(eventManager, lockStep), mRenderManager(renderManager)
             {
-            }
-
-            virtual ~RenderSystem()
-            {
+                mAspect.all<TransformComponent, RenderComponentT>();
+                if (mRenderManager->mRenderSystems.size() < RenderComponentT::Type)
+                    mRenderManager->mRenderSystems.resize(RenderComponentT::Type+1);
+                mRenderManager->mRenderSystems[RenderComponentT::Type] = this;
             }
 
         protected:
-            template<typename RenderComponentT>
-            void initialize()
-            {
-                mComponentID = RenderComponentT::Type;
-                mAspect.all<TransformComponent, RenderComponentT>();
-            }
 
             /// \brief begin function for systems
             void begin(const float dt)
@@ -54,21 +64,26 @@ namespace fission
 
             void onEntityAdded(EntityRef* entity)
             {
-                auto rndCmp = static_cast<RenderComponent*>(entity->getComponent(mComponentID));
-                mRenderManager->addRenderableToLayer(rndCmp->getLayer(), entity, mComponentID);
+                auto rndCmp = entity->getComponent<RenderComponentT>();
+                mRenderManager->addRenderableToLayer(rndCmp->getLayer(), entity, RenderComponentT::Type);
             }
 
             void onEntityRemoved(EntityRef* entity)
             {
-                auto rndCmp = static_cast<RenderComponent*>(entity->getComponent(mComponentID));
-                mRenderManager->removeRenderableFromLayer(rndCmp->getLayer(), mComponentID);
+                auto rndCmp = entity->getComponent<RenderComponentT>();
+                mRenderManager->removeRenderableFromLayer(rndCmp->getLayer(), RenderComponentT::Type);
             }
 
-            virtual void render(RenderComponent* component, sf::RenderTarget& target, sf::RenderStates& states) = 0;
+            // Just call the derived render function
+            void render(RenderComponent* component, sf::RenderTarget& target, sf::RenderStates& states)
+            {
+                render(static_cast<RenderComponentT*>(component), target, states);
+            }
+
+            virtual void render(RenderComponentT* component, sf::RenderTarget& target, sf::RenderStates& states) = 0;
 
         private:
             RenderManager* mRenderManager;
-            int mComponentID; // Type ID of the render component to process
     };
 }
 

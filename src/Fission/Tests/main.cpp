@@ -4,7 +4,7 @@
 #include "Fission/Core/ComponentTypeManager.h"
 #include "Fission/Tests/TestComponent.h"
 
-using namespace fission;
+using namespace fsn;
 
 int main(int, char const *[])
 {

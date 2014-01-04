@@ -5,7 +5,7 @@
 
 #include <SFML/Network/Packet.hpp>
 
-namespace fission
+namespace fsn
 {
     namespace NetType
     {

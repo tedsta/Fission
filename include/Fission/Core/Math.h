@@ -9,7 +9,7 @@ Copyright 2012
 #include <cmath>
 #include <SFML/System/Vector2.hpp>
 
-namespace fission
+namespace fsn
 {
     // Constant for PI.
     const float PI = 3.14159265359f;

@@ -7,7 +7,7 @@
 
 #include <Fission/Core/Component.h>
 
-namespace fission
+namespace fsn
 {
     class TransformComponent : public Component, public sf::Transformable
     {

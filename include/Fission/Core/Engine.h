@@ -3,7 +3,7 @@
 
 #include <vector>
 
-namespace fission
+namespace fsn
 {
     class EntityManager;
     class System;

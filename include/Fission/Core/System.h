@@ -7,7 +7,7 @@
 #include <Fission/Core/Event.h>
 #include <Fission/Core/EntityRef.h>
 
-namespace fission
+namespace fsn
 {
     class IEventManager;
 
@@ -43,7 +43,7 @@ namespace fission
             virtual void onEntityRemoved(EntityRef* entity){}
 
             /// \brief Get the event manager
-            IEventManager* getEventManager(){return mEventManager;}
+            IEventManager* getEventManager() const {return mEventManager;}
 
             // The aspect for this system. Determines which entities are processed by this system
             // based on their components.

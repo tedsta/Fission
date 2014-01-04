@@ -2,7 +2,7 @@
 
 #include "Fission/Core/EntityRef.h"
 
-namespace fission
+namespace fsn
 {
     Aspect::Aspect()
     {

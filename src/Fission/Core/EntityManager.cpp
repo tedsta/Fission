@@ -4,7 +4,7 @@
 
 #include "Fission/Core/EntityRef.h"
 
-namespace fission
+namespace fsn
 {
     EntityManager::EntityManager(IEventManager* eventManager) : mEventManager(eventManager), mNextID(0)
     {

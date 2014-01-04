@@ -7,7 +7,7 @@
 #include "Fission/Core/config.h"
 #include "Fission/Core/Component.h"
 
-namespace fission
+namespace fsn
 {
     class ComponentTypeManager
     {
@@ -37,6 +37,12 @@ namespace fission
             static std::bitset<MaxComponents> getBit()
             {
                 return mBits[c::Type];
+            }
+
+            /// \brief Gets the bit set of a component.
+            static std::bitset<MaxComponents> getBit(int componentID)
+            {
+                return mBits[componentID];
             }
 
         private:

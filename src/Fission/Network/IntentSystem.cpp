@@ -9,11 +9,12 @@
 
 #include <iostream>
 
-namespace fission
+namespace fsn
 {
     IntentSystem::IntentSystem(IEventManager* eventManager, float lockStep, Connection *conn) : System(eventManager, lockStep),
         mConn(conn)
     {
+        mAspect.all<IntentComponent>();
         mConn->registerHandlerAuto(this);
         if (mConn->getType() == NetType::CLIENT || mConn->getType() == NetType::NONE)
         {
@@ -41,10 +42,10 @@ namespace fission
 
         for (int k = 0; k < sf::Keyboard::KeyCount; k++)
         {
-            if (intent->mKeyStates[k] == BtnState::PRESSED)
-                intent->mKeyStates[k] = BtnState::DOWN;
-            else if (intent->mKeyStates[k] == BtnState::RELEASED)
-                intent->mKeyStates[k] = BtnState::UP;
+            if (intent->mKeyStates[k] == Pressed)
+                intent->mKeyStates[k] = Down;
+            else if (intent->mKeyStates[k] == Released)
+                intent->mKeyStates[k] = Up;
 
             auto in = IntentComponent::Action(IntentComponent::KEYBOARD, k, intent->mKeyStates[k]);
 
@@ -56,10 +57,10 @@ namespace fission
 
         for (int m = 0; m < sf::Mouse::ButtonCount; m++)
         {
-            if (intent->mMouseStates[m] == BtnState::PRESSED)
-                intent->mMouseStates[m] = BtnState::DOWN;
-            else if (intent->mMouseStates[m] == BtnState::RELEASED)
-                intent->mMouseStates[m] = BtnState::UP;
+            if (intent->mMouseStates[m] == Pressed)
+                intent->mMouseStates[m] = Down;
+            else if (intent->mMouseStates[m] == Released)
+                intent->mMouseStates[m] = Up;
 
             auto in = IntentComponent::Action(IntentComponent::MOUSE_BTN, m, intent->mMouseStates[m]);
 
@@ -80,7 +81,7 @@ namespace fission
                     auto ke = static_cast<KeyEvent*>(e);
 
                     // Send it across the network
-                    if (ke->mState == BtnState::PRESSED || ke->mState == BtnState::RELEASED)
+                    if (ke->mState == Pressed || ke->mState == Released)
                     {
                         sf::Packet packet;
                         packet << intent->mNetID << int(EVT_KEY) << int(ke->mKey) << ke->mState;
@@ -101,7 +102,7 @@ namespace fission
                     auto me = static_cast<MouseBtnEvent*>(e);
 
                     // Send it across the network
-                    if (me->mState == BtnState::PRESSED || me->mState == BtnState::RELEASED)
+                    if (me->mState == Pressed || me->mState == Released)
                     {
                         sf::Packet packet;
                         packet << intent->mNetID << int(EVT_MOUSE_BTN) << int(me->mBtn) << me->mState;
@@ -148,7 +149,7 @@ namespace fission
                 int state;
                 packet >> key >> state;
 
-                if (state == BtnState::PRESSED || state == BtnState::RELEASED)
+                if (state == Pressed || state == Released)
                 {
                     // Forward controls to other clients
                     if (mConn->getType() == NetType::SERVER)
@@ -173,7 +174,7 @@ namespace fission
                 int state;
                 packet >> btn >> state;
 
-                if (state == BtnState::PRESSED || state == BtnState::RELEASED)
+                if (state == Pressed || state == Released)
                 {
                     // Forward controls to other clients
                     if (mConn->getType() == NetType::SERVER)

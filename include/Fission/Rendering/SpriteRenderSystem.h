@@ -3,17 +3,17 @@
 
 #include "Fission/Rendering/RenderSystem.h"
 
-namespace fission
+namespace fsn
 {
     class SpriteComponent;
 
-    class SpriteRenderSystem : public RenderSystem
+    class SpriteRenderSystem : public RenderSystem<SpriteComponent>
     {
         public:
             SpriteRenderSystem(IEventManager* eventManager, RenderManager* renderManager, float lockStep);
 
         protected:
-            void render(RenderComponent* sprite, sf::RenderTarget& target, sf::RenderStates& states);
+            void render(SpriteComponent* sprite, sf::RenderTarget& target, sf::RenderStates& states);
 
         private:
     };

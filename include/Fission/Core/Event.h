@@ -1,7 +1,7 @@
 #ifndef __EVENT_H__
 #define __EVENT_H__
 
-namespace fission
+namespace fsn
 {
     typedef unsigned int EventID;
 

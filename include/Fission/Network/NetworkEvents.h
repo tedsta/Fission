@@ -7,7 +7,7 @@
 #include <Fission/Core/EntityEvents.h>
 #include <Fission/Input/Events.h>
 
-namespace fission
+namespace fsn
 {
     enum
     {

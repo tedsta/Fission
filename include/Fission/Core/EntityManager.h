@@ -9,7 +9,7 @@
 #include "Fission/Core/EventManager.h"
 #include "Fission/Core/EntityEvents.h"
 
-namespace fission
+namespace fsn
 {
     class IEventManager;
     class Component;
@@ -52,6 +52,26 @@ namespace fission
 
                 // Tell the world the component's been added
                 mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, createEntityRef(ID), mComponents[component::Type][ID]));
+            }
+
+            /// \brief Add a component to an entity.
+            void addComponentToEntity(int ID, Component* component)
+            {
+                if (!entityExists(ID))
+                    return;
+
+                if (component->getType() >= mComponents.size()) // Our component table's type dimension isn't big enough yet.
+                {
+                    mComponents.resize(component->getType()+1);
+                    for (auto& componentRow : mComponents)
+                        componentRow.resize(mNextID, NULL);
+                }
+
+                mComponents[component->getType()][ID] = component; // Create the new component
+                mEntityBits[ID] |= ComponentTypeManager::getBit(component->getType()); // Add the component's bit to the entity's bits.
+
+                // Tell the world the component's been added
+                mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, createEntityRef(ID), mComponents[component->getType()][ID]));
             }
 
             /// \brief Remove a component from an entity.

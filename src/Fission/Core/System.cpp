@@ -5,7 +5,7 @@
 #include <Fission/Core/EventManager.h>
 #include <Fission/Core/EntityEvents.h>
 
-namespace fission
+namespace fsn
 {
     System::System(IEventManager* eventManager, float lockStep) : mEventManager(eventManager),
         mLockStep(lockStep), mDtAccumulator(0.f)
@@ -45,8 +45,11 @@ namespace fission
                 }
                 else if (!mAspect.checkEntity(entity))
                 {
-                    mActiveEntities.erase(entity); // Remove the entity from the active entities if it does not meet the requirements
-                    onEntityRemoved(entity);
+                    if (mActiveEntities.find(entity) != mActiveEntities.end())
+                    {
+                        mActiveEntities.erase(entity); // Remove the entity from the active entities if it does not meet the requirements
+                        onEntityRemoved(entity);
+                    }
                 }
 
                 break;

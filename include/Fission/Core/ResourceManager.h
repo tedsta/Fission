@@ -9,7 +9,7 @@
 
 #include <Sqrat/sqrat.h>
 
-namespace fission
+namespace fsn
 {
     struct Resource
     {

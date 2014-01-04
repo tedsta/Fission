@@ -1,6 +1,6 @@
 #include "Fission/Core/EntityRef.h"
 
-namespace fission
+namespace fsn
 {
     EntityRef::EntityRef(EntityManager* em, int ID) : mEntityManager(em), mID(ID)
     {

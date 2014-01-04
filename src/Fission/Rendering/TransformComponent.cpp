@@ -1,6 +1,6 @@
 #include <Fission/Rendering/TransformComponent.h>
 
-namespace fission
+namespace fsn
 {
     ComponentType TransformComponent::Type;
 

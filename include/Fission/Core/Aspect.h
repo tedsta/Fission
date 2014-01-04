@@ -6,7 +6,7 @@
 #include "Fission/Core/config.h"
 #include "Fission/Core/ComponentTypeManager.h"
 
-namespace fission
+namespace fsn
 {
     class Component;
     class EntityRef;

@@ -2,18 +2,15 @@
 
 #include "Fission/Rendering/SpriteComponent.h"
 
-namespace fission
+namespace fsn
 {
     SpriteRenderSystem::SpriteRenderSystem(IEventManager* eventManager, RenderManager* renderManager, float lockStep) :
-        RenderSystem(eventManager, renderManager, lockStep)
+        RenderSystem<SpriteComponent>(eventManager, renderManager, lockStep)
     {
-        initialize<SpriteComponent>();
     }
 
-    void SpriteRenderSystem::render(RenderComponent* rnd, sf::RenderTarget& target, sf::RenderStates& states)
+    void SpriteRenderSystem::render(SpriteComponent* sprite, sf::RenderTarget& target, sf::RenderStates& states)
     {
-        auto sprite = static_cast<SpriteComponent*>(rnd);
-
         if (sprite->mAnimClock.getElapsedTime().asMilliseconds() >= sprite->mFrameDelay &&
             (sprite->mLoopAnim || (sprite->mFrameDir == 1 && sprite->mCurrentFrame != sprite->mEndFrame) ||
              (sprite->mFrameDir == -1 && sprite->mCurrentFrame != sprite->mStartFrame)))

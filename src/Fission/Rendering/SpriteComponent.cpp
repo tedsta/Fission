@@ -6,7 +6,7 @@
 #include <Fission/Core/ResourceManager.h>
 #include <Fission/Rendering/TransformComponent.h>
 
-namespace fission
+namespace fsn
 {
     ComponentType SpriteComponent::Type;
 

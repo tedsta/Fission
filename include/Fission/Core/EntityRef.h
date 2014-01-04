@@ -3,7 +3,7 @@
 
 #include "Fission/Core/EntityManager.h"
 
-namespace fission
+namespace fsn
 {
     class EntityRef
     {
@@ -17,6 +17,12 @@ namespace fission
             void addComponent() const
             {
                 mEntityManager->addComponentToEntity<component>(mID);
+            }
+
+            /// \brief Add a component to this entity.
+            void addComponent(Component* component) const
+            {
+                mEntityManager->addComponentToEntity(mID, component);
             }
 
             /// \brief Fast, unsafe way to get a component from this entity.

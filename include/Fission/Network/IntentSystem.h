@@ -7,7 +7,7 @@
 #include <Fission/Core/Event.h>
 #include <Fission/Network/Connection.h>
 
-namespace fission
+namespace fsn
 {
     class IEventManager;
 

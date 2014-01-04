@@ -6,7 +6,7 @@
 #include <Fission/Input/Defs.h>
 #include <Fission/Input/Events.h>
 
-namespace fission
+namespace fsn
 {
     InputSystem::InputSystem(IEventManager* eventManager, float lockStep, sf::Window* window) : System(eventManager, lockStep), mWindow(window)
     {
@@ -29,16 +29,16 @@ namespace fission
                 mWindow->close();
                 break;
             case sf::Event::KeyPressed:
-                getEventManager()->fireEvent(KeyEvent(event.key.code, BtnState::PRESSED));
+                getEventManager()->fireEvent(KeyEvent(event.key.code, Pressed));
                 break;
             case sf::Event::KeyReleased:
-                getEventManager()->fireEvent(KeyEvent(event.key.code, BtnState::RELEASED));
+                getEventManager()->fireEvent(KeyEvent(event.key.code, Released));
                 break;
             case sf::Event::MouseButtonPressed:
-                getEventManager()->fireEvent(MouseBtnEvent(event.mouseButton.button, BtnState::PRESSED));
+                getEventManager()->fireEvent(MouseBtnEvent(event.mouseButton.button, Pressed));
                 break;
             case sf::Event::MouseButtonReleased:
-                getEventManager()->fireEvent(MouseBtnEvent(event.mouseButton.button, BtnState::RELEASED));
+                getEventManager()->fireEvent(MouseBtnEvent(event.mouseButton.button, Released));
                 break;
             case sf::Event::MouseMoved:
                 getEventManager()->fireEvent(MouseMoveEvent(event.mouseMove.x, event.mouseMove.y));

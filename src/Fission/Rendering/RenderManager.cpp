@@ -5,7 +5,7 @@
 #include "Fission/Rendering/RenderSystem.h"
 #include "Fission/Rendering/TransformComponent.h"
 
-namespace fission
+namespace fsn
 {
     RenderManager::RenderManager(int width, int height, const std::string& wndName, int layers, sf::Font* debugFont) :
         mBackgroundColor(sf::Color::Black), mDebugDisplay(debugFont), mLayers(layers)

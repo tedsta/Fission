@@ -11,16 +11,16 @@
 
 #include "Fission/Rendering/DebugDisplay.h"
 
-namespace fission
+namespace fsn
 {
     class EntityRef;
-    class RenderSystem;
+    class IRenderSystem;
     class RenderComponent;
     class TransformComponent;
 
     class RenderManager
     {
-        friend class RenderSystem;
+        template <typename RenderComponentT> friend class RenderSystem;
 
         public:
             RenderManager(int width, int height, const std::string& wndName, int layers, sf::Font* debugFont);
@@ -57,7 +57,7 @@ namespace fission
 
             DebugDisplay mDebugDisplay;
 
-            std::vector<RenderSystem*> mRenderSystems;
+            std::vector<IRenderSystem*> mRenderSystems;
             std::vector<std::vector<Renderable>> mLayers;
     };
 }

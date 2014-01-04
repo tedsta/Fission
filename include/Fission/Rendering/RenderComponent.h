@@ -5,7 +5,7 @@
 
 #include <Fission/Core/Component.h>
 
-namespace fission
+namespace fsn
 {
     class TransformComponent;
 

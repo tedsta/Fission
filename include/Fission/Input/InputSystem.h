@@ -5,7 +5,7 @@
 
 #include <Fission/Core/System.h>
 
-namespace fission
+namespace fsn
 {
     class InputSystem : public System
     {

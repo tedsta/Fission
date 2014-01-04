@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics/Text.hpp>
 
-namespace fission
+namespace fsn
 {
     DebugDisplay::DebugDisplay(sf::Font* font) : mFont(font)
     {
