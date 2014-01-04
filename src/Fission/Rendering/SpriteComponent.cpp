@@ -8,8 +8,6 @@
 
 namespace fsn
 {
-    ComponentType SpriteComponent::Type;
-
     SpriteComponent::SpriteComponent(const std::string& texturePath, int frames, int framesPerRow) :
         mTexturePath(texturePath), mFrames(frames), mFramesPerRow(framesPerRow), mCurrentFrame(0), mFrameDelay(100), mLoopAnim(true),
         mStartFrame(0), mEndFrame(mFrames-1), mFrameDir(1), mRelativeRotation(0)

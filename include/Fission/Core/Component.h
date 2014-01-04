@@ -8,8 +8,12 @@ namespace fsn
     // Adds things that all components need
     #define FISSION_COMPONENT \
         public: \
-            static fsn::ComponentType Type; \
-            fsn::ComponentType getType() const {return Type;} \
+            static fsn::ComponentType& Type() \
+            { \
+                static fsn::ComponentType Type; \
+                return Type; \
+            } \
+            fsn::ComponentType getType() const {return Type();} \
         private:
 
     class Component;

@@ -102,7 +102,7 @@ TEST(EntityManager_AddingComponentChangesEntityBits)
     auto entityID = em->createEntity();
     CHECK(!em->getEntityBits(entityID).test(1));
     em->addComponentToEntity<Test2Component>(entityID);
-    CHECK(em->getEntityBits(entityID).test(Test2Component::Type));
+    CHECK(em->getEntityBits(entityID).test(Test2Component::Type()));
 }
 
 TEST(EntityManager_RemovingComponentChangesEntityBits)
@@ -112,5 +112,5 @@ TEST(EntityManager_RemovingComponentChangesEntityBits)
     auto entityID = em->createEntity();
     em->addComponentToEntity<Test2Component>(entityID);
     em->removeComponentFromEntity<Test2Component>(entityID);
-    CHECK(!em->getEntityBits(entityID).test(Test2Component::Type));
+    CHECK(!em->getEntityBits(entityID).test(Test2Component::Type()));
 }

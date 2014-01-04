@@ -2,8 +2,6 @@
 
 namespace fsn
 {
-    ComponentType TransformComponent::Type;
-
     TransformComponent::TransformComponent(sf::Vector2f pos, float rot, sf::Vector2f scale)
     {
         setPosition(pos);

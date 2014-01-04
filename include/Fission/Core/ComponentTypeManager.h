@@ -17,12 +17,12 @@ namespace fsn
             static void add()
             {
                 // Set the component's type ID
-                c::Type = mNextID;
+                c::Type() = mNextID;
                 mNextID++;
 
                 // Create the component bit
                 std::bitset<MaxComponents> bit;
-                bit.set(c::Type);
+                bit.set(c::Type());
                 mBits.push_back(bit);
 
                 // Create the factory function
@@ -36,7 +36,7 @@ namespace fsn
             template<typename c>
             static std::bitset<MaxComponents> getBit()
             {
-                return mBits[c::Type];
+                return mBits[c::Type()];
             }
 
             /// \brief Gets the bit set of a component.

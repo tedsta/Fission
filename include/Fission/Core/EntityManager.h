@@ -40,18 +40,18 @@ namespace fsn
                 if (!entityExists(ID))
                     return;
 
-                if (component::Type >= mComponents.size()) // Our component table's type dimension isn't big enough yet.
+                if (component::Type() >= mComponents.size()) // Our component table's type dimension isn't big enough yet.
                 {
-                    mComponents.resize(component::Type+1);
+                    mComponents.resize(component::Type()+1);
                     for (auto& componentRow : mComponents)
                         componentRow.resize(mNextID, NULL);
                 }
 
-                mComponents[component::Type][ID] = new component; // Create the new component
+                mComponents[component::Type()][ID] = new component; // Create the new component
                 mEntityBits[ID] |= ComponentTypeManager::getBit<component>(); // Add the component's bit to the entity's bits.
 
                 // Tell the world the component's been added
-                mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, createEntityRef(ID), mComponents[component::Type][ID]));
+                mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, createEntityRef(ID), mComponents[component::Type()][ID]));
             }
 
             /// \brief Add a component to an entity.
@@ -81,18 +81,18 @@ namespace fsn
                 if (!entityExists(ID))
                     return;
 
-                if (component::Type >= mComponents.size()) // No entities have this component
+                if (component::Type() >= mComponents.size()) // No entities have this component
                     return;
 
-                if (!mComponents[component::Type][ID]) // This entity doesn't have this component
+                if (!mComponents[component::Type()][ID]) // This entity doesn't have this component
                     return;
 
-                delete mComponents[component::Type][ID]; // Delete the component
-                mComponents[component::Type][ID] = NULL;
+                delete mComponents[component::Type()][ID]; // Delete the component
+                mComponents[component::Type()][ID] = NULL;
                 mEntityBits[ID] &= ComponentTypeManager::getBit<component>().flip(); // Remove the component's bit from the entity's bits.
 
                 // Tell the world that this component's been removed from this entity.
-                mEventManager->fireEvent(EntityComponentEvent(EVENT_REMOVE_COMPONENT, createEntityRef(ID), mComponents[component::Type][ID]));
+                mEventManager->fireEvent(EntityComponentEvent(EVENT_REMOVE_COMPONENT, createEntityRef(ID), mComponents[component::Type()][ID]));
             }
 
             /// \brief Fastest, unsafe way to get a component on an entity.
@@ -100,7 +100,7 @@ namespace fsn
             template<typename component>
             component* getComponentFromEntity(int ID) const
             {
-                return static_cast<component*>(mComponents[component::Type][ID]);
+                return static_cast<component*>(mComponents[component::Type()][ID]);
             }
 
             /// \brief Get a component on an entity using the component's integer type ID.
@@ -119,8 +119,8 @@ namespace fsn
                 if (!entityExists(ID))
                     return NULL;
 
-                if (static_cast<std::size_t>(component::Type) < mComponents.size())
-                    return static_cast<component*>(mComponents[component::Type][ID]);
+                if (static_cast<std::size_t>(component::Type()) < mComponents.size())
+                    return static_cast<component*>(mComponents[component::Type()][ID]);
 
                 return NULL;
             }

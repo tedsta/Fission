@@ -44,6 +44,7 @@ namespace fsn
         }
 
         mWindow.setView(mWindow.getDefaultView());
+        mDebugDisplay.render(mWindow);
         mWindow.display();
     }
 

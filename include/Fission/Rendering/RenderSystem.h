@@ -40,9 +40,9 @@ namespace fsn
                 IRenderSystem(eventManager, lockStep), mRenderManager(renderManager)
             {
                 mAspect.all<TransformComponent, RenderComponentT>();
-                if (mRenderManager->mRenderSystems.size() < RenderComponentT::Type)
-                    mRenderManager->mRenderSystems.resize(RenderComponentT::Type+1);
-                mRenderManager->mRenderSystems[RenderComponentT::Type] = this;
+                if (mRenderManager->mRenderSystems.size() < RenderComponentT::Type())
+                    mRenderManager->mRenderSystems.resize(RenderComponentT::Type()+1);
+                mRenderManager->mRenderSystems[RenderComponentT::Type()] = this;
             }
 
         protected:
@@ -65,13 +65,13 @@ namespace fsn
             void onEntityAdded(EntityRef* entity)
             {
                 auto rndCmp = entity->getComponent<RenderComponentT>();
-                mRenderManager->addRenderableToLayer(rndCmp->getLayer(), entity, RenderComponentT::Type);
+                mRenderManager->addRenderableToLayer(rndCmp->getLayer(), entity, RenderComponentT::Type());
             }
 
             void onEntityRemoved(EntityRef* entity)
             {
                 auto rndCmp = entity->getComponent<RenderComponentT>();
-                mRenderManager->removeRenderableFromLayer(rndCmp->getLayer(), RenderComponentT::Type);
+                mRenderManager->removeRenderableFromLayer(rndCmp->getLayer(), RenderComponentT::Type());
             }
 
             // Just call the derived render function
