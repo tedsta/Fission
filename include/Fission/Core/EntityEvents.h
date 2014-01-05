@@ -10,8 +10,8 @@ namespace fsn
 
     enum
     {
-        EVENT_ADD_ENTITY,
-        EVENT_REMOVE_ENTITY,
+        EVENT_CREATE_ENTITY,
+        EVENT_DESTROY_ENTITY,
         EVENT_ADD_COMPONENT,
         EVENT_REMOVE_COMPONENT,
 

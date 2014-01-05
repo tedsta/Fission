@@ -46,8 +46,7 @@ TEST(EntityManager_CreateEntityIncrementIDs)
     std::unique_ptr<EntityManager> em(new EntityManager(eventManager.get()));
     int ID0 = em->createEntity();
     int ID1 = em->createEntity();
-    CHECK(ID0 == 0);
-    CHECK(ID1 == 1);
+    CHECK(ID0 < ID1);
 }
 
 TEST(EntityManager_CreateEntityRef)
@@ -55,14 +54,14 @@ TEST(EntityManager_CreateEntityRef)
     std::unique_ptr<IEventManager> eventManager(new MockEventManager);
     std::unique_ptr<EntityManager> em(new EntityManager(eventManager.get()));
     int ID = em->createEntity();
-    CHECK(em->createEntityRef(ID)->getID() == ID);
+    CHECK(em->getEntityRef(ID)->getID() == ID);
 }
 
 TEST(EntityManager_CreateInvalidEntityRef)
 {
     std::unique_ptr<IEventManager> eventManager(new MockEventManager);
     std::unique_ptr<EntityManager> em(new EntityManager(eventManager.get()));
-    auto invalidRef = em->createEntityRef(0); // There are no entities yet, so this should be a NULL reference.
+    auto invalidRef = em->getEntityRef(1); // There are no entities yet, so this should be a NULL reference.
     CHECK(invalidRef->getID() == EntityRef::NULL_ID);
 }
 

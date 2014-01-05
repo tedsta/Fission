@@ -28,7 +28,7 @@ namespace fsn
             int createEntity();
 
             /// \brief Creates a new entity entity reference to an existing entity.
-            EntityRef* createEntityRef(int ID);
+            EntityRef* getEntityRef(int ID);
 
             /// \brief Destroy an existing entity.
             void destroyEntity(int ID);
@@ -51,7 +51,7 @@ namespace fsn
                 mEntityBits[ID] |= ComponentTypeManager::getBit<component>(); // Add the component's bit to the entity's bits.
 
                 // Tell the world the component's been added
-                mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, createEntityRef(ID), mComponents[component::Type()][ID]));
+                mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, getEntityRef(ID), mComponents[component::Type()][ID]));
             }
 
             /// \brief Add a component to an entity.
@@ -71,7 +71,7 @@ namespace fsn
                 mEntityBits[ID] |= ComponentTypeManager::getBit(component->getType()); // Add the component's bit to the entity's bits.
 
                 // Tell the world the component's been added
-                mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, createEntityRef(ID), mComponents[component->getType()][ID]));
+                mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, getEntityRef(ID), mComponents[component->getType()][ID]));
             }
 
             /// \brief Remove a component from an entity.
@@ -92,7 +92,7 @@ namespace fsn
                 mEntityBits[ID] &= ComponentTypeManager::getBit<component>().flip(); // Remove the component's bit from the entity's bits.
 
                 // Tell the world that this component's been removed from this entity.
-                mEventManager->fireEvent(EntityComponentEvent(EVENT_REMOVE_COMPONENT, createEntityRef(ID), mComponents[component::Type()][ID]));
+                mEventManager->fireEvent(EntityComponentEvent(EVENT_REMOVE_COMPONENT, getEntityRef(ID), mComponents[component::Type()][ID]));
             }
 
             /// \brief Fastest, unsafe way to get a component on an entity.
@@ -138,10 +138,11 @@ namespace fsn
             IEventManager* mEventManager;
             std::vector<std::vector<Component*>> mComponents; // By component type, by entity ID.
             std::vector<std::bitset<MaxComponents>> mEntityBits; // By entity ID
+            std::vector<EntityRef> mEntityRefs; // Store all of the entity refs
             int mEntityCount; // Total number of active entities
 
             std::vector<int> mFreeIDs;
-            int mNextID;
+            int mNextID; // Entity IDs start at 1. The 0th entity is the NULL entity.
     };
 }
 

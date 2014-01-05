@@ -10,7 +10,7 @@ namespace fsn
         friend class EntityManager;
 
         public:
-            const static int NULL_ID = -1;
+            const static int NULL_ID = 0; // The 0th entity is the NULL entity.
 
             /// \brief Add a component to this entity.
             template<typename component>

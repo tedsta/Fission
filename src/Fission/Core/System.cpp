@@ -10,16 +10,16 @@ namespace fsn
     System::System(IEventManager* eventManager, float lockStep) : mEventManager(eventManager),
         mLockStep(lockStep), mDtAccumulator(0.f)
     {
-        mEventManager->addListener(this, EVENT_ADD_ENTITY);
-        mEventManager->addListener(this, EVENT_REMOVE_ENTITY);
+        mEventManager->addListener(this, EVENT_CREATE_ENTITY);
+        mEventManager->addListener(this, EVENT_DESTROY_ENTITY);
         mEventManager->addListener(this, EVENT_ADD_COMPONENT);
         mEventManager->addListener(this, EVENT_REMOVE_COMPONENT);
     }
 
     System::~System()
     {
-        mEventManager->removeListener(this, EVENT_ADD_ENTITY);
-        mEventManager->removeListener(this, EVENT_REMOVE_ENTITY);
+        mEventManager->removeListener(this, EVENT_CREATE_ENTITY);
+        mEventManager->removeListener(this, EVENT_DESTROY_ENTITY);
         mEventManager->removeListener(this, EVENT_ADD_COMPONENT);
         mEventManager->removeListener(this, EVENT_REMOVE_COMPONENT);
     }
@@ -28,7 +28,7 @@ namespace fsn
     {
         switch (evt.getID())
         {
-        case EVENT_ADD_ENTITY:
+        case EVENT_CREATE_ENTITY:
         case EVENT_ADD_COMPONENT:
         case EVENT_REMOVE_COMPONENT:
             {
@@ -55,7 +55,7 @@ namespace fsn
                 break;
             }
 
-        case EVENT_REMOVE_ENTITY:
+        case EVENT_DESTROY_ENTITY:
             {
                 EntityRef* entity = static_cast<const EntityComponentEvent&>(evt).mEntity;
                 if (mActiveEntities.find(entity) != mActiveEntities.end())
