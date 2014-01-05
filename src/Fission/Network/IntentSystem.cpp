@@ -4,7 +4,7 @@
 #include <Fission/Input/Defs.h>
 #include <Fission/Input/Events.h>
 #include <Fission/Network/Connection.h>
-#include <Fission/Network/IntentComponent.h>
+#include <Fission/Network/Intent.h>
 #include <Fission/Network/NetworkEvents.h>
 
 #include <iostream>
@@ -14,7 +14,7 @@ namespace fsn
     IntentSystem::IntentSystem(IEventManager* eventManager, float lockStep, Connection *conn) : System(eventManager, lockStep),
         mConn(conn)
     {
-        mAspect.all<IntentComponent>();
+        mAspect.all<Intent>();
         mConn->registerHandlerAuto(this);
         if (mConn->getType() == NetType::CLIENT || mConn->getType() == NetType::NONE)
         {
@@ -35,7 +35,7 @@ namespace fsn
 
     void IntentSystem::processEntity(EntityRef* entity, const float dt)
     {
-        auto intent = entity->getComponent<IntentComponent>();
+        auto intent = entity->getComponent<Intent>();
 
         for (auto& it : intent->mIntents)
             it.second = false;
@@ -47,7 +47,7 @@ namespace fsn
             else if (intent->mKeyStates[k] == Released)
                 intent->mKeyStates[k] = Up;
 
-            auto in = IntentComponent::Action(IntentComponent::KEYBOARD, k, intent->mKeyStates[k]);
+            auto in = Intent::Action(Intent::KEYBOARD, k, intent->mKeyStates[k]);
 
             if (intent->mInputMap.find(in) != intent->mInputMap.end())
             {
@@ -62,7 +62,7 @@ namespace fsn
             else if (intent->mMouseStates[m] == Released)
                 intent->mMouseStates[m] = Up;
 
-            auto in = IntentComponent::Action(IntentComponent::MOUSE_BTN, m, intent->mMouseStates[m]);
+            auto in = Intent::Action(Intent::MOUSE_BTN, m, intent->mMouseStates[m]);
 
             if (intent->mInputMap.find(in) != intent->mInputMap.end())
                 intent->mIntents[intent->mInputMap[in]] = true;
@@ -89,7 +89,7 @@ namespace fsn
 
                         intent->mKeyStates[int(ke->mKey)] = ke->mState;
 
-                        auto in = IntentComponent::Action(IntentComponent::KEYBOARD, int(ke->mKey), ke->mState);
+                        auto in = Intent::Action(Intent::KEYBOARD, int(ke->mKey), ke->mState);
                         if (intent->mInputMap.find(in) != intent->mInputMap.end())
                             intent->mIntents[intent->mInputMap[in]] = true;
                     }
@@ -110,7 +110,7 @@ namespace fsn
 
                         intent->mMouseStates[int(me->mBtn)] = me->mState;
 
-                        auto in = IntentComponent::Action(IntentComponent::MOUSE_BTN, int(me->mBtn), me->mState);
+                        auto in = Intent::Action(Intent::MOUSE_BTN, int(me->mBtn), me->mState);
                         if (intent->mInputMap.find(in) != intent->mInputMap.end())
                             intent->mIntents[intent->mInputMap[in]] = true;
                     }
@@ -161,7 +161,7 @@ namespace fsn
 
                     intent->mKeyStates[int(key)] = state;
 
-                    auto in = IntentComponent::Action(IntentComponent::KEYBOARD, key, state);
+                    auto in = Intent::Action(Intent::KEYBOARD, key, state);
                     if (intent->mInputMap.find(in) != intent->mInputMap.end())
                         intent->mIntents[intent->mInputMap[in]] = true;
                 }
@@ -186,7 +186,7 @@ namespace fsn
 
                     intent->mMouseStates[int(btn)] = state;
 
-                    auto in = IntentComponent::Action(IntentComponent::MOUSE_BTN, int(btn), state);
+                    auto in = Intent::Action(Intent::MOUSE_BTN, int(btn), state);
                     if (intent->mInputMap.find(in) != intent->mInputMap.end())
                         intent->mIntents[intent->mInputMap[in]] = true;
                 }

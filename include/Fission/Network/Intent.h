@@ -1,5 +1,5 @@
-#ifndef INTENTCOMPONENT_H
-#define INTENTCOMPONENT_H
+#ifndef FISSION_INTENT_H
+#define FISSION_INTENT_H
 
 #include <string>
 #include <map>
@@ -12,15 +12,15 @@
 
 namespace fsn
 {
-    class IntentComponent : public Component
+    class Intent : public Component
     {
         FISSION_COMPONENT
 
         friend class IntentSystem;
 
         public:
-            IntentComponent();
-            virtual ~IntentComponent();
+            Intent();
+            virtual ~Intent();
 
             void serialize(sf::Packet &packet);
             void deserialize(sf::Packet &packet);

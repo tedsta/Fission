@@ -3,7 +3,7 @@
 #include "Fission/Core/EntityRef.h"
 #include "Fission/Rendering/RenderComponent.h"
 #include "Fission/Rendering/RenderSystem.h"
-#include "Fission/Rendering/TransformComponent.h"
+#include "Fission/Rendering/Transform.h"
 
 namespace fsn
 {
@@ -50,7 +50,7 @@ namespace fsn
 
     void RenderManager::addRenderableToLayer(int layer, EntityRef* entity, int componentID)
     {
-        auto transform = entity->getComponent<TransformComponent>();
+        auto transform = entity->getComponent<Transform>();
         auto render = static_cast<RenderComponent*>(entity->getComponent(componentID));
         mLayers[layer].push_back(Renderable{componentID, transform, render});
     }

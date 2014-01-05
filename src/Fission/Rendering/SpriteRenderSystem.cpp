@@ -1,15 +1,15 @@
 #include "Fission/Rendering/SpriteRenderSystem.h"
 
-#include "Fission/Rendering/SpriteComponent.h"
+#include "Fission/Rendering/Sprite.h"
 
 namespace fsn
 {
     SpriteRenderSystem::SpriteRenderSystem(IEventManager* eventManager, RenderManager* renderManager, float lockStep) :
-        RenderSystem<SpriteComponent>(eventManager, renderManager, lockStep)
+        RenderSystem<Sprite>(eventManager, renderManager, lockStep)
     {
     }
 
-    void SpriteRenderSystem::render(SpriteComponent* sprite, sf::RenderTarget& target, sf::RenderStates& states)
+    void SpriteRenderSystem::render(Sprite* sprite, sf::RenderTarget& target, sf::RenderStates& states)
     {
         if (sprite->mAnimClock.getElapsedTime().asMilliseconds() >= sprite->mFrameDelay &&
             (sprite->mLoopAnim || (sprite->mFrameDir == 1 && sprite->mCurrentFrame != sprite->mEndFrame) ||

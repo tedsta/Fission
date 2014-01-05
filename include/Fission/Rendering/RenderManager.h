@@ -16,7 +16,7 @@ namespace fsn
     class EntityRef;
     class IRenderSystem;
     class RenderComponent;
-    class TransformComponent;
+    class Transform;
 
     class RenderManager
     {
@@ -43,7 +43,7 @@ namespace fsn
             struct Renderable
             {
                 int componentID;
-                TransformComponent* transform;
+                Transform* transform;
                 RenderComponent* render;
             };
 

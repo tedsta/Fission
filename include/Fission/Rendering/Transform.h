@@ -1,5 +1,5 @@
-#ifndef TRANSFORMCOMPONENT_H
-#define TRANSFORMCOMPONENT_H
+#ifndef FISSION_TRANSFORM_H
+#define FISSION_TRANSFORM_H
 
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Transformable.hpp>
@@ -9,13 +9,13 @@
 
 namespace fsn
 {
-    class TransformComponent : public Component, public sf::Transformable
+    class Transform : public Component, public sf::Transformable
     {
         FISSION_COMPONENT
 
         public:
-            TransformComponent(sf::Vector2f pos = sf::Vector2f(0, 0), float rot = 0, sf::Vector2f scale = sf::Vector2f(1, 1));
-            virtual ~TransformComponent();
+            Transform(sf::Vector2f pos = sf::Vector2f(0, 0), float rot = 0, sf::Vector2f scale = sf::Vector2f(1, 1));
+            virtual ~Transform();
 
             void serialize(sf::Packet& packet);
             void deserialize(sf::Packet& packet);

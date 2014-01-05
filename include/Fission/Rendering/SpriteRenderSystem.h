@@ -5,15 +5,15 @@
 
 namespace fsn
 {
-    class SpriteComponent;
+    class Sprite;
 
-    class SpriteRenderSystem : public RenderSystem<SpriteComponent>
+    class SpriteRenderSystem : public RenderSystem<Sprite>
     {
         public:
             SpriteRenderSystem(IEventManager* eventManager, RenderManager* renderManager, float lockStep);
 
         protected:
-            void render(SpriteComponent* sprite, sf::RenderTarget& target, sf::RenderStates& states);
+            void render(Sprite* sprite, sf::RenderTarget& target, sf::RenderStates& states);
 
         private:
     };

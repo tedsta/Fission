@@ -1,4 +1,4 @@
-#include <Fission/Network/IntentComponent.h>
+#include <Fission/Network/Intent.h>
 
 #include <iostream>
 
@@ -6,7 +6,7 @@
 
 namespace fsn
 {
-    IntentComponent::IntentComponent()
+    Intent::Intent()
     {
         for (int k = 0; k < sf::Keyboard::KeyCount; k++)
             mKeyStates[k] = Up;
@@ -14,12 +14,12 @@ namespace fsn
             mMouseStates[b] = Up;
     }
 
-    IntentComponent::~IntentComponent()
+    Intent::~Intent()
     {
         //dtor
     }
 
-    void IntentComponent::serialize(sf::Packet &packet)
+    void Intent::serialize(sf::Packet &packet)
     {
         packet << static_cast<int>(mInputMap.size());
         for (auto input : mInputMap)
@@ -38,7 +38,7 @@ namespace fsn
         packet << mMousePos.x << mMousePos.y;
     }
 
-    void IntentComponent::deserialize(sf::Packet &packet)
+    void Intent::deserialize(sf::Packet &packet)
     {
         int inputCount;
         packet >> inputCount;
@@ -65,7 +65,7 @@ namespace fsn
         packet >> mMousePos.x >> mMousePos.y;
     }
 
-    void IntentComponent::mapKeyToIntent(const std::string& intent, int key, int state)
+    void Intent::mapKeyToIntent(const std::string& intent, int key, int state)
     {
         Action in;
         in.mInputType = KEYBOARD;
@@ -75,7 +75,7 @@ namespace fsn
         mIntents[intent] = false;
     }
 
-    void IntentComponent::mapMouseBtnToIntent(const std::string& intent, int btn, int state)
+    void Intent::mapMouseBtnToIntent(const std::string& intent, int btn, int state)
     {
         Action in;
         in.mInputType = MOUSE_BTN;
@@ -85,7 +85,7 @@ namespace fsn
         mIntents[intent] = false;
     }
 
-    bool IntentComponent::isIntentActive(const std::string& intent)
+    bool Intent::isIntentActive(const std::string& intent)
     {
         auto it = mIntents.find(intent);
         if (it != mIntents.end())
