@@ -105,9 +105,9 @@
 		<Unit filename="include/Fission/Rendering/RenderComponent.h" />
 		<Unit filename="include/Fission/Rendering/RenderManager.h" />
 		<Unit filename="include/Fission/Rendering/RenderSystem.h" />
-		<Unit filename="include/Fission/Rendering/SpriteComponent.h" />
+		<Unit filename="include/Fission/Rendering/Sprite.h" />
 		<Unit filename="include/Fission/Rendering/SpriteRenderSystem.h" />
-		<Unit filename="include/Fission/Rendering/TransformComponent.h" />
+		<Unit filename="include/Fission/Rendering/Transform.h" />
 		<Unit filename="include/Fission/Script/ScriptSystem.h" />
 		<Unit filename="include/Fission/Tests/TestComponent.h">
 			<Option target="UnitTests" />
@@ -126,9 +126,9 @@
 		<Unit filename="src/Fission/Network/IntentSystem.cpp" />
 		<Unit filename="src/Fission/Rendering/DebugDisplay.cpp" />
 		<Unit filename="src/Fission/Rendering/RenderManager.cpp" />
-		<Unit filename="src/Fission/Rendering/SpriteComponent.cpp" />
+		<Unit filename="src/Fission/Rendering/Sprite.cpp" />
 		<Unit filename="src/Fission/Rendering/SpriteRenderSystem.cpp" />
-		<Unit filename="src/Fission/Rendering/TransformComponent.cpp" />
+		<Unit filename="src/Fission/Rendering/Transform.cpp" />
 		<Unit filename="src/Fission/Script/ScriptSystem.cpp" />
 		<Unit filename="src/Fission/Tests/TestAspect.cpp">
 			<Option target="UnitTests" />

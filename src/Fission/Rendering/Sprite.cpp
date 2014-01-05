@@ -1,14 +1,14 @@
-#include <Fission/Rendering/SpriteComponent.h>
+#include <Fission/Rendering/Sprite.h>
 
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
 #include <Fission/Core/ResourceManager.h>
-#include <Fission/Rendering/TransformComponent.h>
+#include <Fission/Rendering/Transform.h>
 
 namespace fsn
 {
-    SpriteComponent::SpriteComponent(const std::string& texturePath, int frames, int framesPerRow) :
+    Sprite::Sprite(const std::string& texturePath, int frames, int framesPerRow) :
         mTexturePath(texturePath), mFrames(frames), mFramesPerRow(framesPerRow), mCurrentFrame(0), mFrameDelay(100), mLoopAnim(true),
         mStartFrame(0), mEndFrame(mFrames-1), mFrameDir(1), mRelativeRotation(0)
     {
@@ -21,12 +21,12 @@ namespace fsn
         mFrameDim = sf::Vector2f(mSprite.getTexture()->getSize().x/mFramesPerRow, mSprite.getTexture()->getSize().y/(mFrames/mFramesPerRow));
     }
 
-    SpriteComponent::~SpriteComponent()
+    Sprite::~Sprite()
     {
         //dtor
     }
 
-    void SpriteComponent::serialize(sf::Packet &packet)
+    void Sprite::serialize(sf::Packet &packet)
     {
         RenderComponent::serialize(packet);
 
@@ -35,7 +35,7 @@ namespace fsn
         packet << mRelativePosition.x << mRelativePosition.y << mRelativeRotation;
     }
 
-    void SpriteComponent::deserialize(sf::Packet &packet)
+    void Sprite::deserialize(sf::Packet &packet)
     {
         RenderComponent::deserialize(packet);
 
@@ -59,7 +59,7 @@ namespace fsn
         packet >> mRelativePosition.x >> mRelativePosition.y >> mRelativeRotation;
     }
 
-    void SpriteComponent::render(sf::RenderTarget& target, sf::RenderStates states)
+    void Sprite::render(sf::RenderTarget& target, sf::RenderStates states)
     {
         if (mAnimClock.getElapsedTime().asMilliseconds() >= mFrameDelay &&
             (mLoopAnim || (mFrameDir == 1 && mCurrentFrame != mEndFrame) || (mFrameDir == -1 && mCurrentFrame != mStartFrame)))
@@ -85,13 +85,13 @@ namespace fsn
         target.draw(mSprite, states); // Rendahhh!!!!
     }
 
-    void SpriteComponent::renderShadow(sf::RenderTarget& target, sf::RenderStates states)
+    void Sprite::renderShadow(sf::RenderTarget& target, sf::RenderStates states)
     {
         mSprite.setColor(sf::Color::Black);
         target.draw(mSprite, states); // Rendahhh!!!!
     }
 
-    void SpriteComponent::setFrameLoop(int start, int stop)
+    void Sprite::setFrameLoop(int start, int stop)
     {
         if (start <= stop)
         {

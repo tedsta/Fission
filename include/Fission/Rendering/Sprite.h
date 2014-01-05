@@ -1,5 +1,5 @@
-#ifndef SPRITECOMPONENT_H
-#define SPRITECOMPONENT_H
+#ifndef FISSION_SPRITE_H
+#define FISSION_SPRITE_H
 
 #include <string>
 
@@ -10,15 +10,15 @@
 
 namespace fsn
 {
-    class SpriteComponent : public RenderComponent
+    class Sprite : public RenderComponent
     {
         FISSION_COMPONENT
 
         friend class SpriteRenderSystem;
 
         public:
-            SpriteComponent(const std::string& texturePath = "", int frames = 1, int framesPerRow = 1);
-            virtual ~SpriteComponent();
+            Sprite(const std::string& texturePath = "", int frames = 1, int framesPerRow = 1);
+            virtual ~Sprite();
 
             // Serialization stuff
             void serialize(sf::Packet &packet);

@@ -7,7 +7,7 @@
 
 namespace fsn
 {
-    class TransformComponent;
+    class Transform;
 
     class RenderComponent : public Component
     {

@@ -11,7 +11,7 @@
 #include <Fission/Core/System.h>
 #include <Fission/Rendering/RenderComponent.h>
 #include <Fission/Rendering/RenderManager.h>
-#include <Fission/Rendering/TransformComponent.h>
+#include <Fission/Rendering/Transform.h>
 
 namespace fsn
 {
@@ -39,7 +39,7 @@ namespace fsn
             RenderSystem(IEventManager* eventManager, RenderManager* renderManager, float lockStep) :
                 IRenderSystem(eventManager, lockStep), mRenderManager(renderManager)
             {
-                mAspect.all<TransformComponent, RenderComponentT>();
+                mAspect.all<Transform, RenderComponentT>();
                 if (mRenderManager->mRenderSystems.size() < RenderComponentT::Type())
                     mRenderManager->mRenderSystems.resize(RenderComponentT::Type()+1);
                 mRenderManager->mRenderSystems[RenderComponentT::Type()] = this;
