@@ -847,13 +847,13 @@
 	<Fission/Core/Event.h>
 	<Fission/Input/Defs.h>
 
-1388832555 source:c:\users\teddy\programming\fission\src\fission\network\intentsystem.cpp
+1388955660 source:c:\users\teddy\programming\fission\src\fission\network\intentsystem.cpp
 	<Fission/Network/IntentSystem.h>
 	<Fission/Core/EventManager.h>
 	<Fission/Input/Defs.h>
 	<Fission/Input/Events.h>
 	<Fission/Network/Connection.h>
-	<Fission/Network/IntentComponent.h>
+	<Fission/Network/Intent.h>
 	<Fission/Network/NetworkEvents.h>
 	<iostream>
 
@@ -1169,7 +1169,7 @@
 1388955299 c:\users\teddy\programming\fission\include\fission\rendering\spriterendersystem.h
 	"Fission/Rendering/RenderSystem.h"
 
-1388955404 c:\users\teddy\programming\fission\include\fission\rendering\transform.h
+1388955796 c:\users\teddy\programming\fission\include\fission\rendering\transform.h
 	<SFML/System/Vector2.hpp>
 	<SFML/Graphics/Transformable.hpp>
 	<SFML/Network/Packet.hpp>
@@ -1182,7 +1182,7 @@
 	<Fission/Core/ResourceManager.h>
 	<Fission/Rendering/Transform.h>
 
-1388955335 c:\users\teddy\programming\fission\include\fission\rendering\sprite.h
+1388955796 c:\users\teddy\programming\fission\include\fission\rendering\sprite.h
 	<string>
 	<SFML/System/Clock.hpp>
 	<SFML/Graphics/Sprite.hpp>
@@ -1190,4 +1190,17 @@
 
 1388955366 source:c:\users\teddy\programming\fission\src\fission\rendering\transform.cpp
 	<Fission/Rendering/Transform.h>
+
+1388955685 source:c:\users\teddy\programming\fission\src\fission\network\intent.cpp
+	<Fission/Network/Intent.h>
+	<iostream>
+	<Fission/Core/ComponentTypeManager.h>
+
+1388955676 c:\users\teddy\programming\fission\include\fission\network\intent.h
+	<string>
+	<map>
+	<SFML/Window/Event.hpp>
+	<Fission/Core/Component.h>
+	<Fission/Core/Event.h>
+	<Fission/Input/Defs.h>
 
