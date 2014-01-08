@@ -212,7 +212,7 @@ namespace fsn
             p.second.clear();
     }
 
-    bool IntentSystem::handleEvent(IEventData const& evt)
+    bool IntentSystem::handleEvent(const IEventData& evt)
     {
         if (System::handleEvent(evt))
             return true;
@@ -221,13 +221,13 @@ namespace fsn
         switch (evt.getID())
         {
         case EVT_KEY:
-            newEvt = new KeyEvent(static_cast<KeyEvent const&>(evt));
+            newEvt = new KeyEvent(static_cast<const KeyEvent&>(evt));
             break;
         case EVT_MOUSE_BTN:
-            newEvt = new MouseBtnEvent(static_cast<MouseBtnEvent const&>(evt));
+            newEvt = new MouseBtnEvent(static_cast<const MouseBtnEvent&>(evt));
             break;
         case EVT_MOUSE_MOVE:
-            newEvt = new MouseMoveEvent(static_cast<MouseMoveEvent const&>(evt));
+            newEvt = new MouseMoveEvent(static_cast<const MouseMoveEvent&>(evt));
             break;
         }
 

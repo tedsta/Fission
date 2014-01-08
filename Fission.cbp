@@ -63,7 +63,6 @@
 					<Add library="extlibs\lib\libsfml-graphics.a" />
 					<Add library="extlibs\lib\libsfml-window.a" />
 					<Add library="extlibs\lib\libsfml-system.a" />
-					<Add library="extlibs\lib\libBox2D.a" />
 					<Add library="extlibs\lib\libsquirrel.a" />
 					<Add library="extlibs\lib\libsqstdlib.a" />
 					<Add library="extlibs\lib\libenet.a" />

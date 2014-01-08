@@ -19,7 +19,7 @@ namespace fsn
     class IEventListener
     {
         public:
-            virtual bool handleEvent(const IEventData &event) = 0;
+            virtual bool handleEvent(const IEventData& event) = 0;
     };
 }
 

@@ -4,6 +4,8 @@
 #include <map>
 #include <list>
 
+#include <SFML/System/Mutex.hpp>
+
 #include <Fission/Core/Event.h>
 
 namespace fsn
@@ -31,7 +33,7 @@ namespace fsn
             virtual void removeAllListeners() = 0;
 
             /// \brief Dispatch an event.
-            virtual bool fireEvent(IEventData const& evt) const = 0;
+            virtual bool fireEvent(const IEventData& evt) = 0;
     };
 
     class EventManager : public IEventManager
@@ -59,7 +61,7 @@ namespace fsn
             void removeAllListeners();
 
             /// \brief Dispatch an event.
-            bool fireEvent(IEventData const& evt) const;
+            bool fireEvent(const IEventData& evt);
 
         private:
             EventManager(); // Only Engine can instantiate an event manager.
@@ -73,6 +75,9 @@ namespace fsn
 
             // A list of global event listeners. These listeners receive all events regardless of type.
             EventListenerList mGlobals;
+
+            // Mutex for threadsafe event firing
+            sf::Mutex mMutex;
     };
 }
 

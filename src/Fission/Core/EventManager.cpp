@@ -71,13 +71,18 @@ namespace fsn
         mGlobals.clear();
     }
 
-    bool EventManager::fireEvent(IEventData const& evt) const
+    bool EventManager::fireEvent(const IEventData& evt)
     {
+        mMutex.lock();
+
         // Notify all global listeners.
         for (EventListenerList::const_iterator it = mGlobals.begin(); it != mGlobals.end(); ++it)
         {
             if( (*it)->handleEvent( evt ) )
+            {
+                mMutex.unlock();
                 return true;
+            }
         }
 
         EventListenerMap::const_iterator it = mListeners.find(evt.getID());
@@ -87,10 +92,14 @@ namespace fsn
             for (EventListenerList::const_iterator it2 = list.begin(); it2 != list.end(); it2++)
             {
                 if ((*it2)->handleEvent(evt))
+                {
+                    mMutex.unlock();
                     return true;
+                }
             }
         }
 
+        mMutex.unlock();
         return false;
     }
 }

@@ -24,7 +24,7 @@ namespace fsn
         mEventManager->removeListener(this, EVENT_REMOVE_COMPONENT);
     }
 
-    bool System::handleEvent(IEventData const& evt)
+    bool System::handleEvent(const IEventData& evt)
     {
         switch (evt.getID())
         {

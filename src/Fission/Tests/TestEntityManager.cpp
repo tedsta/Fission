@@ -34,7 +34,7 @@ class MockEventManager : public IEventManager
 		{
 		}
 
-		bool fireEvent(IEventData const& evt) const
+		bool fireEvent(IEventData const& evt)
 		{
 		    return false;
 		}

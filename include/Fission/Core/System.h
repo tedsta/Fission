@@ -21,7 +21,7 @@ namespace fsn
             virtual ~System();
 
             /// \brief Event listener event handling callback.
-            virtual bool handleEvent(IEventData const& evt);
+            virtual bool handleEvent(const IEventData& evt);
 
             /// \brief Get the active entities
             const std::set<EntityRef*>& getActiveEntities(){return mActiveEntities;}

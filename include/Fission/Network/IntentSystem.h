@@ -17,7 +17,7 @@ namespace fsn
             IntentSystem(IEventManager* eventManager, float lockStep, Connection *conn);
             virtual ~IntentSystem();
 
-            bool handleEvent(IEventData const& evt);
+            bool handleEvent(const IEventData& evt);
             void handlePacket(sf::Packet& packet, int netID);
 
         protected:
