@@ -14,10 +14,13 @@ namespace fsn
     {
         public:
             Engine();
-            virtual ~Engine();
 
-            /// \brief Updates all of the systems in this engine.
-            void update(const float dt);
+            /// \brief Destructor. Stops all system threads, waits for them to successfully
+            /// finish, and deallocates everything.
+            ~Engine();
+
+            /// \brief Launches all of the system threads, starting the game.
+            void start();
 
             /// \brief Add a system to this engine.
             void addSystem(System *system){mSystems.push_back(system);}

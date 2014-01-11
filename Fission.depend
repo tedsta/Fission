@@ -718,14 +718,14 @@
 	<iostream>
 	<Sqrat/sqrat.h>
 
-1388828513 source:c:\users\teddy\programming\fission\src\fission\core\engine.cpp
+1389396919 source:c:\users\teddy\programming\fission\src\fission\core\engine.cpp
 	<Fission/Core/Engine.h>
 	<Fission/Core/EventManager.h>
 	<Fission/Core/System.h>
 	<Fission/Core/EntityManager.h>
 	<iostream>
 
-1388828513 c:\users\teddy\programming\fission\include\fission\core\engine.h
+1389396812 c:\users\teddy\programming\fission\include\fission\core\engine.h
 	<vector>
 
 1389223704 c:\users\teddy\programming\fission\include\fission\core\eventmanager.h
@@ -745,8 +745,9 @@
 	<Fission/Core/RefCounted.h>
 	<Fission/Core/Component.h>
 
-1389223486 c:\users\teddy\programming\fission\include\fission\core\system.h
+1389397074 c:\users\teddy\programming\fission\include\fission\core\system.h
 	<set>
+	<SFML/System/Thread.hpp>
 	<Fission/Core/Aspect.h>
 	<Fission/Core/Event.h>
 	<Fission/Core/EntityRef.h>
@@ -793,9 +794,10 @@
 	<Fission/Core/EventManager.h>
 	<Fission/Core/EntityEvents.h>
 
-1389223490 source:c:\users\teddy\programming\fission\src\fission\core\system.cpp
+1389397193 source:c:\users\teddy\programming\fission\src\fission\core\system.cpp
 	<Fission/Core/System.h>
 	<iostream>
+	<SFML/System/Clock.hpp>
 	<Fission/Core/EventManager.h>
 	<Fission/Core/EntityEvents.h>
 
@@ -1147,7 +1149,7 @@
 1388828454 source:c:\users\teddy\programming\fission\src\fission\tests\testcomponent.cpp
 	"Fission/Tests/TestComponent.h"
 
-1388955356 source:c:\users\teddy\programming\fission\src\fission\rendering\rendermanager.cpp
+1389236647 source:c:\users\teddy\programming\fission\src\fission\rendering\rendermanager.cpp
 	"Fission/Rendering/RenderManager.h"
 	"Fission/Core/EntityRef.h"
 	"Fission/Rendering/RenderComponent.h"
@@ -1170,7 +1172,7 @@
 1388955299 c:\users\teddy\programming\fission\include\fission\rendering\spriterendersystem.h
 	"Fission/Rendering/RenderSystem.h"
 
-1388955796 c:\users\teddy\programming\fission\include\fission\rendering\transform.h
+1389398564 c:\users\teddy\programming\fission\include\fission\rendering\transform.h
 	<SFML/System/Vector2.hpp>
 	<SFML/Graphics/Transformable.hpp>
 	<SFML/Network/Packet.hpp>
@@ -1208,4 +1210,12 @@
 1375438921 c:\users\teddy\programming\fission\extlibs\include\sfml\system\mutex.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
+
+1375438921 c:\users\teddy\programming\fission\extlibs\include\sfml\system\thread.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdlib>
+	<SFML/System/Thread.inl>
+
+1375438922 c:\users\teddy\programming\fission\extlibs\include\sfml\system\thread.inl
 
