@@ -28,7 +28,6 @@ namespace fsn
             ID = mFreeIDs.back();
             mFreeIDs.pop_back();
             mEntityRefs[ID].mID = ID; // Revalidate the EntityRef
-            mMutexes[ID] = new sf::Mutex;
         }
         else // Need to make a new ID for this entity
         {
@@ -44,7 +43,6 @@ namespace fsn
             // Create the entity bits for this entity.
             mEntityBits.push_back(std::bitset<MaxComponents>());
             mEntityRefs.push_back(EntityRef(this, ID)); // Create a new EntityRef for this entity
-            mMutexes.push_back(new sf::Mutex);
         }
 
         mEntityCount++;
@@ -87,8 +85,6 @@ namespace fsn
         mEntityCount--;
         mEntityBits[ID].reset();
         mEntityRefs[ID].mID = EntityRef::NULL_ID; // Make the entity NULL.
-        delete mMutexes[ID]; // Delete the entity's mutex
-        mMutexes[ID] = NULL;
         mFreeIDs.push_back(ID); // Free up the entity's ID
     }
 

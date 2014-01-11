@@ -10,7 +10,7 @@
 namespace fsn
 {
     System::System(IEventManager* eventManager, float lockStep) : mEventManager(eventManager),
-        mLockStep(lockStep), mRunning(true), mThread(&System::thread, this)
+        mLockStep(lockStep), mDtAccumulator(0.f)
     {
         mEventManager->addListener(this, EVENT_CREATE_ENTITY);
         mEventManager->addListener(this, EVENT_DESTROY_ENTITY);
@@ -70,46 +70,6 @@ namespace fsn
         }
 
         return false;
-    }
-
-    void System::start()
-    {
-        mThread.launch();
-    }
-
-    void System::stop()
-    {
-        mRunning = false;
-        mThread.wait();
-    }
-
-    void System::thread()
-    {
-        sf::Clock dtClock;
-
-        if (mLockStep <= 0.f) // If there is no lock step
-        {
-            while (mRunning)
-            {
-                float dt = dtClock.restart().asSeconds();
-                processEntities(dt);
-            }
-        }
-        else // There is a lockstep
-        {
-            float dtAccumulator = 0.f;
-            while (mRunning)
-            {
-                float dt = dtClock.restart().asSeconds();
-
-                dtAccumulator += dt;
-                while (dtAccumulator > mLockStep)
-                {
-                    dtAccumulator -= mLockStep;
-                    processEntities(mLockStep);
-                }
-            }
-        }
     }
 
     void System::processEntities(const float dt)

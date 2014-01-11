@@ -718,14 +718,14 @@
 	<iostream>
 	<Sqrat/sqrat.h>
 
-1389396919 source:c:\users\teddy\programming\fission\src\fission\core\engine.cpp
+1389410454 source:c:\users\teddy\programming\fission\src\fission\core\engine.cpp
 	<Fission/Core/Engine.h>
 	<Fission/Core/EventManager.h>
 	<Fission/Core/System.h>
 	<Fission/Core/EntityManager.h>
 	<iostream>
 
-1389396812 c:\users\teddy\programming\fission\include\fission\core\engine.h
+1389410337 c:\users\teddy\programming\fission\include\fission\core\engine.h
 	<vector>
 
 1389223704 c:\users\teddy\programming\fission\include\fission\core\eventmanager.h
@@ -745,7 +745,7 @@
 	<Fission/Core/RefCounted.h>
 	<Fission/Core/Component.h>
 
-1389397074 c:\users\teddy\programming\fission\include\fission\core\system.h
+1389410214 c:\users\teddy\programming\fission\include\fission\core\system.h
 	<set>
 	<SFML/System/Thread.hpp>
 	<Fission/Core/Aspect.h>
@@ -794,7 +794,7 @@
 	<Fission/Core/EventManager.h>
 	<Fission/Core/EntityEvents.h>
 
-1389397193 source:c:\users\teddy\programming\fission\src\fission\core\system.cpp
+1389410189 source:c:\users\teddy\programming\fission\src\fission\core\system.cpp
 	<Fission/Core/System.h>
 	<iostream>
 	<SFML/System/Clock.hpp>
@@ -965,12 +965,12 @@
 1386978315 source:c:\users\teddy\programming\fission\src\fission\core\component.cpp
 	<Fission/Core/Component.h>
 
-1389409363 source:c:\users\teddy\programming\fission\src\fission\core\entitymanager.cpp
+1389410307 source:c:\users\teddy\programming\fission\src\fission\core\entitymanager.cpp
 	"Fission/Core/EntityManager.h"
 	<algorithm>
 	"Fission/Core/EntityRef.h"
 
-1389409076 c:\users\teddy\programming\fission\include\fission\core\entitymanager.h
+1389410279 c:\users\teddy\programming\fission\include\fission\core\entitymanager.h
 	<iostream>
 	<vector>
 	<cstddef>
@@ -978,7 +978,7 @@
 	"Fission/Core/EventManager.h"
 	"Fission/Core/EntityEvents.h"
 
-1389402857 c:\users\teddy\programming\fission\include\fission\core\entityref.h
+1389410315 c:\users\teddy\programming\fission\include\fission\core\entityref.h
 	"Fission/Core/EntityManager.h"
 
 1388828513 source:c:\users\teddy\programming\fission\src\fission\core\entityref.cpp

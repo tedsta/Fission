@@ -12,18 +12,6 @@ namespace fsn
         public:
             const static int NULL_ID = 0; // The 0th entity is the NULL entity.
 
-            /// \brief Lock this entity.
-            void lock()
-            {
-                mEntityManager->lockEntity(mID);
-            }
-
-            /// \brief Unlock this entity.
-            void unlock()
-            {
-                mEntityManager->unlockEntity(mID);
-            }
-
             /// \brief Add a component to this entity.
             template<typename component>
             void addComponent() const

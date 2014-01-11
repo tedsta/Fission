@@ -19,8 +19,8 @@ namespace fsn
             /// finish, and deallocates everything.
             ~Engine();
 
-            /// \brief Launches all of the system threads, starting the game.
-            void start();
+            /// \brief Updates all of the systems
+            void update(const float dt);
 
             /// \brief Add a system to this engine.
             void addSystem(System *system){mSystems.push_back(system);}

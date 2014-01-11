@@ -33,26 +33,12 @@ namespace fsn
             /// \brief Destroy an existing entity.
             void destroyEntity(int ID);
 
-            /// \brief Lock an entity's mutex. For the threads!!!
-            void lockEntity(int ID)
-            {
-                mMutexes[ID]->lock();
-            }
-
-            /// \brief Unlock an entity's mutex.
-            void unlockEntity(int ID)
-            {
-                mMutexes[ID]->unlock();
-            }
-
             /// \brief Add a component to an entity.
             template<typename component>
             void addComponentToEntity(int ID)
             {
                 if (!entityExists(ID))
                     return;
-
-                lockEntity(ID);
 
                 if (component::Type() >= mComponents.size()) // Our component table's type dimension isn't big enough yet.
                 {
@@ -66,8 +52,6 @@ namespace fsn
 
                 // Tell the world the component's been added
                 mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, getEntityRef(ID), mComponents[component::Type()][ID]));
-
-                unlockEntity(ID);
             }
 
             /// \brief Add a component to an entity.
@@ -75,8 +59,6 @@ namespace fsn
             {
                 if (!entityExists(ID))
                     return;
-
-                lockEntity(ID);
 
                 if (component->getType() >= mComponents.size()) // Our component table's type dimension isn't big enough yet.
                 {
@@ -90,8 +72,6 @@ namespace fsn
 
                 // Tell the world the component's been added
                 mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, getEntityRef(ID), mComponents[component->getType()][ID]));
-
-                unlockEntity(ID);
             }
 
             /// \brief Remove a component from an entity.
@@ -100,8 +80,6 @@ namespace fsn
             {
                 if (!entityExists(ID))
                     return;
-
-                lockEntity(ID);
 
                 if (component::Type() >= mComponents.size()) // No entities have this component
                     return;
@@ -115,8 +93,6 @@ namespace fsn
 
                 // Tell the world that this component's been removed from this entity.
                 mEventManager->fireEvent(EntityComponentEvent(EVENT_REMOVE_COMPONENT, getEntityRef(ID), mComponents[component::Type()][ID]));
-
-                unlockEntity(ID);
             }
 
             /// \brief Fastest, unsafe way to get a component on an entity.
@@ -162,7 +138,6 @@ namespace fsn
             IEventManager* mEventManager;
             std::vector<std::vector<Component*>> mComponents; // By component type, by entity ID.
             std::vector<std::bitset<MaxComponents>> mEntityBits; // By entity ID
-            std::vector<sf::Mutex*> mMutexes; // Yes the plural is mutexes, I googled it :) and it's a pointer because mutex is non-copyable
             std::vector<EntityRef> mEntityRefs; // Store all of the entity refs
             int mEntityCount; // Total number of active entities
 

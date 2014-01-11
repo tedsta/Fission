@@ -20,18 +20,34 @@ namespace fsn
 
         for (System* system : mSystems)
         {
-            system->stop();
             delete system;
         }
 
         delete mEventManager;
     }
 
-    void Engine::start()
+    void Engine::update(const float dt)
     {
-        for (System* system : mSystems)
+        for (System *system : mSystems)
         {
-            system->start();
+            if (system->mLockStep <= 0)
+            {
+                system->begin(dt);
+                system->processEntities(dt);
+                system->end(dt);
+            }
+            else
+            {
+                system->mDtAccumulator += dt;
+
+                while (system->mDtAccumulator >= system->mLockStep)
+                {
+                    system->mDtAccumulator -= system->mLockStep;
+                    system->begin(system->mLockStep);
+                    system->processEntities(system->mLockStep);
+                    system->end(system->mLockStep);
+                }
+            }
         }
     }
 }

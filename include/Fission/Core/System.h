@@ -52,15 +52,6 @@ namespace fsn
             Aspect mAspect;
 
         private:
-            /// \brief Start the system's thread
-            void start();
-
-            /// \brief Tell the system to stop running
-            void stop();
-
-            /// \brief My thread function
-            void thread();
-
             /// \brief Processes all of the active entities. Used internally.
             void processEntities(const float dt);
 
@@ -72,12 +63,7 @@ namespace fsn
 
             // Used internally for lockstep
             float mLockStep;
-
-            // Whether or not this system should continue to run
-            bool mRunning;
-
-            // The thread this system runs in
-            sf::Thread mThread;
+            float mDtAccumulator;
     };
 }
 
