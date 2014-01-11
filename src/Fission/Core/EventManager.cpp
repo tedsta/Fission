@@ -73,14 +73,11 @@ namespace fsn
 
     bool EventManager::fireEvent(const IEventData& evt)
     {
-        mMutex.lock();
-
         // Notify all global listeners.
         for (EventListenerList::const_iterator it = mGlobals.begin(); it != mGlobals.end(); ++it)
         {
             if( (*it)->handleEvent( evt ) )
             {
-                mMutex.unlock();
                 return true;
             }
         }
@@ -93,13 +90,10 @@ namespace fsn
             {
                 if ((*it2)->handleEvent(evt))
                 {
-                    mMutex.unlock();
                     return true;
                 }
             }
         }
-
-        mMutex.unlock();
         return false;
     }
 }

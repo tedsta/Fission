@@ -75,9 +75,6 @@ namespace fsn
 
             // A list of global event listeners. These listeners receive all events regardless of type.
             EventListenerList mGlobals;
-
-            // Mutex for threadsafe event firing
-            sf::Mutex mMutex;
     };
 }
 
