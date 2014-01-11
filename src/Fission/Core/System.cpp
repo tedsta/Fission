@@ -34,7 +34,11 @@ namespace fsn
         case EVENT_ADD_COMPONENT:
         case EVENT_REMOVE_COMPONENT:
             {
-                EntityRef* entity = static_cast<const EntityComponentEvent&>(evt).mEntity;
+                EntityRef* entity;
+                if (evt.getID() == EVENT_CREATE_ENTITY)
+                    entity = static_cast<const EntityEvent&>(evt).mEntity;
+                else
+                    entity = static_cast<const EntityComponentEvent&>(evt).mEntity;
 
                 // Check if the entity still meets the requirements
                 if (mAspect.checkEntity(entity))
@@ -59,7 +63,7 @@ namespace fsn
 
         case EVENT_DESTROY_ENTITY:
             {
-                EntityRef* entity = static_cast<const EntityComponentEvent&>(evt).mEntity;
+                EntityRef* entity = static_cast<const EntityEvent&>(evt).mEntity;
                 if (mActiveEntities.find(entity) != mActiveEntities.end())
                 {
                     mActiveEntities.erase(entity); // Remove the entity from the active entities if it does not meet the requirements
