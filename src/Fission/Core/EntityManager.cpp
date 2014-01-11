@@ -8,7 +8,8 @@ namespace fsn
 {
     // Note: mNextID is zero, because we literally create an entity to set up the NULL entity,
     // whose ID is 0, which increments mNextID to 1, where the real entity IDs start.
-    EntityManager::EntityManager(IEventManager* eventManager) : mEventManager(eventManager), mNextID(0)
+    EntityManager::EntityManager(IEventManager* eventManager) : mEventManager(eventManager),
+        mNextID(0)
     {
         createEntity(); // Create the NULL entity.
     }
@@ -27,6 +28,7 @@ namespace fsn
             ID = mFreeIDs.back();
             mFreeIDs.pop_back();
             mEntityRefs[ID].mID = ID; // Revalidate the EntityRef
+            mMutexes[ID] = new sf::Mutex;
         }
         else // Need to make a new ID for this entity
         {
@@ -42,6 +44,7 @@ namespace fsn
             // Create the entity bits for this entity.
             mEntityBits.push_back(std::bitset<MaxComponents>());
             mEntityRefs.push_back(EntityRef(this, ID)); // Create a new EntityRef for this entity
+            mMutexes.push_back(new sf::Mutex);
         }
 
         mEntityCount++;
@@ -84,6 +87,8 @@ namespace fsn
         mEntityCount--;
         mEntityBits[ID].reset();
         mEntityRefs[ID].mID = EntityRef::NULL_ID; // Make the entity NULL.
+        delete mMutexes[ID]; // Delete the entity's mutex
+        mMutexes[ID] = NULL;
         mFreeIDs.push_back(ID); // Free up the entity's ID
     }
 
