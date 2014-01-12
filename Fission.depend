@@ -1219,3 +1219,591 @@
 
 1375438922 c:\users\teddy\programming\fission\extlibs\include\sfml\system\thread.inl
 
+1388828514 source:c:\users\teddy\programming\c++\fission\src\fission\core\aspect.cpp
+	"Fission/Core/Aspect.h"
+	"Fission/Core/EntityRef.h"
+
+1388828514 c:\users\teddy\programming\c++\fission\include\fission\core\aspect.h
+	<bitset>
+	"Fission/Core/config.h"
+	"Fission/Core/ComponentTypeManager.h"
+
+1388828513 c:\users\teddy\programming\c++\fission\include\fission\core\config.h
+
+1388834468 c:\users\teddy\programming\c++\fission\include\fission\core\componenttypemanager.h
+	<vector>
+	<bitset>
+	"Fission/Core/config.h"
+	"Fission/Core/Component.h"
+
+1389402347 c:\users\teddy\programming\c++\fission\include\fission\core\component.h
+	<SFML/Network/Packet.hpp>
+
+1375438921 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\network\packet.hpp
+	<SFML/Network/Export.hpp>
+	<string>
+	<vector>
+
+1375438921 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\network\export.hpp
+	<SFML/Config.hpp>
+
+1375438918 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\config.hpp
+
+1389410315 c:\users\teddy\programming\c++\fission\include\fission\core\entityref.h
+	"Fission/Core/EntityManager.h"
+
+1389565003 c:\users\teddy\programming\c++\fission\include\fission\core\entitymanager.h
+	<iostream>
+	<vector>
+	<cstddef>
+	"Fission/Core/ComponentTypeManager.h"
+	"Fission/Core/EventManager.h"
+	"Fission/Core/EntityEvents.h"
+
+1389419307 c:\users\teddy\programming\c++\fission\include\fission\core\eventmanager.h
+	<map>
+	<list>
+	<SFML/System/Mutex.hpp>
+	<Fission/Core/Event.h>
+
+1375438921 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\system\mutex.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1375438921 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\system\export.hpp
+	<SFML/Config.hpp>
+
+1375438921 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\system\noncopyable.hpp
+	<SFML/System/Export.hpp>
+
+1389223445 c:\users\teddy\programming\c++\fission\include\fission\core\event.h
+
+1388953695 c:\users\teddy\programming\c++\fission\include\fission\core\entityevents.h
+	<Fission/Core/Event.h>
+
+1388828513 source:c:\users\teddy\programming\c++\fission\src\fission\core\componenttypemanager.cpp
+	"Fission/Core/ComponentTypeManager.h"
+
+1389410454 source:c:\users\teddy\programming\c++\fission\src\fission\core\engine.cpp
+	<Fission/Core/Engine.h>
+	<Fission/Core/EventManager.h>
+	<Fission/Core/System.h>
+	<Fission/Core/EntityManager.h>
+	<iostream>
+
+1389410337 c:\users\teddy\programming\c++\fission\include\fission\core\engine.h
+	<vector>
+
+1389410214 c:\users\teddy\programming\c++\fission\include\fission\core\system.h
+	<set>
+	<SFML/System/Thread.hpp>
+	<Fission/Core/Aspect.h>
+	<Fission/Core/Event.h>
+	<Fission/Core/EntityRef.h>
+
+1375438921 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\system\thread.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdlib>
+	<SFML/System/Thread.inl>
+
+1375438922 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\system\thread.inl
+
+1388828513 source:c:\users\teddy\programming\c++\fission\src\fission\core\entityref.cpp
+	"Fission/Core/EntityRef.h"
+
+1389419330 source:c:\users\teddy\programming\c++\fission\src\fission\core\eventmanager.cpp
+	<Fission/Core/EventManager.h>
+	<assert.h>
+	<iostream>
+
+1388828513 source:c:\users\teddy\programming\c++\fission\src\fission\core\resourcemanager.cpp
+	<Fission/Core/ResourceManager.h>
+	<iostream>
+
+1388828513 c:\users\teddy\programming\c++\fission\include\fission\core\resourcemanager.h
+	<string>
+	<vector>
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<Sqrat/sqrat.h>
+
+1375438918 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\graphics\font.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Glyph.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/String.hpp>
+	<map>
+	<string>
+	<vector>
+
+1375438918 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\graphics\export.hpp
+	<SFML/Config.hpp>
+
+1375438918 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\graphics\glyph.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+
+1375438919 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\graphics\rect.hpp
+	<SFML/System/Vector2.hpp>
+	<algorithm>
+	<SFML/Graphics/Rect.inl>
+
+1375438922 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\system\vector2.hpp
+	<SFML/System/Vector2.inl>
+
+1375438922 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\system\vector2.inl
+
+1375438919 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\graphics\rect.inl
+
+1375438920 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\graphics\texture.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Window/GlResource.hpp>
+
+1375438919 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\graphics\image.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<string>
+	<vector>
+
+1375438918 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\graphics\color.hpp
+	<SFML/Graphics/Export.hpp>
+
+1375438922 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\window\glresource.hpp
+	<SFML/Window/Export.hpp>
+
+1375438922 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\window\export.hpp
+	<SFML/Config.hpp>
+
+1375438921 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\system\string.hpp
+	<SFML/System/Export.hpp>
+	<locale>
+	<string>
+
+1319085040 c:\users\teddy\programming\c++\fission\extlibs\include\sqrat\sqrat.h
+	<squirrel.h>
+	"sqrat/sqratTable.h"
+	"sqrat/sqratClass.h"
+	"sqrat/sqratFunction.h"
+	"sqrat/sqratConst.h"
+	"sqrat/sqratUtil.h"
+	"sqrat/sqratScript.h"
+	"sqrat/sqratArray.h"
+
+1336058956 c:\users\teddy\programming\c++\fission\extlibs\include\squirrel\squirrel.h
+
+1373513404 c:\users\teddy\programming\c++\fission\extlibs\include\sqrat\sqrat\sqrattable.h
+	<squirrel.h>
+	<string.h>
+	"sqratObject.h"
+	"sqratFunction.h"
+	"sqratGlobalMethods.h"
+
+1384481398 c:\users\teddy\programming\c++\fission\extlibs\include\sqrat\sqrat\sqratobject.h
+	<squirrel.h>
+	<string.h>
+	"sqratAllocator.h"
+	"sqratTypes.h"
+	"sqratOverloadMethods.h"
+	"sqratUtil.h"
+
+1373084566 c:\users\teddy\programming\c++\fission\extlibs\include\sqrat\sqrat\sqratallocator.h
+	<squirrel.h>
+	<string.h>
+	"sqratObject.h"
+	"sqratTypes.h"
+
+1374367936 c:\users\teddy\programming\c++\fission\extlibs\include\sqrat\sqrat\sqrattypes.h
+	<cstdlib>
+	<cstring>
+	<squirrel.h>
+	<string>
+	"sqratClassType.h"
+	"sqratUtil.h"
+
+1374448874 c:\users\teddy\programming\c++\fission\extlibs\include\sqrat\sqrat\sqratclasstype.h
+	<squirrel.h>
+	<map>
+	"sqratUtil.h"
+
+1374366666 c:\users\teddy\programming\c++\fission\extlibs\include\sqrat\sqrat\sqratutil.h
+	<squirrel.h>
+	<string.h>
+
+1372224670 c:\users\teddy\programming\c++\fission\extlibs\include\sqrat\sqrat\sqratoverloadmethods.h
+	<squirrel.h>
+	<sqstdaux.h>
+	<sstream>
+	"sqratTypes.h"
+	"sqratUtil.h"
+	"sqratGlobalMethods.h"
+	"sqratMemberMethods.h"
+
+1093158248 c:\users\teddy\programming\c++\fission\extlibs\include\squirrel\sqstdaux.h
+
+1371272486 c:\users\teddy\programming\c++\fission\extlibs\include\sqrat\sqrat\sqratglobalmethods.h
+	<squirrel.h>
+	"sqratTypes.h"
+
+1373432312 c:\users\teddy\programming\c++\fission\extlibs\include\sqrat\sqrat\sqratmembermethods.h
+	<squirrel.h>
+	"sqratTypes.h"
+
+1374368578 c:\users\teddy\programming\c++\fission\extlibs\include\sqrat\sqrat\sqratfunction.h
+	<squirrel.h>
+	"sqratObject.h"
+
+1373432312 c:\users\teddy\programming\c++\fission\extlibs\include\sqrat\sqrat\sqratclass.h
+	<typeinfo>
+	<squirrel.h>
+	<string.h>
+	"sqratObject.h"
+	"sqratClassType.h"
+	"sqratMemberMethods.h"
+	"sqratAllocator.h"
+
+1338703010 c:\users\teddy\programming\c++\fission\extlibs\include\sqrat\sqrat\sqratconst.h
+	<squirrel.h>
+	<string.h>
+	"sqratObject.h"
+
+1373435042 c:\users\teddy\programming\c++\fission\extlibs\include\sqrat\sqrat\sqratscript.h
+	<squirrel.h>
+	<sqstdio.h>
+	<string.h>
+	"sqratObject.h"
+
+1300543294 c:\users\teddy\programming\c++\fission\extlibs\include\squirrel\sqstdio.h
+
+1373513404 c:\users\teddy\programming\c++\fission\extlibs\include\sqrat\sqrat\sqratarray.h
+	<squirrel.h>
+	<string.h>
+	"sqratObject.h"
+	"sqratFunction.h"
+	"sqratGlobalMethods.h"
+
+1389415609 source:c:\users\teddy\programming\c++\fission\src\fission\core\system.cpp
+	<Fission/Core/System.h>
+	<iostream>
+	<SFML/System/Clock.hpp>
+	<Fission/Core/EventManager.h>
+	<Fission/Core/EntityEvents.h>
+
+1375438921 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\system\clock.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Time.hpp>
+
+1375438922 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\system\time.hpp
+	<SFML/System/Export.hpp>
+
+1388828513 source:c:\users\teddy\programming\c++\fission\src\fission\input\inputsystem.cpp
+	<Fission/Input/InputSystem.h>
+	<SFML/Window/Event.hpp>
+	<Fission/Core/EventManager.h>
+	<Fission/Input/Defs.h>
+	<Fission/Input/Events.h>
+
+1388828513 c:\users\teddy\programming\c++\fission\include\fission\input\inputsystem.h
+	<SFML/Window/Window.hpp>
+	<Fission/Core/System.h>
+
+1375438922 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\window\window.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/Window/VideoMode.hpp>
+	<SFML/Window/WindowHandle.hpp>
+	<SFML/Window/WindowStyle.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/System/Clock.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/String.hpp>
+
+1375438922 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\window\contextsettings.hpp
+
+1375438922 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\window\videomode.hpp
+	<SFML/Window/Export.hpp>
+	<vector>
+
+1375438922 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\window\windowhandle.hpp
+	<SFML/Config.hpp>
+
+1375438922 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\window\windowstyle.hpp
+
+1375438922 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\window\event.hpp
+	<SFML/Config.hpp>
+	<SFML/Window/Joystick.hpp>
+	<SFML/Window/Keyboard.hpp>
+	<SFML/Window/Mouse.hpp>
+
+1375438922 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\window\joystick.hpp
+	<SFML/Window/Export.hpp>
+
+1375438922 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\window\keyboard.hpp
+	<SFML/Window/Export.hpp>
+
+1375438922 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\window\mouse.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector2.hpp>
+
+1388828512 c:\users\teddy\programming\c++\fission\include\fission\input\defs.h
+
+1388828513 c:\users\teddy\programming\c++\fission\include\fission\input\events.h
+	<SFML/Window/Keyboard.hpp>
+	<SFML/Window/Mouse.hpp>
+	<Fission/Core/EntityEvents.h>
+	<Fission/Input/Defs.h>
+
+1388828513 source:c:\users\teddy\programming\c++\fission\src\fission\network\connection.cpp
+	<Fission/Network/Connection.h>
+	<iostream>
+	<Fission/Core/EventManager.h>
+	<Fission/Core/Component.h>
+	<Fission/Network/NetworkEvents.h>
+
+1388828513 c:\users\teddy\programming\c++\fission\include\fission\network\connection.h
+	<enet/enet.h>
+	<SFML/Network/Packet.hpp>
+
+1362586788 c:\users\teddy\programming\c++\fission\extlibs\include\enet\enet.h
+	<stdlib.h>
+	"enet/win32.h"
+	"enet/unix.h"
+	"enet/types.h"
+	"enet/protocol.h"
+	"enet/list.h"
+	"enet/callbacks.h"
+
+1362586788 c:\users\teddy\programming\c++\fission\extlibs\include\enet\win32.h
+	<stdlib.h>
+	<winsock2.h>
+
+1362586788 c:\users\teddy\programming\c++\fission\extlibs\include\enet\types.h
+
+1362586788 c:\users\teddy\programming\c++\fission\extlibs\include\enet\protocol.h
+	"enet/types.h"
+
+1362586788 c:\users\teddy\programming\c++\fission\extlibs\include\enet\list.h
+	<stdlib.h>
+
+1362586788 c:\users\teddy\programming\c++\fission\extlibs\include\enet\callbacks.h
+	<stdlib.h>
+
+1388828513 c:\users\teddy\programming\c++\fission\include\fission\network\networkevents.h
+	<SFML/Network/Packet.hpp>
+	<Fission/Core/Event.h>
+	<Fission/Core/EntityEvents.h>
+	<Fission/Input/Events.h>
+
+1388955685 source:c:\users\teddy\programming\c++\fission\src\fission\network\intent.cpp
+	<Fission/Network/Intent.h>
+	<iostream>
+	<Fission/Core/ComponentTypeManager.h>
+
+1388955676 c:\users\teddy\programming\c++\fission\include\fission\network\intent.h
+	<string>
+	<map>
+	<SFML/Window/Event.hpp>
+	<Fission/Core/Component.h>
+	<Fission/Core/Event.h>
+	<Fission/Input/Defs.h>
+
+1389223550 source:c:\users\teddy\programming\c++\fission\src\fission\network\intentsystem.cpp
+	<Fission/Network/IntentSystem.h>
+	<Fission/Core/EventManager.h>
+	<Fission/Input/Defs.h>
+	<Fission/Input/Events.h>
+	<Fission/Network/Connection.h>
+	<Fission/Network/Intent.h>
+	<Fission/Network/NetworkEvents.h>
+	<iostream>
+
+1389223514 c:\users\teddy\programming\c++\fission\include\fission\network\intentsystem.h
+	<map>
+	<Fission/Core/System.h>
+	<Fission/Core/Event.h>
+	<Fission/Network/Connection.h>
+
+1388828513 source:c:\users\teddy\programming\c++\fission\src\fission\rendering\debugdisplay.cpp
+	<Fission/Rendering/DebugDisplay.h>
+	<SFML/Graphics/Text.hpp>
+
+1388828513 c:\users\teddy\programming\c++\fission\include\fission\rendering\debugdisplay.h
+	<string>
+	<map>
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+
+1375438920 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\graphics\rendertarget.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/View.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1375438920 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\graphics\view.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/System/Vector2.hpp>
+
+1375438920 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\graphics\transform.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/System/Vector2.hpp>
+
+1375438918 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\graphics\blendmode.hpp
+
+1375438919 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\graphics\renderstates.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/Transform.hpp>
+
+1375438919 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\graphics\primitivetype.hpp
+
+1375438920 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\graphics\vertex.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/System/Vector2.hpp>
+
+1375438920 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\graphics\text.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/System/String.hpp>
+	<string>
+	<vector>
+
+1375438918 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\graphics\drawable.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+
+1375438920 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\graphics\transformable.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Transform.hpp>
+
+1375438920 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\graphics\vertexarray.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<vector>
+
+1389236647 source:c:\users\teddy\programming\c++\fission\src\fission\rendering\rendermanager.cpp
+	"Fission/Rendering/RenderManager.h"
+	"Fission/Core/EntityRef.h"
+	"Fission/Rendering/RenderComponent.h"
+	"Fission/Rendering/RenderSystem.h"
+	"Fission/Rendering/Transform.h"
+
+1388955359 c:\users\teddy\programming\c++\fission\include\fission\rendering\rendermanager.h
+	<set>
+	<vector>
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/RenderTexture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/Graphics/Sprite.hpp>
+	"Fission/Rendering/DebugDisplay.h"
+
+1375438920 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\graphics\rendertexture.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+
+1375438920 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\graphics\renderwindow.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Window/Window.hpp>
+	<string>
+
+1375438920 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\graphics\sprite.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/Rect.hpp>
+
+1388955369 c:\users\teddy\programming\c++\fission\include\fission\rendering\rendercomponent.h
+	<SFML/Graphics/RenderTarget.hpp>
+	<Fission/Core/Component.h>
+
+1388955367 c:\users\teddy\programming\c++\fission\include\fission\rendering\rendersystem.h
+	<vector>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/Graphics/RenderTexture.hpp>
+	<SFML/Graphics/Sprite.hpp>
+	<SFML/Graphics/Font.hpp>
+	<Fission/Core/System.h>
+	<Fission/Rendering/RenderComponent.h>
+	<Fission/Rendering/RenderManager.h>
+	<Fission/Rendering/Transform.h>
+
+1389398564 c:\users\teddy\programming\c++\fission\include\fission\rendering\transform.h
+	<SFML/System/Vector2.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Network/Packet.hpp>
+	<Fission/Core/Component.h>
+
+1388955796 source:c:\users\teddy\programming\c++\fission\src\fission\rendering\sprite.cpp
+	<Fission/Rendering/Sprite.h>
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<Fission/Core/ResourceManager.h>
+	<Fission/Rendering/Transform.h>
+
+1388955796 c:\users\teddy\programming\c++\fission\include\fission\rendering\sprite.h
+	<string>
+	<SFML/System/Clock.hpp>
+	<SFML/Graphics/Sprite.hpp>
+	<Fission/Rendering/RenderComponent.h>
+
+1388955317 source:c:\users\teddy\programming\c++\fission\src\fission\rendering\spriterendersystem.cpp
+	"Fission/Rendering/SpriteRenderSystem.h"
+	"Fission/Rendering/Sprite.h"
+
+1388955299 c:\users\teddy\programming\c++\fission\include\fission\rendering\spriterendersystem.h
+	"Fission/Rendering/RenderSystem.h"
+
+1388955796 source:c:\users\teddy\programming\c++\fission\src\fission\rendering\transform.cpp
+	<Fission/Rendering/Transform.h>
+
+1388828513 source:c:\users\teddy\programming\c++\fission\src\fission\script\scriptsystem.cpp
+	<Fission/Script/ScriptSystem.h>
+	<stdio.h>
+	<stdarg.h>
+	<iostream>
+	<SFML/System/Vector2.hpp>
+	<Sqrat/sqext.h>
+	<Fission/Core/EntityRef.h>
+	<Fission/Core/EntityManager.h>
+	<Fission/Core/Engine.h>
+
+1388828513 c:\users\teddy\programming\c++\fission\include\fission\script\scriptsystem.h
+	<Sqrat/sqrat.h>
+	<Fission/Core/System.h>
+
+1384457130 c:\users\teddy\programming\c++\fission\extlibs\include\sqrat\sqext.h
+	<vector>
+	<string.h>
+	"squirrel.h"
+	"sqrat.h"
+
+1389564859 source:c:\users\teddy\programming\c++\fission\src\fission\core\entitymanager.cpp
+	"Fission/Core/EntityManager.h"
+	<algorithm>
+	"Fission/Core/EntityRef.h"
+

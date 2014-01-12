@@ -138,7 +138,7 @@ namespace fsn
             IEventManager* mEventManager;
             std::vector<std::vector<Component*>> mComponents; // By component type, by entity ID.
             std::vector<std::bitset<MaxComponents>> mEntityBits; // By entity ID
-            std::vector<EntityRef> mEntityRefs; // Store all of the entity refs
+            std::vector<EntityRef*> mEntityRefs; // Store all of the entity refs
             int mEntityCount; // Total number of active entities
 
             std::vector<int> mFreeIDs;

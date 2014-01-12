@@ -27,7 +27,7 @@ namespace fsn
         {
             ID = mFreeIDs.back();
             mFreeIDs.pop_back();
-            mEntityRefs[ID].mID = ID; // Revalidate the EntityRef
+            mEntityRefs[ID]->mID = ID; // Revalidate the EntityRef
         }
         else // Need to make a new ID for this entity
         {
@@ -42,7 +42,7 @@ namespace fsn
 
             // Create the entity bits for this entity.
             mEntityBits.push_back(std::bitset<MaxComponents>());
-            mEntityRefs.push_back(EntityRef(this, ID)); // Create a new EntityRef for this entity
+            mEntityRefs.push_back(new EntityRef(this, ID)); // Create a new EntityRef for this entity
         }
 
         mEntityCount++;
@@ -57,10 +57,10 @@ namespace fsn
     {
         if (!entityExists(ID)) // Entity doesn't exist, return a null EntityRef
         {
-            return &mEntityRefs[EntityRef::NULL_ID];
+            return mEntityRefs[EntityRef::NULL_ID];
         }
 
-        return &mEntityRefs[ID];
+        return mEntityRefs[ID];
     }
 
     void EntityManager::destroyEntity(int ID)
@@ -84,13 +84,13 @@ namespace fsn
 
         mEntityCount--;
         mEntityBits[ID].reset();
-        mEntityRefs[ID].mID = EntityRef::NULL_ID; // Make the entity NULL.
+        mEntityRefs[ID]->mID = EntityRef::NULL_ID; // Make the entity NULL.
         mFreeIDs.push_back(ID); // Free up the entity's ID
     }
 
     bool EntityManager::entityExists(int ID) const
     {
-        if (ID == EntityRef::NULL_ID || mNextID <= ID || std::find(mFreeIDs.begin(), mFreeIDs.end(), ID) != mFreeIDs.end())
+        if (ID == EntityRef::NULL_ID || ID < 0 || mNextID <= ID || std::find(mFreeIDs.begin(), mFreeIDs.end(), ID) != mFreeIDs.end())
             return false;
 
         return true;
