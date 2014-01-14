@@ -1249,7 +1249,7 @@
 
 1375438918 c:\users\teddy\programming\c++\fission\extlibs\include\sfml\config.hpp
 
-1389410315 c:\users\teddy\programming\c++\fission\include\fission\core\entityref.h
+1389693838 c:\users\teddy\programming\c++\fission\include\fission\core\entityref.h
 	"Fission/Core/EntityManager.h"
 
 1389565003 c:\users\teddy\programming\c++\fission\include\fission\core\entitymanager.h
@@ -1802,7 +1802,7 @@
 	"squirrel.h"
 	"sqrat.h"
 
-1389564859 source:c:\users\teddy\programming\c++\fission\src\fission\core\entitymanager.cpp
+1389565055 source:c:\users\teddy\programming\c++\fission\src\fission\core\entitymanager.cpp
 	"Fission/Core/EntityManager.h"
 	<algorithm>
 	"Fission/Core/EntityRef.h"

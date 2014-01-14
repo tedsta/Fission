@@ -12,6 +12,12 @@ namespace fsn
         public:
             const static int NULL_ID = 0; // The 0th entity is the NULL entity.
 
+            /// \brief Destroy this entity.
+            void destroy()
+            {
+                mEntityManager->destroyEntity(mID);
+            }
+
             /// \brief Add a component to this entity.
             template<typename component>
             void addComponent() const
