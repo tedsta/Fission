@@ -33,6 +33,9 @@ namespace fsn
             /// \brief Destroy an existing entity.
             void destroyEntity(int ID);
 
+            /// \brief Set an entity's tag
+            void setEntityTag(int ID, int tag);
+
             /// \brief Add a component to an entity.
             template<typename component>
             void addComponentToEntity(int ID)
@@ -128,6 +131,15 @@ namespace fsn
             /// \brief Get entity bits.
             const std::bitset<MaxComponents>& getEntityBits(int ID) const {return mEntityBits[ID];}
 
+            /// \brief Get the tag of an entity
+            int getEntityTag(int ID) const {return mEntityTags[ID];}
+
+            /// \brief Get the array of entity's with a tag
+            const std::vector<EntityRef*>& getEntitiesWithTag(int tag)
+            {
+                return mTaggedEntities[tag];
+            }
+
             /// \brief Get the number of active entities.
             int getEntityCount() const {return mEntityCount;}
 
@@ -138,7 +150,9 @@ namespace fsn
             IEventManager* mEventManager;
             std::vector<std::vector<Component*>> mComponents; // By component type, by entity ID.
             std::vector<std::bitset<MaxComponents>> mEntityBits; // By entity ID
+            std::vector<int> mEntityTags; // Entity tags
             std::vector<EntityRef*> mEntityRefs; // Store all of the entity refs
+            std::vector<std::vector<EntityRef*>> mTaggedEntities; // All of the tagged entities
             int mEntityCount; // Total number of active entities
 
             std::vector<int> mFreeIDs;

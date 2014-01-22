@@ -43,6 +43,7 @@ namespace fsn
             // Create the entity bits for this entity.
             mEntityBits.push_back(std::bitset<MaxComponents>());
             mEntityRefs.push_back(new EntityRef(this, ID)); // Create a new EntityRef for this entity
+            mEntityTags.push_back(-1);
         }
 
         mEntityCount++;
@@ -65,13 +66,12 @@ namespace fsn
 
     void EntityManager::destroyEntity(int ID)
     {
-        if (!entityExists(ID))
-        {
+        auto entity = getEntityRef(ID);
+        if (entity->getID() == EntityRef::NULL_ID)
             return;
-        }
 
         // Tell the world that this entity is about to be obliterated.
-        mEventManager->fireEvent(EntityEvent(EVENT_DESTROY_ENTITY, getEntityRef(ID)));
+        mEventManager->fireEvent(EntityEvent(EVENT_DESTROY_ENTITY, entity));
 
         for (auto& componentRow : mComponents) // Component arrays, by type
         {
@@ -82,10 +82,36 @@ namespace fsn
             }
         }
 
+        if (mEntityTags[ID] != -1)
+            mTaggedEntities[mEntityTags[ID]].erase(std::find(mTaggedEntities[mEntityTags[ID]].begin(),
+                                                             mTaggedEntities[mEntityTags[ID]].end(), entity));
+
         mEntityCount--;
         mEntityBits[ID].reset();
+        mEntityTags[ID] = -1;
         mEntityRefs[ID]->mID = EntityRef::NULL_ID; // Make the entity NULL.
         mFreeIDs.push_back(ID); // Free up the entity's ID
+    }
+
+    void EntityManager::setEntityTag(int ID, int tag)
+    {
+        auto entity = getEntityRef(ID);
+        if (entity->getID() == EntityRef::NULL_ID)
+            return;
+
+        if (mEntityTags[ID] != -1)
+            mTaggedEntities[mEntityTags[ID]].erase(std::find(mTaggedEntities[mEntityTags[ID]].begin(),
+                                                             mTaggedEntities[mEntityTags[ID]].end(), entity));
+
+        mEntityTags[ID] = tag;
+
+        if (tag != -1)
+        {
+            if (mTaggedEntities.size() <= tag)
+                mTaggedEntities.resize(tag+1);
+
+            mTaggedEntities[tag].push_back(entity);
+        }
     }
 
     bool EntityManager::entityExists(int ID) const

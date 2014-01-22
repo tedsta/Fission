@@ -18,6 +18,12 @@ namespace fsn
                 mEntityManager->destroyEntity(mID);
             }
 
+            /// \brief Set this entity's tag
+            void setTag(int tag)
+            {
+                mEntityManager->setEntityTag(mID, tag);
+            }
+
             /// \brief Add a component to this entity.
             template<typename component>
             void addComponent() const
