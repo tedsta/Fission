@@ -9,7 +9,7 @@ namespace fsn
     {
     }
 
-    void SpriteRenderSystem::render(Sprite* sprite, sf::RenderTarget& target, sf::RenderStates& states)
+    void SpriteRenderSystem::render(EntityRef* entity, Sprite* sprite, sf::RenderTarget& target, sf::RenderStates& states)
     {
         if (sprite->mAnimClock.getElapsedTime().asMilliseconds() >= sprite->mFrameDelay &&
             (sprite->mLoopAnim || (sprite->mFrameDir == 1 && sprite->mCurrentFrame != sprite->mEndFrame) ||

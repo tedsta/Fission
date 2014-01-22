@@ -43,6 +43,7 @@ namespace fsn
             struct Renderable
             {
                 int componentID;
+                EntityRef* entity;
                 Transform* transform;
                 RenderComponent* render;
             };

@@ -13,7 +13,7 @@ namespace fsn
             SpriteRenderSystem(IEventManager* eventManager, RenderManager* renderManager, float lockStep);
 
         protected:
-            void render(Sprite* sprite, sf::RenderTarget& target, sf::RenderStates& states);
+            void render(EntityRef* entity, Sprite* sprite, sf::RenderTarget& target, sf::RenderStates& states);
 
         private:
     };

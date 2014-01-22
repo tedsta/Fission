@@ -25,7 +25,7 @@ namespace fsn
             }
 
         protected:
-            virtual void render(RenderComponent* component, sf::RenderTarget& target, sf::RenderStates& states) = 0;
+            virtual void render(EntityRef* entity, RenderComponent* component, sf::RenderTarget& target, sf::RenderStates& states) = 0;
 
         private:
     };
@@ -40,7 +40,7 @@ namespace fsn
                 IRenderSystem(eventManager, lockStep), mRenderManager(renderManager)
             {
                 mAspect.all<Transform, RenderComponentT>();
-                if (mRenderManager->mRenderSystems.size() < RenderComponentT::Type())
+                if (mRenderManager->mRenderSystems.size() <= RenderComponentT::Type())
                     mRenderManager->mRenderSystems.resize(RenderComponentT::Type()+1);
                 mRenderManager->mRenderSystems[RenderComponentT::Type()] = this;
             }
@@ -75,12 +75,12 @@ namespace fsn
             }
 
             // Just call the derived render function
-            void render(RenderComponent* component, sf::RenderTarget& target, sf::RenderStates& states)
+            void render(EntityRef* entity, RenderComponent* component, sf::RenderTarget& target, sf::RenderStates& states)
             {
-                render(static_cast<RenderComponentT*>(component), target, states);
+                render(entity, static_cast<RenderComponentT*>(component), target, states);
             }
 
-            virtual void render(RenderComponentT* component, sf::RenderTarget& target, sf::RenderStates& states) = 0;
+            virtual void render(EntityRef* entity, RenderComponentT* component, sf::RenderTarget& target, sf::RenderStates& states) = 0;
 
         private:
             RenderManager* mRenderManager;

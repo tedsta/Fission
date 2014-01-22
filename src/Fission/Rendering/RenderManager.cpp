@@ -39,7 +39,7 @@ namespace fsn
                 sf::RenderStates states;
                 states.transform = mLayers[i][j].transform->getTransform();
 
-                mRenderSystems[mLayers[i][j].componentID]->render(mLayers[i][j].render, mWindow, states);
+                mRenderSystems[mLayers[i][j].componentID]->render(mLayers[i][j].entity, mLayers[i][j].render, mWindow, states);
             }
         }
 
@@ -52,7 +52,7 @@ namespace fsn
     {
         auto transform = entity->getComponent<Transform>();
         auto render = static_cast<RenderComponent*>(entity->getComponent(componentID));
-        mLayers[layer].push_back(Renderable{componentID, transform, render});
+        mLayers[layer].push_back(Renderable{componentID, entity, transform, render});
     }
 
     void RenderManager::removeRenderableFromLayer(int layer, int componentID)
