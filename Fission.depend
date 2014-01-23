@@ -1702,7 +1702,7 @@
 	<SFML/Graphics/Drawable.hpp>
 	<vector>
 
-1390252264 source:c:\users\teddy\programming\c++\fission\src\fission\rendering\rendermanager.cpp
+1390464887 source:c:\users\teddy\programming\c++\fission\src\fission\rendering\rendermanager.cpp
 	"Fission/Rendering/RenderManager.h"
 	"Fission/Core/EntityRef.h"
 	"Fission/Rendering/RenderComponent.h"
@@ -1752,7 +1752,7 @@
 	<Fission/Rendering/RenderManager.h>
 	<Fission/Rendering/Transform.h>
 
-1389398564 c:\users\teddy\programming\c++\fission\include\fission\rendering\transform.h
+1390464718 c:\users\teddy\programming\c++\fission\include\fission\rendering\transform.h
 	<SFML/System/Vector2.hpp>
 	<SFML/Graphics/Transformable.hpp>
 	<SFML/Network/Packet.hpp>
@@ -1778,7 +1778,7 @@
 1390252275 c:\users\teddy\programming\c++\fission\include\fission\rendering\spriterendersystem.h
 	"Fission/Rendering/RenderSystem.h"
 
-1388955796 source:c:\users\teddy\programming\c++\fission\src\fission\rendering\transform.cpp
+1390464870 source:c:\users\teddy\programming\c++\fission\src\fission\rendering\transform.cpp
 	<Fission/Rendering/Transform.h>
 
 1388828513 source:c:\users\teddy\programming\c++\fission\src\fission\script\scriptsystem.cpp
@@ -1802,7 +1802,7 @@
 	"squirrel.h"
 	"sqrat.h"
 
-1390387427 source:c:\users\teddy\programming\c++\fission\src\fission\core\entitymanager.cpp
+1390387931 source:c:\users\teddy\programming\c++\fission\src\fission\core\entitymanager.cpp
 	"Fission/Core/EntityManager.h"
 	<algorithm>
 	"Fission/Core/EntityRef.h"

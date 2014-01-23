@@ -14,13 +14,20 @@ namespace fsn
         FISSION_COMPONENT
 
         public:
-            Transform(sf::Vector2f pos = sf::Vector2f(0, 0), float rot = 0, sf::Vector2f scale = sf::Vector2f(1, 1));
+            Transform(sf::Vector2f pos = sf::Vector2f(0, 0), float rot = 0, sf::Vector2f scale = sf::Vector2f(1, 1), Transform* parent = nullptr);
             virtual ~Transform();
 
             void serialize(sf::Packet& packet);
             void deserialize(sf::Packet& packet);
 
+            sf::Transform getGlobalTransform();
+
+            Transform* getParent() const {return mParent;}
+
+            void setParent(Transform* parent){mParent=parent;}
+
         private:
+            Transform* mParent;
     };
 }
 
