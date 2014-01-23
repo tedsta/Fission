@@ -39,7 +39,7 @@ namespace fsn
             RenderSystem(IEventManager* eventManager, RenderManager* renderManager, float lockStep) :
                 IRenderSystem(eventManager, lockStep), mRenderManager(renderManager)
             {
-                mAspect.all<Transform, RenderComponentT>();
+                mAspect.all<RenderComponentT>();
                 if (mRenderManager->mRenderSystems.size() <= RenderComponentT::Type())
                     mRenderManager->mRenderSystems.resize(RenderComponentT::Type()+1);
                 mRenderManager->mRenderSystems[RenderComponentT::Type()] = this;
