@@ -37,7 +37,9 @@ namespace fsn
                 }
 
                 sf::RenderStates states;
-                states.transform = mLayers[i][j].transform->getGlobalTransform();
+
+                if (mLayers[i][j].transform != nullptr)
+                    states.transform = mLayers[i][j].transform->getGlobalTransform();
 
                 mRenderSystems[mLayers[i][j].componentID]->render(mLayers[i][j].entity, mLayers[i][j].render, mWindow, states);
             }

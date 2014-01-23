@@ -47,7 +47,7 @@ namespace fsn
                 {
                     mComponents.resize(component::Type()+1);
                     for (auto& componentRow : mComponents)
-                        componentRow.resize(mNextID, NULL);
+                        componentRow.resize(mNextID, nullptr);
                 }
 
                 mComponents[component::Type()][ID] = new component; // Create the new component
@@ -67,7 +67,7 @@ namespace fsn
                 {
                     mComponents.resize(component->getType()+1);
                     for (auto& componentRow : mComponents)
-                        componentRow.resize(mNextID, NULL);
+                        componentRow.resize(mNextID, nullptr);
                 }
 
                 mComponents[component->getType()][ID] = component; // Create the new component
@@ -91,7 +91,7 @@ namespace fsn
                     return;
 
                 delete mComponents[component::Type()][ID]; // Delete the component
-                mComponents[component::Type()][ID] = NULL;
+                mComponents[component::Type()][ID] = nullptr;
                 mEntityBits[ID] &= ComponentTypeManager::getBit<component>().flip(); // Remove the component's bit from the entity's bits.
 
                 // Tell the world that this component's been removed from this entity.
@@ -120,12 +120,12 @@ namespace fsn
             component* getComponentFromEntitySafe(int ID) const
             {
                 if (!entityExists(ID))
-                    return NULL;
+                    return nullptr;
 
                 if (static_cast<std::size_t>(component::Type()) < mComponents.size())
                     return static_cast<component*>(mComponents[component::Type()][ID]);
 
-                return NULL;
+                return nullptr;
             }
 
             /// \brief Get entity bits.
@@ -156,7 +156,7 @@ namespace fsn
             int mEntityCount; // Total number of active entities
 
             std::vector<int> mFreeIDs;
-            int mNextID; // Entity IDs start at 1. The 0th entity is the NULL entity.
+            int mNextID; // Entity IDs start at 1. The 0th entity is the nullptr entity.
     };
 }
 
