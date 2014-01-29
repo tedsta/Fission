@@ -102,6 +102,7 @@
 		<Unit filename="include/Fission/Network/NetworkEvents.h" />
 		<Unit filename="include/Fission/Rendering/DebugDisplay.h" />
 		<Unit filename="include/Fission/Rendering/RenderComponent.h" />
+		<Unit filename="include/Fission/Rendering/RenderLayer.h" />
 		<Unit filename="include/Fission/Rendering/RenderManager.h" />
 		<Unit filename="include/Fission/Rendering/RenderSystem.h" />
 		<Unit filename="include/Fission/Rendering/Sprite.h" />
@@ -124,6 +125,7 @@
 		<Unit filename="src/Fission/Network/Intent.cpp" />
 		<Unit filename="src/Fission/Network/IntentSystem.cpp" />
 		<Unit filename="src/Fission/Rendering/DebugDisplay.cpp" />
+		<Unit filename="src/Fission/Rendering/RenderLayer.cpp" />
 		<Unit filename="src/Fission/Rendering/RenderManager.cpp" />
 		<Unit filename="src/Fission/Rendering/Sprite.cpp" />
 		<Unit filename="src/Fission/Rendering/SpriteRenderSystem.cpp" />

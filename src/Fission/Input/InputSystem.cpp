@@ -8,7 +8,7 @@
 
 namespace fsn
 {
-    InputSystem::InputSystem(IEventManager* eventManager, float lockStep, sf::Window* window) : System(eventManager, lockStep), mWindow(window)
+    InputSystem::InputSystem(IEventManager* eventManager, sf::Window* window) : System(eventManager), mWindow(window)
     {
         //ctor
     }

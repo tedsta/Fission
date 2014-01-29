@@ -51,7 +51,7 @@ namespace fsn
         Sqrat::RootTable(vm).SetInstance("engine", _engine);
     }
 
-    ScriptSystem::ScriptSystem(IEventManager *eventManager, float lockStep, Engine *engine) : System(eventManager, lockStep),
+    ScriptSystem::ScriptSystem(IEventManager *eventManager, Engine *engine) : System(eventManager),
         mVM(sq_open(1024)), mEngine(engine)
     {
         bindSquirrel(mVM, mEngine);

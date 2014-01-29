@@ -8,44 +8,49 @@
 
 namespace fsn
 {
-    Engine::Engine()
+    Engine::Engine(float lockStep) : mEventManager(new EventManager), mEntityManager(new EntityManager(mEventManager.get())),
+        mLockStep(lockStep), mDtAccumulator(0.f)
     {
-        mEventManager = new EventManager;
-        mEntityManager = new EntityManager(mEventManager);
+    }
+
+    Engine::Engine(const fsn::Engine& other) : mEventManager(new EventManager), mEntityManager(new EntityManager(mEventManager.get())),
+        mLockStep(other.mLockStep), mDtAccumulator(0.f)
+    {
     }
 
     Engine::~Engine()
     {
-        delete mEntityManager;
-
         for (System* system : mSystems)
         {
             delete system;
         }
-
-        delete mEventManager;
     }
 
     void Engine::update(const float dt)
     {
-        for (System *system : mSystems)
+
+        if (mLockStep <= 0)
         {
-            if (system->mLockStep <= 0)
+            for (System *system : mSystems)
             {
                 system->begin(dt);
                 system->processEntities(dt);
                 system->end(dt);
             }
-            else
-            {
-                system->mDtAccumulator += dt;
+        }
+        else
+        {
+            mDtAccumulator += dt;
 
-                while (system->mDtAccumulator >= system->mLockStep)
+            while (mDtAccumulator >= mLockStep)
+            {
+                mDtAccumulator -= mLockStep;
+
+                for (System *system : mSystems)
                 {
-                    system->mDtAccumulator -= system->mLockStep;
-                    system->begin(system->mLockStep);
-                    system->processEntities(system->mLockStep);
-                    system->end(system->mLockStep);
+                    system->begin(mLockStep);
+                    system->processEntities(mLockStep);
+                    system->end(mLockStep);
                 }
             }
         }

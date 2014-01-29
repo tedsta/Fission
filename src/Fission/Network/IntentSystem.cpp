@@ -11,7 +11,7 @@
 
 namespace fsn
 {
-    IntentSystem::IntentSystem(IEventManager* eventManager, float lockStep, Connection *conn) : System(eventManager, lockStep),
+    IntentSystem::IntentSystem(IEventManager* eventManager, Connection *conn) : System(eventManager),
         mConn(conn)
     {
         mAspect.all<Intent>();

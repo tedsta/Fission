@@ -19,7 +19,7 @@ namespace fsn
         friend class Engine;
 
         public:
-            System(IEventManager* eventManager, float lockStep);
+            System(IEventManager* eventManager);
             virtual ~System();
 
             /// \brief Event listener event handling callback.
@@ -60,10 +60,6 @@ namespace fsn
 
             // The active entities this system should process.
             std::set<EntityRef*> mActiveEntities;
-
-            // Used internally for lockstep
-            float mLockStep;
-            float mDtAccumulator;
     };
 }
 

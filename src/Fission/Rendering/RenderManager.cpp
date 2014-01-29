@@ -18,7 +18,7 @@ namespace fsn
     {
     }
 
-    void RenderManager::renderLayers()
+    void RenderManager::render()
     {
         mWindow.clear(mBackgroundColor); // Clear the window
         mWindow.setView(mView);

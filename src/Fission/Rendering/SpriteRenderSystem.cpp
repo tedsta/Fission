@@ -4,8 +4,8 @@
 
 namespace fsn
 {
-    SpriteRenderSystem::SpriteRenderSystem(IEventManager* eventManager, RenderManager* renderManager, float lockStep) :
-        RenderSystem<Sprite>(eventManager, renderManager, lockStep)
+    SpriteRenderSystem::SpriteRenderSystem(IEventManager* eventManager, RenderManager* renderManager) :
+        RenderSystem<Sprite>(eventManager, renderManager)
     {
     }
 

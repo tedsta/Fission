@@ -17,7 +17,7 @@ namespace fsn
     class ScriptSystem : public System
     {
         public:
-            ScriptSystem(IEventManager* eventManager, float lockStep, Engine *engine);
+            ScriptSystem(IEventManager* eventManager, Engine *engine);
             virtual ~ScriptSystem();
 
             /// \brief Creates a new script

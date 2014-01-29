@@ -20,7 +20,7 @@ namespace fsn
         friend class RenderManager;
 
         public:
-            IRenderSystem(IEventManager* eventManager, float lockStep) : System(eventManager, lockStep)
+            IRenderSystem(IEventManager* eventManager) : System(eventManager)
             {
             }
 
@@ -36,8 +36,8 @@ namespace fsn
         friend class RenderManager;
 
         public:
-            RenderSystem(IEventManager* eventManager, RenderManager* renderManager, float lockStep) :
-                IRenderSystem(eventManager, lockStep), mRenderManager(renderManager)
+            RenderSystem(IEventManager* eventManager, RenderManager* renderManager) :
+                IRenderSystem(eventManager), mRenderManager(renderManager)
             {
                 mAspect.all<RenderComponentT>();
                 if (mRenderManager->mRenderSystems.size() <= RenderComponentT::Type())

@@ -26,7 +26,7 @@ namespace fsn
             RenderManager(int width, int height, const std::string& wndName, int layers, sf::Font* debugFont);
             ~RenderManager();
 
-            void renderLayers();
+            void render();
 
             // Getters
 

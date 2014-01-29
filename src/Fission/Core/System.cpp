@@ -9,8 +9,7 @@
 
 namespace fsn
 {
-    System::System(IEventManager* eventManager, float lockStep) : mEventManager(eventManager),
-        mLockStep(lockStep), mDtAccumulator(0.f)
+    System::System(IEventManager* eventManager) : mEventManager(eventManager)
     {
         mEventManager->addListener(this, EVENT_CREATE_ENTITY);
         mEventManager->addListener(this, EVENT_DESTROY_ENTITY);
