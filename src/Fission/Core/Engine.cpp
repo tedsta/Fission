@@ -24,10 +24,9 @@ namespace fsn
 
     void Engine::update(const float dt)
     {
-
         if (mLockStep <= 0)
         {
-            for (auto& system : mSystems)
+            for (auto system : mSystems)
             {
                 system->begin(dt);
                 system->processEntities(dt);
@@ -42,7 +41,7 @@ namespace fsn
             {
                 mDtAccumulator -= mLockStep;
 
-                for (auto& system : mSystems)
+                for (auto system : mSystems)
                 {
                     system->begin(mLockStep);
                     system->processEntities(mLockStep);

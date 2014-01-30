@@ -14,7 +14,7 @@ namespace fsn
         removeAllListeners();
     }
 
-    void EventManager::addListener( IEventListener *listener, EventID type )
+    void EventManager::addListener(IEventListener* listener, EventID type)
     {
         // Add the type to the listeners map if it doesn't exist.
         EventListenerMap::iterator it = mListeners.find(type);
@@ -27,7 +27,7 @@ namespace fsn
         list.push_back(listener);
     }
 
-    void EventManager::removeListener( IEventListener *listener, EventID type )
+    void EventManager::removeListener(IEventListener* listener, EventID type)
     {
         EventListenerMap::iterator it = mListeners.find(type);
         if (it != mListeners.end())
@@ -44,12 +44,12 @@ namespace fsn
         }
     }
 
-    void EventManager::addGlobalListener(IEventListener *listener)
+    void EventManager::addGlobalListener(IEventListener* listener)
     {
         mGlobals.push_back(listener);
     }
 
-    void EventManager::removeGlobalListener(IEventListener *listener)
+    void EventManager::removeGlobalListener(IEventListener* listener)
     {
         EventListenerList &list = mGlobals;
         for (EventListenerList::iterator it = list.begin(); it != list.end(); it++)
@@ -76,7 +76,7 @@ namespace fsn
         // Notify all global listeners.
         for (EventListenerList::const_iterator it = mGlobals.begin(); it != mGlobals.end(); ++it)
         {
-            if( (*it)->handleEvent( evt ) )
+            if((*it)->handleEvent(evt))
             {
                 return true;
             }
