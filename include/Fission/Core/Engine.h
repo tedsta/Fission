@@ -25,7 +25,8 @@ namespace fsn
             void update(const float dt);
 
             /// \brief Add a system to this engine.
-            void addSystem(System *system){mSystems.push_back(system);}
+            /// \note The engine assumes ownership of the system.
+            void addSystem(std::unique_ptr<System> system){mSystems.push_back(std::move(system));}
 
             /// \brief Gets the event manager.
             IEventManager* getEventManager() const {return mEventManager.get();}
@@ -41,7 +42,7 @@ namespace fsn
             std::unique_ptr<EntityManager> mEntityManager;
 
             // The systems this engine has to manage
-            std::vector<System*> mSystems;
+            std::vector<std::unique_ptr<System>> mSystems;
 
             // The locked time step of the engine
             float mLockStep;
