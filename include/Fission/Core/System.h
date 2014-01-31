@@ -15,7 +15,7 @@ namespace fsn
     class IEventManager;
 
     /// \brief Abstract base class of all entity processing systems.
-    class System : public IEventListener, IEntityObserver
+    class System : public IEntityObserver
     {
         friend class Engine;
 
