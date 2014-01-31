@@ -24,7 +24,6 @@ namespace fsn
             {
             }
 
-        protected:
             virtual void render(EntityRef* entity, RenderComponent* component, sf::RenderTarget& target, sf::RenderStates& states) = 0;
 
         private:
@@ -44,8 +43,6 @@ namespace fsn
                     mRenderManager->mRenderSystems.resize(RenderComponentT::Type()+1);
                 mRenderManager->mRenderSystems[RenderComponentT::Type()] = this;
             }
-
-        protected:
 
             /// \brief begin function for systems
             void begin(const float dt)

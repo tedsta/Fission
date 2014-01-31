@@ -50,5 +50,11 @@ namespace fsn
             }
         }
     }
+
+    void Engine::addSystem(System& system)
+    {
+        mEntityManager->addEntityObserver(&system);
+        mSystems.push_back(&system);
+    }
 }
 

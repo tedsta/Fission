@@ -26,7 +26,7 @@ namespace fsn
 
             /// \brief Add a system to this engine.
             /// \note The engine does NOT assume ownership of the system
-            void addSystem(System& system){mSystems.push_back(&system);}
+            void addSystem(System& system);
 
             /// \brief Gets the event manager.
             IEventManager* getEventManager() const {return mEventManager.get();}
