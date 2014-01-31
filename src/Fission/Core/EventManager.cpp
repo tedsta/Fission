@@ -14,12 +14,12 @@ namespace fsn
         removeAllListeners();
     }
 
-    void EventManager::addListener(IEventListener* listener, EventID type)
+    void EventManager::addListener(IEventListener* listener, const std::string& ID)
     {
-        // Add the type to the listeners map if it doesn't exist.
-        EventListenerMap::iterator it = mListeners.find(type);
+        // Add the ID to the listeners map if it doesn't exist.
+        EventListenerMap::iterator it = mListeners.find(ID);
         if (it == mListeners.end())
-            it = mListeners.insert(EventListenerMapPair(type, EventListenerList())).first;
+            it = mListeners.insert(EventListenerMapPair(ID, EventListenerList())).first;
 
         EventListenerList &list = it->second;
 
@@ -27,9 +27,9 @@ namespace fsn
         list.push_back(listener);
     }
 
-    void EventManager::removeListener(IEventListener* listener, EventID type)
+    void EventManager::removeListener(IEventListener* listener, const std::string& ID)
     {
-        EventListenerMap::iterator it = mListeners.find(type);
+        EventListenerMap::iterator it = mListeners.find(ID);
         if (it != mListeners.end())
         {
             EventListenerList &list = it->second;
@@ -71,24 +71,24 @@ namespace fsn
         mGlobals.clear();
     }
 
-    bool EventManager::fireEvent(const IEventData& evt)
+    bool EventManager::fireEvent(const std::string& ID, const IEventData& evt)
     {
         // Notify all global listeners.
         for (EventListenerList::const_iterator it = mGlobals.begin(); it != mGlobals.end(); ++it)
         {
-            if((*it)->handleEvent(evt))
+            if((*it)->handleEvent(ID, evt))
             {
                 return true;
             }
         }
 
-        EventListenerMap::const_iterator it = mListeners.find(evt.getID());
+        EventListenerMap::const_iterator it = mListeners.find(ID);
         if (it != mListeners.end())
         {
             const EventListenerList &list = it->second;
             for (EventListenerList::const_iterator it2 = list.begin(); it2 != list.end(); it2++)
             {
-                if ((*it2)->handleEvent(evt))
+                if ((*it2)->handleEvent(ID, evt))
                 {
                     return true;
                 }

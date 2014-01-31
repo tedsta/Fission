@@ -8,13 +8,14 @@
 #include <Fission/Core/Aspect.h>
 #include <Fission/Core/Event.h>
 #include <Fission/Core/EntityRef.h>
+#include <Fission/Core/IEntityObserver.h>
 
 namespace fsn
 {
     class IEventManager;
 
     /// \brief Abstract base class of all entity processing systems.
-    class System : public IEventListener
+    class System : public IEventListener, IEntityObserver
     {
         friend class Engine;
 
@@ -22,13 +23,6 @@ namespace fsn
             System(IEventManager* eventManager);
             virtual ~System();
 
-            /// \brief Event listener event handling callback.
-            virtual bool handleEvent(const IEventData& evt);
-
-            /// \brief Get the active entities
-            const std::set<EntityRef*>& getActiveEntities(){return mActiveEntities;}
-
-        protected:
             /// \brief Called each time before processing any entities.
             virtual void begin(const float dt){}
 
@@ -44,16 +38,33 @@ namespace fsn
             /// \brief Called when an entity is removed from this system
             virtual void onEntityRemoved(EntityRef* entity){}
 
+            // Getters
+
             /// \brief Get the event manager
             IEventManager* getEventManager() const {return mEventManager;}
 
+            /// \brief Get the active entities
+            const std::set<EntityRef*>& getActiveEntities(){return mActiveEntities;}
+
+            // Entity callbacks
+
+            void onEntityCreated(EntityRef* entity);
+            void onEntityDestroyed(EntityRef* entity);
+            void onEntityAddedComponent(EntityRef* entity, Component* component);
+            void onEntityRemovedComponent(EntityRef* entity, Component* component);
+
             // The aspect for this system. Determines which entities are processed by this system
             // based on their components.
+            // TODO: I wish this wasn't public
             Aspect mAspect;
 
         private:
             /// \brief Processes all of the active entities. Used internally.
             void processEntities(const float dt);
+
+            /// \brief Checks if an entity should be processed by this system and adds or removes
+            /// it from this system as necessary.
+            void checkEntity(EntityRef* entity);
 
             // The event manager
             IEventManager* mEventManager;

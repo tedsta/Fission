@@ -48,8 +48,9 @@ namespace fsn
 
         mEntityCount++;
 
-        // Tell the world that this entity has been created.
-        mEventManager->fireEvent(EntityEvent(EVENT_CREATE_ENTITY, getEntityRef(ID)));
+        // Tell the observers that this entity has been created.
+        for (auto observer : mObservers)
+            observer->onEntityCreated(getEntityRef(ID));
 
         return ID;
     }
@@ -70,8 +71,9 @@ namespace fsn
         if (entity->getID() == EntityRef::NULL_ID)
             return;
 
-        // Tell the world that this entity is about to be obliterated.
-        mEventManager->fireEvent(EntityEvent(EVENT_DESTROY_ENTITY, entity));
+        // Tell the observers that this entity is about to be obliterated
+        for (auto observer : mObservers)
+            observer->onEntityDestroyed(getEntityRef(ID));
 
         for (auto& componentRow : mComponents) // Component arrays, by type
         {
@@ -107,7 +109,7 @@ namespace fsn
 
         if (tag != -1)
         {
-            if (mTaggedEntities.size() <= tag)
+            if (static_cast<int>(mTaggedEntities.size()) <= tag)
                 mTaggedEntities.resize(tag+1);
 
             mTaggedEntities[tag].push_back(entity);

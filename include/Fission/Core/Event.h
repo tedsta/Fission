@@ -5,21 +5,15 @@ namespace fsn
 {
     typedef unsigned int EventID;
 
-    class IEventData
+    /// \brief A tag class for event data
+    struct IEventData
     {
-        public:
-            IEventData(EventID ID) : mID(ID) {}
-
-            EventID getID() const { return mID; }
-
-        private:
-            EventID mID;
     };
 
     class IEventListener
     {
         public:
-            virtual bool handleEvent(const IEventData& event) = 0;
+            virtual bool handleEvent(const std::string& ID, const IEventData& event) = 0;
     };
 }
 

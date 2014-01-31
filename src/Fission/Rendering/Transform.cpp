@@ -2,7 +2,7 @@
 
 namespace fsn
 {
-    Transform::Transform(sf::Vector2f pos, float rot, sf::Vector2f scale, Transform* parent) : mParent(parent)
+    Transform::Transform(sf::Vector2f pos, float rot, sf::Vector2f scale, EntityRef* parent) : mParent(parent)
     {
         setPosition(pos);
         setRotation(rot);
@@ -33,9 +33,9 @@ namespace fsn
     sf::Transform Transform::getGlobalTransform()
     {
         sf::Transform transform = getTransform();
-        for (Transform* parent = mParent; parent != nullptr; parent=parent->mParent)
+        for (EntityRef* parent = mParent; parent != nullptr; parent=parent->getComponent<Transform>()->mParent)
         {
-            transform.combine(parent->getTransform());
+            transform.combine(parent->getComponent<Transform>()->getTransform());
         }
         return transform;
     }

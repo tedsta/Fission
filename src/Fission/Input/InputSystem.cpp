@@ -4,7 +4,8 @@
 
 #include <Fission/Core/EventManager.h>
 #include <Fission/Input/Defs.h>
-#include <Fission/Input/Events.h>
+#include <Fission/Input/IKeyboardListener.h>
+#include <Fission/Input/IMouseListener.h>
 
 namespace fsn
 {
@@ -26,23 +27,62 @@ namespace fsn
             switch (event.type)
             {
             case sf::Event::Closed:
+            {
                 mWindow->close();
                 break;
+            }
+
+
             case sf::Event::KeyPressed:
-                getEventManager()->fireEvent(KeyEvent(event.key.code, Pressed));
+            {
+                for (auto listener : mKeyListeners)
+                {
+                    if (listener->onKeyPressed(event.key.code))
+                        break;
+                }
                 break;
+            }
+
             case sf::Event::KeyReleased:
-                getEventManager()->fireEvent(KeyEvent(event.key.code, Released));
+            {
+                for (auto listener : mKeyListeners)
+                {
+                    if (listener->onKeyReleased(event.key.code))
+                        break;
+                }
                 break;
+            }
+
             case sf::Event::MouseButtonPressed:
-                getEventManager()->fireEvent(MouseBtnEvent(event.mouseButton.button, Pressed));
+            {
+                for (auto listener : mMouseListeners)
+                {
+                    if (listener->onMouseButtonPressed(event.mouseButton.button))
+                        break;
+                }
                 break;
+            }
+
             case sf::Event::MouseButtonReleased:
-                getEventManager()->fireEvent(MouseBtnEvent(event.mouseButton.button, Released));
+            {
+                for (auto listener : mMouseListeners)
+                {
+                    if (listener->onMouseButtonReleased(event.mouseButton.button))
+                        break;
+                }
                 break;
+            }
+
             case sf::Event::MouseMoved:
-                getEventManager()->fireEvent(MouseMoveEvent(event.mouseMove.x, event.mouseMove.y));
+            {
+                for (auto listener : mMouseListeners)
+                {
+                    if (listener->onMouseMoved(event.mouseMove.x, event.mouseMove.y, 0, 0))
+                        break;
+                }
                 break;
+            }
+
             default:
                 break;
             }

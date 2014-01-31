@@ -14,11 +14,11 @@ using namespace fsn;
 class MockEventManager : public IEventManager
 {
     public:
-		void addListener(IEventListener *listener, EventID type)
+		void addListener(IEventListener *listener, const std::string& ID)
 		{
 		}
 
-		void removeListener(IEventListener *listener, EventID type)
+		void removeListener(IEventListener *listener, const std::string& ID)
 		{
 		}
 
@@ -34,7 +34,7 @@ class MockEventManager : public IEventManager
 		{
 		}
 
-		bool fireEvent(IEventData const& evt)
+		bool fireEvent(const std::string& ID, IEventData const& evt)
 		{
 		    return false;
 		}

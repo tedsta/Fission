@@ -7,7 +7,7 @@
 
 #include "Fission/Core/ComponentTypeManager.h"
 #include "Fission/Core/EventManager.h"
-#include "Fission/Core/EntityEvents.h"
+#include "Fission/Core/IEntityObserver.h"
 
 namespace fsn
 {
@@ -40,21 +40,7 @@ namespace fsn
             template<typename component>
             void addComponentToEntity(int ID)
             {
-                if (!entityExists(ID))
-                    return;
-
-                if (component::Type() >= mComponents.size()) // Our component table's type dimension isn't big enough yet.
-                {
-                    mComponents.resize(component::Type()+1);
-                    for (auto& componentRow : mComponents)
-                        componentRow.resize(mNextID, nullptr);
-                }
-
-                mComponents[component::Type()][ID] = new component; // Create the new component
-                mEntityBits[ID] |= ComponentTypeManager::getBit<component>(); // Add the component's bit to the entity's bits.
-
-                // Tell the world the component's been added
-                mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, getEntityRef(ID), mComponents[component::Type()][ID]));
+                addComponentToEntity(ID, new component);
             }
 
             /// \brief Add a component to an entity.
@@ -74,7 +60,8 @@ namespace fsn
                 mEntityBits[ID] |= ComponentTypeManager::getBit(component->getType()); // Add the component's bit to the entity's bits.
 
                 // Tell the world the component's been added
-                mEventManager->fireEvent(EntityComponentEvent(EVENT_ADD_COMPONENT, getEntityRef(ID), mComponents[component->getType()][ID]));
+                for (auto observer : mObservers)
+                    observer->onEntityAddedComponent(getEntityRef(ID), component);
             }
 
             /// \brief Remove a component from an entity.
@@ -90,12 +77,13 @@ namespace fsn
                 if (!mComponents[component::Type()][ID]) // This entity doesn't have this component
                     return;
 
+                // Tell the world that this component's been removed from this entity.
+                for (auto observer : mObservers)
+                    observer->onEntityRemovedComponent(getEntityRef(ID), mComponents[component::Type()][ID]);
+
                 delete mComponents[component::Type()][ID]; // Delete the component
                 mComponents[component::Type()][ID] = nullptr;
                 mEntityBits[ID] &= ComponentTypeManager::getBit<component>().flip(); // Remove the component's bit from the entity's bits.
-
-                // Tell the world that this component's been removed from this entity.
-                mEventManager->fireEvent(EntityComponentEvent(EVENT_REMOVE_COMPONENT, getEntityRef(ID), mComponents[component::Type()][ID]));
             }
 
             /// \brief Fastest, unsafe way to get a component on an entity.
@@ -146,6 +134,9 @@ namespace fsn
             /// \brief Get whether or not an entity exists.
             bool entityExists(int ID) const;
 
+            /// \brief Add an entity observer.
+            void addEntityObserver(IEntityObserver* observer){mObservers.push_back(observer);}
+
         private:
             IEventManager* mEventManager;
             std::vector<std::vector<Component*>> mComponents; // By component type, by entity ID.
@@ -154,6 +145,8 @@ namespace fsn
             std::vector<EntityRef*> mEntityRefs; // Store all of the entity refs
             std::vector<std::vector<EntityRef*>> mTaggedEntities; // All of the tagged entities
             int mEntityCount; // Total number of active entities
+
+            std::vector<IEntityObserver*> mObservers; // Entity listeners
 
             std::vector<int> mFreeIDs;
             int mNextID; // Entity IDs start at 1. The 0th entity is the nullptr entity.

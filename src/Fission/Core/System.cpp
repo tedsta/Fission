@@ -5,74 +5,39 @@
 #include <SFML/System/Clock.hpp>
 
 #include <Fission/Core/EventManager.h>
-#include <Fission/Core/EntityEvents.h>
 
 namespace fsn
 {
     System::System(IEventManager* eventManager) : mEventManager(eventManager)
     {
-        mEventManager->addListener(this, EVENT_CREATE_ENTITY);
-        mEventManager->addListener(this, EVENT_DESTROY_ENTITY);
-        mEventManager->addListener(this, EVENT_ADD_COMPONENT);
-        mEventManager->addListener(this, EVENT_REMOVE_COMPONENT);
     }
 
     System::~System()
     {
-        mEventManager->removeListener(this, EVENT_CREATE_ENTITY);
-        mEventManager->removeListener(this, EVENT_DESTROY_ENTITY);
-        mEventManager->removeListener(this, EVENT_ADD_COMPONENT);
-        mEventManager->removeListener(this, EVENT_REMOVE_COMPONENT);
     }
 
-    bool System::handleEvent(const IEventData& evt)
+    void System::onEntityCreated(EntityRef* entity)
     {
-        switch (evt.getID())
+        checkEntity(entity);
+    }
+
+    void System::onEntityDestroyed(EntityRef* entity)
+    {
+        if (mActiveEntities.find(entity) != mActiveEntities.end())
         {
-        case EVENT_CREATE_ENTITY:
-        case EVENT_ADD_COMPONENT:
-        case EVENT_REMOVE_COMPONENT:
-            {
-                EntityRef* entity;
-                if (evt.getID() == EVENT_CREATE_ENTITY)
-                    entity = static_cast<const EntityEvent&>(evt).mEntity;
-                else
-                    entity = static_cast<const EntityComponentEvent&>(evt).mEntity;
-
-                // Check if the entity still meets the requirements
-                if (mAspect.checkEntity(entity))
-                {
-                    if (mActiveEntities.find(entity) == mActiveEntities.end())
-                    {
-                        mActiveEntities.insert(entity); // Add the entity to the active entities if it meets the requirements
-                        onEntityAdded(entity);
-                    }
-                }
-                else if (!mAspect.checkEntity(entity))
-                {
-                    if (mActiveEntities.find(entity) != mActiveEntities.end())
-                    {
-                        mActiveEntities.erase(entity); // Remove the entity from the active entities if it does not meet the requirements
-                        onEntityRemoved(entity);
-                    }
-                }
-
-                break;
-            }
-
-        case EVENT_DESTROY_ENTITY:
-            {
-                EntityRef* entity = static_cast<const EntityEvent&>(evt).mEntity;
-                if (mActiveEntities.find(entity) != mActiveEntities.end())
-                {
-                    mActiveEntities.erase(entity); // Remove the entity from the active entities if it does not meet the requirements
-                    onEntityRemoved(entity);
-                }
-                break;
-            }
+            mActiveEntities.erase(entity); // Remove the entity from the active entities if it does not meet the requirements
+            onEntityRemoved(entity);
         }
+    }
 
-        return false;
+    void System::onEntityAddedComponent(EntityRef* entity, Component* component)
+    {
+        checkEntity(entity);
+    }
+
+    void System::onEntityRemovedComponent(EntityRef* entity, Component* component)
+    {
+        checkEntity(entity);
     }
 
     void System::processEntities(const float dt)
@@ -81,6 +46,27 @@ namespace fsn
         for (EntityRef* entity : mActiveEntities)
         {
             processEntity(entity, dt);
+        }
+    }
+
+    void System::checkEntity(EntityRef* entity)
+    {
+        // Check if the entity still meets the requirements
+        if (mAspect.checkEntity(entity))
+        {
+            if (mActiveEntities.find(entity) == mActiveEntities.end())
+            {
+                mActiveEntities.insert(entity); // Add the entity to the active entities if it meets the requirements
+                onEntityAdded(entity);
+            }
+        }
+        else if (!mAspect.checkEntity(entity))
+        {
+            if (mActiveEntities.find(entity) != mActiveEntities.end())
+            {
+                mActiveEntities.erase(entity); // Remove the entity from the active entities if it does not meet the requirements
+                onEntityRemoved(entity);
+            }
         }
     }
 }

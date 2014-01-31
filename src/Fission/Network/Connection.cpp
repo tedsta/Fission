@@ -145,7 +145,7 @@ namespace fsn
                     enet_host_flush(mHost);
                     idPacket.clear();
 
-                    mEventManager->fireEvent(NetworkEvent(EVT_CONNECT, peer->mID));
+                    mEventManager->fireEvent("ClientConnected", NetworkEvent(peer->mID));
 
                     break;
                 }
@@ -189,7 +189,7 @@ namespace fsn
 
                         if(peer)
                         {
-                            mEventManager->fireEvent(NetworkEvent(EVT_DISCONNECT, peer->mID));
+                            mEventManager->fireEvent("ClientDisconnected", NetworkEvent(peer->mID));
                             std::cout << "Peer " << peer->mID << " has disconnected.\n";
                             peer->mPeer = NULL;
                             removePeer(peer->mID);

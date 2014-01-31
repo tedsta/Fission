@@ -7,6 +7,9 @@
 
 namespace fsn
 {
+    class IKeyboardListener;
+    class IMouseListener;
+
     class InputSystem : public System
     {
         public:
@@ -22,6 +25,8 @@ namespace fsn
 
         private:
             sf::Window *mWindow;
+            std::vector<IKeyboardListener*> mKeyListeners;
+            std::vector<IMouseListener*> mMouseListeners;
     };
 }
 
