@@ -46,6 +46,8 @@ namespace fsn
         }
 
         mWindow.setView(mWindow.getDefaultView());
+        for (auto overlay : mOverlays)
+            overlay->draw(mWindow);
         mDebugDisplay.render(mWindow);
         mWindow.display();
     }

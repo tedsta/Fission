@@ -18,6 +18,12 @@ namespace fsn
     class RenderComponent;
     class Transform;
 
+    class RenderOverlay
+    {
+        public:
+            virtual void draw(sf::RenderTarget& target) = 0;
+    };
+
     class RenderManager
     {
         template <typename RenderComponentT> friend class RenderSystem;
@@ -27,6 +33,8 @@ namespace fsn
             ~RenderManager();
 
             void render();
+
+            void addOverlay(RenderOverlay* overlay){mOverlays.push_back(overlay);}
 
             // Getters
 
@@ -60,6 +68,7 @@ namespace fsn
 
             std::vector<IRenderSystem*> mRenderSystems;
             std::vector<std::vector<Renderable>> mLayers;
+            std::vector<RenderOverlay*> mOverlays;
     };
 }
 
