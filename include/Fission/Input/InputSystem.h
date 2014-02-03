@@ -16,6 +16,9 @@ namespace fsn
             InputSystem(IEventManager* eventManager, sf::Window* window);
             virtual ~InputSystem();
 
+            void addKeyboardListener(IKeyboardListener* listener){mKeyListeners.push_back(listener);}
+            void addMouseListener(IMouseListener* listener){mMouseListeners.push_back(listener);}
+
         protected:
             void begin(const float dt);
 
