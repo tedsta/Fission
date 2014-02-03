@@ -8,8 +8,8 @@ namespace fsn
     class IMouseListener
     {
         public:
-            virtual bool onMouseButtonPressed(sf::Mouse::Button button);
-            virtual bool onMouseButtonReleased(sf::Mouse::Button button);
+            virtual bool onMouseButtonPressed(sf::Mouse::Button button) = 0;
+            virtual bool onMouseButtonReleased(sf::Mouse::Button button) = 0;
             virtual bool onMouseMoved(int posX, int posY, int moveX, int moveY) = 0;
     };
 }
