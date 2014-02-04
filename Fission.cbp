@@ -89,7 +89,6 @@
 		<Unit filename="include/Fission/Core/Event.h" />
 		<Unit filename="include/Fission/Core/EventManager.h" />
 		<Unit filename="include/Fission/Core/IEntityObserver.h" />
-		<Unit filename="include/Fission/Core/Math.h" />
 		<Unit filename="include/Fission/Core/ResourceManager.h" />
 		<Unit filename="include/Fission/Core/System.h" />
 		<Unit filename="include/Fission/Core/config.h" />
@@ -111,6 +110,7 @@
 		<Unit filename="include/Fission/Tests/TestComponent.h">
 			<Option target="UnitTests" />
 		</Unit>
+		<Unit filename="include/Fission/Util/make_unique.h" />
 		<Unit filename="src/Fission/Core/Aspect.cpp" />
 		<Unit filename="src/Fission/Core/ComponentTypeManager.cpp" />
 		<Unit filename="src/Fission/Core/Engine.cpp" />
