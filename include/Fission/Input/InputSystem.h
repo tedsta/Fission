@@ -30,6 +30,8 @@ namespace fsn
             sf::Window *mWindow;
             std::vector<IKeyboardListener*> mKeyListeners;
             std::vector<IMouseListener*> mMouseListeners;
+
+            sf::Vector2i mMousePosition;
     };
 }
 

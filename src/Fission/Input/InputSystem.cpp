@@ -75,9 +75,13 @@ namespace fsn
 
             case sf::Event::MouseMoved:
             {
+                int moveX = event.mouseMove.x - mMousePosition.x;
+                int moveY = event.mouseMove.y - mMousePosition.y;
+                mMousePosition.x = event.mouseMove.x;
+                mMousePosition.y = event.mouseMove.y;
                 for (auto listener : mMouseListeners)
                 {
-                    if (listener->onMouseMoved(event.mouseMove.x, event.mouseMove.y, 0, 0))
+                    if (listener->onMouseMoved(event.mouseMove.x, event.mouseMove.y, moveX, moveY))
                         break;
                 }
                 break;
