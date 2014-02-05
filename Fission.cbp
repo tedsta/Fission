@@ -111,6 +111,7 @@
 			<Option target="UnitTests" />
 		</Unit>
 		<Unit filename="include/Fission/Util/make_unique.h" />
+		<Unit filename="include/Fission/Util/math.h" />
 		<Unit filename="src/Fission/Core/Aspect.cpp" />
 		<Unit filename="src/Fission/Core/ComponentTypeManager.cpp" />
 		<Unit filename="src/Fission/Core/Engine.cpp" />
