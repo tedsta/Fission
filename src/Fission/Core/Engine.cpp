@@ -26,7 +26,7 @@ namespace fsn
     {
         if (mLockStep <= 0)
         {
-            for (auto system : mSystems)
+            for (auto& system : mSystems)
             {
                 system->begin(dt);
                 system->processEntities(dt);
@@ -41,7 +41,7 @@ namespace fsn
             {
                 mDtAccumulator -= mLockStep;
 
-                for (auto system : mSystems)
+                for (auto& system : mSystems)
                 {
                     system->begin(mLockStep);
                     system->processEntities(mLockStep);
@@ -51,10 +51,10 @@ namespace fsn
         }
     }
 
-    void Engine::addSystem(System& system)
+    void Engine::addSystem(std::unique_ptr<System>& system)
     {
-        mEntityManager->addEntityObserver(&system);
-        mSystems.push_back(&system);
+        mEntityManager->addEntityObserver(system.get());
+        mSystems.push_back(std::move(system));
     }
 }
 

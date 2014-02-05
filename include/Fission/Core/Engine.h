@@ -26,7 +26,7 @@ namespace fsn
 
             /// \brief Add a system to this engine.
             /// \note The engine does NOT assume ownership of the system
-            void addSystem(System& system);
+            void addSystem(std::unique_ptr<System>& system);
 
             /// \brief Gets the event manager.
             IEventManager* getEventManager() const {return mEventManager.get();}
@@ -43,7 +43,7 @@ namespace fsn
 
             // The systems this engine has to manage
             // Engine does not own these pointers
-            std::vector<System*> mSystems;
+            std::vector<std::unique_ptr<System>> mSystems;
 
             // The locked time step of the engine
             float mLockStep;
