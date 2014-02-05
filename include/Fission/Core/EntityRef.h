@@ -32,9 +32,10 @@ namespace fsn
             }
 
             /// \brief Add a component to this entity.
-            void addComponent(Component* component) const
+            template<typename component, typename... Args>
+            void addComponentToEntity(int ID, Args&&... args)
             {
-                mEntityManager->addComponentToEntity(mID, component);
+                mEntityManager->addComponentToEntity<component>(mID, std::forward<Args>(args)...);
             }
 
             /// \brief Fast, unsafe way to get a component from this entity.

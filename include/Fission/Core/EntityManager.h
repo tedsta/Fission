@@ -37,31 +37,25 @@ namespace fsn
             void setEntityTag(int ID, int tag);
 
             /// \brief Add a component to an entity.
-            template<typename component>
-            void addComponentToEntity(int ID)
-            {
-                addComponentToEntity(ID, new component);
-            }
-
-            /// \brief Add a component to an entity.
-            void addComponentToEntity(int ID, Component* component)
+            template<typename component, typename... Args>
+            void addComponentToEntity(int ID, Args&&... args)
             {
                 if (!entityExists(ID))
                     return;
 
-                if (component->getType() >= mComponents.size()) // Our component table's type dimension isn't big enough yet.
+                if (component::Type() >= mComponents.size()) // Our component table's type dimension isn't big enough yet.
                 {
-                    mComponents.resize(component->getType()+1);
+                    mComponents.resize(component::Type()+1);
                     for (auto& componentRow : mComponents)
                         componentRow.resize(mNextID, nullptr);
                 }
 
-                mComponents[component->getType()][ID] = component; // Create the new component
-                mEntityBits[ID] |= ComponentTypeManager::getBit(component->getType()); // Add the component's bit to the entity's bits.
+                mComponents[component::Type()][ID] = new component(std::forward<Args>(args)...); // Create the new component
+                mEntityBits[ID] |= ComponentTypeManager::getBit(component::Type()); // Add the component's bit to the entity's bits.
 
                 // Tell the world the component's been added
                 for (auto observer : mObservers)
-                    observer->onEntityAddedComponent(getEntityRef(ID), component);
+                    observer->onEntityAddedComponent(getEntityRef(ID), mComponents[component::Type()][ID]);
             }
 
             /// \brief Remove a component from an entity.
