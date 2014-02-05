@@ -26,7 +26,7 @@ namespace fsn
 
             /// \brief Add a component to this entity.
             template<typename component, typename... Args>
-            void addComponent(int ID, Args&&... args) const
+            void addComponent(Args&&... args) const
             {
                 mEntityManager.addComponentToEntity<component>(mID, std::forward<Args>(args)...);
             }
