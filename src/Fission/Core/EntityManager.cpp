@@ -42,7 +42,7 @@ namespace fsn
 
             // Create the entity bits for this entity.
             mEntityBits.push_back(std::bitset<MaxComponents>());
-            mEntityRefs.push_back(new EntityRef(this, ID)); // Create a new EntityRef for this entity
+            mEntityRefs.push_back(new EntityRef(*this, ID)); // Create a new EntityRef for this entity
             mEntityTags.push_back(-1);
         }
 

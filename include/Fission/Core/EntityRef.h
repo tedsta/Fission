@@ -13,36 +13,36 @@ namespace fsn
             const static int NULL_ID = 0; // The 0th entity is the NULL entity.
 
             /// \brief Destroy this entity.
-            void destroy()
+            void destroy() const
             {
-                mEntityManager->destroyEntity(mID);
+                mEntityManager.destroyEntity(mID);
             }
 
             /// \brief Set this entity's tag
-            void setTag(int tag)
+            void setTag(int tag) const
             {
-                mEntityManager->setEntityTag(mID, tag);
+                mEntityManager.setEntityTag(mID, tag);
             }
 
             /// \brief Add a component to this entity.
             template<typename component>
             void addComponent() const
             {
-                mEntityManager->addComponentToEntity<component>(mID);
+                mEntityManager.addComponentToEntity<component>(mID);
             }
 
             /// \brief Add a component to this entity.
             template<typename component, typename... Args>
-            void addComponentToEntity(int ID, Args&&... args)
+            void addComponentToEntity(int ID, Args&&... args) const
             {
-                mEntityManager->addComponentToEntity<component>(mID, std::forward<Args>(args)...);
+                mEntityManager.addComponentToEntity<component>(mID, std::forward<Args>(args)...);
             }
 
             /// \brief Fast, unsafe way to get a component from this entity.
             template<typename component>
             component* getComponent() const
             {
-                return mEntityManager->getComponentFromEntity<component>(mID);
+                return mEntityManager.getComponentFromEntity<component>(mID);
             }
 
             /// \brief Fast, safe way to get a component from this entity. Use the unsafe version if
@@ -50,14 +50,14 @@ namespace fsn
             template<typename component>
             component* getComponentSafe() const
             {
-                return mEntityManager->getComponentFromEntitySafe<component>(mID);
+                return mEntityManager.getComponentFromEntitySafe<component>(mID);
             }
 
             /// \brief Get a component on an entity using the component's integer type ID.
             /// Useful for when you can't call the template method
             Component* getComponent(ComponentType componentID) const
             {
-                return mEntityManager->getComponentFromEntity(mID, componentID);
+                return mEntityManager.getComponentFromEntity(mID, componentID);
             }
 
             /// \brief Get the ID of the entity this points to.
@@ -67,9 +67,9 @@ namespace fsn
             const std::bitset<MaxComponents>& getBits() const;
 
         private:
-            EntityRef(EntityManager* em, int ID = NULL_ID); // Only EntityManager can instantiate
+            EntityRef(EntityManager& em, int ID = NULL_ID); // Only EntityManager can instantiate
 
-            EntityManager* mEntityManager;
+            EntityManager& mEntityManager;
             int mID; // The entity ID this reference points to
     };
 }
