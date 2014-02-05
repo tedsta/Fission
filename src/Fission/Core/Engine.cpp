@@ -51,10 +51,10 @@ namespace fsn
         }
     }
 
-    void Engine::addSystem(std::unique_ptr<System>& system)
+    void Engine::addSystem(System& system)
     {
-        mEntityManager->addEntityObserver(system.get());
-        mSystems.push_back(std::move(system));
+        mEntityManager->addEntityObserver(&system);
+        mSystems.push_back(&system);
     }
 }
 
