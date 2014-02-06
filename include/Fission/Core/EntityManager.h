@@ -28,7 +28,7 @@ namespace fsn
             int createEntity();
 
             /// \brief Creates a new entity entity reference to an existing entity.
-            EntityRef* getEntityRef(int ID);
+            EntityRef createEntityRef(int ID);
 
             /// \brief Destroy an existing entity.
             void destroyEntity(int ID);
@@ -55,7 +55,7 @@ namespace fsn
 
                 // Tell the world the component's been added
                 for (auto observer : mObservers)
-                    observer->onEntityAddedComponent(getEntityRef(ID), mComponents[component::Type()][ID]);
+                    observer->onEntityAddedComponent(createEntityRef(ID), mComponents[component::Type()][ID]);
             }
 
             /// \brief Remove a component from an entity.
@@ -73,7 +73,7 @@ namespace fsn
 
                 // Tell the world that this component's been removed from this entity.
                 for (auto observer : mObservers)
-                    observer->onEntityRemovedComponent(getEntityRef(ID), mComponents[component::Type()][ID]);
+                    observer->onEntityRemovedComponent(createEntityRef(ID), mComponents[component::Type()][ID]);
 
                 delete mComponents[component::Type()][ID]; // Delete the component
                 mComponents[component::Type()][ID] = nullptr;
@@ -117,7 +117,7 @@ namespace fsn
             int getEntityTag(int ID) const {return mEntityTags[ID];}
 
             /// \brief Get the array of entity's with a tag
-            const std::vector<EntityRef*>& getEntitiesWithTag(int tag)
+            const std::vector<EntityRef>& getEntitiesWithTag(int tag)
             {
                 return mTaggedEntities[tag];
             }
@@ -135,8 +135,7 @@ namespace fsn
             std::vector<std::vector<Component*>> mComponents; // By component type, by entity ID.
             std::vector<std::bitset<MaxComponents>> mEntityBits; // By entity ID
             std::vector<int> mEntityTags; // Entity tags
-            std::vector<EntityRef*> mEntityRefs; // Store all of the entity refs
-            std::vector<std::vector<EntityRef*>> mTaggedEntities; // All of the tagged entities
+            std::vector<std::vector<EntityRef>> mTaggedEntities; // All of the tagged entities
             int mEntityCount; // Total number of active entities
 
             std::vector<IEntityObserver*> mObservers; // Entity listeners

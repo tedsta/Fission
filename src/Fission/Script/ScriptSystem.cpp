@@ -82,7 +82,7 @@ namespace fsn
         return vm;
     }
 
-    void ScriptSystem::processEntity(EntityRef *entity, const float dt)
+    void ScriptSystem::processEntity(const EntityRef& entity, const float dt)
     {
     }
 }

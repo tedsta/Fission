@@ -1,6 +1,6 @@
 #include <Fission/Core/System.h>
 
-#include <iostream>
+#include <algorithm>
 
 #include <SFML/System/Clock.hpp>
 
@@ -16,26 +16,27 @@ namespace fsn
     {
     }
 
-    void System::onEntityCreated(EntityRef* entity)
+    void System::onEntityCreated(const EntityRef& entity)
     {
         checkEntity(entity);
     }
 
-    void System::onEntityDestroyed(EntityRef* entity)
+    void System::onEntityDestroyed(const EntityRef& entity)
     {
-        if (mActiveEntities.find(entity) != mActiveEntities.end())
+        auto entityIt = std::find_if(mActiveEntities.begin(), mActiveEntities.end(), EntityRef::find(entity.getID()));
+        if (entityIt != mActiveEntities.end())
         {
-            mActiveEntities.erase(entity); // Remove the entity from the active entities if it does not meet the requirements
+            mActiveEntities.erase(entityIt); // Remove the entity from the active entities if it does not meet the requirements
             onEntityRemoved(entity);
         }
     }
 
-    void System::onEntityAddedComponent(EntityRef* entity, Component* component)
+    void System::onEntityAddedComponent(const EntityRef& entity, Component* component)
     {
         checkEntity(entity);
     }
 
-    void System::onEntityRemovedComponent(EntityRef* entity, Component* component)
+    void System::onEntityRemovedComponent(const EntityRef& entity, Component* component)
     {
         checkEntity(entity);
     }
@@ -43,28 +44,30 @@ namespace fsn
     void System::processEntities(const float dt)
     {
         // Iterate through the active entities and process each one
-        for (EntityRef* entity : mActiveEntities)
+        for (auto& entity : mActiveEntities)
         {
             processEntity(entity, dt);
         }
     }
 
-    void System::checkEntity(EntityRef* entity)
+    void System::checkEntity(const EntityRef& entity)
     {
         // Check if the entity still meets the requirements
         if (mAspect.checkEntity(entity))
         {
-            if (mActiveEntities.find(entity) == mActiveEntities.end())
+            auto entityIt = std::find_if(mActiveEntities.begin(), mActiveEntities.end(), EntityRef::find(entity.getID()));
+            if (entityIt == mActiveEntities.end())
             {
-                mActiveEntities.insert(entity); // Add the entity to the active entities if it meets the requirements
+                mActiveEntities.push_back(entity); // Add the entity to the active entities if it meets the requirements
                 onEntityAdded(entity);
             }
         }
         else if (!mAspect.checkEntity(entity))
         {
-            if (mActiveEntities.find(entity) != mActiveEntities.end())
+            auto entityIt = std::find_if(mActiveEntities.begin(), mActiveEntities.end(), EntityRef::find(entity.getID()));
+            if (entityIt != mActiveEntities.end())
             {
-                mActiveEntities.erase(entity); // Remove the entity from the active entities if it does not meet the requirements
+                mActiveEntities.erase(entityIt); // Remove the entity from the active entities if it does not meet the requirements
                 onEntityRemoved(entity);
             }
         }

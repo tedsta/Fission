@@ -32,7 +32,7 @@ namespace fsn
             HSQUIRRELVM getVM(){return mVM;}
 
         protected:
-            void processEntity(EntityRef* entity, const float dt);
+            void processEntity(const EntityRef& entity, const float dt);
 
         private:
             HSQUIRRELVM mVM;

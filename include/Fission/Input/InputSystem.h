@@ -22,7 +22,7 @@ namespace fsn
         protected:
             void begin(const float dt);
 
-            void processEntity(EntityRef* entity, const float dt);
+            void processEntity(const EntityRef& entity, const float dt);
 
             void end(const float dt);
 

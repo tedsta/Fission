@@ -10,47 +10,64 @@ namespace fsn
         friend class EntityManager;
 
         public:
-            const static int NULL_ID = 0; // The 0th entity is the NULL entity.
+            const static int NULL_ID = -1; // The 0th entity is the NULL entity.
+
+            struct find : std::unary_function<EntityRef, bool>
+            {
+                int ID;
+                find(int id) : ID(id) {}
+                bool operator () (const EntityRef& e) const
+                {
+                    return e.mID == ID;
+                }
+            };
+
+            /// \brief Default constructor. Creates EntityRef that points to the null entity
+            EntityRef();
+
+            /// \brief Check if this entity exists
+            bool exists() const;
 
             /// \brief Destroy this entity.
-            void destroy() const
-            {
-                mEntityManager.destroyEntity(mID);
-            }
+            void destroy() const;
 
             /// \brief Set this entity's tag
-            void setTag(int tag) const
-            {
-                mEntityManager.setEntityTag(mID, tag);
-            }
+            void setTag(int tag) const;
 
             /// \brief Add a component to this entity.
             template<typename component, typename... Args>
             void addComponent(Args&&... args) const
             {
-                mEntityManager.addComponentToEntity<component>(mID, std::forward<Args>(args)...);
+                if (mEntityManager)
+                    mEntityManager->addComponentToEntity<component>(mID, std::forward<Args>(args)...);
             }
 
             /// \brief Fast, unsafe way to get a component from this entity.
+            /// \return Corresponding component, or nullptr if it doesn't exist.
             template<typename component>
             component* getComponent() const
             {
-                return mEntityManager.getComponentFromEntity<component>(mID);
+                return mEntityManager->getComponentFromEntity<component>(mID);
             }
 
             /// \brief Fast, safe way to get a component from this entity. Use the unsafe version if
             /// you are certain that both this entity and the component exist.
+            /// \return Corresponding component, or nullptr if it doesn't exist.
             template<typename component>
             component* getComponentSafe() const
             {
-                return mEntityManager.getComponentFromEntitySafe<component>(mID);
+                if (mEntityManager)
+                    return mEntityManager->getComponentFromEntitySafe<component>(mID);
+                return nullptr;
             }
 
             /// \brief Get a component on an entity using the component's integer type ID.
-            /// Useful for when you can't call the template method
+            /// Useful for when you can't call the template method. Unsafe, so you have to be
+            /// absolutely sure that the entity is valid
+            /// \return Corresponding component, or nullptr if it doesn't exist.
             Component* getComponent(ComponentType componentID) const
             {
-                return mEntityManager.getComponentFromEntity(mID, componentID);
+                return mEntityManager->getComponentFromEntity(mID, componentID);
             }
 
             /// \brief Get the ID of the entity this points to.
@@ -59,10 +76,13 @@ namespace fsn
             /// \brief Get the bits for this entity
             const std::bitset<MaxComponents>& getBits() const;
 
-        private:
-            EntityRef(EntityManager& em, int ID = NULL_ID); // Only EntityManager can instantiate
+            bool operator==(const EntityRef& other) const;
+            bool operator!=(const EntityRef& other) const;
 
-            EntityManager& mEntityManager;
+        private:
+            EntityRef(EntityManager* em, int ID = NULL_ID); // Only EntityManager can instantiate
+
+            EntityManager* mEntityManager;
             int mID; // The entity ID this reference points to
     };
 }

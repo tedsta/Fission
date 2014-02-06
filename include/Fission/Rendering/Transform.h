@@ -15,7 +15,7 @@ namespace fsn
         FISSION_COMPONENT
 
         public:
-            Transform(sf::Vector2f pos = sf::Vector2f(0, 0), float rot = 0, sf::Vector2f scale = sf::Vector2f(1, 1), EntityRef* parent = nullptr);
+            Transform(sf::Vector2f pos = sf::Vector2f(0, 0), float rot = 0, sf::Vector2f scale = sf::Vector2f(1, 1), const EntityRef& parent = EntityRef());
             virtual ~Transform();
 
             void serialize(sf::Packet& packet);
@@ -23,12 +23,12 @@ namespace fsn
 
             sf::Transform getGlobalTransform();
 
-            EntityRef* getParent() const {return mParent;}
+            const EntityRef& getParent() const {return mParent;}
 
-            void setParent(EntityRef* parent){mParent=parent;}
+            void setParent(const EntityRef& parent){mParent=parent;}
 
         private:
-            EntityRef* mParent;
+            EntityRef mParent;
     };
 }
 

@@ -54,15 +54,15 @@ TEST(EntityManager_CreateEntityRef)
     std::unique_ptr<IEventManager> eventManager(new MockEventManager);
     std::unique_ptr<EntityManager> em(new EntityManager);
     int ID = em->createEntity();
-    CHECK(em->getEntityRef(ID)->getID() == ID);
+    CHECK(em->createEntityRef(ID).getID() == ID);
 }
 
 TEST(EntityManager_CreateInvalidEntityRef)
 {
     std::unique_ptr<IEventManager> eventManager(new MockEventManager);
     std::unique_ptr<EntityManager> em(new EntityManager);
-    auto invalidRef = em->getEntityRef(1); // There are no entities yet, so this should be a NULL reference.
-    CHECK(invalidRef->getID() == EntityRef::NULL_ID);
+    auto invalidRef = em->createEntityRef(1); // There are no entities yet, so this should be a NULL reference.
+    CHECK(invalidRef.getID() == EntityRef::NULL_ID);
 }
 
 TEST(EntityManager_DestroyEntity)

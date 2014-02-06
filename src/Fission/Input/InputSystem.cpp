@@ -93,7 +93,7 @@ namespace fsn
         }
     }
 
-    void InputSystem::processEntity(EntityRef* entity, const float dt)
+    void InputSystem::processEntity(const EntityRef& entity, const float dt)
     {
     }
 

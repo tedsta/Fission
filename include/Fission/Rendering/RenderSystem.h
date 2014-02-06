@@ -24,7 +24,7 @@ namespace fsn
             {
             }
 
-            virtual void render(EntityRef* entity, RenderComponent* component, sf::RenderTarget& target, sf::RenderStates& states) = 0;
+            virtual void render(const EntityRef& entity, RenderComponent* component, sf::RenderTarget& target, sf::RenderStates& states) = 0;
 
         private:
     };
@@ -50,7 +50,7 @@ namespace fsn
             }
 
             /// \brief Process entity function for systems
-            void processEntity(EntityRef* entity, const float dt)
+            void processEntity(const EntityRef& entity, const float dt)
             {
             }
 
@@ -59,25 +59,25 @@ namespace fsn
             {
             }
 
-            void onEntityAdded(EntityRef* entity)
+            void onEntityAdded(const EntityRef& entity)
             {
-                auto rndCmp = entity->getComponent<RenderComponentT>();
+                auto rndCmp = entity.getComponent<RenderComponentT>();
                 mRenderManager->addRenderableToLayer(rndCmp->getLayer(), entity, RenderComponentT::Type());
             }
 
-            void onEntityRemoved(EntityRef* entity)
+            void onEntityRemoved(const EntityRef& entity)
             {
-                auto rndCmp = entity->getComponent<RenderComponentT>();
+                auto rndCmp = entity.getComponent<RenderComponentT>();
                 mRenderManager->removeRenderableFromLayer(rndCmp->getLayer(), RenderComponentT::Type());
             }
 
             // Just call the derived render function
-            void render(EntityRef* entity, RenderComponent* component, sf::RenderTarget& target, sf::RenderStates& states)
+            void render(const EntityRef& entity, RenderComponent* component, sf::RenderTarget& target, sf::RenderStates& states)
             {
                 render(entity, static_cast<RenderComponentT*>(component), target, states);
             }
 
-            virtual void render(EntityRef* entity, RenderComponentT* component, sf::RenderTarget& target, sf::RenderStates& states) = 0;
+            virtual void render(const EntityRef& entity, RenderComponentT* component, sf::RenderTarget& target, sf::RenderStates& states) = 0;
 
         private:
             RenderManager* mRenderManager;

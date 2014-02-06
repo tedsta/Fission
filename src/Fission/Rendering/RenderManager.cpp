@@ -52,10 +52,10 @@ namespace fsn
         mWindow.display();
     }
 
-    void RenderManager::addRenderableToLayer(int layer, EntityRef* entity, int componentID)
+    void RenderManager::addRenderableToLayer(int layer, const EntityRef& entity, int componentID)
     {
-        auto transform = entity->getComponent<Transform>();
-        auto render = static_cast<RenderComponent*>(entity->getComponent(componentID));
+        auto transform = entity.getComponent<Transform>();
+        auto render = static_cast<RenderComponent*>(entity.getComponent(componentID));
         mLayers[layer].push_back(Renderable{componentID, entity, transform, render});
     }
 

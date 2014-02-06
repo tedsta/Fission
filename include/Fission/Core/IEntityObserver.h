@@ -10,16 +10,16 @@ namespace fsn
     {
         public:
             /// \brief Called when an entity is created in the EntityManager.
-            virtual void onEntityCreated(EntityRef* entity) = 0;
+            virtual void onEntityCreated(const EntityRef& entity) = 0;
 
             /// \brief Called when an entity is destroyed in the EntityManager.
-            virtual void onEntityDestroyed(EntityRef* entity) = 0;
+            virtual void onEntityDestroyed(const EntityRef& entity) = 0;
 
             /// \brief Called when a component is added to an entity.
-            virtual void onEntityAddedComponent(EntityRef* entity, Component* component) = 0;
+            virtual void onEntityAddedComponent(const EntityRef& entity, Component* component) = 0;
 
             /// \brief Called when a component is removed from an entity.
-            virtual void onEntityRemovedComponent(EntityRef* entity, Component* component) = 0;
+            virtual void onEntityRemovedComponent(const EntityRef& entity, Component* component) = 0;
     };
 }
 

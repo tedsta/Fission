@@ -6,11 +6,8 @@
 
 namespace fsn
 {
-    // Note: mNextID is zero, because we literally create an entity to set up the NULL entity,
-    // whose ID is 0, which increments mNextID to 1, where the real entity IDs start.
     EntityManager::EntityManager() : mNextID(0)
     {
-        createEntity(); // Create the NULL entity.
     }
 
     EntityManager::~EntityManager()
@@ -26,7 +23,6 @@ namespace fsn
         {
             ID = mFreeIDs.back();
             mFreeIDs.pop_back();
-            mEntityRefs[ID]->mID = ID; // Revalidate the EntityRef
         }
         else // Need to make a new ID for this entity
         {
@@ -41,7 +37,6 @@ namespace fsn
 
             // Create the entity bits for this entity.
             mEntityBits.push_back(std::bitset<MaxComponents>());
-            mEntityRefs.push_back(new EntityRef(*this, ID)); // Create a new EntityRef for this entity
             mEntityTags.push_back(-1);
         }
 
@@ -49,30 +44,29 @@ namespace fsn
 
         // Tell the observers that this entity has been created.
         for (auto observer : mObservers)
-            observer->onEntityCreated(getEntityRef(ID));
+            observer->onEntityCreated(createEntityRef(ID));
 
         return ID;
     }
 
-    EntityRef* EntityManager::getEntityRef(int ID)
+    EntityRef EntityManager::createEntityRef(int ID)
     {
         if (!entityExists(ID)) // Entity doesn't exist, return a null EntityRef
         {
-            return mEntityRefs[EntityRef::NULL_ID];
+            return EntityRef(this, EntityRef::NULL_ID);
         }
 
-        return mEntityRefs[ID];
+        return EntityRef(this, ID);
     }
 
     void EntityManager::destroyEntity(int ID)
     {
-        auto entity = getEntityRef(ID);
-        if (entity->getID() == EntityRef::NULL_ID)
+        if (!entityExists(ID))
             return;
 
         // Tell the observers that this entity is about to be obliterated
         for (auto observer : mObservers)
-            observer->onEntityDestroyed(getEntityRef(ID));
+            observer->onEntityDestroyed(createEntityRef(ID));
 
         for (auto& componentRow : mComponents) // Component arrays, by type
         {
@@ -84,25 +78,24 @@ namespace fsn
         }
 
         if (mEntityTags[ID] != -1)
-            mTaggedEntities[mEntityTags[ID]].erase(std::find(mTaggedEntities[mEntityTags[ID]].begin(),
-                                                             mTaggedEntities[mEntityTags[ID]].end(), entity));
+            mTaggedEntities[mEntityTags[ID]].erase(std::find_if(mTaggedEntities[mEntityTags[ID]].begin(),
+                                                             mTaggedEntities[mEntityTags[ID]].end(), EntityRef::find(ID)));
 
         mEntityCount--;
         mEntityBits[ID].reset();
         mEntityTags[ID] = -1;
-        mEntityRefs[ID]->mID = EntityRef::NULL_ID; // Make the entity NULL.
         mFreeIDs.push_back(ID); // Free up the entity's ID
     }
 
     void EntityManager::setEntityTag(int ID, int tag)
     {
-        auto entity = getEntityRef(ID);
-        if (entity->getID() == EntityRef::NULL_ID)
+        if (!entityExists(ID))
             return;
 
+        // Remove the entity from its old tag list
         if (mEntityTags[ID] != -1)
-            mTaggedEntities[mEntityTags[ID]].erase(std::find(mTaggedEntities[mEntityTags[ID]].begin(),
-                                                             mTaggedEntities[mEntityTags[ID]].end(), entity));
+            mTaggedEntities[mEntityTags[ID]].erase(std::find_if(mTaggedEntities[mEntityTags[ID]].begin(),
+                                                             mTaggedEntities[mEntityTags[ID]].end(), EntityRef::find(ID)));
 
         mEntityTags[ID] = tag;
 
@@ -111,7 +104,7 @@ namespace fsn
             if (static_cast<int>(mTaggedEntities.size()) <= tag)
                 mTaggedEntities.resize(tag+1);
 
-            mTaggedEntities[tag].push_back(entity);
+            mTaggedEntities[tag].push_back(createEntityRef(ID));
         }
     }
 

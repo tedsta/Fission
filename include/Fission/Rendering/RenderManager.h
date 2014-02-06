@@ -9,6 +9,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
+#include "Fission/Core/EntityRef.h"
 #include "Fission/Rendering/DebugDisplay.h"
 
 namespace fsn
@@ -51,12 +52,12 @@ namespace fsn
             struct Renderable
             {
                 int componentID;
-                EntityRef* entity;
+                EntityRef entity;
                 Transform* transform;
                 RenderComponent* render;
             };
 
-            void addRenderableToLayer(int layer, EntityRef* entity, int componentID);
+            void addRenderableToLayer(int layer, const EntityRef& entity, int componentID);
             void removeRenderableFromLayer(int layer, int componentID);
 
             sf::RenderWindow mWindow;
