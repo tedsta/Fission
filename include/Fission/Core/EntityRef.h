@@ -10,7 +10,7 @@ namespace fsn
         friend class EntityManager;
 
         public:
-            const static int NULL_ID = -1; // The 0th entity is the NULL entity.
+            const static int NullID = -1; // The 0th entity is the NULL entity.
 
             struct find : std::unary_function<EntityRef, bool>
             {
@@ -80,7 +80,7 @@ namespace fsn
             bool operator!=(const EntityRef& other) const;
 
         private:
-            EntityRef(EntityManager* em, int ID = NULL_ID); // Only EntityManager can instantiate
+            EntityRef(EntityManager* em, int ID = NullID); // Only EntityManager can instantiate
 
             EntityManager* mEntityManager;
             int mID; // The entity ID this reference points to

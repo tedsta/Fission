@@ -53,7 +53,7 @@ namespace fsn
     {
         if (!entityExists(ID)) // Entity doesn't exist, return a null EntityRef
         {
-            return EntityRef(this, EntityRef::NULL_ID);
+            return EntityRef(this, EntityRef::NullID);
         }
 
         return EntityRef(this, ID);
@@ -110,7 +110,7 @@ namespace fsn
 
     bool EntityManager::entityExists(int ID) const
     {
-        if (ID == EntityRef::NULL_ID || ID < 0 || mNextID <= ID || std::find(mFreeIDs.begin(), mFreeIDs.end(), ID) != mFreeIDs.end())
+        if (ID == EntityRef::NullID || ID < 0 || mNextID <= ID || std::find(mFreeIDs.begin(), mFreeIDs.end(), ID) != mFreeIDs.end())
             return false;
 
         return true;

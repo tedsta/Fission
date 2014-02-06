@@ -2,7 +2,7 @@
 
 namespace fsn
 {
-    EntityRef::EntityRef() : mEntityManager(nullptr), mID(NULL_ID)
+    EntityRef::EntityRef() : mEntityManager(nullptr), mID(NullID)
     {
         //ctor
     }

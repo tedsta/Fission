@@ -62,7 +62,7 @@ TEST(EntityManager_CreateInvalidEntityRef)
     std::unique_ptr<IEventManager> eventManager(new MockEventManager);
     std::unique_ptr<EntityManager> em(new EntityManager);
     auto invalidRef = em->createEntityRef(1); // There are no entities yet, so this should be a NULL reference.
-    CHECK(invalidRef.getID() == EntityRef::NULL_ID);
+    CHECK(invalidRef.getID() == EntityRef::NullID);
 }
 
 TEST(EntityManager_DestroyEntity)
