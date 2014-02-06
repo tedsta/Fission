@@ -9,11 +9,6 @@ namespace fsn
         //ctor
     }
 
-    EventManager::~EventManager()
-    {
-        removeAllListeners();
-    }
-
     void EventManager::addListener(IEventListener* listener, const std::string& ID)
     {
         // Add the ID to the listeners map if it doesn't exist.

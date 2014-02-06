@@ -14,8 +14,6 @@ namespace fsn
     class IEventManager
     {
         public:
-            virtual ~IEventManager(){}
-
             /// \brief Add a listener for a given event type.
             virtual void addListener(IEventListener* listener, const std::string& ID) = 0;
 
@@ -39,10 +37,8 @@ namespace fsn
 
     class EventManager : public IEventManager
     {
-        friend class Engine;
-
         public:
-            ~EventManager();
+            EventManager();
 
             /// \brief Add a listener for a given event type.
             void addListener(IEventListener *listener, const std::string& ID);
@@ -65,8 +61,6 @@ namespace fsn
             bool fireEvent(const std::string& ID, const IEventData& evt);
 
         private:
-            EventManager(); // Only Engine can instantiate an event manager.
-
             typedef std::list<IEventListener*> EventListenerList;
             typedef std::map<std::string, EventListenerList> EventListenerMap;
             typedef std::pair<std::string, EventListenerList> EventListenerMapPair;

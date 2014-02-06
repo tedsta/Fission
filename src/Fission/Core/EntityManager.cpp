@@ -8,8 +8,7 @@ namespace fsn
 {
     // Note: mNextID is zero, because we literally create an entity to set up the NULL entity,
     // whose ID is 0, which increments mNextID to 1, where the real entity IDs start.
-    EntityManager::EntityManager(IEventManager* eventManager) : mEventManager(eventManager),
-        mNextID(0)
+    EntityManager::EntityManager() : mNextID(0)
     {
         createEntity(); // Create the NULL entity.
     }

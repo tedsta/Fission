@@ -43,7 +43,7 @@ class MockEventManager : public IEventManager
 TEST(EntityManager_CreateEntityIncrementIDs)
 {
     std::unique_ptr<IEventManager> eventManager(new MockEventManager);
-    std::unique_ptr<EntityManager> em(new EntityManager(eventManager.get()));
+    std::unique_ptr<EntityManager> em(new EntityManager);
     int ID0 = em->createEntity();
     int ID1 = em->createEntity();
     CHECK(ID0 < ID1);
@@ -52,7 +52,7 @@ TEST(EntityManager_CreateEntityIncrementIDs)
 TEST(EntityManager_CreateEntityRef)
 {
     std::unique_ptr<IEventManager> eventManager(new MockEventManager);
-    std::unique_ptr<EntityManager> em(new EntityManager(eventManager.get()));
+    std::unique_ptr<EntityManager> em(new EntityManager);
     int ID = em->createEntity();
     CHECK(em->getEntityRef(ID)->getID() == ID);
 }
@@ -60,7 +60,7 @@ TEST(EntityManager_CreateEntityRef)
 TEST(EntityManager_CreateInvalidEntityRef)
 {
     std::unique_ptr<IEventManager> eventManager(new MockEventManager);
-    std::unique_ptr<EntityManager> em(new EntityManager(eventManager.get()));
+    std::unique_ptr<EntityManager> em(new EntityManager);
     auto invalidRef = em->getEntityRef(1); // There are no entities yet, so this should be a NULL reference.
     CHECK(invalidRef->getID() == EntityRef::NULL_ID);
 }
@@ -68,7 +68,7 @@ TEST(EntityManager_CreateInvalidEntityRef)
 TEST(EntityManager_DestroyEntity)
 {
     std::unique_ptr<IEventManager> eventManager(new MockEventManager);
-    std::unique_ptr<EntityManager> em(new EntityManager(eventManager.get()));
+    std::unique_ptr<EntityManager> em(new EntityManager);
     auto entityID = em->createEntity();
     em->destroyEntity(entityID);
     CHECK(!em->entityExists(entityID));
@@ -77,7 +77,7 @@ TEST(EntityManager_DestroyEntity)
 TEST(EntityManager_AddComponentToEntity)
 {
     std::unique_ptr<IEventManager> eventManager(new MockEventManager);
-    std::unique_ptr<EntityManager> em(new EntityManager(eventManager.get()));
+    std::unique_ptr<EntityManager> em(new EntityManager);
     auto entityID = em->createEntity();
     CHECK(em->getComponentFromEntitySafe<TestComponent>(entityID) == NULL);
     em->addComponentToEntity<TestComponent>(entityID);
@@ -87,7 +87,7 @@ TEST(EntityManager_AddComponentToEntity)
 TEST(EntityManager_RemoveComponentFromEntity)
 {
     std::unique_ptr<IEventManager> eventManager(new MockEventManager);
-    std::unique_ptr<EntityManager> em(new EntityManager(eventManager.get()));
+    std::unique_ptr<EntityManager> em(new EntityManager);
     auto entityID = em->createEntity();
     em->addComponentToEntity<TestComponent>(entityID);
     em->removeComponentFromEntity<TestComponent>(entityID);
@@ -97,7 +97,7 @@ TEST(EntityManager_RemoveComponentFromEntity)
 TEST(EntityManager_AddingComponentChangesEntityBits)
 {
     std::unique_ptr<IEventManager> eventManager(new MockEventManager);
-    std::unique_ptr<EntityManager> em(new EntityManager(eventManager.get()));
+    std::unique_ptr<EntityManager> em(new EntityManager);
     auto entityID = em->createEntity();
     CHECK(!em->getEntityBits(entityID).test(1));
     em->addComponentToEntity<Test2Component>(entityID);
@@ -107,7 +107,7 @@ TEST(EntityManager_AddingComponentChangesEntityBits)
 TEST(EntityManager_RemovingComponentChangesEntityBits)
 {
     std::unique_ptr<IEventManager> eventManager(new MockEventManager);
-    std::unique_ptr<EntityManager> em(new EntityManager(eventManager.get()));
+    std::unique_ptr<EntityManager> em(new EntityManager);
     auto entityID = em->createEntity();
     em->addComponentToEntity<Test2Component>(entityID);
     em->removeComponentFromEntity<Test2Component>(entityID);

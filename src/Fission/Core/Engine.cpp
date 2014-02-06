@@ -3,17 +3,16 @@
 #include <Fission/Core/EventManager.h>
 #include <Fission/Core/System.h>
 #include <Fission/Core/EntityManager.h>
-
-#include <iostream>
+#include <Fission/Util/make_unique.h>
 
 namespace fsn
 {
-    Engine::Engine(float lockStep) : mEventManager(new EventManager), mEntityManager(new EntityManager(mEventManager.get())),
+    Engine::Engine(float lockStep) : mEventManager(make_unique<EventManager>()), mEntityManager(make_unique<EntityManager>()),
         mLockStep(lockStep), mDtAccumulator(0.f)
     {
     }
 
-    Engine::Engine(const fsn::Engine& other) : mEventManager(new EventManager), mEntityManager(new EntityManager(mEventManager.get())),
+    Engine::Engine(const fsn::Engine& other) : mEventManager(make_unique<EventManager>()), mEntityManager(make_unique<EntityManager>()),
         mLockStep(other.mLockStep), mDtAccumulator(0.f)
     {
     }

@@ -20,7 +20,7 @@ namespace fsn
         friend class ComponentMapper;
 
         public:
-            EntityManager(IEventManager* eventManager);
+            EntityManager();
             virtual ~EntityManager();
 
             /// \brief Creates a new entity.
@@ -132,7 +132,6 @@ namespace fsn
             void addEntityObserver(IEntityObserver* observer){mObservers.push_back(observer);}
 
         private:
-            IEventManager* mEventManager;
             std::vector<std::vector<Component*>> mComponents; // By component type, by entity ID.
             std::vector<std::bitset<MaxComponents>> mEntityBits; // By entity ID
             std::vector<int> mEntityTags; // Entity tags
