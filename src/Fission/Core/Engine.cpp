@@ -1,7 +1,7 @@
 #include <Fission/Core/Engine.h>
 
 #include <Fission/Core/EventManager.h>
-#include <Fission/Core/System.h>
+#include <Fission/Core/Systems/System.h>
 #include <Fission/Core/EntityManager.h>
 #include <Fission/Util/make_unique.h>
 
@@ -27,9 +27,7 @@ namespace fsn
         {
             for (auto& system : mSystems)
             {
-                system->begin(dt);
-                system->processEntities(dt);
-                system->end(dt);
+                system->update(dt);
             }
         }
         else
@@ -42,9 +40,7 @@ namespace fsn
 
                 for (auto& system : mSystems)
                 {
-                    system->begin(mLockStep);
-                    system->processEntities(mLockStep);
-                    system->end(mLockStep);
+                    system->update(mLockStep);
                 }
             }
         }
@@ -52,7 +48,6 @@ namespace fsn
 
     void Engine::addSystem(System& system)
     {
-        mEntityManager->addEntityObserver(&system);
         mSystems.push_back(&system);
     }
 }

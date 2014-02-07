@@ -1,27 +1,33 @@
-#include <Fission/Core/System.h>
+#include "Fission/Core/Systems/ComponentSystem.h"
 
 #include <algorithm>
 
-#include <SFML/System/Clock.hpp>
-
-#include <Fission/Core/EventManager.h>
-
 namespace fsn
 {
-    System::System(IEventManager* eventManager) : mEventManager(eventManager)
+    ComponentSystem::ComponentSystem(EntityManager& entityMgr)
     {
+        entityMgr.addEntityObserver(this);
     }
 
-    System::~System()
+    void ComponentSystem::update(const float dt)
     {
+        begin(dt);
+
+        // Iterate through the active entities and process each one
+        for (auto& entity : mActiveEntities)
+        {
+            processEntity(entity, dt);
+        }
+
+        end(dt);
     }
 
-    void System::onEntityCreated(const EntityRef& entity)
+    void ComponentSystem::onEntityCreated(const EntityRef& entity)
     {
         checkEntity(entity);
     }
 
-    void System::onEntityDestroyed(const EntityRef& entity)
+    void ComponentSystem::onEntityDestroyed(const EntityRef& entity)
     {
         auto entityIt = std::find_if(mActiveEntities.begin(), mActiveEntities.end(), EntityRef::find(entity.getID()));
         if (entityIt != mActiveEntities.end())
@@ -31,26 +37,17 @@ namespace fsn
         }
     }
 
-    void System::onEntityAddedComponent(const EntityRef& entity, Component* component)
+    void ComponentSystem::onEntityAddedComponent(const EntityRef& entity, Component* component)
     {
         checkEntity(entity);
     }
 
-    void System::onEntityRemovedComponent(const EntityRef& entity, Component* component)
+    void ComponentSystem::onEntityRemovedComponent(const EntityRef& entity, Component* component)
     {
         checkEntity(entity);
     }
 
-    void System::processEntities(const float dt)
-    {
-        // Iterate through the active entities and process each one
-        for (auto& entity : mActiveEntities)
-        {
-            processEntity(entity, dt);
-        }
-    }
-
-    void System::checkEntity(const EntityRef& entity)
+    void ComponentSystem::checkEntity(const EntityRef& entity)
     {
         // Check if the entity still meets the requirements
         if (mAspect.checkEntity(entity))
@@ -73,4 +70,3 @@ namespace fsn
         }
     }
 }
-

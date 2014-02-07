@@ -1,9 +1,11 @@
 #ifndef SCRIPTSYSTEM_H
 #define SCRIPTSYSTEM_H
 
+#include <vector>
+
 #include <Sqrat/sqrat.h>
 
-#include <Fission/Core/System.h>
+#include <Fission/Core/Systems/System.h>
 
 namespace fsn
 {
@@ -17,8 +19,10 @@ namespace fsn
     class ScriptSystem : public System
     {
         public:
-            ScriptSystem(IEventManager* eventManager, Engine *engine);
-            virtual ~ScriptSystem();
+            ScriptSystem(Engine *engine);
+            ~ScriptSystem();
+
+            void update(const float dt){}
 
             /// \brief Creates a new script
             HSQUIRRELVM createScript(const std::string& fileName);
@@ -31,13 +35,10 @@ namespace fsn
             /// \brief Get the Squirrel VM
             HSQUIRRELVM getVM(){return mVM;}
 
-        protected:
-            void processEntity(const EntityRef& entity, const float dt);
-
         private:
             HSQUIRRELVM mVM;
 
-            Engine *mEngine;
+            Engine* mEngine;
 
             std::vector<void (*)(HSQUIRRELVM)> mBinders; // Binding functions
     };

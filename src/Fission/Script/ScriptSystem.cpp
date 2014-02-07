@@ -51,8 +51,7 @@ namespace fsn
         Sqrat::RootTable(vm).SetInstance("engine", _engine);
     }
 
-    ScriptSystem::ScriptSystem(IEventManager *eventManager, Engine *engine) : System(eventManager),
-        mVM(sq_open(1024)), mEngine(engine)
+    ScriptSystem::ScriptSystem(Engine *engine) : mVM(sq_open(1024)), mEngine(engine)
     {
         bindSquirrel(mVM, mEngine);
     }
@@ -80,10 +79,6 @@ namespace fsn
             std::cout << "Squirrel Runtime Error: " << err << std::endl;
 
         return vm;
-    }
-
-    void ScriptSystem::processEntity(const EntityRef& entity, const float dt)
-    {
     }
 }
 

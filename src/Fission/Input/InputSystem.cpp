@@ -9,7 +9,7 @@
 
 namespace fsn
 {
-    InputSystem::InputSystem(IEventManager* eventManager, sf::Window* window) : System(eventManager), mWindow(window)
+    InputSystem::InputSystem(sf::Window* window) : mWindow(window)
     {
         //ctor
     }
@@ -19,7 +19,7 @@ namespace fsn
         //dtor
     }
 
-    void InputSystem::begin(const float dt)
+    void InputSystem::update(const float dt)
     {
         sf::Event event;
         while (mWindow->pollEvent(event))
@@ -91,14 +91,6 @@ namespace fsn
                 break;
             }
         }
-    }
-
-    void InputSystem::processEntity(const EntityRef& entity, const float dt)
-    {
-    }
-
-    void InputSystem::end(const float dt)
-    {
     }
 }
 

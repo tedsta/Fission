@@ -8,19 +8,19 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Font.hpp>
 
-#include <Fission/Core/System.h>
+#include <Fission/Core/Systems/ComponentSystem.h>
 #include <Fission/Rendering/RenderComponent.h>
 #include <Fission/Rendering/RenderManager.h>
 #include <Fission/Rendering/Transform.h>
 
 namespace fsn
 {
-    class IRenderSystem : public System
+    class IRenderSystem : public ComponentSystem
     {
         friend class RenderManager;
 
         public:
-            IRenderSystem(IEventManager* eventManager) : System(eventManager)
+            IRenderSystem(EntityManager& entityMgr) : ComponentSystem(entityMgr)
             {
             }
 
@@ -35,8 +35,8 @@ namespace fsn
         friend class RenderManager;
 
         public:
-            RenderSystem(IEventManager* eventManager, RenderManager* renderManager) :
-                IRenderSystem(eventManager), mRenderManager(renderManager)
+            RenderSystem(EntityManager& entityMgr, RenderManager* renderManager) :
+                IRenderSystem(entityMgr), mRenderManager(renderManager)
             {
                 mAspect.all<RenderComponentT>();
                 if (mRenderManager->mRenderSystems.size() <= RenderComponentT::Type())
