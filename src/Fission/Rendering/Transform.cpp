@@ -30,12 +30,17 @@ namespace fsn
         setScale(scale);
     }
 
+    void Transform::setParent(const EntityRef& parent)
+    {
+        mParent=parent;
+    }
+
     sf::Transform Transform::getGlobalTransform()
     {
         sf::Transform transform = getTransform();
         for (EntityRef* parent = &mParent; parent->exists(); parent=&parent->getComponent<Transform>()->mParent)
         {
-            transform.combine(parent->getComponent<Transform>()->getTransform());
+            transform = parent->getComponent<Transform>()->getTransform()*transform;
         }
         return transform;
     }

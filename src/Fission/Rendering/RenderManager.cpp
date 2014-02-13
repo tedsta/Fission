@@ -21,7 +21,6 @@ namespace fsn
     void RenderManager::render()
     {
         mWindow.clear(mBackgroundColor); // Clear the window
-        mWindow.setView(mView);
 
         for (std::size_t i = 0; i < mLayers.size(); i++)
         {
@@ -50,6 +49,7 @@ namespace fsn
             overlay->draw(mWindow);
         mDebugDisplay.render(mWindow);
         mWindow.display();
+        mWindow.setView(mView);
     }
 
     void RenderManager::addRenderableToLayer(int layer, const EntityRef& entity, int componentID)

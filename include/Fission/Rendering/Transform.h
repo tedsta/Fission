@@ -25,7 +25,7 @@ namespace fsn
 
             const EntityRef& getParent() const {return mParent;}
 
-            void setParent(const EntityRef& parent){mParent=parent;}
+            void setParent(const EntityRef& parent);
 
         private:
             EntityRef mParent;
