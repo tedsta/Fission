@@ -6,7 +6,7 @@
 
 namespace fsn
 {
-    EntityManager::EntityManager() : mNextID(0)
+    EntityManager::EntityManager() : mNextID(0), mDestructionLocked(false)
     {
     }
 
@@ -64,27 +64,48 @@ namespace fsn
         if (!entityExists(ID))
             return;
 
-        // Tell the observers that this entity is about to be obliterated
-        for (auto observer : mObservers)
-            observer->onEntityDestroyed(createEntityRef(ID));
-
-        for (auto& componentRow : mComponents) // Component arrays, by type
+        if (!mDestructionLocked)
         {
-            if (componentRow[ID]) // If the entity has this component type, delete it
+            // Tell the observers that this entity is about to be obliterated
+            for (auto observer : mObservers)
+                observer->onEntityDestroyed(createEntityRef(ID));
+
+            for (auto& componentRow : mComponents) // Component arrays, by type
             {
-                delete componentRow[ID];
-                componentRow[ID] = NULL;
+                if (componentRow[ID]) // If the entity has this component type, delete it
+                {
+                    delete componentRow[ID];
+                    componentRow[ID] = NULL;
+                }
             }
+
+            if (mEntityTags[ID] != -1)
+                mTaggedEntities[mEntityTags[ID]].erase(std::find_if(mTaggedEntities[mEntityTags[ID]].begin(),
+                                                                 mTaggedEntities[mEntityTags[ID]].end(), EntityRef::find(ID)));
+
+            mEntityCount--;
+            mEntityBits[ID].reset();
+            mEntityTags[ID] = -1;
+            mFreeIDs.push_back(ID); // Free up the entity's ID
         }
+        else
+            mEntitiesToRemove.push_back(ID);
 
-        if (mEntityTags[ID] != -1)
-            mTaggedEntities[mEntityTags[ID]].erase(std::find_if(mTaggedEntities[mEntityTags[ID]].begin(),
-                                                             mTaggedEntities[mEntityTags[ID]].end(), EntityRef::find(ID)));
+    }
 
-        mEntityCount--;
-        mEntityBits[ID].reset();
-        mEntityTags[ID] = -1;
-        mFreeIDs.push_back(ID); // Free up the entity's ID
+    void EntityManager::lockEntityDestruction()
+    {
+        mDestructionLocked = true;
+    }
+
+    void EntityManager::unlockEntityDestruction()
+    {
+        mDestructionLocked = false;
+
+        for (auto ID : mEntitiesToRemove)
+            destroyEntity(ID);
+
+        mEntitiesToRemove.clear();
     }
 
     void EntityManager::setEntityTag(int ID, int tag)

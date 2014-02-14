@@ -23,6 +23,8 @@ namespace fsn
 
     void Engine::update(const float dt)
     {
+        mEntityManager->lockEntityDestruction();
+
         if (mLockStep <= 0)
         {
             for (auto& system : mSystems)
@@ -44,6 +46,8 @@ namespace fsn
                 }
             }
         }
+
+        mEntityManager->unlockEntityDestruction();
     }
 
     void Engine::addSystem(System& system)

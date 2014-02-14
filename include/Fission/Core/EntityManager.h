@@ -17,6 +17,7 @@ namespace fsn
 
     class EntityManager
     {
+        friend class Engine;
         friend class ComponentMapper;
 
         public:
@@ -32,6 +33,12 @@ namespace fsn
 
             /// \brief Destroy an existing entity.
             void destroyEntity(int ID);
+
+            /// \brief Lock entity destruction. All destroyed entities will be removed when it is unlocked.
+            void lockEntityDestruction();
+
+            /// \brief Unlock entity destruction. Any entities destroyed while locked will now be removed.
+            void unlockEntityDestruction();
 
             /// \brief Set an entity's tag
             void setEntityTag(int ID, int tag);
@@ -132,13 +139,18 @@ namespace fsn
             void addEntityObserver(IEntityObserver* observer){mObservers.push_back(observer);}
 
         private:
+            void removeEntitiesMarkedForRemoval();
+
             std::vector<std::vector<Component*>> mComponents; // By component type, by entity ID.
             std::vector<std::bitset<MaxComponents>> mEntityBits; // By entity ID
             std::vector<int> mEntityTags; // Entity tags
+            std::vector<int> mEntitiesToRemove; // Entities to remove before the next frame
             std::vector<std::vector<EntityRef>> mTaggedEntities; // All of the tagged entities
             int mEntityCount; // Total number of active entities
 
             std::vector<IEntityObserver*> mObservers; // Entity listeners
+
+            bool mDestructionLocked;
 
             std::vector<int> mFreeIDs;
             int mNextID; // Entity IDs start at 1. The 0th entity is the nullptr entity.
