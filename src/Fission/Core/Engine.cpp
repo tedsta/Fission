@@ -7,12 +7,12 @@
 
 namespace fsn
 {
-    Engine::Engine(float lockStep) : mEventManager(make_unique<EventManager>()), mEntityManager(make_unique<EntityManager>()),
+    Engine::Engine(float lockStep) : mEventManager(), mEntityManager(),
         mLockStep(lockStep), mDtAccumulator(0.f)
     {
     }
 
-    Engine::Engine(const fsn::Engine& other) : mEventManager(make_unique<EventManager>()), mEntityManager(make_unique<EntityManager>()),
+    Engine::Engine(const fsn::Engine& other) : mEventManager(), mEntityManager(),
         mLockStep(other.mLockStep), mDtAccumulator(0.f)
     {
     }
@@ -23,7 +23,7 @@ namespace fsn
 
     void Engine::update(const float dt)
     {
-        mEntityManager->lockEntityDestruction();
+        mEntityManager.lockEntityDestruction();
 
         if (mLockStep <= 0)
         {
@@ -47,7 +47,7 @@ namespace fsn
             }
         }
 
-        mEntityManager->unlockEntityDestruction();
+        mEntityManager.unlockEntityDestruction();
     }
 
     void Engine::addSystem(System& system)

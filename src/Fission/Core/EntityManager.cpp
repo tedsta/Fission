@@ -6,7 +6,7 @@
 
 namespace fsn
 {
-    EntityManager::EntityManager() : mNextID(0), mDestructionLocked(false)
+    EntityManager::EntityManager() : mDestructionLocked(false), mNextID(0)
     {
     }
 

@@ -4,11 +4,12 @@
 #include <memory>
 #include <vector>
 
+#include "Fission/Core/EntityManager.h"
+#include "Fission/Core/EventManager.h"
+
 namespace fsn
 {
-    class EntityManager;
     class System;
-    class IEventManager;
 
     /// \brief Core class to facilitate all of the systems and the scene.
     class Engine
@@ -29,17 +30,17 @@ namespace fsn
             void addSystem(System& system);
 
             /// \brief Gets the event manager.
-            IEventManager* getEventManager() const {return mEventManager.get();}
+            EventManager& getEventManager() {return mEventManager;}
 
             /// \brief Gets the entity manager.
-            EntityManager* getEntityManager() const {return mEntityManager.get();}
+            EntityManager& getEntityManager() {return mEntityManager;}
 
         private:
             // The event manager
-            std::unique_ptr<IEventManager> mEventManager;
+            EventManager mEventManager;
 
             // The entity manager
-            std::unique_ptr<EntityManager> mEntityManager;
+            EntityManager mEntityManager;
 
             // The systems this engine has to manage
             // Engine does not own these pointers

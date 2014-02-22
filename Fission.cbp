@@ -136,6 +136,9 @@
 		<Unit filename="src/Fission/Tests/TestEntityManager.cpp">
 			<Option target="UnitTests" />
 		</Unit>
+		<Unit filename="src/Fission/Tests/TestEventManager.cpp">
+			<Option target="UnitTests" />
+		</Unit>
 		<Unit filename="src/Fission/Tests/main.cpp">
 			<Option target="UnitTests" />
 		</Unit>

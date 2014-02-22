@@ -12,35 +12,6 @@
 
 using namespace fsn;
 
-class MockEventManager : public IEventManager
-{
-    public:
-		void addListener(IEventListener *listener, EventID type)
-		{
-		}
-
-		void removeListener(IEventListener *listener, EventID type)
-		{
-		}
-
-		void addGlobalListener(IEventListener *listener)
-		{
-		}
-
-		void removeGlobalListener(IEventListener *listener)
-		{
-		}
-
-		void removeAllListeners()
-		{
-		}
-
-		bool fireEvent(IEventData const& evt)
-		{
-		    return false;
-		}
-};
-
 class MockEntityRef
 {
     public:

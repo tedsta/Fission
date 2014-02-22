@@ -2,74 +2,62 @@
 #define __EVENT_MANAGER_H__
 
 #include <map>
-#include <list>
-#include <string>
+#include <typeinfo>
 
-#include <SFML/System/Mutex.hpp>
+#include <Nano/nano_signal_slot.hpp>
 
-#include <Fission/Core/Event.h>
+#include "Fission/Util/make_unique.h"
 
 namespace fsn
 {
-    class IEventManager
+    /// \brief A tag class for event data structs to inherit from.
+    struct EventData
     {
-        public:
-            /// \brief Add a listener for a given event type.
-            virtual void addListener(IEventListener* listener, const std::string& ID) = 0;
-
-            /// \brief Remove a listener for a given event type.
-            virtual void removeListener(IEventListener* listener, const std::string& ID) = 0;
-
-            /// \brief Add a global listener. This type of listener receives all types of events.
-            /// \note A listener that is registered as global as well as for event types will receive
-            /// duplicate events.
-            virtual void addGlobalListener(IEventListener* listener) = 0;
-
-            /// \brief Remove a global listener.
-            virtual void removeGlobalListener(IEventListener* listener) = 0;
-
-            /// \brief Remove all listeners for all event types.
-            virtual void removeAllListeners() = 0;
-
-            /// \brief Dispatch an event.
-            virtual bool fireEvent(const std::string& ID, const IEventData& evt) = 0;
     };
 
-    class EventManager : public IEventManager
+    class EventManager
     {
         public:
             EventManager();
 
-            /// \brief Add a listener for a given event type.
-            void addListener(IEventListener *listener, const std::string& ID);
+            template <typename Evt_T, typename T, void (T::*meth_ptr)(const Evt_T&)>
+            void addListener(T& listener)
+            {
+                auto type = typeid(Evt_T).hash_code();
 
-            /// \brief Remove a listener for a given event type.
-            void removeListener(IEventListener *listener, const std::string& ID);
+                if (mSignals.find(type) == mSignals.end())
+                    mSignals[type] = make_unique<SignalWrapper<Evt_T>>();
 
-            /// \brief Add a global listener. This type of listener receives all types of events.
-            /// \note A listener that is registered as global as well as for event types will receive
-            /// duplicate events.
-            void addGlobalListener(IEventListener *listener);
+                Nano::signal<void (const Evt_T&)>& signal = static_cast<SignalWrapper<Evt_T>*>(mSignals[type].get())->signal;
+                signal.template connect<T, meth_ptr>(&listener);
+            }
 
-            /// \brief Remove a global listener.
-            void removeGlobalListener(IEventListener *listener);
-
-            /// \brief Remove all listeners for all event types.
-            void removeAllListeners();
-
-            /// \brief Dispatch an event.
-            bool fireEvent(const std::string& ID, const IEventData& evt);
+            template <typename Evt_T>
+            void fireEvent(const Evt_T& event)
+            {
+                mSignals[typeid(Evt_T).hash_code()]->emit(event);
+            }
 
         private:
-            typedef std::list<IEventListener*> EventListenerList;
-            typedef std::map<std::string, EventListenerList> EventListenerMap;
-            typedef std::pair<std::string, EventListenerList> EventListenerMapPair;
+            class ISignalWrapper
+            {
+                public:
+                    virtual void emit(const EventData& event) = 0;
+            };
 
-            // A map of all the listeners connected to specific events.
-            EventListenerMap mListeners;
+            template<typename Evt_T>
+            class SignalWrapper : public ISignalWrapper
+            {
+                public:
+                    void emit(const EventData& event)
+                    {
+                        signal.emit(static_cast<const Evt_T&>(event));
+                    }
 
-            // A list of global event listeners. These listeners receive all events regardless of type.
-            EventListenerList mGlobals;
+                    Nano::signal<void (const Evt_T&)> signal;
+            };
+
+            std::map<std::size_t, std::unique_ptr<ISignalWrapper>> mSignals;
     };
 }
 
