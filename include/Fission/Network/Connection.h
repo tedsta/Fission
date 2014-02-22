@@ -38,7 +38,7 @@ namespace fsn
 
     class Entity;
     class Component;
-    class IEventManager;
+    class EventManager;
     class Scene;
 
     class IPacketHandler
@@ -58,7 +58,7 @@ namespace fsn
     class Connection
     {
         public:
-            Connection(IEventManager* eventManager);
+            Connection(EventManager& eventManager);
             virtual ~Connection();
 
             /// \brief Begins hosting a server.
@@ -114,7 +114,7 @@ namespace fsn
 
         private:
             // Some dependencies
-            IEventManager*mEventManager;
+            EventManager& mEventManager;
 
             /// Server or client?
             int mNetType;

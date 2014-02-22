@@ -43,6 +43,8 @@ namespace fsn
             class ICallbackWrapper
             {
                 public:
+                    virtual ~ICallbackWrapper() {}
+
                     virtual void call(const EventData& event) = 0;
             };
 

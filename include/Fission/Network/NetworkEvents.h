@@ -3,11 +3,11 @@
 
 #include <SFML/Network/Packet.hpp>
 
-#include <Fission/Core/Event.h>
+#include <Fission/Core/EventManager.h>
 
 namespace fsn
 {
-    struct NetworkEvent : public IEventData
+    struct NetworkEvent : public EventData
     {
         NetworkEvent(int _netID) : netID(_netID) {}
         int netID;

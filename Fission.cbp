@@ -86,7 +86,6 @@
 		<Unit filename="include/Fission/Core/Engine.h" />
 		<Unit filename="include/Fission/Core/EntityManager.h" />
 		<Unit filename="include/Fission/Core/EntityRef.h" />
-		<Unit filename="include/Fission/Core/Event.h" />
 		<Unit filename="include/Fission/Core/EventManager.h" />
 		<Unit filename="include/Fission/Core/IEntityObserver.h" />
 		<Unit filename="include/Fission/Core/ResourceManager.h" />
@@ -107,7 +106,6 @@
 		<Unit filename="include/Fission/Rendering/Sprite.h" />
 		<Unit filename="include/Fission/Rendering/SpriteRenderSystem.h" />
 		<Unit filename="include/Fission/Rendering/Transform.h" />
-		<Unit filename="include/Fission/Script/ScriptSystem.h" />
 		<Unit filename="include/Fission/Tests/TestComponent.h">
 			<Option target="UnitTests" />
 		</Unit>
@@ -129,7 +127,6 @@
 		<Unit filename="src/Fission/Rendering/Sprite.cpp" />
 		<Unit filename="src/Fission/Rendering/SpriteRenderSystem.cpp" />
 		<Unit filename="src/Fission/Rendering/Transform.cpp" />
-		<Unit filename="src/Fission/Script/ScriptSystem.cpp" />
 		<Unit filename="src/Fission/Tests/TestAspect.cpp">
 			<Option target="UnitTests" />
 		</Unit>

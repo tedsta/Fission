@@ -7,7 +7,7 @@
 
 namespace fsn
 {
-    Connection::Connection(IEventManager* eventManager) : mEventManager(eventManager), mNetType(NetType::NONE), mNextID(1)
+    Connection::Connection(EventManager& eventManager) : mEventManager(eventManager), mNetType(NetType::NONE), mNextID(1)
     {
         enet_initialize();
     }
