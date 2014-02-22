@@ -1,10 +1,11 @@
-#ifndef __EVENT_MANAGER_H__
-#define __EVENT_MANAGER_H__
+#ifndef FISSION_EVENT_MANAGER_H
+#define FISSION_EVENT_MANAGER_H
 
-#include <map>
+#include <unordered_map>
 #include <typeinfo>
-
-#include <Nano/nano_signal_slot.hpp>
+#include <typeindex>
+#include <functional>
+#include <vector>
 
 #include "Fission/Util/make_unique.h"
 
@@ -20,44 +21,46 @@ namespace fsn
         public:
             EventManager();
 
-            template <typename Evt_T, typename T, void (T::*meth_ptr)(const Evt_T&)>
-            void addListener(T& listener)
+            template <typename Evt_T, typename T>
+            void addListener(void (T::*meth_ptr)(const Evt_T&), T& listener)
             {
-                auto type = typeid(Evt_T).hash_code();
+                auto type = std::type_index(typeid(Evt_T));
 
-                if (mSignals.find(type) == mSignals.end())
-                    mSignals[type] = make_unique<SignalWrapper<Evt_T>>();
+                if (mListeners.find(type) == mListeners.end())
+                    mListeners[type] = std::vector<std::unique_ptr<ICallbackWrapper>>();
 
-                Nano::signal<void (const Evt_T&)>& signal = static_cast<SignalWrapper<Evt_T>*>(mSignals[type].get())->signal;
-                signal.template connect<T, meth_ptr>(&listener);
+                mListeners[type].push_back(make_unique<CallbackWrapper<Evt_T>>(std::bind(meth_ptr, &listener, std::placeholders::_1)));
             }
 
             template <typename Evt_T>
             void fireEvent(const Evt_T& event)
             {
-                mSignals[typeid(Evt_T).hash_code()]->emit(event);
+                for (auto& callback : mListeners[std::type_index(typeid(Evt_T))])
+                    callback->call(event);
             }
 
         private:
-            class ISignalWrapper
+            class ICallbackWrapper
             {
                 public:
-                    virtual void emit(const EventData& event) = 0;
+                    virtual void call(const EventData& event) = 0;
             };
 
-            template<typename Evt_T>
-            class SignalWrapper : public ISignalWrapper
+            template <typename Evt_T>
+            class CallbackWrapper : public ICallbackWrapper
             {
                 public:
-                    void emit(const EventData& event)
+                    CallbackWrapper(const std::function<void(const Evt_T&)>& func) : func(func) {}
+
+                    void call(const EventData& event)
                     {
-                        signal.emit(static_cast<const Evt_T&>(event));
+                        func(static_cast<const Evt_T&>(event));
                     }
 
-                    Nano::signal<void (const Evt_T&)> signal;
+                    std::function<void(const Evt_T&)> func;
             };
 
-            std::map<std::size_t, std::unique_ptr<ISignalWrapper>> mSignals;
+            std::unordered_map<std::type_index, std::vector<std::unique_ptr<ICallbackWrapper>>> mListeners;
     };
 }
 

@@ -42,8 +42,8 @@ TEST(EventManager_fireEventMemberFunc)
     TestListener listener1;
     TestListener listener2;
 
-    eventMgr.addListener<TestEvent, TestListener, &TestListener::onTestEvent>(listener1);
-    eventMgr.addListener<TestEvent, TestListener, &TestListener::onTestEvent2>(listener2);
+    eventMgr.addListener<TestEvent>(&TestListener::onTestEvent, listener1);
+    eventMgr.addListener<TestEvent>(&TestListener::onTestEvent2, listener2);
 
     eventMgr.fireEvent(TestEvent("hello", 42));
 
