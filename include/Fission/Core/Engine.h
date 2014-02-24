@@ -35,6 +35,12 @@ namespace fsn
             /// \brief Gets the entity manager.
             EntityManager& getEntityManager() {return mEntityManager;}
 
+            /// \brief Gets the lockstep.
+            float getLockStep() const {return mLockStep;}
+
+            /// \brief Gets the accumulated delta time
+            float getDtAccumulated() const {return mDtAccumulator;}
+
         private:
             // The event manager
             EventManager mEventManager;
