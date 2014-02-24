@@ -16,10 +16,10 @@ namespace fsn
             virtual void onEntityDestroyed(const EntityRef& entity) = 0;
 
             /// \brief Called when a component is added to an entity.
-            virtual void onEntityAddedComponent(const EntityRef& entity, Component* component) = 0;
+            virtual void onEntityAddedComponent(const EntityRef& entity, Component& component) = 0;
 
             /// \brief Called when a component is removed from an entity.
-            virtual void onEntityRemovedComponent(const EntityRef& entity, Component* component) = 0;
+            virtual void onEntityRemovedComponent(const EntityRef& entity, Component& component) = 0;
     };
 }
 

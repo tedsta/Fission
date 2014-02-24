@@ -74,8 +74,7 @@ namespace fsn
             {
                 if (componentRow[ID]) // If the entity has this component type, delete it
                 {
-                    delete componentRow[ID];
-                    componentRow[ID] = NULL;
+                    componentRow[ID].reset();
                 }
             }
 
@@ -90,6 +89,22 @@ namespace fsn
         }
         else
             mEntitiesToRemove.push_back(ID);
+
+    }
+
+    void EntityManager::serializeEntity(int ID, Packet& packet)
+    {
+        /*for (auto& componentRow : mComponents) // Component arrays, by type
+        {
+            if (componentRow[ID]) // If the entity has this component
+            {
+                packet << *componentRow[ID];
+            }
+        }*/
+    }
+
+    void EntityManager::deserializeEntity(Packet& packet)
+    {
 
     }
 

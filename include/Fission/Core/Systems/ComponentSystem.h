@@ -40,8 +40,8 @@ namespace fsn
 
             void onEntityCreated(const EntityRef& entity);
             void onEntityDestroyed(const EntityRef& entity);
-            void onEntityAddedComponent(const EntityRef& entity, Component* component);
-            void onEntityRemovedComponent(const EntityRef& entity, Component* component);
+            void onEntityAddedComponent(const EntityRef& entity, Component& component);
+            void onEntityRemovedComponent(const EntityRef& entity, Component& component);
 
         protected:
             // The aspect for this system. Determines which entities are processed by this system

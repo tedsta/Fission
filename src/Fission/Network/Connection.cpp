@@ -104,7 +104,7 @@ namespace fsn
         }
     }
 
-    void Connection::update(const float dt)
+    void Connection::update()
     {
         if (mNetType == NetType::NONE)
             return;

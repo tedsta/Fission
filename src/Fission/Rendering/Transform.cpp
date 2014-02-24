@@ -38,9 +38,9 @@ namespace fsn
     sf::Transform Transform::getGlobalTransform()
     {
         sf::Transform transform = getTransform();
-        for (EntityRef* parent = &mParent; parent->exists(); parent=&parent->getComponent<Transform>()->mParent)
+        for (EntityRef* parent = &mParent; parent->exists(); parent=&parent->getComponent<Transform>().mParent)
         {
-            transform = parent->getComponent<Transform>()->getTransform()*transform;
+            transform = parent->getComponent<Transform>().getTransform()*transform;
         }
         return transform;
     }

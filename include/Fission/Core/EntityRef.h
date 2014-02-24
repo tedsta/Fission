@@ -45,7 +45,7 @@ namespace fsn
             /// \brief Fast, unsafe way to get a component from this entity.
             /// \return Corresponding component, or nullptr if it doesn't exist.
             template<typename component>
-            component* getComponent() const
+            inline component& getComponent() const
             {
                 return mEntityManager->getComponentFromEntity<component>(mID);
             }
@@ -65,7 +65,7 @@ namespace fsn
             /// Useful for when you can't call the template method. Unsafe, so you have to be
             /// absolutely sure that the entity is valid
             /// \return Corresponding component, or nullptr if it doesn't exist.
-            Component* getComponent(ComponentType componentID) const
+            inline Component& getComponent(ComponentType componentID) const
             {
                 return mEntityManager->getComponentFromEntity(mID, componentID);
             }

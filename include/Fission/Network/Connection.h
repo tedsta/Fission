@@ -17,18 +17,6 @@ namespace fsn
         };
     };
 
-    namespace PacketType
-    {
-        enum
-        {
-            BEGIN_SCENE_SEND,
-            SCENE_SEND_PROGRESS,
-            END_SCENE_SEND,
-            CREATE_OBJECT,
-            USER_MESSAGE
-        };
-    };
-
     struct Peer
     {
         int mID;
@@ -45,14 +33,14 @@ namespace fsn
     {
         friend class Connection;
 
-    public:
-        virtual void handlePacket(sf::Packet& packet, int netID) = 0;
+        public:
+            virtual void handlePacket(sf::Packet& packet, int netID) = 0;
 
-        /// \brief Get the packet handler ID
-        int getHndID() const {return mHndID;}
+            /// \brief Get the packet handler ID
+            int getHndID() const {return mHndID;}
 
-    private:
-        int mHndID;
+        private:
+            int mHndID;
     };
 
     class Connection
@@ -80,7 +68,7 @@ namespace fsn
             void disconnect(int netID = 0);
 
             /// \brief Update the networking manager.
-            void update(const float dt);
+            void update();
 
             /// \brief Send a packet over the network.
             /// \param packet The packet to send.

@@ -37,12 +37,12 @@ namespace fsn
         }
     }
 
-    void ComponentSystem::onEntityAddedComponent(const EntityRef& entity, Component* component)
+    void ComponentSystem::onEntityAddedComponent(const EntityRef& entity, Component& component)
     {
         checkEntity(entity);
     }
 
-    void ComponentSystem::onEntityRemovedComponent(const EntityRef& entity, Component* component)
+    void ComponentSystem::onEntityRemovedComponent(const EntityRef& entity, Component& component)
     {
         checkEntity(entity);
     }

@@ -54,9 +54,9 @@ namespace fsn
 
     void RenderManager::addRenderableToLayer(int layer, const EntityRef& entity, int componentID)
     {
-        auto transform = entity.getComponent<Transform>();
-        auto render = static_cast<RenderComponent*>(entity.getComponent(componentID));
-        mLayers[layer].push_back(Renderable{componentID, entity, transform, render});
+        auto& transform = entity.getComponent<Transform>();
+        auto& render = static_cast<RenderComponent&>(entity.getComponent(componentID));
+        mLayers[layer].push_back(Renderable{componentID, entity, &transform, &render});
     }
 
     void RenderManager::removeRenderableFromLayer(int layer, int componentID)
