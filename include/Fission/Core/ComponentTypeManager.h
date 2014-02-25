@@ -30,7 +30,7 @@ namespace fsn
             }
 
             /// \brief Create a new component by it's type ID
-            Component* createComponent(ComponentType type);
+            static Component* createComponent(ComponentType type);
 
             /// \brief Gets the bit set of a component.
             template<typename c>

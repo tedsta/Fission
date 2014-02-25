@@ -1,7 +1,9 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
-#include <SFML/Network/Packet.hpp>
+#include <cstdint>
+
+#include "Fission/Core/Packet.h"
 
 namespace fsn
 {
@@ -19,7 +21,7 @@ namespace fsn
     class Component;
 
     /// \brief Type definition for component type IDs
-    typedef std::size_t ComponentType;
+    typedef std::uint8_t ComponentType;
 
     /// \brief Type definition for component factory functions.
     typedef Component* (*ComponentFactory)();
@@ -33,8 +35,8 @@ namespace fsn
             virtual ~Component(){}
 
             // Serialization stuff
-            virtual void serialize(sf::Packet &packet){}
-            virtual void deserialize(sf::Packet &packet){}
+            virtual void serialize(Packet& packet){}
+            virtual void deserialize(Packet& packet){}
 
             /// \brief Get the component type ID of this component.
             virtual ComponentType getType() const {return 0;}

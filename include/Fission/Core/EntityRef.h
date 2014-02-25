@@ -31,6 +31,9 @@ namespace fsn
             /// \brief Destroy this entity.
             void destroy() const;
 
+            /// \brief Serialize this entity.
+            void serialize(Packet& packet);
+
             /// \brief Set this entity's tag
             void setTag(int tag) const;
 

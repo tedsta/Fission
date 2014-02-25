@@ -1,6 +1,9 @@
 #include "Fission/Core/Packet.h"
 
-Packet::Packet()
+namespace fsn
 {
-    //ctor
+    Packet::Packet() : mStart(0)
+    {
+        //ctor
+    }
 }

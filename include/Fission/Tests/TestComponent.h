@@ -12,7 +12,20 @@ class TestComponent : public fsn::Component
         {
         }
 
+        void serialize(fsn::Packet& packet)
+        {
+            packet << mData;
+            packet << mStr;
+        }
+
+        void deserialize(fsn::Packet& packet)
+        {
+            packet >> mData;
+            packet >> mStr;
+        }
+
         int mData;
+        std::string mStr;
 };
 
 class Test2Component : public fsn::Component
@@ -22,6 +35,16 @@ class Test2Component : public fsn::Component
     public:
         Test2Component() : mData(0)
         {
+        }
+
+        void serialize(fsn::Packet& packet)
+        {
+            packet << mData;
+        }
+
+        void deserialize(fsn::Packet& packet)
+        {
+            packet >> mData;
         }
 
         int mData;

@@ -26,7 +26,7 @@ namespace fsn
         //dtor
     }
 
-    void Sprite::serialize(sf::Packet &packet)
+    void Sprite::serialize(Packet& packet)
     {
         RenderComponent::serialize(packet);
 
@@ -35,7 +35,7 @@ namespace fsn
         packet << mRelativePosition.x << mRelativePosition.y << mRelativeRotation;
     }
 
-    void Sprite::deserialize(sf::Packet &packet)
+    void Sprite::deserialize(Packet& packet)
     {
         RenderComponent::deserialize(packet);
 

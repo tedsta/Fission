@@ -94,18 +94,37 @@ namespace fsn
 
     void EntityManager::serializeEntity(int ID, Packet& packet)
     {
-        /*for (auto& componentRow : mComponents) // Component arrays, by type
+        // The component count
+        packet << static_cast<ComponentType>(mEntityBits[ID].count());
+
+        // The component data
+        for (auto& componentRow : mComponents) // Component arrays, by type
         {
             if (componentRow[ID]) // If the entity has this component
             {
-                packet << *componentRow[ID];
+                packet << componentRow[ID]->getType();
+                componentRow[ID]->serialize(packet);
             }
-        }*/
+        }
     }
 
-    void EntityManager::deserializeEntity(Packet& packet)
+    int EntityManager::deserializeEntity(Packet& packet)
     {
+        int ID = createEntity();
 
+        ComponentType componentCount;
+        packet >> componentCount;
+
+        for (std::size_t i = 0; i < static_cast<std::size_t>(componentCount); i++)
+        {
+            ComponentType type;
+            packet >> type;
+
+            addComponentToEntity(ID, type);
+            mComponents[type][ID]->deserialize(packet);
+        }
+
+        return ID;
     }
 
     void EntityManager::lockEntityDestruction()

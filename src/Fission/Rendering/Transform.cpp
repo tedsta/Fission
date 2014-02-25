@@ -14,12 +14,12 @@ namespace fsn
         //dtor
     }
 
-    void Transform::serialize(sf::Packet& packet)
+    void Transform::serialize(Packet& packet)
     {
         packet << getPosition().x << getPosition().y << getRotation() << getScale().x << getScale().y;
     }
 
-    void Transform::deserialize(sf::Packet& packet)
+    void Transform::deserialize(Packet& packet)
     {
         sf::Vector2f position;
         float rotation;

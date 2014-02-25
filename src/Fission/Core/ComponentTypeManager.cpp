@@ -11,4 +11,3 @@ namespace fsn
         return mFactories[type]();
     }
 }
-

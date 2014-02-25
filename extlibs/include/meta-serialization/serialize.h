@@ -1,15 +1,15 @@
-/** 
+/**
  * Copyright (c) 2013, Simone Pellegrini All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- *  - Redistributions of source code must retain the above copyright notice, 
+ *  - Redistributions of source code must retain the above copyright notice,
  *    this list of conditions and the following disclaimer.
  *
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.  
+ *    and/or other materials provided with the distribution.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -24,7 +24,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once 
+#pragma once
 
 #include <vector>
 #include <string>
@@ -42,21 +42,21 @@ namespace detail {
 
 	template<std::size_t> struct int_{};
 
-} // end detail namespace 
+} // end detail namespace
 
-// get_size 
+// get_size
 template <class T>
 size_t get_size(const T& obj);
 
 namespace detail {
 
 	template <class T>
-	struct get_size_helper; 
+	struct get_size_helper;
 
 	template <class T>
 	struct get_size_helper<std::vector<T>> {
 		static size_t value(const std::vector<T>& obj) {
-		return std::accumulate(obj.begin(), obj.end(), sizeof(size_t), 
+		return std::accumulate(obj.begin(), obj.end(), sizeof(size_t),
 				[](const size_t& acc, const T& cur) { return acc+get_size(cur); });
 		}
 	};
@@ -77,7 +77,7 @@ namespace detail {
 
 	template <class tuple_type, size_t pos>
 	inline size_t get_tuple_size(const tuple_type& obj, int_<pos>) {
-		
+
 		constexpr size_t idx = std::tuple_size<tuple_type>::value-pos-1;
 		size_t acc = get_size(std::get<idx>(obj));
 
@@ -99,11 +99,11 @@ namespace detail {
 		static size_t value(const T& obj) { return sizeof(T); }
 	};
 
-} // end detail namespace 
+} // end detail namespace
 
 template <class T>
-inline size_t get_size(const T& obj) { 
-	return detail::get_size_helper<T>::value(obj); 
+inline size_t get_size(const T& obj) {
+	return detail::get_size_helper<T>::value(obj);
 }
 
 namespace detail {
@@ -124,7 +124,7 @@ namespace detail {
 
 	template <class tuple_type, size_t pos>
 	inline void serialize_tuple(const tuple_type& obj, StreamType::iterator& res, int_<pos>) {
-		
+
 		constexpr size_t idx = std::tuple_size<tuple_type>::value-pos-1;
 		serializer(std::get<idx>(obj), res);
 
@@ -135,7 +135,7 @@ namespace detail {
 
 	template <class... T>
 	struct serialize_helper<std::tuple<T...>> {
-		
+
 		static void apply(const std::tuple<T...>& obj, StreamType::iterator& res) {
 			detail::serialize_tuple(obj, res, detail::int_<sizeof...(T)-1>());
 		}
@@ -166,7 +166,7 @@ namespace detail {
 
 	template <class T>
 	struct serialize_helper {
-		
+
 		static void apply(const T& obj, StreamType::iterator& res) {
 			const uint8_t* ptr = reinterpret_cast<const uint8_t*>(&obj);
 			std::copy(ptr,ptr+sizeof(T),res);
@@ -177,12 +177,12 @@ namespace detail {
 
 	template <class T>
 	inline void serializer(const T& obj, StreamType::iterator& res) {
-		
+
 		serialize_helper<T>::apply(obj,res);
 
 	}
 
-} // end detail namespace 
+} // end detail namespace
 
 template <class T>
 inline void serialize(const T& obj, StreamType& res) {
@@ -203,8 +203,8 @@ namespace detail {
 
 	template <class T>
 	struct deserialize_helper {
-		
-		static T apply(StreamType::const_iterator& begin, 
+
+		static T apply(StreamType::const_iterator& begin,
 							StreamType::const_iterator end) {
 
 			assert(begin+sizeof(T)<=end);
@@ -218,11 +218,11 @@ namespace detail {
 
 	template <class T>
 	struct deserialize_helper<std::vector<T>> {
-	
-		static std::vector<T> apply(StreamType::const_iterator& begin, 
-											 StreamType::const_iterator end) 
+
+		static std::vector<T> apply(StreamType::const_iterator& begin,
+											 StreamType::const_iterator end)
 		{
-			// retrieve the number of elements 
+			// retrieve the number of elements
 			size_t size = deserialize_helper<size_t>::apply(begin,end);
 
 			std::vector<T> vect(size);
@@ -235,15 +235,15 @@ namespace detail {
 
 	template <>
 	struct deserialize_helper<std::string> {
-	
-		static std::string apply(StreamType::const_iterator& begin, 
-										 StreamType::const_iterator end) 
+
+		static std::string apply(StreamType::const_iterator& begin,
+										 StreamType::const_iterator end)
 		{
-			// retrieve the number of elements 
+			// retrieve the number of elements
 			size_t size = deserialize_helper<size_t>::apply(begin,end);
 
 			if (size == 0u) return std::string();
-		
+
 			std::string str(size,'\0');
 			for(size_t i=0; i<size; ++i) {
 				str.at(i) = deserialize_helper<uint8_t>::apply(begin,end);
@@ -253,8 +253,8 @@ namespace detail {
 	};
 
 	template <class tuple_type>
-	inline void deserialize_tuple(tuple_type& obj, 
-								  StreamType::const_iterator& begin, 
+	inline void deserialize_tuple(tuple_type& obj,
+								  StreamType::const_iterator& begin,
 								  StreamType::const_iterator end, int_<0>) {
 
 		constexpr size_t idx = std::tuple_size<tuple_type>::value-1;
@@ -264,10 +264,10 @@ namespace detail {
 	}
 
 	template <class tuple_type, size_t pos>
-	inline void deserialize_tuple(tuple_type& obj, 
-								  StreamType::const_iterator& begin, 
+	inline void deserialize_tuple(tuple_type& obj,
+								  StreamType::const_iterator& begin,
 								  StreamType::const_iterator end, int_<pos>) {
-		
+
 		constexpr size_t idx = std::tuple_size<tuple_type>::value-pos-1;
 		typedef typename std::tuple_element<idx,tuple_type>::type T;
 
@@ -279,9 +279,9 @@ namespace detail {
 
 	template <class... T>
 	struct deserialize_helper<std::tuple<T...>> {
-	
+
 		static std::tuple<T...> apply(StreamType::const_iterator& begin,
-												StreamType::const_iterator end) 
+												StreamType::const_iterator end)
 		{
 			//return std::make_tuple(deserialize(begin,begin+sizeof(T),T())...);
 			std::tuple<T...> ret;
@@ -291,7 +291,7 @@ namespace detail {
 
 	};
 
-} // end detail namespace 
+} // end detail namespace
 
 template <class T>
 inline T deserialize(StreamType::const_iterator& begin, const StreamType::const_iterator& end) {
@@ -300,10 +300,16 @@ inline T deserialize(StreamType::const_iterator& begin, const StreamType::const_
 }
 
 template <class T>
-inline T deserialize(const StreamType& res) {
+inline T deserialize(StreamType& res, std::size_t* start = nullptr) {
 
 	StreamType::const_iterator it = res.begin();
-	return deserialize<T>(it, res.end());
+	if (start)
+        it = it + *start;
+    T data = deserialize<T>(it, res.end());
+    if (start)
+        *start += get_size(data);
+
+	return data;
 }
 
 

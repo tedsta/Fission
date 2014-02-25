@@ -41,8 +41,9 @@ namespace fsn
             /// \brief Serialize an entity.
             void serializeEntity(int ID, Packet& packet);
 
-            /// \brief Creates a new entity from a packet
-            void deserializeEntity(Packet& packet);
+            /// \brief Creates a new entity from a packet.
+            /// \return ID of new entity
+            int deserializeEntity(Packet& packet);
 
             /// \brief Lock entity destruction. All destroyed entities will be removed when it is unlocked.
             void lockEntityDestruction();
@@ -73,6 +74,28 @@ namespace fsn
                 // Tell the world the component's been added
                 for (auto observer : mObservers)
                     observer->onEntityAddedComponent(createEntityRef(ID), *mComponents[component::Type()][ID]);
+            }
+
+            /// \brief Add a component to an entity with specified ComponentType.
+            template<typename... Args>
+            void addComponentToEntity(int ID, ComponentType type, Args&&... args)
+            {
+                if (!entityExists(ID))
+                    return;
+
+                if (type >= mComponents.size()) // Our component table's type dimension isn't big enough yet.
+                {
+                    mComponents.resize(type+1);
+                    for (auto& componentRow : mComponents)
+                        componentRow.resize(mNextID);
+                }
+
+                mComponents[type][ID] = std::unique_ptr<Component>(ComponentTypeManager::createComponent(type)); // Create the new component
+                mEntityBits[ID] |= ComponentTypeManager::getBit(type); // Add the component's bit to the entity's bits.
+
+                // Tell the world the component's been added
+                for (auto observer : mObservers)
+                    observer->onEntityAddedComponent(createEntityRef(ID), *mComponents[type][ID]);
             }
 
             /// \brief Remove a component from an entity.

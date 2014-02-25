@@ -29,7 +29,7 @@ TEST(EntityManager_CreateEntityRef)
 TEST(EntityManager_CreateInvalidEntityRef)
 {
     EntityManager em;
-    auto invalidRef = em.createEntityRef(1); // There are no entities yet, so this should be a NULL reference.
+    auto invalidRef = em.createEntityRef(1); // There are no entities yet, so this should be a nullptr reference.
     CHECK(invalidRef.getID() == EntityRef::NullID);
 }
 
@@ -45,9 +45,9 @@ TEST(EntityManager_AddComponentToEntity)
 {
     EntityManager em;
     auto entityID = em.createEntity();
-    CHECK(em.getComponentFromEntitySafe<TestComponent>(entityID) == NULL);
+    CHECK(em.getComponentFromEntitySafe<TestComponent>(entityID) == nullptr);
     em.addComponentToEntity<TestComponent>(entityID);
-    CHECK(em.getComponentFromEntitySafe<TestComponent>(entityID) != NULL);
+    CHECK(em.getComponentFromEntitySafe<TestComponent>(entityID) != nullptr);
 }
 
 TEST(EntityManager_RemoveComponentFromEntity)
@@ -56,7 +56,7 @@ TEST(EntityManager_RemoveComponentFromEntity)
     auto entityID = em.createEntity();
     em.addComponentToEntity<TestComponent>(entityID);
     em.removeComponentFromEntity<TestComponent>(entityID);
-    CHECK(em.getComponentFromEntitySafe<TestComponent>(entityID) == NULL);
+    CHECK(em.getComponentFromEntitySafe<TestComponent>(entityID) == nullptr);
 }
 
 TEST(EntityManager_AddingComponentChangesEntityBits)
@@ -75,4 +75,26 @@ TEST(EntityManager_RemovingComponentChangesEntityBits)
     em.addComponentToEntity<Test2Component>(entityID);
     em.removeComponentFromEntity<Test2Component>(entityID);
     CHECK(!em.getEntityBits(entityID).test(Test2Component::Type()));
+}
+
+TEST(EntityManager_EntitySerialization)
+{
+    EntityManager em;
+    auto entityID = em.createEntity();
+    em.addComponentToEntity<TestComponent>(entityID);
+    em.addComponentToEntity<Test2Component>(entityID);
+    em.getComponentFromEntity<TestComponent>(entityID).mData = 42;
+    em.getComponentFromEntity<TestComponent>(entityID).mStr = "Hello";
+    em.getComponentFromEntity<Test2Component>(entityID).mData = 24;
+
+    fsn::Packet packet;
+    em.serializeEntity(entityID, packet);
+
+    auto newEntityID = em.deserializeEntity(packet);
+    CHECK(newEntityID != entityID);
+    CHECK(em.getComponentFromEntitySafe<TestComponent>(newEntityID) != nullptr);
+    CHECK(em.getComponentFromEntitySafe<Test2Component>(newEntityID) != nullptr);
+    CHECK(em.getComponentFromEntity<TestComponent>(newEntityID).mData == 42);
+    CHECK(em.getComponentFromEntity<TestComponent>(newEntityID).mStr == "Hello");
+    CHECK(em.getComponentFromEntity<Test2Component>(newEntityID).mData == 24);
 }

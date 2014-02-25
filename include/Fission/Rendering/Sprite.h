@@ -21,8 +21,8 @@ namespace fsn
             virtual ~Sprite();
 
             // Serialization stuff
-            void serialize(sf::Packet &packet);
-            void deserialize(sf::Packet &packet);
+            void serialize(Packet& packet);
+            void deserialize(Packet& packet);
 
             // Renderable components gotto render...
             void render(sf::RenderTarget& target, sf::RenderStates states);

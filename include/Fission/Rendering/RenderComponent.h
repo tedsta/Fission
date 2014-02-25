@@ -15,13 +15,13 @@ namespace fsn
             RenderComponent() : mLit(true), mLayer(0) {}
             virtual ~RenderComponent() {}
 
-            virtual void serialize(sf::Packet& packet)
+            virtual void serialize(Packet& packet)
             {
                 packet << mLit;
                 packet << mLayer;
             }
 
-            virtual void deserialize(sf::Packet& packet)
+            virtual void deserialize(Packet& packet)
             {
                 packet >> mLit;
                 packet >> mLayer;
