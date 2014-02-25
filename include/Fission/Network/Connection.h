@@ -3,7 +3,7 @@
 
 #include <enet/enet.h>
 
-#include <SFML/Network/Packet.hpp>
+#include "Fission/Core/Packet.h"
 
 namespace fsn
 {
@@ -34,7 +34,7 @@ namespace fsn
         friend class Connection;
 
         public:
-            virtual void handlePacket(sf::Packet& packet, int netID) = 0;
+            virtual void handlePacket(Packet& packet, int netID) = 0;
 
             /// \brief Get the packet handler ID
             int getHndID() const {return mHndID;}
@@ -77,7 +77,7 @@ namespace fsn
             /// \param excludeID If it's a server and the packet is sent to all clients, the ID of the
             /// peer to exclude when sending. Set to 0 to exclude no one.
             /// \param reliable Whether or not to send the packet reliably.
-            void send(sf::Packet& packet, int hndID, int netID = 0, int excludeID = 0, bool reliable = true);
+            void send(Packet& packet, int hndID, int netID = 0, int excludeID = 0, bool reliable = true);
 
             /// \brief Find the ID of a peer with the specified IP address.
             int findPeerID(std::string IP);

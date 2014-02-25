@@ -74,7 +74,7 @@ namespace fsn
         if (enet_host_service(mHost, &event, 10000) > 0 &&
             event.type == ENET_EVENT_TYPE_RECEIVE)
         {
-            sf::Packet packet;
+            Packet packet;
             packet.append(event.packet->data+1, event.packet->dataLength-1); // offset of 1 is for handler ID tagged onto packets
             packet >> mPeer->mID;
             packet.clear();
@@ -139,7 +139,7 @@ namespace fsn
                     event.peer->data = peer;
 
                     // Send the client its ID
-                    sf::Packet idPacket;
+                    Packet idPacket;
                     idPacket << peer->mID;
                     send(idPacket, peer->mID);
                     enet_host_flush(mHost);
@@ -154,7 +154,7 @@ namespace fsn
                 {
                     Peer *peer = reinterpret_cast<Peer*>(event.peer->data);
 
-                    sf::Packet packet;
+                    Packet packet;
                     packet.append(event.packet->data+0, event.packet->dataLength-0);
 
                     sf::Int8 hndID;
@@ -209,17 +209,17 @@ namespace fsn
         }
     }
 
-    void Connection::send(sf::Packet& packet, int hndID, int peerID, int excludeID, bool reliable)
+    void Connection::send(Packet& packet, int hndID, int peerID, int excludeID, bool reliable)
     {
         if (mNetType == NetType::NONE)
             return;
 
-        sf::Packet finalPacket;
+        Packet finalPacket;
         finalPacket << sf::Int8(hndID);
-        finalPacket.append(packet.getData(), packet.getDataSize());
+        finalPacket << packet; // Append other packet onto final packet
 
         // Create the enet packet
-        unsigned int flags = 0;
+        unsigned int flags = ENET_PACKET_FLAG_NO_ALLOCATE;
         if (reliable)
             flags |= ENET_PACKET_FLAG_RELIABLE;
 
