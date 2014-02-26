@@ -31,7 +31,8 @@ namespace fsn
         RenderComponent::serialize(packet);
 
         packet << mTexturePath;
-        packet << mCurrentFrame << mFrameDir << mFrameDelay << sf::Int8(mLoopAnim) << mFrames << mFramesPerRow;
+        packet << mCurrentFrame << mFrameDir << mFrameDelay << sf::Int8(mLoopAnim);
+        packet << mFrames << mFramesPerRow << mStartFrame << mEndFrame;
         packet << mRelativePosition.x << mRelativePosition.y << mRelativeRotation;
     }
 
@@ -49,12 +50,10 @@ namespace fsn
         packet >> loop;
         mLoopAnim = loop;
 
-        packet >> mFrames >> mFramesPerRow;
+        packet >> mFrames >> mFramesPerRow >> mStartFrame >> mEndFrame;
 
         // Calculate frame dimensions
         mFrameDim = sf::Vector2f(mSprite.getTexture()->getSize().x/mFramesPerRow, mSprite.getTexture()->getSize().y/(mFrames/mFramesPerRow));
-        mStartFrame = 0;
-        mEndFrame = mFrames-1;
 
         packet >> mRelativePosition.x >> mRelativePosition.y >> mRelativeRotation;
     }

@@ -83,7 +83,7 @@ namespace fsn
             int findPeerID(std::string IP);
 
             /// \brief Find a peer by ID.
-            Peer *findPeer(int netID);
+            Peer* findPeer(int netID);
 
             /// \brief Remove a peer
             void removePeer(int netID);
@@ -95,31 +95,33 @@ namespace fsn
             void registerHandler(int hndID, IPacketHandler* handler);
 
             /// \brief Get the network role - server or client.
-            int getType(){return mNetType;}
+            int getType() const {return mNetType;}
 
             /// \brief If this is a client, get the network ID.
-            int getNetID(){if (mPeer){return mPeer->mID;} return 0;}
+            int getNetID() const {if (mPeer){return mPeer->mID;} return 0;}
 
         private:
+            void sendRaw(Packet& packet, int netID = 0, int excludeID = 0, bool reliable = true);
+
             // Some dependencies
             EventManager& mEventManager;
 
-            /// Server or client?
+            // Server or client?
             int mNetType;
 
-            /// The network host
+            // The network host
             ENetHost *mHost;
 
-            /// If it's a client, the peer
+            // If it's a client, the peer
             Peer *mPeer;
 
-            /// The list of clients if I'm a server
+            // The list of clients if I'm a server
             std::vector <Peer*> mPeers;
 
-            /// The ID for the next peer
+            // The ID for the next peer
             int mNextID;
 
-            /// The packet handlers
+            // The packet handlers
             std::vector<IPacketHandler*> mHandlers;
     };
 }

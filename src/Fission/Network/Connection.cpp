@@ -75,7 +75,7 @@ namespace fsn
             event.type == ENET_EVENT_TYPE_RECEIVE)
         {
             Packet packet;
-            packet.append(event.packet->data+1, event.packet->dataLength-1); // offset of 1 is for handler ID tagged onto packets
+            packet.append(event.packet->data, event.packet->dataLength); // offset of 1 is for handler ID tagged onto packets
             packet >> mPeer->mID;
             std::cout << "Connection to " << ipAddress << " with ID " << mPeer->mID <<  " succeeded.\n";
         }
@@ -140,7 +140,7 @@ namespace fsn
                     // Send the client its ID
                     Packet idPacket;
                     idPacket << peer->mID;
-                    send(idPacket, peer->mID);
+                    sendRaw(idPacket, peer->mID);
                     enet_host_flush(mHost);
 
                     // TODO: Fire client connected event.
@@ -150,13 +150,13 @@ namespace fsn
 
                 case ENET_EVENT_TYPE_RECEIVE:
                 {
-                    Peer *peer = reinterpret_cast<Peer*>(event.peer->data);
+                    Peer* peer = reinterpret_cast<Peer*>(event.peer->data);
 
-                    Packet packet;
-                    packet.append(event.packet->data+0, event.packet->dataLength-0);
+                    Packet packet(event.packet->data, event.packet->dataLength);
 
                     sf::Int8 hndID;
                     packet >> hndID;
+
                     if (hndID >= 0 && hndID < int(mHandlers.size()))
                     {
                         if (mNetType == NetType::SERVER)
@@ -207,7 +207,7 @@ namespace fsn
         }
     }
 
-    void Connection::send(Packet& packet, int hndID, int peerID, int excludeID, bool reliable)
+    void Connection::send(Packet& packet, int hndID, int netID, int excludeID, bool reliable)
     {
         if (mNetType == NetType::NONE)
             return;
@@ -216,20 +216,29 @@ namespace fsn
         finalPacket << sf::Int8(hndID);
         finalPacket << packet; // Append other packet onto final packet
 
+        // Send the packet
+        sendRaw(finalPacket, netID, excludeID, reliable);
+    }
+
+    void Connection::sendRaw(Packet& packet, int netID, int excludeID, bool reliable)
+    {
+        if (mNetType == NetType::NONE)
+            return;
+
         // Create the enet packet
-        unsigned int flags = ENET_PACKET_FLAG_NO_ALLOCATE;
+        unsigned int flags = 0;
         if (reliable)
             flags |= ENET_PACKET_FLAG_RELIABLE;
 
-        ENetPacket *enetPacket = enet_packet_create(finalPacket.getData(), finalPacket.getDataSize(), flags);
+        ENetPacket* enetPacket = enet_packet_create(packet.getData(), packet.getDataSize(), flags);
 
         if (mNetType == NetType::CLIENT) // Clients send data to server only
         {
             enet_host_broadcast(mHost, 0, enetPacket);
         }
-        else if (peerID > 0) // It's a server and the client is specified. Tell only that client!
+        else if (netID > 0) // It's a server and the client is specified. Tell only that client!
         {
-            enet_peer_send(findPeer(peerID)->mPeer, 0, enetPacket);
+            enet_peer_send(findPeer(netID)->mPeer, 0, enetPacket);
         }
         else // It's a server and the client is unspecified. Broadcast to everyone
         {
