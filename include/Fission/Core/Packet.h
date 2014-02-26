@@ -11,6 +11,7 @@ namespace fsn
     {
         public:
             Packet();
+            Packet(const unsigned char* data, std::size_t len);
 
             /// \brief Generic insertion operator
             template <typename T>
