@@ -74,8 +74,6 @@ namespace fsn
         if (enet_host_service(mHost, &event, 10000) > 0 &&
             event.type == ENET_EVENT_TYPE_RECEIVE)
         {
-            std::cout << event.packet->dataLength << std::endl;
-
             Packet packet;
             packet.append(event.packet->data+1, event.packet->dataLength-1); // offset of 1 is for handler ID tagged onto packets
             packet >> mPeer->mID;
