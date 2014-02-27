@@ -163,6 +163,16 @@ namespace fsn
         }
     }
 
+    const std::vector<EntityRef>& EntityManager::getEntitiesWithTag(int tag)
+    {
+        if (tag >= 0 && static_cast<int>(mTaggedEntities.size()) <= tag)
+        {
+            mTaggedEntities.resize(tag+1);
+        }
+
+        return mTaggedEntities[tag];
+    }
+
     bool EntityManager::entityExists(int ID) const
     {
         if (ID == EntityRef::NullID || ID < 0 || mNextID <= ID || std::find(mFreeIDs.begin(), mFreeIDs.end(), ID) != mFreeIDs.end())

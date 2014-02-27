@@ -156,10 +156,7 @@ namespace fsn
             int getEntityTag(int ID) const {return mEntityTags[ID];}
 
             /// \brief Get the array of entity's with a tag
-            const std::vector<EntityRef>& getEntitiesWithTag(int tag)
-            {
-                return mTaggedEntities[tag];
-            }
+            const std::vector<EntityRef>& getEntitiesWithTag(int tag);
 
             /// \brief Get the number of active entities.
             int getEntityCount() const {return mEntityCount;}
