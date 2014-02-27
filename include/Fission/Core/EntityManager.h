@@ -29,8 +29,10 @@ namespace fsn
             virtual ~EntityManager();
 
             /// \brief Creates a new entity.
+            /// \param giveUniqueID Set to true if the new entity needs a unique ID. Useful for
+            /// networking.
             /// \return ID of new entity.
-            int createEntity();
+            int createEntity(bool giveUniqueID = false);
 
             /// \brief Creates a new entity reference to an existing entity.
             EntityRef createEntityRef(int ID);

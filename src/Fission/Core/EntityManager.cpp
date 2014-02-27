@@ -15,7 +15,7 @@ namespace fsn
         //dtor
     }
 
-    int EntityManager::createEntity()
+    int EntityManager::createEntity(bool giveUniqueID)
     {
         int ID;
 
@@ -40,7 +40,11 @@ namespace fsn
             mEntityTags.push_back(-1);
         }
 
-        mUniqueIDs[ID] = mNextUniqueID++;
+        if (giveUniqueID)
+        {
+            mUniqueIDs[ID] = mNextUniqueID++;
+        }
+
         mEntityCount++;
 
         // Tell the observers that this entity has been created.
@@ -65,7 +69,7 @@ namespace fsn
         if (uniqueID == EntityRef::NullUniqueID)
             return EntityRef::NullID;
 
-        for (int ID = 0; ID < mUniqueIDs.size(); ID++)
+        for (int ID = 0; ID < static_cast<int>(mUniqueIDs.size()); ID++)
         {
             if (mUniqueIDs[ID] == uniqueID)
                 return ID;
@@ -110,6 +114,9 @@ namespace fsn
 
     void EntityManager::serializeEntity(int ID, Packet& packet)
     {
+        // The unique ID
+        packet << mUniqueIDs[ID];
+
         // The component count
         packet << static_cast<ComponentType>(mEntityBits[ID].count());
 
@@ -127,6 +134,8 @@ namespace fsn
     int EntityManager::deserializeEntity(Packet& packet)
     {
         int ID = createEntity();
+
+        packet >> mUniqueIDs[ID];
 
         ComponentType componentCount;
         packet >> componentCount;
