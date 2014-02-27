@@ -1,6 +1,8 @@
 #ifndef ENTITYREF_H
 #define ENTITYREF_H
 
+#include <cstddef>
+
 #include "Fission/Core/EntityManager.h"
 
 namespace fsn
@@ -10,7 +12,8 @@ namespace fsn
         friend class EntityManager;
 
         public:
-            const static int NullID = -1; // The 0th entity is the NULL entity.
+            static const int NullID = -1; // The 0th entity is the NULL entity.
+            static const std::size_t NullUniqueID = 0;
 
             struct find : std::unary_function<EntityRef, bool>
             {
@@ -75,6 +78,9 @@ namespace fsn
 
             /// \brief Get the ID of the entity this points to.
             int getID() const {return mID;}
+
+            /// \brief Get this entity's unique ID
+            std::size_t getUniqueID() const;
 
             /// \brief Get the bits for this entity
             const std::bitset<MaxComponents>& getBits() const;

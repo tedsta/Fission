@@ -6,7 +6,7 @@
 
 namespace fsn
 {
-    EntityManager::EntityManager() : mDestructionLocked(false), mNextID(0)
+    EntityManager::EntityManager() : mDestructionLocked(false), mNextID(0), mNextUniqueID(1)
     {
     }
 
@@ -26,8 +26,7 @@ namespace fsn
         }
         else // Need to make a new ID for this entity
         {
-            ID = mNextID;
-            mNextID++;
+            ID = mNextID++;
 
             // Add all of the entity's null components to the component table
             for (auto& componentRow : mComponents)
@@ -36,10 +35,12 @@ namespace fsn
             }
 
             // Create the entity bits for this entity.
+            mUniqueIDs.push_back(0);
             mEntityBits.push_back(std::bitset<MaxComponents>());
             mEntityTags.push_back(-1);
         }
 
+        mUniqueIDs[ID] = mNextUniqueID++;
         mEntityCount++;
 
         // Tell the observers that this entity has been created.
@@ -57,6 +58,20 @@ namespace fsn
         }
 
         return EntityRef(this, ID);
+    }
+
+    int EntityManager::getEntityIDFromUniqueID(std::size_t uniqueID)
+    {
+        if (uniqueID == EntityRef::NullUniqueID)
+            return EntityRef::NullID;
+
+        for (int ID = 0; ID < mUniqueIDs.size(); ID++)
+        {
+            if (mUniqueIDs[ID] == uniqueID)
+                return ID;
+        }
+
+        return EntityRef::NullID; // return null entity
     }
 
     void EntityManager::destroyEntity(int ID)
@@ -83,6 +98,7 @@ namespace fsn
                                                                  mTaggedEntities[mEntityTags[ID]].end(), EntityRef::find(ID)));
 
             mEntityCount--;
+            mUniqueIDs[ID] = EntityRef::NullUniqueID;
             mEntityBits[ID].reset();
             mEntityTags[ID] = -1;
             mFreeIDs.push_back(ID); // Free up the entity's ID

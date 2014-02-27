@@ -41,6 +41,25 @@ TEST(EntityManager_DestroyEntity)
     CHECK(!em.entityExists(entityID));
 }
 
+TEST(EntityManager_UniqueIDCreation)
+{
+    EntityManager em;
+    auto entityID = em.createEntity();
+    auto uniqueID = em.getUniqueEntityID(entityID);
+    em.destroyEntity(entityID);
+    CHECK(!em.entityExists(entityID));
+
+    entityID = em.createEntity();
+    CHECK(em.getUniqueEntityID(entityID) != uniqueID);
+}
+
+TEST(EntityManager_GetByUniqueID)
+{
+    EntityManager em;
+    auto entityID = em.createEntity();
+    CHECK(em.getEntityIDFromUniqueID(em.getUniqueEntityID(entityID)) == entityID);
+}
+
 TEST(EntityManager_AddComponentToEntity)
 {
     EntityManager em;

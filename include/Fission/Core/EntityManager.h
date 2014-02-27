@@ -32,8 +32,11 @@ namespace fsn
             /// \return ID of new entity.
             int createEntity();
 
-            /// \brief Creates a new entity entity reference to an existing entity.
+            /// \brief Creates a new entity reference to an existing entity.
             EntityRef createEntityRef(int ID);
+
+            /// \brief Get entity ID from an unique entity ID
+            int getEntityIDFromUniqueID(std::size_t uniqueID);
 
             /// \brief Destroy an existing entity.
             void destroyEntity(int ID);
@@ -149,6 +152,9 @@ namespace fsn
                 return nullptr;
             }
 
+            /// \brief Get entity's unique ID
+            std::size_t getUniqueEntityID(int ID) const {return mUniqueIDs[ID];}
+
             /// \brief Get entity bits.
             const std::bitset<MaxComponents>& getEntityBits(int ID) const {return mEntityBits[ID];}
 
@@ -170,6 +176,7 @@ namespace fsn
         private:
             void removeEntitiesMarkedForRemoval();
 
+            std::vector<std::size_t> mUniqueIDs; // Unique entity IDs
             std::vector<std::vector<std::unique_ptr<Component>>> mComponents; // By component type, by entity ID.
             std::vector<std::bitset<MaxComponents>> mEntityBits; // By entity ID
             std::vector<int> mEntityTags; // Entity tags
@@ -182,7 +189,8 @@ namespace fsn
             bool mDestructionLocked;
 
             std::vector<int> mFreeIDs;
-            int mNextID; // Entity IDs start at 1. The 0th entity is the nullptr entity.
+            int mNextID; // Entity IDs start at 0
+            std::size_t mNextUniqueID; // Unique entity IDs start at 1, 0 is invalid
     };
 }
 

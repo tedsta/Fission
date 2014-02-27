@@ -36,6 +36,13 @@ namespace fsn
             mEntityManager->setEntityTag(mID, tag);
     }
 
+    std::size_t EntityRef::getUniqueID() const
+    {
+        if (mEntityManager)
+            return mEntityManager->getUniqueEntityID(mID);
+        return NullUniqueID;
+    }
+
     const std::bitset<MaxComponents>& EntityRef::getBits() const
     {
         return mEntityManager->getEntityBits(mID);
