@@ -25,7 +25,7 @@ namespace fsn
             mEntityManager->destroyEntity(mID);
     }
 
-    void EntityRef::serialize(Packet& packet)
+    void EntityRef::serialize(Packet& packet) const
     {
         mEntityManager->serializeEntity(mID, packet);
     }

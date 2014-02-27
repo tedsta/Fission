@@ -32,7 +32,7 @@ namespace fsn
             void destroy() const;
 
             /// \brief Serialize this entity.
-            void serialize(Packet& packet);
+            void serialize(Packet& packet) const;
 
             /// \brief Set this entity's tag
             void setTag(int tag) const;
