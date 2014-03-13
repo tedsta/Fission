@@ -32,19 +32,19 @@ namespace fsn
             }
 
             /// \brief Require all of these components.
-            template<typename...components>
+            template<typename ...components>
             void all() {
                 _all(typelist<components...>());
             }
 
             /// \brief Require at least one of these components.
-            template<typename...components>
+            template<typename ...components>
             void one() {
                 _one(typelist<components...>());
             }
 
             /// \brief Require that none of these components are present.
-            template<typename...components>
+            template<typename ...components>
             void exclude() {
                 _exclude(typelist<components...>());
             }

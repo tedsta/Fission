@@ -87,6 +87,7 @@
 		<Unit filename="include/Fission/Core/EntityManager.h" />
 		<Unit filename="include/Fission/Core/EntityRef.h" />
 		<Unit filename="include/Fission/Core/EventManager.h" />
+		<Unit filename="include/Fission/Core/FilteredEntityBucket.h" />
 		<Unit filename="include/Fission/Core/IEntityObserver.h" />
 		<Unit filename="include/Fission/Core/Packet.h" />
 		<Unit filename="include/Fission/Core/ResourceManager.h" />
@@ -118,6 +119,7 @@
 		<Unit filename="src/Fission/Core/EntityManager.cpp" />
 		<Unit filename="src/Fission/Core/EntityRef.cpp" />
 		<Unit filename="src/Fission/Core/EventManager.cpp" />
+		<Unit filename="src/Fission/Core/FilteredEntityBucket.cpp" />
 		<Unit filename="src/Fission/Core/Packet.cpp" />
 		<Unit filename="src/Fission/Core/ResourceManager.cpp" />
 		<Unit filename="src/Fission/Core/Systems/ComponentSystem.cpp" />

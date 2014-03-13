@@ -38,7 +38,7 @@ namespace fsn
             RenderSystem(EntityManager& entityMgr, RenderManager* renderManager) :
                 IRenderSystem(entityMgr), mRenderManager(renderManager)
             {
-                mAspect.all<RenderComponentT>();
+                all<RenderComponentT>();
                 if (mRenderManager->mRenderSystems.size() <= RenderComponentT::Type())
                     mRenderManager->mRenderSystems.resize(RenderComponentT::Type()+1);
                 mRenderManager->mRenderSystems[RenderComponentT::Type()] = this;
