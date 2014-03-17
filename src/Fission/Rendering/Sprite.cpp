@@ -92,6 +92,9 @@ namespace fsn
 
     void Sprite::setFrameLoop(int start, int stop)
     {
+        if (start == mStartFrame && stop == mEndFrame)
+            return;
+
         if (start <= stop)
         {
             mStartFrame = start;
