@@ -21,8 +21,8 @@ namespace fsn
         public:
             EventManager();
 
-            template <typename Evt_T, typename T>
-            void addListener(void (T::*meth_ptr)(const Evt_T&), T& listener)
+            template <typename Evt_T, typename T, typename C>
+            void addListener(void (T::*meth_ptr)(const Evt_T&), C& listener)
             {
                 auto type = std::type_index(typeid(Evt_T));
 
