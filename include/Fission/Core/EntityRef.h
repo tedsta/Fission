@@ -76,6 +76,13 @@ namespace fsn
                 return mEntityManager->getComponentFromEntity(mID, componentID);
             }
 
+            /// \brief Remove a component from this entity.
+            template <typename component>
+            void removeComponent() const
+            {
+                mEntityManager->removeComponentFromEntity<component>(mID);
+            }
+
             /// \brief Get the ID of the entity this points to.
             int getID() const {return mID;}
 
