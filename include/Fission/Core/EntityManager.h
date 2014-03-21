@@ -5,6 +5,7 @@
 #include <vector>
 #include <cstddef>
 #include <memory>
+#include <unordered_map>
 
 #include "Fission/Core/ComponentTypeManager.h"
 #include "Fission/Core/EventManager.h"
@@ -105,24 +106,12 @@ namespace fsn
 
             /// \brief Remove a component from an entity.
             template<typename component>
-            void removeComponentFromEntity(int ID)
+            inline void removeComponentFromEntity(int ID)
             {
-                if (!entityExists(ID))
-                    return;
-
-                if (component::Type() >= mComponents.size()) // No entities have this component
-                    return;
-
-                if (!mComponents[component::Type()][ID]) // This entity doesn't have this component
-                    return;
-
-                // Tell the world that this component's been removed from this entity.
-                for (auto observer : mObservers)
-                    observer->onEntityRemovedComponent(createEntityRef(ID), *mComponents[component::Type()][ID]);
-
-                mComponents[component::Type()][ID].reset(); // Delete the component
-                mEntityBits[ID] &= ComponentTypeManager::getBit<component>().flip(); // Remove the component's bit from the entity's bits.
+                removeComponentFromEntity(ID, component::Type());
             }
+
+            void removeComponentFromEntity(int ID, ComponentType componentType);
 
             /// \brief Fastest, unsafe way to get a component on an entity.
             /// \note Template is for casting convenience
@@ -178,13 +167,14 @@ namespace fsn
         private:
             void removeEntitiesMarkedForRemoval();
 
-            std::vector<std::size_t> mUniqueIDs; // Unique entity IDs
+            std::vector<std::size_t> mUniqueIDs;                              // Unique entity IDs
             std::vector<std::vector<std::unique_ptr<Component>>> mComponents; // By component type, by entity ID.
-            std::vector<std::bitset<MaxComponents>> mEntityBits; // By entity ID
-            std::vector<int> mEntityTags; // Entity tags
-            std::vector<int> mEntitiesToRemove; // Entities to remove before the next frame
-            std::vector<std::vector<EntityRef>> mTaggedEntities; // All of the tagged entities
-            int mEntityCount; // Total number of active entities
+            std::vector<std::bitset<MaxComponents>> mEntityBits;              // By entity ID
+            std::vector<int> mEntityTags;                                     // Entity tags
+            std::vector<int> mEntitiesToRemove;                               // Entities to remove before the next frame
+            std::unordered_map<int, std::vector<ComponentType>> mComponentsToRemove;      // Components to remove before next frame
+            std::vector<std::vector<EntityRef>> mTaggedEntities;              // All of the tagged entities
+            int mEntityCount;                                                 // Total number of active entities
 
             std::vector<IEntityObserver*> mObservers; // Entity listeners
 

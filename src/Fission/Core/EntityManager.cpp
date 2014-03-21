@@ -163,8 +163,15 @@ namespace fsn
 
         for (auto ID : mEntitiesToRemove)
             destroyEntity(ID);
-
         mEntitiesToRemove.clear();
+
+        for (auto& pair : mComponentsToRemove)
+        {
+            for (auto componentType : pair.second)
+            {
+                removeComponentFromEntity(pair.first, componentType);
+            }
+        }
     }
 
     void EntityManager::setEntityTag(int ID, int tag)
@@ -185,6 +192,35 @@ namespace fsn
                 mTaggedEntities.resize(tag+1);
 
             mTaggedEntities[tag].push_back(createEntityRef(ID));
+        }
+    }
+
+    void EntityManager::removeComponentFromEntity(int ID, ComponentType componentType)
+    {
+        if (!entityExists(ID))
+            return;
+
+        if (componentType >= mComponents.size()) // No entities have this component
+            return;
+
+        if (!mComponents[componentType][ID]) // This entity doesn't have this component
+            return;
+
+        if (!mDestructionLocked)
+        {
+            // Tell the world that this component's been removed from this entity.
+            for (auto observer : mObservers)
+                observer->onEntityRemovedComponent(createEntityRef(ID), *mComponents[componentType][ID]);
+
+            mComponents[componentType][ID].reset(); // Delete the component
+            mEntityBits[ID] &= ComponentTypeManager::getBit(componentType).flip(); // Remove the component's bit from the entity's bits.
+        }
+        else
+        {
+            if (mComponentsToRemove.find(ID) == mComponentsToRemove.end())
+                mComponentsToRemove[ID] = std::vector<ComponentType>();
+
+            mComponentsToRemove[ID].push_back(componentType);
         }
     }
 
