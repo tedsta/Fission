@@ -140,6 +140,9 @@
 		<Unit filename="src/Fission/Tests/TestEventManager.cpp">
 			<Option target="UnitTests" />
 		</Unit>
+		<Unit filename="src/Fission/Tests/TestFilteredEntityBucket.cpp">
+			<Option target="UnitTests" />
+		</Unit>
 		<Unit filename="src/Fission/Tests/TestPacket.cpp">
 			<Option target="UnitTests" />
 		</Unit>

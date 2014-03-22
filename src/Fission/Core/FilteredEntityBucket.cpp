@@ -46,7 +46,7 @@ namespace fsn
                 onEntityAdded(entity);
             }
         }
-        else if (!mAspect.checkEntity(entity))
+        else
         {
             auto entityIt = std::find_if(mActiveEntities.begin(), mActiveEntities.end(), EntityRef::find(entity.getID()));
             if (entityIt != mActiveEntities.end())

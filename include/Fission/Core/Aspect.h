@@ -25,6 +25,7 @@ namespace fsn
             bool checkEntity(const EntityRefT& entity)
             {
                 std::bitset<MaxComponents> entityBits = entity.getBits();
+
                 if ((entityBits&mAll) == mAll && (mOne.none() || (entityBits&mOne).any()) && (entityBits&mExclude).none())
                     return true;
 

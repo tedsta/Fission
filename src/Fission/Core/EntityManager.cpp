@@ -208,12 +208,13 @@ namespace fsn
 
         if (!mDestructionLocked)
         {
+            mEntityBits[ID] &= ComponentTypeManager::getBit(componentType).flip(); // Remove the component's bit from the entity's bits.
+
             // Tell the world that this component's been removed from this entity.
             for (auto observer : mObservers)
                 observer->onEntityRemovedComponent(createEntityRef(ID), *mComponents[componentType][ID]);
 
             mComponents[componentType][ID].reset(); // Delete the component
-            mEntityBits[ID] &= ComponentTypeManager::getBit(componentType).flip(); // Remove the component's bit from the entity's bits.
         }
         else
         {
