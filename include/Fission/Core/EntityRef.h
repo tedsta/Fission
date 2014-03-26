@@ -85,7 +85,7 @@ namespace fsn
 
             /// \brief Check if this entity has a component
             template <typename component>
-            bool hasComponent()
+            bool hasComponent() const
             {
                 return mEntityManager->entityHasComponent<component>(mID);
             }
