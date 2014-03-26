@@ -76,6 +76,15 @@ TEST(EntityManager_AddComponentToEntity)
     CHECK(em.getComponentFromEntitySafe<TestComponent>(entityID) != nullptr);
 }
 
+TEST(EntityManager_EntityHasComponent)
+{
+    EntityManager em;
+    auto entityID = em.createEntity();
+    CHECK(!em.entityHasComponent<TestComponent>(entityID));
+    em.addComponentToEntity<TestComponent>(entityID);
+    CHECK(em.entityHasComponent<TestComponent>(entityID));
+}
+
 TEST(EntityManager_RemoveComponentFromEntity)
 {
     EntityManager em;

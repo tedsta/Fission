@@ -225,6 +225,18 @@ namespace fsn
         }
     }
 
+    bool EntityManager::entityHasComponent(int ID, ComponentType componentType)
+    {
+        if (!entityExists(ID))
+            return false;
+
+        if (static_cast<std::size_t>(componentType) < mComponents.size() &&
+            mComponents[componentType][ID].get() != nullptr)
+            return true;
+
+        return false;
+    }
+
     const std::vector<EntityRef>& EntityManager::getEntitiesWithTag(int tag)
     {
         if (tag >= 0 && static_cast<int>(mTaggedEntities.size()) <= tag)

@@ -78,9 +78,16 @@ namespace fsn
 
             /// \brief Remove a component from this entity.
             template <typename component>
-            void removeComponent() const
+            inline void removeComponent() const
             {
                 mEntityManager->removeComponentFromEntity<component>(mID);
+            }
+
+            /// \brief Check if this entity has a component
+            template <typename component>
+            bool hasComponent()
+            {
+                return mEntityManager->entityHasComponent<component>(mID);
             }
 
             /// \brief Get the ID of the entity this points to.

@@ -143,6 +143,16 @@ namespace fsn
                 return nullptr;
             }
 
+            /// \brief Get whether or not an entity has a component
+            template <typename component>
+            inline bool entityHasComponent(int ID)
+            {
+                return entityHasComponent(ID, component::Type());
+            }
+
+            /// \brief Get whether or not an entity has a component with the component's type ID
+            bool entityHasComponent(int ID, ComponentType componentType);
+
             /// \brief Get entity's unique ID
             std::size_t getUniqueEntityID(int ID) const {return mUniqueIDs[ID];}
 
