@@ -100,6 +100,7 @@
 		<Unit filename="include/Fission/Input/InputSystem.h" />
 		<Unit filename="include/Fission/Network/Connection.h" />
 		<Unit filename="include/Fission/Network/NetworkEvents.h" />
+		<Unit filename="include/Fission/Network/NetworkedEntityRef.h" />
 		<Unit filename="include/Fission/Rendering/DebugDisplay.h" />
 		<Unit filename="include/Fission/Rendering/RenderComponent.h" />
 		<Unit filename="include/Fission/Rendering/RenderLayer.h" />
@@ -125,6 +126,7 @@
 		<Unit filename="src/Fission/Core/Systems/ComponentSystem.cpp" />
 		<Unit filename="src/Fission/Input/InputSystem.cpp" />
 		<Unit filename="src/Fission/Network/Connection.cpp" />
+		<Unit filename="src/Fission/Network/NetworkedEntityRef.cpp" />
 		<Unit filename="src/Fission/Rendering/DebugDisplay.cpp" />
 		<Unit filename="src/Fission/Rendering/RenderLayer.cpp" />
 		<Unit filename="src/Fission/Rendering/RenderManager.cpp" />

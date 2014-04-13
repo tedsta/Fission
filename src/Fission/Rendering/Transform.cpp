@@ -19,7 +19,7 @@ namespace fsn
         packet << getPosition().x << getPosition().y << getRotation() << getScale().x << getScale().y << getOrigin().x << getOrigin().y;
     }
 
-    void Transform::deserialize(Packet& packet)
+    void Transform::deserialize(Packet& packet, EntityManager& entityMgr)
     {
         sf::Vector2f position;
         float rotation;

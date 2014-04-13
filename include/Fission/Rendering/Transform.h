@@ -19,7 +19,7 @@ namespace fsn
             virtual ~Transform();
 
             void serialize(Packet& packet);
-            void deserialize(Packet& packet);
+            void deserialize(Packet& packet, EntityManager& entityMgr);
 
             sf::Transform getGlobalTransform();
 

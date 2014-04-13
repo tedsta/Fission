@@ -174,7 +174,11 @@ namespace fsn
             /// \brief Add an entity observer.
             void addEntityObserver(IEntityObserver* observer){mObservers.push_back(observer);}
 
+            /// \brief Remove an entity observer
+            void removeEntityObserver(IEntityObserver* observer);
+
         private:
+            int getNewEntityID(); // Gets the next entity ID in line to use
             void removeEntitiesMarkedForRemoval();
 
             std::vector<std::size_t> mUniqueIDs;                              // Unique entity IDs

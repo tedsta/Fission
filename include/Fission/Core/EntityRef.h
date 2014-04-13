@@ -102,8 +102,10 @@ namespace fsn
             bool operator==(const EntityRef& other) const;
             bool operator!=(const EntityRef& other) const;
 
-        private:
-            EntityRef(EntityManager* em, int ID = NullID); // Only EntityManager can instantiate
+        protected:
+            friend class NetworkedEntityRef;
+
+            EntityRef(EntityManager* em, int ID = NullID);
 
             EntityManager* mEntityManager;
             int mID; // The entity ID this reference points to

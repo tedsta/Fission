@@ -18,7 +18,7 @@ class TestComponent : public fsn::Component
             packet << mStr;
         }
 
-        void deserialize(fsn::Packet& packet)
+        void deserialize(fsn::Packet& packet, fsn::EntityManager& entityMgr)
         {
             packet >> mData;
             packet >> mStr;
@@ -42,7 +42,7 @@ class Test2Component : public fsn::Component
             packet << mData;
         }
 
-        void deserialize(fsn::Packet& packet)
+        void deserialize(fsn::Packet& packet, fsn::EntityManager& entityMgr)
         {
             packet >> mData;
         }

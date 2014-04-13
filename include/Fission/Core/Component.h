@@ -19,6 +19,7 @@ namespace fsn
         private:
 
     class Component;
+    class EntityManager;
 
     /// \brief Type definition for component type IDs
     typedef std::uint8_t ComponentType;
@@ -36,7 +37,7 @@ namespace fsn
 
             // Serialization stuff
             virtual void serialize(Packet& packet){}
-            virtual void deserialize(Packet& packet){}
+            virtual void deserialize(Packet& packet, EntityManager& entityMgr){}
 
             /// \brief Get the component type ID of this component.
             virtual ComponentType getType() const {return 0;}

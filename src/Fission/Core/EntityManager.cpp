@@ -17,28 +17,7 @@ namespace fsn
 
     int EntityManager::createEntity(bool giveUniqueID)
     {
-        int ID;
-
-        if (!mFreeIDs.empty()) // If there's a free ID we can give this entity
-        {
-            ID = mFreeIDs.back();
-            mFreeIDs.pop_back();
-        }
-        else // Need to make a new ID for this entity
-        {
-            ID = mNextID++;
-
-            // Add all of the entity's null components to the component table
-            for (auto& componentRow : mComponents)
-            {
-                componentRow.push_back(NULL);
-            }
-
-            // Create the entity bits for this entity.
-            mUniqueIDs.push_back(0);
-            mEntityBits.push_back(std::bitset<MaxComponents>());
-            mEntityTags.push_back(-1);
-        }
+        int ID = getNewEntityID();
 
         if (giveUniqueID)
         {
@@ -133,9 +112,20 @@ namespace fsn
 
     int EntityManager::deserializeEntity(Packet& packet)
     {
-        int ID = createEntity();
+        // **************************************
+        // Create the entity
+
+        int ID = getNewEntityID();
+        mEntityCount++;
 
         packet >> mUniqueIDs[ID];
+
+        // Tell the observers that this entity has been created.
+        for (auto observer : mObservers)
+            observer->onEntityCreated(createEntityRef(ID));
+
+        // **************************************
+        // Deserialize the entity's components
 
         ComponentType componentCount;
         packet >> componentCount;
@@ -146,7 +136,7 @@ namespace fsn
             packet >> type;
 
             addComponentToEntity(ID, type);
-            mComponents[type][ID]->deserialize(packet);
+            mComponents[type][ID]->deserialize(packet, *this);
         }
 
         return ID;
@@ -253,6 +243,42 @@ namespace fsn
             return false;
 
         return true;
+    }
+
+    void EntityManager::removeEntityObserver(IEntityObserver* observer)
+    {
+        auto it = std::find(mObservers.begin(), mObservers.end(), observer);
+
+        if (it != mObservers.end())
+            mObservers.erase(it);
+    }
+
+    int EntityManager::getNewEntityID()
+    {
+        int ID;
+
+        if (!mFreeIDs.empty()) // If there's a free ID we can give this entity
+        {
+            ID = mFreeIDs.back();
+            mFreeIDs.pop_back();
+        }
+        else // Need to make a new ID for this entity
+        {
+            ID = mNextID++;
+
+            // Add all of the entity's null components to the component table
+            for (auto& componentRow : mComponents)
+            {
+                componentRow.push_back(NULL);
+            }
+
+            // Create the entity bits for this entity.
+            mUniqueIDs.push_back(0);
+            mEntityBits.push_back(std::bitset<MaxComponents>());
+            mEntityTags.push_back(-1);
+        }
+
+        return ID;
     }
 }
 

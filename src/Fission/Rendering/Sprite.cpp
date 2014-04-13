@@ -36,7 +36,7 @@ namespace fsn
         packet << mRelativePosition.x << mRelativePosition.y << mRelativeRotation;
     }
 
-    void Sprite::deserialize(Packet& packet)
+    void Sprite::deserialize(Packet& packet, EntityManager& entityMgr)
     {
         RenderComponent::deserialize(packet);
 

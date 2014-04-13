@@ -22,7 +22,7 @@ namespace fsn
 
             // Serialization stuff
             void serialize(Packet& packet);
-            void deserialize(Packet& packet);
+            void deserialize(Packet& packet, EntityManager& entityMgr);
 
             // Renderable components gotto render...
             void render(sf::RenderTarget& target, sf::RenderStates states);
