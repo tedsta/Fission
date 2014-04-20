@@ -85,10 +85,10 @@
 		<Unit filename="include/Fission/Core/ComponentTypeManager.h" />
 		<Unit filename="include/Fission/Core/Engine.h" />
 		<Unit filename="include/Fission/Core/EntityManager.h" />
+		<Unit filename="include/Fission/Core/EntityObserver.h" />
 		<Unit filename="include/Fission/Core/EntityRef.h" />
 		<Unit filename="include/Fission/Core/EventManager.h" />
 		<Unit filename="include/Fission/Core/FilteredEntityBucket.h" />
-		<Unit filename="include/Fission/Core/IEntityObserver.h" />
 		<Unit filename="include/Fission/Core/Packet.h" />
 		<Unit filename="include/Fission/Core/ResourceManager.h" />
 		<Unit filename="include/Fission/Core/Systems/ComponentSystem.h" />

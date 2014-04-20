@@ -24,7 +24,7 @@ namespace fsn
             {
             }
 
-            virtual void render(const EntityRef& entity, RenderComponent* component, sf::RenderTarget& target, sf::RenderStates& states) = 0;
+            virtual void render(const EntityRef& entity, RenderComponent& component, sf::RenderTarget& target, sf::RenderStates& states) = 0;
 
         private:
     };
@@ -74,10 +74,10 @@ namespace fsn
             // Just call the derived render function
             void render(const EntityRef& entity, RenderComponent& component, sf::RenderTarget& target, sf::RenderStates& states)
             {
-                render(entity, static_cast<RenderComponentT*>(component), target, states);
+                render(entity, static_cast<RenderComponentT&>(component), target, states);
             }
 
-            virtual void render(const EntityRef& entity, RenderComponentT* component, sf::RenderTarget& target, sf::RenderStates& states) = 0;
+            virtual void render(const EntityRef& entity, RenderComponentT& component, sf::RenderTarget& target, sf::RenderStates& states) = 0;
 
         private:
             RenderManager* mRenderManager;
