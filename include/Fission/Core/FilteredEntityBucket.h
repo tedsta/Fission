@@ -3,11 +3,11 @@
 
 #include "Fission/Core/Aspect.h"
 #include "Fission/Core/EntityRef.h"
-#include "Fission/Core/IEntityObserver.h"
+#include "Fission/Core/EntityObserver.h"
 
 namespace fsn
 {
-    class FilteredEntityBucket : public IEntityObserver
+    class FilteredEntityBucket : public EntityObserver
     {
         public:
             FilteredEntityBucket();

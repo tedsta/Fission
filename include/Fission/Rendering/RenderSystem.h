@@ -72,7 +72,7 @@ namespace fsn
             }
 
             // Just call the derived render function
-            void render(const EntityRef& entity, RenderComponent* component, sf::RenderTarget& target, sf::RenderStates& states)
+            void render(const EntityRef& entity, RenderComponent& component, sf::RenderTarget& target, sf::RenderStates& states)
             {
                 render(entity, static_cast<RenderComponentT*>(component), target, states);
             }

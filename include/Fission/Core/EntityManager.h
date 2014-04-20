@@ -9,7 +9,7 @@
 
 #include "Fission/Core/ComponentTypeManager.h"
 #include "Fission/Core/EventManager.h"
-#include "Fission/Core/IEntityObserver.h"
+#include "Fission/Core/EntityObserver.h"
 #include "Fission/Core/Packet.h"
 
 #include "Fission/Util/make_unique.h"
@@ -172,10 +172,10 @@ namespace fsn
             bool entityExists(int ID) const;
 
             /// \brief Add an entity observer.
-            void addEntityObserver(IEntityObserver* observer){mObservers.push_back(observer);}
+            void addEntityObserver(EntityObserver* observer){mObservers.push_back(observer);}
 
             /// \brief Remove an entity observer
-            void removeEntityObserver(IEntityObserver* observer);
+            void removeEntityObserver(EntityObserver* observer);
 
         private:
             int getNewEntityID(); // Gets the next entity ID in line to use
@@ -190,7 +190,7 @@ namespace fsn
             std::vector<std::vector<EntityRef>> mTaggedEntities;              // All of the tagged entities
             int mEntityCount;                                                 // Total number of active entities
 
-            std::vector<IEntityObserver*> mObservers; // Entity listeners
+            std::vector<EntityObserver*> mObservers; // Entity listeners
 
             bool mDestructionLocked;
 

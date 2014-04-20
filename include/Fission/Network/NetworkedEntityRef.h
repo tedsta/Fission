@@ -1,12 +1,12 @@
 #ifndef FISSION_NETWORKEDENTITYREF_H
 #define FISSION_NETWORKEDENTITYREF_H
 
-#include "Fission/Core/IEntityObserver.h"
+#include "Fission/Core/EntityObserver.h"
 #include "Fission/Core/EntityRef.h"
 
 namespace fsn
 {
-    class NetworkedEntityRef : public EntityRef, public IEntityObserver
+    class NetworkedEntityRef : public EntityRef, public EntityObserver
     {
         public:
             NetworkedEntityRef();

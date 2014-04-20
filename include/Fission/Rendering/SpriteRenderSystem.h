@@ -13,7 +13,7 @@ namespace fsn
             SpriteRenderSystem(EntityManager& entityMgr, RenderManager* renderManager);
 
         protected:
-            void render(const EntityRef& entity, Sprite* sprite, sf::RenderTarget& target, sf::RenderStates& states);
+            void render(const EntityRef& entity, Sprite& sprite, sf::RenderTarget& target, sf::RenderStates& states);
 
         private:
     };

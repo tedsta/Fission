@@ -1,12 +1,12 @@
-#ifndef IENTITYOBSERVER_H
-#define IENTITYOBSERVER_H
+#ifndef FISSION_ENTITYOBSERVER_H
+#define FISSION_ENTITYOBSERVER_H
 
 namespace fsn
 {
     class Component;
     class EntityRef;
 
-    class IEntityObserver
+    class EntityObserver
     {
         public:
             /// \brief Called when an entity is created in the EntityManager.
@@ -24,4 +24,4 @@ namespace fsn
 }
 
 
-#endif // IENTITYOBSERVER_H
+#endif // FISSION_ENTITYOBSERVER_H

@@ -245,7 +245,7 @@ namespace fsn
         return true;
     }
 
-    void EntityManager::removeEntityObserver(IEntityObserver* observer)
+    void EntityManager::removeEntityObserver(EntityObserver* observer)
     {
         auto it = std::find(mObservers.begin(), mObservers.end(), observer);
 
